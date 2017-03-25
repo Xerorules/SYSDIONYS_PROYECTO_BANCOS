@@ -1,0 +1,1 @@
+﻿<%@ WebService Language="C#" CodeBehind="AUTOCOMPLETAR_MOVIMIENTOS.asmx.cs" Class="DIONYS_ERP.SERVICES.AUTOCOMPLETAR_MOVIMIENTOS" %>

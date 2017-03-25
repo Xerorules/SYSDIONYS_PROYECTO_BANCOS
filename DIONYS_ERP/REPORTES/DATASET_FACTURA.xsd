@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DATASET_FACTURA" targetNamespace="http://tempuri.org/DATASET_FACTURA.xsd" xmlns:mstns="http://tempuri.org/DATASET_FACTURA.xsd" xmlns="http://tempuri.org/DATASET_FACTURA.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="DBDIONYSConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="DBDIONYSConnectionString (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.DBDIONYSConnectionString.ConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DATASET_FACTURA" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="DATASET_FACTURA" msprop:Generator_UserDSName="DATASET_FACTURA">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="DATOS2" msprop:Generator_TableClassName="DATOS2DataTable" msprop:Generator_TableVarName="tableDATOS2" msprop:Generator_TablePropName="DATOS2" msprop:Generator_RowDeletingName="DATOS2RowDeleting" msprop:Generator_RowChangingName="DATOS2RowChanging" msprop:Generator_RowEvHandlerName="DATOS2RowChangeEventHandler" msprop:Generator_RowDeletedName="DATOS2RowDeleted" msprop:Generator_UserTableName="DATOS2" msprop:Generator_RowChangedName="DATOS2RowChanged" msprop:Generator_RowEvArgName="DATOS2RowChangeEvent" msprop:Generator_RowClassName="DATOS2Row">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="V_SERIE" msprop:Generator_ColumnVarNameInTable="columnV_SERIE" msprop:Generator_ColumnPropNameInRow="V_SERIE" msprop:Generator_ColumnPropNameInTable="V_SERIEColumn" msprop:Generator_UserColumnName="V_SERIE" type="xs:string" minOccurs="0" />
+              <xs:element name="V_NUMERO" msprop:Generator_ColumnVarNameInTable="columnV_NUMERO" msprop:Generator_ColumnPropNameInRow="V_NUMERO" msprop:Generator_ColumnPropNameInTable="V_NUMEROColumn" msprop:Generator_UserColumnName="V_NUMERO" type="xs:string" minOccurs="0" />
+              <xs:element name="V_TIPO_DOC" msprop:Generator_ColumnVarNameInTable="columnV_TIPO_DOC" msprop:Generator_ColumnPropNameInRow="V_TIPO_DOC" msprop:Generator_ColumnPropNameInTable="V_TIPO_DOCColumn" msprop:Generator_UserColumnName="V_TIPO_DOC" type="xs:string" minOccurs="0" />
+              <xs:element name="V_FECHA" msprop:Generator_ColumnVarNameInTable="columnV_FECHA" msprop:Generator_ColumnPropNameInRow="V_FECHA" msprop:Generator_ColumnPropNameInTable="V_FECHAColumn" msprop:Generator_UserColumnName="V_FECHA" type="xs:string" minOccurs="0" />
+              <xs:element name="C_DESCRIPCION" msprop:Generator_ColumnVarNameInTable="columnC_DESCRIPCION" msprop:Generator_ColumnPropNameInRow="C_DESCRIPCION" msprop:Generator_ColumnPropNameInTable="C_DESCRIPCIONColumn" msprop:Generator_UserColumnName="C_DESCRIPCION" type="xs:string" minOccurs="0" />
+              <xs:element name="C_RUC_DNI" msprop:Generator_ColumnVarNameInTable="columnC_RUC_DNI" msprop:Generator_ColumnPropNameInRow="C_RUC_DNI" msprop:Generator_ColumnPropNameInTable="C_RUC_DNIColumn" msprop:Generator_UserColumnName="C_RUC_DNI" type="xs:string" minOccurs="0" />
+              <xs:element name="C_DIRECCION" msprop:Generator_ColumnVarNameInTable="columnC_DIRECCION" msprop:Generator_ColumnPropNameInRow="C_DIRECCION" msprop:Generator_ColumnPropNameInTable="C_DIRECCIONColumn" msprop:Generator_UserColumnName="C_DIRECCION" type="xs:string" minOccurs="0" />
+              <xs:element name="V_MONEDA" msprop:Generator_ColumnVarNameInTable="columnV_MONEDA" msprop:Generator_ColumnPropNameInRow="V_MONEDA" msprop:Generator_ColumnPropNameInTable="V_MONEDAColumn" msprop:Generator_UserColumnName="V_MONEDA" type="xs:string" minOccurs="0" />
+              <xs:element name="V_VALOR_VENTA" msprop:Generator_ColumnVarNameInTable="columnV_VALOR_VENTA" msprop:Generator_ColumnPropNameInRow="V_VALOR_VENTA" msprop:Generator_ColumnPropNameInTable="V_VALOR_VENTAColumn" msprop:Generator_UserColumnName="V_VALOR_VENTA" type="xs:string" minOccurs="0" />
+              <xs:element name="V_IGV" msprop:Generator_ColumnVarNameInTable="columnV_IGV" msprop:Generator_ColumnPropNameInRow="V_IGV" msprop:Generator_ColumnPropNameInTable="V_IGVColumn" msprop:Generator_UserColumnName="V_IGV" type="xs:string" minOccurs="0" />
+              <xs:element name="V_TOTAL" msprop:Generator_ColumnVarNameInTable="columnV_TOTAL" msprop:Generator_ColumnPropNameInRow="V_TOTAL" msprop:Generator_ColumnPropNameInTable="V_TOTALColumn" msprop:Generator_UserColumnName="V_TOTAL" type="xs:string" minOccurs="0" />
+              <xs:element name="V_LETRAS" msprop:Generator_ColumnVarNameInTable="columnV_LETRAS" msprop:Generator_ColumnPropNameInRow="V_LETRAS" msprop:Generator_ColumnPropNameInTable="V_LETRASColumn" msprop:Generator_UserColumnName="V_LETRAS" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="DETALLE2" msprop:Generator_TableClassName="DETALLE2DataTable" msprop:Generator_TableVarName="tableDETALLE2" msprop:Generator_TablePropName="DETALLE2" msprop:Generator_RowDeletingName="DETALLE2RowDeleting" msprop:Generator_RowChangingName="DETALLE2RowChanging" msprop:Generator_RowEvHandlerName="DETALLE2RowChangeEventHandler" msprop:Generator_RowDeletedName="DETALLE2RowDeleted" msprop:Generator_UserTableName="DETALLE2" msprop:Generator_RowChangedName="DETALLE2RowChanged" msprop:Generator_RowEvArgName="DETALLE2RowChangeEvent" msprop:Generator_RowClassName="DETALLE2Row">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="VD_CANTIDAD" msprop:Generator_ColumnVarNameInTable="columnVD_CANTIDAD" msprop:Generator_ColumnPropNameInRow="VD_CANTIDAD" msprop:Generator_ColumnPropNameInTable="VD_CANTIDADColumn" msprop:Generator_UserColumnName="VD_CANTIDAD" type="xs:string" minOccurs="0" />
+              <xs:element name="VD_ID_BIEN" msprop:Generator_ColumnVarNameInTable="columnVD_ID_BIEN" msprop:Generator_ColumnPropNameInRow="VD_ID_BIEN" msprop:Generator_ColumnPropNameInTable="VD_ID_BIENColumn" msprop:Generator_UserColumnName="VD_ID_BIEN" type="xs:string" minOccurs="0" />
+              <xs:element name="B_DESCRIPCION" msprop:Generator_ColumnVarNameInTable="columnB_DESCRIPCION" msprop:Generator_ColumnPropNameInRow="B_DESCRIPCION" msprop:Generator_ColumnPropNameInTable="B_DESCRIPCIONColumn" msprop:Generator_UserColumnName="B_DESCRIPCION" type="xs:string" minOccurs="0" />
+              <xs:element name="VD_PRECIO" msprop:Generator_ColumnVarNameInTable="columnVD_PRECIO" msprop:Generator_ColumnPropNameInRow="VD_PRECIO" msprop:Generator_ColumnPropNameInTable="VD_PRECIOColumn" msprop:Generator_UserColumnName="VD_PRECIO" type="xs:string" minOccurs="0" />
+              <xs:element name="VD_IMPORTE" msprop:Generator_ColumnVarNameInTable="columnVD_IMPORTE" msprop:Generator_ColumnPropNameInRow="VD_IMPORTE" msprop:Generator_ColumnPropNameInTable="VD_IMPORTEColumn" msprop:Generator_UserColumnName="VD_IMPORTE" type="xs:string" minOccurs="0" />
+              <xs:element name="VD_ITEM" msprop:Generator_ColumnVarNameInTable="columnVD_ITEM" msprop:Generator_ColumnPropNameInRow="VD_ITEM" msprop:Generator_ColumnPropNameInTable="VD_ITEMColumn" msprop:Generator_UserColumnName="VD_ITEM" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

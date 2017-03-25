@@ -1,0 +1,9 @@
+﻿#BARRA_ESTADO {
+    position:fixed;
+    background-color:black;
+    color:white;
+    font-family:Tahoma;
+    font-size:12px;
+    width:100%;
+    height:35px;
+}

@@ -1,0 +1,16 @@
+/**
+{
+	margin: 0;
+}*/
+#BARRA_ESTADO{
+	background-color: black;
+	color: white;
+	font-family: tahoma;
+	font-size: 10px;
+	width: 100%;
+	height: 30px;
+	position: relative;
+	margin-top:0%;
+	margin-left: 0px;
+    overflow:hidden;
+}

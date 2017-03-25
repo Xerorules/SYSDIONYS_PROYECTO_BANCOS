@@ -1,0 +1,33 @@
+﻿body{
+    background:url(../ICONOS/FONDO_LOGIN.png) no-repeat 0 10%;
+}
+.LOGIN_FORMULARIO{
+    padding:5%;
+    width:100%;
+    height:10%;
+    position:relative;
+}
+#LOGO{
+    width:20%;
+    height:10%;
+    position:relative;
+    margin-left:44%;
+    margin-top:6%;
+    top: 2px;
+    left: -48px;
+}
+
+TEXTBOX{
+    width:20%;
+    height:5%;
+}
+
+.TABLA_LOGEAR{
+    position:relative;
+    margin-left:30%;
+    height: 125px;
+    width: 40%;
+    margin-top: 3px;
+    top: 0px;
+    left: -3px;
+}

@@ -1,0 +1,1 @@
+﻿<%@ WebService Language="C#" CodeBehind="SA_AUTOCOMPLETAR_COMPRAS.asmx.cs" Class="DIONYS_ERP.SERVICES.SA_FILTRAR_PROVEEDOR_XDESCRIPCION" %>
