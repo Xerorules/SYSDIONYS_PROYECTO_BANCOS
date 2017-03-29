@@ -22,7 +22,7 @@ namespace DIONYS_ERP.PLANTILLAS
             if (!IsPostBack)
             {
                 txtFECHA.Text = DateTime.Now.ToString("yyyy-MM-dd");
-                txtFechaIni.Text = DateTime.Now.ToString("yyyy-MM-dd");
+                txtFechaIni.Text = DateTime.Now.Date.AddMonths(-2).Date.ToString("yyyy-MM-dd");
                 txtFechaFin.Text = DateTime.Now.ToString("yyyy-MM-dd");
                 llenar_combo_tipomov();
                 llenar_combo_concepto();
@@ -49,6 +49,7 @@ namespace DIONYS_ERP.PLANTILLAS
             txtIMPORTE.Text = string.Empty;
             txtLugar.Text = string.Empty;
             txtOPE.Text = string.Empty;
+            TXTid_cliente.Text = string.Empty;
             
         }
 
@@ -166,23 +167,23 @@ namespace DIONYS_ERP.PLANTILLAS
                 OBJMOVS.id_cuentasbancarias = TXTprueba.Text;
                 
                 /*-------------------------SALDO +- IMPORTE--------------------*/
-                double impo = 0;
+                decimal impo = 0;
                 if (cboTIPOMOV.SelectedValue == "EGRESO")
                 {
-                    impo = -1 * Convert.ToDouble(txtIMPORTE.Text);
+                    impo = -1 * Convert.ToDecimal(txtIMPORTE.Text);
                 }
                 else if (cboTIPOMOV.SelectedValue == "INGRESO")
                 {
-                    impo = Convert.ToDouble(txtIMPORTE.Text);
+                    impo = Convert.ToDecimal(txtIMPORTE.Text);
                 }
-                double saldoc = Convert.ToDouble(LBLSALDOC.Text);
-                double saldod = Convert.ToDouble(LBLSALDOD.Text);
+                decimal saldoc = Convert.ToDecimal(LBLSALDOC.Text);
+                decimal saldod = Convert.ToDecimal(LBLSALDOD.Text);
                 saldod = saldod + impo;
                 saldoc = saldoc + impo;
-                double SALD = saldoc;
+               
                 OBJMOVS.saldod = Convert.ToDecimal(saldod);
                 OBJMOVS.saldoc = Convert.ToDecimal(saldoc);
-                OBJMOVS.saldo = Convert.ToDecimal(SALD);
+                OBJMOVS.saldo = saldoc;
                 /*-----------------------------------------------------*/
                 OBJMOVS.importe = Convert.ToDecimal(impo);
                 OBJMOVS.operacion = txtOPE.Text;
@@ -193,7 +194,7 @@ namespace DIONYS_ERP.PLANTILLAS
 
                 if (res == "ok")
                 {
-                    Response.Write("<script>alert('Datos Modificados correctamente..')</script>");
+                    Response.Write("<script>alert('Datos Registrados correctamente..')</script>");
                     //ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
 
                     llenar_datos("1", empre, Session["ID_CUENTA_MOV"].ToString());
@@ -210,7 +211,7 @@ namespace DIONYS_ERP.PLANTILLAS
                 }
                 else
                 {
-                    Response.Write("<script>alert('Error datos no Modificados')</script>");
+                    Response.Write("<script>alert('Error datos no registrados,vuelva a intentar')</script>");
                     //ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal1();", true);
                 }
             }
@@ -344,9 +345,9 @@ namespace DIONYS_ERP.PLANTILLAS
                                     OBJMOVS.importe = Convert.ToDecimal(dtexcel.Rows[i][6].ToString());
                                     /*--------------- //SUMAR O RESTAR EL IMPORTE DEL MOV AL SALDO--------------------*/
                                     
-                                    double impo = Convert.ToDouble(dtexcel.Rows[i][6].ToString());
-                                    double saldoc = Convert.ToDouble(LBLSALDOC.Text);
-                                    double saldod = Convert.ToDouble(LBLSALDOD.Text);
+                                    decimal impo = Convert.ToDecimal(dtexcel.Rows[i][6].ToString());
+                                    decimal saldoc = Convert.ToDecimal(LBLSALDOC.Text);
+                                    decimal saldod = Convert.ToDecimal(LBLSALDOD.Text);
                                     saldod = saldod + impo;
                                     saldoc = saldoc + impo;
                                     OBJMOVS.saldod = Convert.ToDecimal(saldod);
@@ -378,7 +379,7 @@ namespace DIONYS_ERP.PLANTILLAS
                             }
                             else
                             {
-                            if (i == dtexcel.Rows.Count - 1)
+                            if (i == dtexcel.Rows.Count-1)
                             { /*Response.Write("<script>alert('Datos Modificados correctamente..')</script>");*/
                                 var json = JsonConvert.SerializeObject(lista);
                                 Response.Write("<script>alert('LOS SIGUIENTES NUMEROS DE OPERACION SON REPETIDOS Y NO SE INCLUYERON EN EL PROCESO DE REGISTRO: " + json + "')</script>");
@@ -466,8 +467,8 @@ namespace DIONYS_ERP.PLANTILLAS
 
                 if (res == "ok")
                 {
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
-
+                    //ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                    Response.Write("<script>alert('El Registro fue eliminado correctamente')</script>");
 
                     llenar_datos("1", Session["ID_EMPRESA"].ToString(), Session["ID_CUENTA_MOV"].ToString());
                     LIMPIAR();
@@ -497,10 +498,10 @@ namespace DIONYS_ERP.PLANTILLAS
             OBJMOVS.tipo_mov = cboTIPOMOV.SelectedValue;
             OBJMOVS.id_cuentasbancarias = TXTprueba.Text;
             OBJMOVS.importe = Convert.ToDecimal(txtIMPORTE.Text);
-            double nvoimporte = Convert.ToDouble(txtIMPORTE.Text);
-            double antimporte = Convert.ToDouble(Session["IMPORTE_MOV"].ToString());
-            double saldod = Convert.ToDouble(LBLSALDOC.Text);
-            double saldoc = Convert.ToDouble(LBLSALDOD.Text);
+            decimal nvoimporte = Convert.ToDecimal(txtIMPORTE.Text);
+            decimal antimporte = Convert.ToDecimal(Session["IMPORTE_MOV"].ToString());
+            decimal saldod = Convert.ToDecimal(LBLSALDOC.Text);
+            decimal saldoc = Convert.ToDecimal(LBLSALDOD.Text);
             saldod = saldod + nvoimporte - antimporte;
             saldoc = saldoc + nvoimporte - antimporte;
             OBJMOVS.saldoc = Convert.ToDecimal(saldoc);
@@ -516,7 +517,7 @@ namespace DIONYS_ERP.PLANTILLAS
 
             if (res == "ok")
             {
-                Response.Write("<script>alert('Datos Modificados correctamente..')</script>");
+                Response.Write("<script>alert('Datos Actualizados correctamente..')</script>");
                 //ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
 
                 llenar_datos("1", empre, Session["ID_CUENTA_MOV"].ToString());
@@ -542,6 +543,25 @@ namespace DIONYS_ERP.PLANTILLAS
                 Response.Write("<script>alert('Error datos no Actualizados')</script>");
                 //ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal1();", true);
             }
+        }
+
+        protected void btnREPORTE_Click(object sender, EventArgs e)
+        {
+            string ID_CUENTA_MOV = TXTprueba.Text;
+            string FECHA_INI = Convert.ToDateTime(txtFechaIni.Text).ToString("dd-MM-yyyy"); ;
+            string FECHA_FIN = Convert.ToDateTime(txtFechaFin.Text).ToString("dd-MM-yyyy"); ;
+            object[] args = new object[] { ID_CUENTA_MOV, FECHA_INI, FECHA_FIN };
+            String url = String.Format("REPORTES/FROM_REPORTE_MOVIMIENTOS.aspx?ID_CUENTA_MOV={0}&FECHA_INI={1}&FECHA_FIN={2}", args);
+            // Response.Redirect(url);
+            string s = "window.open('" + url + "', 'popup_window', 'width=700,height=400,left=10%,top=10%,resizable=yes');"; //con esto muestro la venta en una nueva ventana 
+            ClientScript.RegisterStartupScript(this.GetType(), "script", s, true);
+            
+        }
+
+        protected void txtIMPORTE_TextChanged(object sender, EventArgs e)
+        {
+            decimal deci = Convert.ToDecimal(txtIMPORTE.Text);
+            txtIMPORTE.Text = String.Format("{0:0,0.00}", deci);
         }
     }
 }

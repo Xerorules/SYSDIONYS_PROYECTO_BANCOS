@@ -274,6 +274,15 @@ namespace DIONYS_ERP.PLANTILLAS {
         protected global::System.Web.UI.WebControls.Button btnConsulta;
         
         /// <summary>
+        /// Control btnREPORTE.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnREPORTE;
+        
+        /// <summary>
         /// Control dgvMOVIMIENTOS.
         /// </summary>
         /// <remarks>

@@ -231,7 +231,7 @@
 
                 </div>
                 <div class="modal-body">
-                    <h3 class="danger" style="text-align: center; font-family: 'Segoe UI'">&nbsp No se pudo realizar la operación</h3>
+                    <h3 class="danger" style="text-align: center; font-family: 'Segoe UI'">&nbsp No se pudo realizar la operación, existen movimientos vinculados  a esta cuenta</h3>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Aceptar</button>
@@ -273,7 +273,7 @@
               
                <Columns>
                    <asp:BoundField DataField="ID_CUENTASBANCARIAS" HeaderText="CODIGO" />
-                   <asp:BoundField DataField="N_CUENTA" HeaderText="NUMERO DE CUENTA" />
+                   <asp:BoundField DataField="N_CUENTA" HeaderText="NUMERO DE CUENTA" ><ItemStyle Width="150px"  /> </asp:BoundField>
                    <asp:BoundField DataField="NOMBRE" HeaderText="BANCO" />
                    <asp:BoundField DataField="N_CCI" HeaderText="CCI" />
                    <asp:BoundField DataField="MONEDA" HeaderText="MONEDA" />

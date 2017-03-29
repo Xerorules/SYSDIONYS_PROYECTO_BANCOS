@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="dsMOVIMIENTOS" targetNamespace="http://tempuri.org/dsMOVIMIENTOS.xsd" xmlns:mstns="http://tempuri.org/dsMOVIMIENTOS.xsd" xmlns="http://tempuri.org/dsMOVIMIENTOS.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="DBDIONYSConnectionString1" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="DBDIONYSConnectionString1 (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.DBDIONYSConnectionString1.ConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="dsMOVIMIENTOS" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="dsMOVIMIENTOS" msprop:Generator_UserDSName="dsMOVIMIENTOS">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="DATOSM" msprop:Generator_TableClassName="DATOSMDataTable" msprop:Generator_TableVarName="tableDATOSM" msprop:Generator_TablePropName="DATOSM" msprop:Generator_RowDeletingName="DATOSMRowDeleting" msprop:Generator_RowChangingName="DATOSMRowChanging" msprop:Generator_RowEvHandlerName="DATOSMRowChangeEventHandler" msprop:Generator_RowDeletedName="DATOSMRowDeleted" msprop:Generator_UserTableName="DATOSM" msprop:Generator_RowChangedName="DATOSMRowChanged" msprop:Generator_RowEvArgName="DATOSMRowChangeEvent" msprop:Generator_RowClassName="DATOSMRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="NOMBRE" msprop:Generator_ColumnVarNameInTable="columnNOMBRE" msprop:Generator_ColumnPropNameInRow="NOMBRE" msprop:Generator_ColumnPropNameInTable="NOMBREColumn" msprop:Generator_UserColumnName="NOMBRE" type="xs:string" minOccurs="0" />
+              <xs:element name="N_CUENTA" msprop:Generator_ColumnVarNameInTable="columnN_CUENTA" msprop:Generator_ColumnPropNameInRow="N_CUENTA" msprop:Generator_ColumnPropNameInTable="N_CUENTAColumn" msprop:Generator_UserColumnName="N_CUENTA" type="xs:string" minOccurs="0" />
+              <xs:element name="DESCRIPCION" msprop:Generator_ColumnVarNameInTable="columnDESCRIPCION" msprop:Generator_ColumnPropNameInRow="DESCRIPCION" msprop:Generator_ColumnPropNameInTable="DESCRIPCIONColumn" msprop:Generator_UserColumnName="DESCRIPCION" type="xs:string" minOccurs="0" />
+              <xs:element name="FECHA1" msprop:Generator_ColumnVarNameInTable="columnFECHA1" msprop:Generator_ColumnPropNameInRow="FECHA1" msprop:Generator_ColumnPropNameInTable="FECHA1Column" msprop:Generator_UserColumnName="FECHA1" type="xs:string" minOccurs="0" />
+              <xs:element name="MONEDA" msprop:Generator_ColumnVarNameInTable="columnMONEDA" msprop:Generator_ColumnPropNameInRow="MONEDA" msprop:Generator_ColumnPropNameInTable="MONEDAColumn" msprop:Generator_UserColumnName="MONEDA" type="xs:string" minOccurs="0" />
+              <xs:element name="SALDO_CONTABLE" msprop:Generator_ColumnVarNameInTable="columnSALDO_CONTABLE" msprop:Generator_ColumnPropNameInRow="SALDO_CONTABLE" msprop:Generator_ColumnPropNameInTable="SALDO_CONTABLEColumn" msprop:Generator_UserColumnName="SALDO_CONTABLE" type="xs:string" minOccurs="0" />
+              <xs:element name="SALDO_DISPONIBLE" msprop:Generator_ColumnVarNameInTable="columnSALDO_DISPONIBLE" msprop:Generator_ColumnPropNameInRow="SALDO_DISPONIBLE" msprop:Generator_ColumnPropNameInTable="SALDO_DISPONIBLEColumn" msprop:Generator_UserColumnName="SALDO_DISPONIBLE" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="DETALLEM" msprop:Generator_TableClassName="DETALLEMDataTable" msprop:Generator_TableVarName="tableDETALLEM" msprop:Generator_TablePropName="DETALLEM" msprop:Generator_RowDeletingName="DETALLEMRowDeleting" msprop:Generator_RowChangingName="DETALLEMRowChanging" msprop:Generator_RowEvHandlerName="DETALLEMRowChangeEventHandler" msprop:Generator_RowDeletedName="DETALLEMRowDeleted" msprop:Generator_UserTableName="DETALLEM" msprop:Generator_RowChangedName="DETALLEMRowChanged" msprop:Generator_RowEvArgName="DETALLEMRowChangeEvent" msprop:Generator_RowClassName="DETALLEMRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID_MOVIMIENTOS" msprop:Generator_ColumnVarNameInTable="columnID_MOVIMIENTOS" msprop:Generator_ColumnPropNameInRow="ID_MOVIMIENTOS" msprop:Generator_ColumnPropNameInTable="ID_MOVIMIENTOSColumn" msprop:Generator_UserColumnName="ID_MOVIMIENTOS" type="xs:string" minOccurs="0" />
+              <xs:element name="FECHA" msprop:Generator_ColumnVarNameInTable="columnFECHA" msprop:Generator_ColumnPropNameInRow="FECHA" msprop:Generator_ColumnPropNameInTable="FECHAColumn" msprop:Generator_UserColumnName="FECHA" type="xs:string" minOccurs="0" />
+              <xs:element name="OPERACION" msprop:Generator_ColumnVarNameInTable="columnOPERACION" msprop:Generator_ColumnPropNameInRow="OPERACION" msprop:Generator_ColumnPropNameInTable="OPERACIONColumn" msprop:Generator_UserColumnName="OPERACION" type="xs:string" minOccurs="0" />
+              <xs:element name="TIPO_MOV" msprop:Generator_ColumnVarNameInTable="columnTIPO_MOV" msprop:Generator_ColumnPropNameInRow="TIPO_MOV" msprop:Generator_ColumnPropNameInTable="TIPO_MOVColumn" msprop:Generator_UserColumnName="TIPO_MOV" type="xs:string" minOccurs="0" />
+              <xs:element name="CONCEPTO_B" msprop:Generator_ColumnVarNameInTable="columnCONCEPTO_B" msprop:Generator_ColumnPropNameInRow="CONCEPTO_B" msprop:Generator_ColumnPropNameInTable="CONCEPTO_BColumn" msprop:Generator_UserColumnName="CONCEPTO_B" type="xs:string" minOccurs="0" />
+              <xs:element name="IMPORTE" msprop:Generator_ColumnVarNameInTable="columnIMPORTE" msprop:Generator_ColumnPropNameInRow="IMPORTE" msprop:Generator_ColumnPropNameInTable="IMPORTEColumn" msprop:Generator_UserColumnName="IMPORTE" type="xs:string" minOccurs="0" />
+              <xs:element name="ID_CLIENTE" msprop:Generator_ColumnVarNameInTable="columnID_CLIENTE" msprop:Generator_ColumnPropNameInRow="ID_CLIENTE" msprop:Generator_ColumnPropNameInTable="ID_CLIENTEColumn" msprop:Generator_UserColumnName="ID_CLIENTE" type="xs:string" minOccurs="0" />
+              <xs:element name="DESCRIPCION" msprop:Generator_ColumnVarNameInTable="columnDESCRIPCION" msprop:Generator_ColumnPropNameInRow="DESCRIPCION" msprop:Generator_ColumnPropNameInTable="DESCRIPCIONColumn" msprop:Generator_UserColumnName="DESCRIPCION" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

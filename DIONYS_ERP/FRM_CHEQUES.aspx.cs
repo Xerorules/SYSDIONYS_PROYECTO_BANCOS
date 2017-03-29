@@ -123,8 +123,9 @@ namespace DIONYS_ERP.PLANTILLAS
                     dgvBANCOS.Rows[i].Cells[8].Font.Bold = true;
                     dgvBANCOS.Rows[i].Cells[8].HorizontalAlign = HorizontalAlign.Center;
                     dgvBANCOS.Rows[i].Cells[8].VerticalAlign = VerticalAlign.Middle;
+                    dgvBANCOS.Rows[i].Cells[10].Enabled = false;
                 }
-                else if (caseEstado == "1/01/3000 12:00:00 a. m.")//si retorna "1/01/1900 12:00:00 a. m." el estado es rebotado
+                else if (caseEstado == "1/01/3000 12:00:00 a. m.")//si retorna "1/01/3000 12:00:00 a. m." el estado es rebotado
                 {
                     dgvBANCOS.Rows[i].Cells[8].Text = "REBOTADO";
                     dgvBANCOS.Rows[i].Cells[8].BackColor = Color.Red;
@@ -132,6 +133,8 @@ namespace DIONYS_ERP.PLANTILLAS
                     dgvBANCOS.Rows[i].Cells[8].Font.Bold = true;
                     dgvBANCOS.Rows[i].Cells[8].HorizontalAlign = HorizontalAlign.Center;
                     dgvBANCOS.Rows[i].Cells[8].VerticalAlign = VerticalAlign.Middle;
+                    dgvBANCOS.Rows[i].Cells[9].Enabled = false;
+                    dgvBANCOS.Rows[i].Cells[10].Enabled = false;
                 }
 
 
@@ -162,7 +165,7 @@ namespace DIONYS_ERP.PLANTILLAS
 
                 if (res == "ok")
                 {
-                    Response.Write("<script>alert('Datos Modificados correctamente..')</script>");
+                    Response.Write("<script>alert('Cheque registrado correctamente..')</script>");
                     //ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
 
                     llenar_datos();
@@ -171,7 +174,7 @@ namespace DIONYS_ERP.PLANTILLAS
                 }
                 else
                 {
-                    Response.Write("<script>alert('Error datos no Modificados')</script>");
+                    Response.Write("<script>alert('Error cheque no registrado')</script>");
                     //ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal1();", true);
                 }
             }
@@ -181,10 +184,39 @@ namespace DIONYS_ERP.PLANTILLAS
         protected void btnActualizar_Click(object sender, EventArgs e)
         {
 
+            OBJCHEQUE.id_cliente = TXTid_cliente.Text;
+            OBJCHEQUE.fecha_giro = Convert.ToDateTime(txtFGIRO.Text).ToShortDateString();
+            OBJCHEQUE.fecha_cobro = Convert.ToDateTime(txtFCOBRO.Text).ToShortDateString();
+            OBJCHEQUE.numero = txtNUMERO.Text;
+            OBJCHEQUE.id_banco = cboBANCO.SelectedValue;
+            OBJCHEQUE.importe = Convert.ToDecimal(txtIMPORTE.Text);
+            OBJCHEQUE.moneda = rdbMONEDA.SelectedValue;
+            OBJCHEQUE.estado = Convert.ToDateTime(Session["ESTADO_CH"].ToString()).ToShortDateString(); 
+            OBJCHEQUE.id_empresa = Session["ID_EMPRESA"].ToString();
+            string id_cheque = Session["ID_CHEQUE"].ToString();
+
+            string res = OBJVENTA.NACTUALIZARCHEQUE(OBJCHEQUE, id_cheque);
+
+            if (res == "ok")
+            {
+                Response.Write("<script>alert('Datos actualizados correctamente..')</script>");
+                //ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                btnRegistrar.Enabled = true;
+                llenar_datos();
+                LIMPIAR2();
+
+            }
+            else
+            {
+                Response.Write("<script>alert('Error cheque no actualizado')</script>");
+                //ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal1();", true);
+            }
         }
 
         protected void btnCancelar_Click(object sender, EventArgs e)
         {
+            LIMPIAR2();
+            btnRegistrar.Enabled = true;
 
         }
 
@@ -196,12 +228,33 @@ namespace DIONYS_ERP.PLANTILLAS
                 GridViewRow row = (GridViewRow)(((LinkButton)e.CommandSource).NamingContainer);
                 txtmIMPORTE.Text = row.Cells[6].Text;
                 txtmFECH.Text = DateTime.Now.ToString("yyyy-MM-dd");
-                
+                txtmIMPORTE.Enabled = false;
                 lblid_cheque.Text = row.Cells[0].Text;
+                if (row.Cells[8].Text == "PENDIENTE")
+                {
+                    Button1.Enabled = false;   
+                }
+                else { Button1.Enabled = true; }
 
                 mp1.Show();
 
+            }else if (e.CommandName == "EDITAR")
+            {
+                GridViewRow row = (GridViewRow)(((LinkButton)e.CommandSource).NamingContainer);
+                DataTable dt = OBJVENTA.NLLENARDATOSACTUALIZAR(row.Cells[0].Text);
+                txtCLIENTE.Text = dt.Rows[0][1].ToString();
+                txtFGIRO.Text = Convert.ToDateTime(dt.Rows[0][2]).ToString("yyyy-MM-dd"); 
+                txtFCOBRO.Text = Convert.ToDateTime(dt.Rows[0][3]).ToString("yyyy-MM-dd");
+                txtNUMERO.Text = dt.Rows[0][4].ToString() ;
+                cboBANCO.SelectedValue = dt.Rows[0][5].ToString();
+                txtIMPORTE.Text = dt.Rows[0][6].ToString(); 
+                rdbMONEDA.SelectedValue = dt.Rows[0][7].ToString();
+                TXTid_cliente.Text = dt.Rows[0][0].ToString();
+                btnRegistrar.Enabled = false;
+                Session["ID_CHEQUE"] = row.Cells[0].Text;
+                Session["ESTADO_CH"] = dt.Rows[0][8].ToString();
             }
+           
         }
 
         protected void btnREGISTRARMOV_Click(object sender, EventArgs e)
@@ -294,7 +347,7 @@ namespace DIONYS_ERP.PLANTILLAS
 
                 if (res == "ok")
                 {
-                    Response.Write("<script>alert('Datos Modificados correctamente..')</script>");
+                    Response.Write("<script>alert('Movimiento registrado correctamente')</script>");
                     //ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
 
                     llenar_datos();
@@ -307,7 +360,7 @@ namespace DIONYS_ERP.PLANTILLAS
                 }
                 else
                 {
-                    Response.Write("<script>alert('Error datos no Modificados')</script>");
+                    Response.Write("<script>alert('Error movimiento no registrado')</script>");
                     //ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal1();", true);
                 }
             }
@@ -338,7 +391,7 @@ namespace DIONYS_ERP.PLANTILLAS
 
             if (res == "ok")
             {
-                Response.Write("<script>alert('Datos Modificados correctamente..')</script>");
+                Response.Write("<script>alert('El estado ha sido cambiado con exito, se eliminó el movimiento vinculado al cheque')</script>");
                 //ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
 
                 llenar_datos();
@@ -351,7 +404,7 @@ namespace DIONYS_ERP.PLANTILLAS
             }
             else
             {
-                Response.Write("<script>alert('Error datos no Modificados')</script>");
+                Response.Write("<script>alert('Error no se pudo cambiar el estado')</script>");
                 //ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal1();", true);
             }
 

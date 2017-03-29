@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/PLANTILLAS/MENU_SUPERIOR.Master" AutoEventWireup="true" CodeBehind="FRM_MANTENIMIENTO_MOVIMIENTOS.aspx.cs" Inherits="DIONYS_ERP.PLANTILLAS.Formulario_web3" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server" >
     <link href="assets/css/ptoledo.css" rel="stylesheet" />
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
     <link href="assets/css/custom-styles.css" rel="stylesheet" />
@@ -9,7 +9,7 @@
     <link href="assets/css/css_tab_panel_csspuro.css" rel="stylesheet" />
  
 
-    <script>
+    <script type="text/javascript">
         function Comma(Num) {
             Num += '';
             Num = Num.replace(',', ''); Num = Num.replace(',', ''); Num = Num.replace(',', '');
@@ -151,7 +151,7 @@
 
     </script>
 
-    <div class="form-group col-md-12 col-sm-12 col-xs-12 center-block">
+    <div class="form-group col-md-12 col-sm-12 col-xs-12 center-block" >
 
         <input type="button" id="btnSubmit" name="btnSubmit" class="visible-xs" />
         <div class="visible-xs" style="height: 5px; width: 1px; border-color: darkcyan; background-color: darkcyan; color: white;">
@@ -162,9 +162,9 @@
 
 
         <div class="col-xs-4 col-md-4" style=" text-align: left">
-            <label style="color: white; top: 0px; left: 1px; text-align: left;">N° CUENTA:</label>&nbsp
-            <asp:TextBox runat="server" ID="txtCuentaModal" CssClass="left" Width="380px" BackColor="AliceBlue" Font-Bold="true" placeholder="Ingrese el número de cuenta, búsqueda automática" MaxLength="70"></asp:TextBox>
-            <asp:Button ID="btnTraeDatos" runat="server" Text="FILTRAR" CssClass="btn btn-info" OnClick="btnTraeDatos_Click" />
+            <label class="col-md-3" style="color: white; top: 0px; left: 1px; text-align: center; margin-left:-45px;">N° CUENTA:</label>&nbsp
+            <asp:TextBox runat="server" ID="txtCuentaModal" CssClass="left col-md-7"  BackColor="AliceBlue" Font-Bold="true" placeholder="Ingrese el número de cuenta, búsqueda automática" MaxLength="150"></asp:TextBox>
+            <asp:Button ID="btnTraeDatos" runat="server" Text="FILTRAR" CssClass="btn btn-info"  OnClick="btnTraeDatos_Click" />
         </div>
         
 
@@ -285,7 +285,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-xs-3" style="color: white">IMPORTE:</label>
                                     <div class="col-xs-8 col-md-8">
-                                        <asp:TextBox runat="server" ID="txtIMPORTE" CssClass="form-control" placeholder="00.00" MaxLength="100" type="numeric"  Width="336px"></asp:TextBox>
+                                        <asp:TextBox runat="server" ID="txtIMPORTE" CssClass="form-control" placeholder="00.00" MaxLength="100" type="numeric"  Width="336px" onkeyup = "javascript:this.value=Comma(this.value);" ></asp:TextBox>
                                     </div>
 
                                 </div>
@@ -308,21 +308,21 @@
   
                                 <div class="form-group col-md-12 col-sm-12 col-xs-12 center-block">
 
-                                    <div class="col-md-3 col-sm-3 col-xs-12" style="width: 25%; ">
-                                        <asp:Button runat="server" CssClass="form-control btn btn-info" Text="NUEVO" ID="btnNuevo" Width="400px" OnClick="btnNuevo_Click" />
+                                    <div class="col-md-3 col-sm-3 col-xs-12">
+                                        <asp:Button runat="server" CssClass="form-control  btn-info col-md-10 col-sm-10 col-xs-12" Text="NUEVO" ID="btnNuevo"  OnClick="btnNuevo_Click" />
 
                                     </div>
-                                    <div class="col-md-3 col-sm-3 col-xs-12" style="width: 25%; ">
-                                        <asp:Button runat="server" CssClass="form-control btn btn-info" Text="REGISTRAR" ID="btnRegistrar" Width="400px" OnClick="btnRegistrar_Click"  />
+                                    <div class="col-md-3 col-sm-3 col-xs-12"  >
+                                        <asp:Button runat="server" CssClass="form-control  btn-info col-md-10 col-sm-10 col-xs-12" Text="REGISTRAR" ID="btnRegistrar"  OnClick="btnRegistrar_Click"  />
 
                                     </div>
-                                    <div class="col-md-3 col-sm-3 col-xs-12" style="width: 25%;">
-                                        <asp:Button runat="server" CssClass="form-control btn btn-info" Text="ACTUALIZAR" ID="btnActualizar"  Width="400px" OnClick="btnActualizar_Click"/>
+                                    <div class="col-md-3 col-sm-3 col-xs-12" >
+                                        <asp:Button runat="server" CssClass="form-control  btn-info col-md-10 col-sm-10 col-xs-12" Text="ACTUALIZAR" ID="btnActualizar"   OnClick="btnActualizar_Click"/>
 
                                     </div>
 
-                                    <div class="col-md-3 col-sm-3 col-xs-12" style="width: 25%;">
-                                        <asp:Button runat="server" CssClass="form-control btn btn-info" Text="CANCELAR" ID="btnCancelar" Width="400px" OnClick="btnCancelar_Click"  />
+                                    <div class="col-md-3 col-sm-3 col-xs-12">
+                                        <asp:Button runat="server" CssClass="form-control  btn-info col-md-10 col-sm-10 col-xs-12" Text="CANCELAR" ID="btnCancelar" OnClick="btnCancelar_Click"  />
                                     </div>
 
                                 </div>
@@ -396,11 +396,16 @@
                         <label style="color: white; text-align: left; margin-right:60px;">FILTRO FECHA FINAL:</label>
                         <asp:TextBox runat="server" ID="txtFechaFin" CssClass="form-control" Width="216px" Height="35px"  TextMode="Date" Font-Bold="true" placeholder="Ingrese Fecha final" MaxLength="70"></asp:TextBox>
                     </div>
-                    <div style="float: left; margin-top: 9px; width: 20%;">
+                    <div style="float: left; margin-top: 9px; width: 10%;">
                         &nbsp;&nbsp;
-                                <asp:Button ID="btnConsulta" runat="server" Text="FILTRAR TABLA" CssClass="btn btn-info" Width="200px" OnClick="btnConsulta_Click"/>
-                      
-                    </div>
+                                <asp:Button ID="btnConsulta" runat="server" Text="FILTRAR TABLA" CssClass="btn btn-info" Width="150px" OnClick="btnConsulta_Click"/>
+                                
+                      </div>
+                    <div style="float: left; margin-top: 9px; width: 10%;">
+                       
+                                <asp:Button ID="btnREPORTE" runat="server" Text="GENERAR REPORTE" CssClass="btn btn-info" Width="200px" OnClick="btnREPORTE_Click" />
+                      </div>
+                    
                 </div>
 
                 <div style="width: 100%; height: 400px; overflow-y: scroll">
@@ -422,7 +427,7 @@
                             <asp:BoundField DataField="TIPO_MOV" HeaderText="TIPO MOV" />
                             
 
-                            <asp:BoundField DataField="SALDO" DataFormatString="{0:N}" HeaderText="SALDO" />
+                            <asp:BoundField DataField="SALDO"  HeaderText="SALDO" />
                             
 
                             <asp:TemplateField>

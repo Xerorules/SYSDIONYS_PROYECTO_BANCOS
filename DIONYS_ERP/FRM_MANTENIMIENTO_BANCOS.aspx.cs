@@ -114,7 +114,7 @@ namespace DIONYS_ERP.PLANTILLAS
 
                 if (res == "ok")
                 {
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal33();", true);
 
 
                     llenar_datos();
@@ -123,7 +123,7 @@ namespace DIONYS_ERP.PLANTILLAS
                 }
                 else
                 {
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal1();", true);
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal33();", true);
                 }
             }
         }

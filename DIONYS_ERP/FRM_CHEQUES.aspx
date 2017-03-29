@@ -24,7 +24,18 @@
             $('#myModal2').modal('show');
         }
 
-                            
+        function Comma(Num) {
+            Num += '';
+            Num = Num.replace(',', ''); Num = Num.replace(',', ''); Num = Num.replace(',', '');
+            Num = Num.replace(',', ''); Num = Num.replace(',', ''); Num = Num.replace(',', '');
+            x = Num.split('.');
+            x1 = x[0];
+            x2 = x.length > 1 ? '.' + x[1] : '';
+            var rgx = /(\d+)(\d{3})/;
+            while (rgx.test(x1))
+                x1 = x1.replace(rgx, '$1' + ',' + '$2');
+            return x1 + x2;
+        }
      
         function IsAccNumberValid(txtIMPORTE) {
             var val = '' + (+txtIMPORTE.value);
@@ -165,9 +176,9 @@
                 </td>
                 <td> 
                     <asp:DropDownList runat="server" ID="DropDownList1" CssClass="form-control" AutoPostBack="false" OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged" Width="250px">
-                        <asp:ListItem Text="--SELECCIONE--" Value="NADA" />  
+                        
                          <asp:ListItem Text="INGRESO" Value="INGRESO" />
-                         <asp:ListItem Text="EGRESO" Value="EGRESO" />
+                         
                     </asp:DropDownList>
                 </td>
             </tr>
@@ -195,7 +206,7 @@
                     <asp:Label ID="Label3" runat="server" CssClass="lbl" Text="IMPORTE:"></asp:Label>
                 </td>
                 <td>
-                    <asp:TextBox ID="txtmIMPORTE" runat="server" Font-Size="14px" CssClass="form-control" Width="250px"></asp:TextBox>
+                    <asp:TextBox ID="txtmIMPORTE" runat="server" Font-Size="14px" CssClass="form-control" Width="250px"  onkeyup = "javascript:this.value=Comma(this.value);" ></asp:TextBox>
                 </td>
             </tr>
 
@@ -359,15 +370,15 @@
                 &nbsp
 
                 <div class="col-md-3 col-sm-3 col-xs-12" style="position: center;">
-                    <asp:Button runat="server" class="form-control  btn-info" Text="REGISTRAR" ValidationGroup="Registro" ID="btnRegistrar" OnClick="btnRegistrar_Click" />
+                    <asp:Button runat="server" CssClass="form-control  btn-info" Text="REGISTRAR" ValidationGroup="Registro" ID="btnRegistrar" OnClick="btnRegistrar_Click" />
                     &nbsp
                 </div>
                 <div class="col-md-3 col-sm-3 col-xs-12" style="position: center;">
-                    <asp:Button runat="server" class="form-control  btn-info" Text="ACTUALIZAR" ID="btnActualizar" OnClick="btnActualizar_Click" />
+                    <asp:Button runat="server" CssClass="form-control  btn-info" Text="ACTUALIZAR" ID="btnActualizar" OnClick="btnActualizar_Click" />
                     &nbsp
                 </div>
                 <div class="col-md-3 col-sm-3 col-xs-12" style="position: center">
-                    <asp:Button runat="server" class="form-control  btn-info" Text="CANCELAR" ID="btnCancelar" OnClick="btnCancelar_Click" />
+                    <asp:Button runat="server" CssClass="form-control  btn-info" Text="CANCELAR" ID="btnCancelar" OnClick="btnCancelar_Click" />
                     <asp:Button runat="server" type="hidden" Text="REGISTRARMOV" CssClass="visible-xs" ID="btnREGISTRARMOV" OnClick="btnREGISTRARMOV_Click" />
 
                 </div>

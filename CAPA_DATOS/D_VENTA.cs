@@ -1277,17 +1277,32 @@ namespace CAPA_DATOS
        }
 
 
-        public DataSet REPORTE_MOVIMIENTOS_CUENTAS_BANCARIAS(string IDCUENTA)
+        public DataSet REPORTE_MOVIMIENTOS_CUENTAS_BANCARIAS(string IDCUENTA, string FECHA_INI, string FECHA_FIN)
         {
             SqlCommand cmd = new SqlCommand("SP_REPORTE_MOVIMIENTOS_BANCARIOS", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@ID_CUENTAS", IDCUENTA);
+            cmd.Parameters.AddWithValue("@FECHA_INI", FECHA_INI);
+            cmd.Parameters.AddWithValue("@FECHA_FIN", FECHA_FIN);
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             DataSet ds = new DataSet();
             da.Fill(ds);
             return ds;
         }
 
+        public DataSet REPORTE_MOVIMIENTOS_CUENTAS_BANCARIAS_DETALLE(string IDCUENTA, string FECHA_INI, string FECHA_FIN)
+        {
+            SqlCommand cmd = new SqlCommand("SP_REPORTE_MOVIMIENTOS_BANCARIOS_DETALLE", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@ID_CUENTAS", IDCUENTA);
+            cmd.Parameters.AddWithValue("@FECHA_INI", FECHA_INI);
+            cmd.Parameters.AddWithValue("@FECHA_FIN", FECHA_FIN);
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataSet ds = new DataSet();
+            da.Fill(ds);
+            return ds;
+        }
+        
 
 
         public DataSet REPORTE_GENERAR_RECIBO_EGRESO_INGRESO(string IDMOV,string IDEMP)
@@ -1712,6 +1727,27 @@ namespace CAPA_DATOS
             return dt;
         }
 
+        public DataTable DLLENARDATOSACTUALIZAR(string id_cheque)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                if (con.State == ConnectionState.Closed) { con.Open(); }
+                SqlCommand cmd = new SqlCommand("SP_DATOS_ACTUALIZAR", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@ID_CHEQUE", id_cheque);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(dt);
+                con.Close();
+
+            }
+            catch (Exception ex)
+            {
+                System.Console.Write("Esta cuenta no tiene movimientos anteriores");
+            }
+            return dt;
+        }
+
 
         public DataTable DFILTRARGRILLAMOVIMIENTOS(string id_empresa, string id_cta,string fechaini, string fechafin, string nrope, string concepto, string idcli)
         {
@@ -1869,6 +1905,42 @@ namespace CAPA_DATOS
             if (con.State == ConnectionState.Open) { con.Close(); }
             return res;
         }
+
+        public string DACTUALIZARCHEQUES(E_CHEQUES BCO,string id_cheque)
+        {
+            string res = "";
+            try
+            {
+                if (con.State == ConnectionState.Closed) { con.Open(); }
+                SqlCommand cmd = new SqlCommand("SP_MANT_CHEQUES", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@ID_CHEQUE", id_cheque);
+                cmd.Parameters.AddWithValue("@FECHA_GIRO", BCO.fecha_giro);
+                cmd.Parameters.AddWithValue("@FECHA_COBRO", BCO.fecha_cobro);
+                cmd.Parameters.AddWithValue("@NUMERO", BCO.numero);
+                cmd.Parameters.AddWithValue("@ID_BANCOS", BCO.id_banco);
+                cmd.Parameters.AddWithValue("@IMPORTE", BCO.importe);
+                cmd.Parameters.AddWithValue("@MONEDA", BCO.moneda);
+                cmd.Parameters.AddWithValue("@ESTADO", BCO.estado);
+                cmd.Parameters.AddWithValue("@ID_CLIENTE", BCO.id_cliente);
+                cmd.Parameters.AddWithValue("@CONDICION", "3");
+                cmd.Parameters.AddWithValue("@ID_EMPRESA", BCO.id_empresa);
+                int a = cmd.ExecuteNonQuery();
+                if (a > 0)
+                {
+                    res = "ok";
+                }
+            }
+            catch (Exception ex)
+            {
+
+                System.Console.Write(ex.Message);
+            }
+
+            if (con.State == ConnectionState.Open) { con.Close(); }
+            return res;
+        }
+
 
         public string DREGISTRARMOV(E_MOVIMIENTOS MVO,string cond,string emp)
         {

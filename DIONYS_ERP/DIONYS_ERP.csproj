@@ -202,6 +202,7 @@
     <Content Include="FRM_MANTENIMIENTO_CUENTAS.aspx" />
     <Content Include="FRM_MANTENIMIENTO_MOVIMIENTOS.aspx" />
     <Content Include="FRM_CHEQUES.aspx" />
+    <Content Include="REPORTES\FROM_REPORTE_MOVIMIENTOS.aspx" />
     <Content Include="Pruebas_test.aspx" />
     <Content Include="REPORTES\FRM_REPORTE_BOLETA.aspx" />
     <Content Include="REPORTES\FRM_REPORTE_CAJA.aspx" />
@@ -293,6 +294,17 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="REPORTES\dsMOVIMIENTOS.xsc">
+      <DependentUpon>dsMOVIMIENTOS.xsd</DependentUpon>
+    </Content>
+    <None Include="REPORTES\dsMOVIMIENTOS.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsMOVIMIENTOS.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="REPORTES\dsMOVIMIENTOS.xss">
+      <DependentUpon>dsMOVIMIENTOS.xsd</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
@@ -580,6 +592,13 @@
     <Compile Include="FRM_CHEQUES.aspx.designer.cs">
       <DependentUpon>FRM_CHEQUES.aspx</DependentUpon>
     </Compile>
+    <Compile Include="REPORTES\FROM_REPORTE_MOVIMIENTOS.aspx.cs">
+      <DependentUpon>FROM_REPORTE_MOVIMIENTOS.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="REPORTES\FROM_REPORTE_MOVIMIENTOS.aspx.designer.cs">
+      <DependentUpon>FROM_REPORTE_MOVIMIENTOS.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Pruebas_test.aspx.cs">
       <DependentUpon>Pruebas_test.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -604,6 +623,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DATASET_REPORTEVENTA.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="REPORTES\dsMOVIMIENTOS.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsMOVIMIENTOS.xsd</DependentUpon>
     </Compile>
     <Compile Include="REPORTES\FRM_REPORTE_BOLETA.aspx.cs">
       <DependentUpon>FRM_REPORTE_BOLETA.aspx</DependentUpon>
@@ -694,6 +718,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>rptREPORTE_LIQUIDACIONES_GALERIA.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="REPORTES\rptREPORTE_MOVIMIENTOS.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>rptREPORTE_MOVIMIENTOS.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="REPORTES\rptREPORTE_RECIBOS.cs">
@@ -803,6 +833,10 @@
     <EmbeddedResource Include="REPORTES\rptREPORTE_LIQUIDACIONES_GALERIA.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>rptREPORTE_LIQUIDACIONES_GALERIA.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="REPORTES\rptREPORTE_MOVIMIENTOS.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>rptREPORTE_MOVIMIENTOS1.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="REPORTES\rptREPORTE_RECIBOS.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

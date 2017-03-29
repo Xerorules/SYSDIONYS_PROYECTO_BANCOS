@@ -23,6 +23,10 @@
             $('#myModal2').modal('show');
         }
 
+        function openModal33() {
+            $('#myModal33').modal('show');
+        }
+
         
     </script>
     
@@ -172,6 +176,26 @@
                 </div>
                 <div class="modal-body">
                     <h3 class="danger" style="text-align: center; font-family: 'Segoe UI'">&nbsp No se llenaron los campos requeridos</h3>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- -----------------------------Modal RegistroError-------------------------------------------------------------->
+    <!-- -----------------------------Modal Actualizar-------------------------------------------------------------->
+    <div class="modal fade" id="myModal33" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <img src="ICONOS/LOGO_GRUPO_DIONYS.png" width="80" height="35" />
+                    <h3 class="modal-title bg-color-red" id="myModalLabel33" style="text-align: center">"GRUPO DIONYS"</h3>
+
+                </div>
+                <div class="modal-body">
+                    <h3 class="danger" style="text-align: center; font-family: 'Segoe UI'">&nbsp No se puede eliminar el Banco, existen cuentas vinculadas</h3>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Aceptar</button>

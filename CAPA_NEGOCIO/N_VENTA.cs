@@ -300,10 +300,15 @@ namespace CAPA_NEGOCIO
             return OBJTIPO_BIEN.REPORTE_GENERAR_FACTURA_BOLETA(IDVENTA);
         }
 
-        public DataSet REPORTE_MOVIMIENTOS_CUENTAS_BANCARIAS(string IDCUENTA)
+        public DataSet REPORTE_MOVIMIENTOS_CUENTAS_BANCARIAS(string IDCUENTA, string FECHA_INI, string FECHA_FIN)
         {
-            return OBJTIPO_BIEN.REPORTE_MOVIMIENTOS_CUENTAS_BANCARIAS(IDCUENTA);
+            return OBJTIPO_BIEN.REPORTE_MOVIMIENTOS_CUENTAS_BANCARIAS(IDCUENTA, FECHA_INI, FECHA_FIN);
         }
+        public DataSet REPORTE_MOVIMIENTOS_CUENTAS_BANCARIAS_DETALLE(string IDCUENTA, string FECHA_INI, string FECHA_FIN)
+        {
+            return OBJTIPO_BIEN.REPORTE_MOVIMIENTOS_CUENTAS_BANCARIAS_DETALLE(IDCUENTA, FECHA_INI, FECHA_FIN);
+        }
+        
 
         public DataSet REPORTE_GENERAR_RECIBO_EGRESO_INGRESO(string IDMOV, string IDEMP)
         {
@@ -427,6 +432,11 @@ namespace CAPA_NEGOCIO
             return OBJTIPO_BIEN.DLLENARGRILLAMOVIMIENTOS(cod, id_empresa, id_cta);
         }
 
+        public DataTable NLLENARDATOSACTUALIZAR(string id_cheque)
+        {
+            return OBJTIPO_BIEN.DLLENARDATOSACTUALIZAR(id_cheque);
+        }
+
         public DataTable NFILTRARGRILLAMOVIMIENTOS( string id_empresa, string id_cta,string fechaini, string fechafin, string nrope, string concepto, string idcli)
         {
             return OBJTIPO_BIEN.DFILTRARGRILLAMOVIMIENTOS(id_empresa, id_cta,fechaini, fechafin, nrope, concepto, idcli);
@@ -455,6 +465,11 @@ namespace CAPA_NEGOCIO
         public string NREGISTRARCHEQUE(E_CHEQUES CHQ)
         {
             return OBJTIPO_BIEN.DREGISTRARCHEQUES(CHQ);
+        }
+
+        public string NACTUALIZARCHEQUE(E_CHEQUES CHQ,string id_cheque)
+        {
+            return OBJTIPO_BIEN.DACTUALIZARCHEQUES(CHQ,id_cheque);
         }
 
         public string NREGISTRARMOV(E_MOVIMIENTOS MVO,string cond, string emp)
