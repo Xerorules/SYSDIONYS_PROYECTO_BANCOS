@@ -55,9 +55,9 @@ namespace DIONYS_ERP.PLANTILLAS
             cbomBANCO.DataBind();
         }
 
-        void llenar_combo_cuentas(string id_bancos,string id_empresa)
+        void llenar_combo_cuentas(string id_bancos,string id_empresa,string moneda)
         {
-            DataTable dt = OBJVENTA.CONSULTA_LISTA_CUENTAS(id_bancos, id_empresa);
+            DataTable dt = OBJVENTA.CONSULTA_LISTA_CUENTAS(id_bancos, id_empresa, moneda);
             
             cbomCUENTA.DataSource = dt;
             cbomCUENTA.DataValueField = "ID_CUENTASBANCARIAS";
@@ -95,9 +95,11 @@ namespace DIONYS_ERP.PLANTILLAS
 
         void llenar_datos()
         {
-           
+            
             dgvBANCOS.DataSource = OBJVENTA.NLLENARGRILLACHEQUES(Session["ID_EMPRESA"].ToString());
             dgvBANCOS.DataBind();
+
+            ///necesito un estado en la tabla movimientos para cheques
 
             for (int i = 0; i < dgvBANCOS.Rows.Count; i++)
             {
@@ -108,7 +110,7 @@ namespace DIONYS_ERP.PLANTILLAS
                 if (caseEstado == "1/01/1900 12:00:00 a. m.") //si retorna "1/01/1900 12:00:00 a. m." no se ha ingresado una fecha esta en blanco
                 {
                     dgvBANCOS.Rows[i].Cells[8].Text = "PENDIENTE";
-                    dgvBANCOS.Rows[i].Cells[8].BackColor = Color.Gold;
+                    dgvBANCOS.Rows[i].Cells[8].BackColor = Color.MediumSeaGreen;
                     dgvBANCOS.Rows[i].Cells[8].ForeColor = Color.White;
                     dgvBANCOS.Rows[i].Cells[8].Font.Bold = true;
                     dgvBANCOS.Rows[i].Cells[8].HorizontalAlign = HorizontalAlign.Center;
@@ -117,8 +119,18 @@ namespace DIONYS_ERP.PLANTILLAS
                 }
                 else if (caseEstado != "1/01/1900 12:00:00 a. m." && caseEstado != "1/01/3000 12:00:00 a. m.")//cualquier fecha indica deposito normal
                 {
+                    dgvBANCOS.Rows[i].Cells[8].Text = "EN CONSULTA";
+                    dgvBANCOS.Rows[i].Cells[8].BackColor = Color.Gold;
+                    dgvBANCOS.Rows[i].Cells[8].ForeColor = Color.White;
+                    dgvBANCOS.Rows[i].Cells[8].Font.Bold = true;
+                    dgvBANCOS.Rows[i].Cells[8].HorizontalAlign = HorizontalAlign.Center;
+                    dgvBANCOS.Rows[i].Cells[8].VerticalAlign = VerticalAlign.Middle;
+                    dgvBANCOS.Rows[i].Cells[10].Enabled = false;
+                }
+                else if (caseEstado != "1/01/1900 12:00:00 a. m." && caseEstado != "1/01/3000 12:00:00 a. m.")//cualquier fecha indica deposito normal
+                {
                     dgvBANCOS.Rows[i].Cells[8].Text = "DEPOSITADO";
-                    dgvBANCOS.Rows[i].Cells[8].BackColor = Color.Green;
+                    dgvBANCOS.Rows[i].Cells[8].BackColor = Color.GreenYellow;
                     dgvBANCOS.Rows[i].Cells[8].ForeColor = Color.White;
                     dgvBANCOS.Rows[i].Cells[8].Font.Bold = true;
                     dgvBANCOS.Rows[i].Cells[8].HorizontalAlign = HorizontalAlign.Center;
@@ -230,11 +242,19 @@ namespace DIONYS_ERP.PLANTILLAS
                 txtmFECH.Text = DateTime.Now.ToString("yyyy-MM-dd");
                 txtmIMPORTE.Enabled = false;
                 lblid_cheque.Text = row.Cells[0].Text;
+                Session["MONEDA_CHEQUE"] = row.Cells[7].Text;
                 if (row.Cells[8].Text == "PENDIENTE")
                 {
                     Button1.Enabled = false;   
                 }
-                else { Button1.Enabled = true; }
+                else if(row.Cells[8].Text == "EN CONSULTA")
+                {
+                    Button1.Enabled = false;
+                }
+                else
+                {
+                    Button1.Enabled = true;
+                }
 
                 mp1.Show();
 
@@ -274,7 +294,7 @@ namespace DIONYS_ERP.PLANTILLAS
 
         protected void cbomBANCO_SelectedIndexChanged(object sender, EventArgs e)
         {
-            llenar_combo_cuentas(cbomBANCO.SelectedValue.ToString(),Session["ID_EMPRESA"].ToString());
+            llenar_combo_cuentas(cbomBANCO.SelectedValue.ToString(),Session["ID_EMPRESA"].ToString(), Session["MONEDA_CHEQUE"].ToString());
             mp1.Show();
         }
         protected void cbomCUENTA_SelectedIndexChanged(object sender, EventArgs e)

@@ -537,9 +537,9 @@ namespace CAPA_NEGOCIO
             return OBJTIPO_BIEN.CONSULTA_LISTA_BANCOS();
         }
 
-        public DataTable CONSULTA_LISTA_CUENTAS(string id_bancos,string id_empresa)
+        public DataTable CONSULTA_LISTA_CUENTAS(string id_bancos,string id_empresa,string moneda)
         {
-            return OBJTIPO_BIEN.CONSULTA_LISTA_CUENTAS(id_bancos, id_empresa);
+            return OBJTIPO_BIEN.CONSULTA_LISTA_CUENTAS(id_bancos, id_empresa, moneda);
         }
 
         public DataTable CONSULTA_LISTA_CONCEPTOS()

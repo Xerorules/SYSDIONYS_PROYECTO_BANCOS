@@ -2370,12 +2370,13 @@ namespace CAPA_DATOS
             return dt;
         }
 
-        public DataTable CONSULTA_LISTA_CUENTAS(string id_bancos,string id_empresa)
+        public DataTable CONSULTA_LISTA_CUENTAS(string id_bancos,string id_empresa,string moneda)
         {
             SqlCommand cmd = new SqlCommand("SP_LLENAR_COMBO_CUENTAS", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@ID_BANCO", id_bancos);
             cmd.Parameters.AddWithValue("@ID_EMPRESA", id_empresa);
+            cmd.Parameters.AddWithValue("@MONEDA", moneda);
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
             da.Fill(dt);

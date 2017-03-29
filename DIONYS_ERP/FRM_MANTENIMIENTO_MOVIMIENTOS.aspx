@@ -285,7 +285,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-xs-3" style="color: white">IMPORTE:</label>
                                     <div class="col-xs-8 col-md-8">
-                                        <asp:TextBox runat="server" ID="txtIMPORTE" CssClass="form-control" placeholder="00.00" MaxLength="100" type="numeric"  Width="336px" onkeyup = "javascript:this.value=Comma(this.value);" ></asp:TextBox>
+                                        <asp:TextBox runat="server" ID="txtIMPORTE" CssClass="form-control" placeholder="00.00" MaxLength="100" type="numeric"  Width="336px"  onkeyup = "javascript:this.value=Comma(this.value);" ></asp:TextBox>
                                     </div>
 
                                 </div>
@@ -417,8 +417,8 @@
                              <asp:BoundField DataField="FECHA" HeaderText="FECHA MOV" />
                             <asp:BoundField DataField="DESCRIPCION" HeaderText="DESCRIPCION" />
                             <asp:BoundField DataField="CONCEPTO" HeaderText="CONCEPTO" />
-                            <asp:BoundField DataField="OPERACION" HeaderText="N° OPERACION" />
-                            <asp:BoundField DataField="IMPORTE" HeaderText="IMPORTE" DataFormatString="{0:N}" />
+                            <asp:BoundField DataField="OPERACION" HeaderText="N° OPERACION" > <ItemStyle HorizontalAlign="Center"/></asp:BoundField>
+                            <asp:BoundField DataField="IMPORTE" HeaderText="IMPORTE" DataFormatString="{0:N}" ><ItemStyle HorizontalAlign="Right"/></asp:BoundField>
                             <asp:BoundField DataField="MONEDA" HeaderText="MON" Visible="false" />
                             <asp:BoundField DataField="ID_CLIENTE" HeaderText="CLIENTE" />
                             <asp:BoundField DataField="NOMBRE" HeaderText="BANCO"  Visible="false"/>
@@ -427,7 +427,7 @@
                             <asp:BoundField DataField="TIPO_MOV" HeaderText="TIPO MOV" />
                             
 
-                            <asp:BoundField DataField="SALDO"  HeaderText="SALDO" />
+                            <asp:BoundField DataField="SALDO"  HeaderText="SALDO" DataFormatString="{0:N}" ><ItemStyle HorizontalAlign="Right"/></asp:BoundField>
                             
 
                             <asp:TemplateField>
