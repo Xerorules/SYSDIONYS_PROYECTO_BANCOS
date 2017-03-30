@@ -151,6 +151,45 @@
 
     </script>
 
+    <script type="text/javascript">
+        $(function () {
+            $("[id$=txtLugar]").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: '<%=ResolveUrl("~/SERVICES/AUTOCOMPLETAR_MOVIMIENTOS.asmx/AUTOCOMPLETAR_LUGAR") %>',
+                        data: "{ 'prefix': '" + request.term + "'}",
+                        dataType: "json",
+                        type: "POST",
+                        contentType: "application/json; charset=utf-8",
+                        success: function (data) {
+                            response($.map(data.d, function (item) {
+                                return {
+                                    label: item.split('-')[0],
+                                    val: item.split('-')[1]
+                                }
+                            }))
+                        },
+                        error: function (response) {
+                            alert(response.responseText);
+                        },
+                        failure: function (response) {
+                            alert(response.responseText);
+                        }
+                    });
+                },
+                select: function (e, i) {
+                    $("[id$=txtLugar]").val(i.item.text);
+                    $("[id$=txtLugar]").val(i.item.val);
+                },
+                minLength: 1
+                
+            });
+        });
+
+
+    </script>
+
+
     <div class="form-group col-md-12 col-sm-12 col-xs-12 center-block" >
 
         <input type="button" id="btnSubmit" name="btnSubmit" class="visible-xs" />
@@ -161,37 +200,44 @@
         </div>
 
 
-        <div class="col-xs-4 col-md-4" style=" text-align: left">
+        <div class="col-xs-4 col-md-4" style=" text-align: left; margin-top:-10px;">
             <label class="col-md-3" style="color: white; top: 0px; left: 1px; text-align: center; margin-left:-45px;">N° CUENTA:</label>&nbsp
             <asp:TextBox runat="server" ID="txtCuentaModal" CssClass="left col-md-7"  BackColor="AliceBlue" Font-Bold="true" placeholder="Ingrese el número de cuenta, búsqueda automática" MaxLength="150"></asp:TextBox>
             <asp:Button ID="btnTraeDatos" runat="server" Text="FILTRAR" CssClass="btn btn-info"  OnClick="btnTraeDatos_Click" />
         </div>
         
+         <div class="col-xs-4 col-md-3" style=" text-align: center; margin-top:-10px;">
+            <label style="color: white; top: -10px; ">BANCO:</label>&nbsp
+            <asp:Label ID="LBLBANCO" runat="server" Text="--" ForeColor="White"  CssClass="form-control" Font-Bold="true" Font-Size="Large" BackColor="CornflowerBlue" Height="35px"></asp:Label>
+        </div>
 
-          <div class="col-xs-4 col-md-2" style="text-align: center">
+          <div class="col-xs-4 col-md-3" style="text-align:center; margin-top:-10px;">
             <label style="color: white; top: 0px; text-align: left;">N° CUENTA:</label>&nbsp
-            <asp:Label ID="LBLNCUENTA" runat="server" Text="--" ForeColor="White" CssClass="left" Font-Bold="true" Font-Size="Large"></asp:Label>
+            <asp:Label ID="LBLNCUENTA" runat="server" Text="--" ForeColor="White" CssClass="form-control" Font-Bold="true" Font-Size="Large" BackColor="CornflowerBlue" Height="35px"></asp:Label>
         </div>
 
-        <div class="col-xs-4 col-md-2" style=" text-align: center">
+        <div class="col-xs-4 col-md-2" style=" text-align: center; margin-top:-10px;">
             <label style="color: white; top: 0px; text-align: left;">MONEDA:</label>&nbsp
-            <asp:Label ID="LBLMONEDA" runat="server" Text="--" ForeColor="White" CssClass="left"></asp:Label>
+            <asp:Label ID="LBLMONEDA" runat="server" Text="--" ForeColor="White" CssClass="form-control" Font-Bold="true" Font-Size="Large" BackColor="CornflowerBlue" Height="35px"></asp:Label>
         </div>
 
-        <div class="col-xs-4 col-md-2" style=" text-align: center">
-            <label style="color: white; top: 0px; text-align: left;">BANCO:</label>&nbsp
-            <asp:Label ID="LBLBANCO" runat="server" Text="--" ForeColor="White" CssClass="left"></asp:Label>
-        </div>
-
-        <div class="col-xs-4 col-md-2" style=" text-align: center">
-            <label style="color: white; top: 0px; text-align: left; ">SALDO CONTABLE:</label>&nbsp
-            <asp:Label ID="LBLSALDOC" runat="server" Text="--" ForeColor="White" CssClass="left" Font-Bold="true" Font-Size="Large"></asp:Label>
-        </div>
+       
+        
 
     </div>
-    <div class="col-xs-4 col-md-12" style=" text-align: right; margin-left:-60px; top:-25px;">
-            <label style="color: white; top: 0px; text-align: left;">SALDO DISPONIBLE:</label>&nbsp
-            <asp:Label ID="LBLSALDOD" runat="server" Text="--" ForeColor="White" CssClass="left"  Width="57px" Font-Bold="true" Font-Size="Large"></asp:Label>
+    <div class="col-xs-4 col-md-12" style=" text-align: center; margin-left:-60px;  margin-top:4px; ">
+        <div class="col-xs-4 col-md-2 right" style=" float: right; ">
+            <label style="color: white; top: 0px; ">SALDO DISPONIBLE:</label>&nbsp
+            <asp:Label ID="LBLSALDOD" runat="server" Text="--" ForeColor="White" CssClass="form-control"   Font-Bold="true" Font-Size="Large" BackColor="CornflowerBlue" Height="35px"></asp:Label>
+        </div>
+        
+        <div class="col-xs-4 col-md-2 right" style=" float: right; ">
+             <label style="color: white; top: 0px;">SALDO CONTABLE:</label>&nbsp
+            <asp:Label ID="LBLSALDOC" runat="server" Text="--" ForeColor="White" CssClass="form-control" Font-Bold="true" Font-Size="Large" BackColor="CornflowerBlue" Height="35px"></asp:Label>
+        </div>
+           
+        
+            
         </div>
 
 

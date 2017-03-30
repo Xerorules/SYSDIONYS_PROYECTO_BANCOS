@@ -87,5 +87,34 @@ namespace DIONYS_ERP.SERVICES
             }
         }
 
+        [WebMethod(EnableSession = true)]
+        [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+        public string[] AUTOCOMPLETAR_LUGAR(string prefix)
+        {
+            List<string> cuentas = new List<string>();
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = ConfigurationManager
+                        .ConnectionStrings["sql"].ConnectionString;
+                using (SqlCommand cmd = new SqlCommand("AUTOCOMPLETAR_LUGAR", conn))
+                {
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@DATO", prefix);
+                    cmd.Connection = conn;
+                    conn.Open();
+                    using (SqlDataReader sdr = cmd.ExecuteReader())
+                    {
+                        while (sdr.Read())
+                        {
+                            cuentas.Add(string.Format("{0}-{1}", sdr["LUGAR"], sdr["LUGAR"]));
+                        }
+                    }
+                    conn.Close();
+                }
+                return cuentas.ToArray();
+            }
+        }
+
     }
 }

@@ -261,10 +261,7 @@ namespace DIONYS_ERP.PLANTILLAS
             if (TXTprueba.Text != string.Empty && TXTprueba.Text.Length == 4)
             {
                 Session["ID_CUENTA_MOV"] = TXTprueba.Text;
-                //string fechini = Convert.ToDateTime(txtFechaIni.Text).ToString("dd-MM-yyyy");
-                //string fechfin = Convert.ToDateTime(txtFechaFin.Text).ToString("dd-MM-yyyy");
-                //filtrar_grilla(Session["ID_EMPRESA"].ToString(), Session["ID_CUENTA_MOV"].ToString(), fechini, fechfin, txtConsultaOpe.Text, cboFiltroConc.SelectedValue.ToString(), txtConsultaCli.Text);
-
+               
                 llenar_datos("1", Session["ID_EMPRESA"].ToString(), Session["ID_CUENTA_MOV"].ToString());
                 DataTable dt = OBJVENTA.NLLENAR_CABECERA_MOVIMIENTOS(TXTprueba.Text);
                 string mone = dt.Rows[0][0].ToString();
@@ -360,8 +357,8 @@ namespace DIONYS_ERP.PLANTILLAS
                                     string res = OBJVENTA.NREGISTRARMOV(OBJMOVS, "2", empre);
                                     if (res == "ok")
                                     {
-                                       
-                                    llenar_datos("1", empre, Session["ID_CUENTA_MOV"].ToString());
+                                    if (i == dtexcel.Rows.Count - 1) { Response.Write("<script>alert('Carga realizada con éxito.. !')</script>"); }
+                                        llenar_datos("1", empre, Session["ID_CUENTA_MOV"].ToString());
                                         LIMPIAR();
                                         txtFECHA.Text = DateTime.Now.ToLocalTime().ToString("dd-MM-yyyy HH:mm");
                                         DataTable dt = OBJVENTA.NLLENAR_CABECERA_MOVIMIENTOS(TXTprueba.Text);

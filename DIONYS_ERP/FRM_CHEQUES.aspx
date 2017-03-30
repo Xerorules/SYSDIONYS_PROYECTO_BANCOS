@@ -37,25 +37,7 @@
             return x1 + x2;
         }
      
-        function IsAccNumberValid(txtIMPORTE) {
-            var val = '' + (+txtIMPORTE.value);
-            if (val) {
-                val = val.split('\.');
-                var out = val[0];
-                while (out.length < 3) {
-                    out = '0' + out;
-                }
-                if (val[1]) {
-                    out = out + '.' + val[1]
-                    if (out.length < 6) out = out + '0';
-                } else {
-                    out = out + '.00';
-                }
-                txtIMPORTE.value = out;
-            } else {
-                txtIMPORTE.value = '000.00';
-            }
-        }
+      
 
 
 
@@ -75,7 +57,7 @@
             border-color: black;
             padding-top: 6px;
             padding-left: 10px;
-            width: 450px;
+            width: 460px;
             height: 480px;
             opacity: 50;
         }
@@ -226,21 +208,27 @@
         <br />
         <div class="row">
             
-            <div class="col-xs-4 text-center">
-                <div class="next" style="margin-left:20px">
-                   <asp:Button ID="Button2" runat="server" Text="ACEPTAR" CssClass="form-control btn-info" OnClick="Button2_Click"  />
+            <div class="col-xs-3">
+                <div class="col-md-2 col-xs-2"  style="margin-left:60px">
+                   <asp:Button ID="Button2" runat="server" Text="ACEPTAR" CssClass="form-control btn-info" OnClick="Button2_Click" />
                 </div>
             </div>
-            <div class="col-xs-4 text-center">
-                <div class="previous" style="margin-left:20px">
+            <div class="col-xs-3" style="margin-left:40px">
+                <div class="col-md-2 col-xs-2" >
                    <asp:Button ID="Button3" runat="server" Text="CANCELAR" CssClass="form-control btn-info" OnClick="Button3_Click"/>
                 </div>
             </div>
-            <div class="col-xs-4 text-center">
-                <div class="next">
-                    <asp:Button ID="Button1" runat="server" Text="REBOTADO" CssClass="form-control btn-danger" OnClick="Button1_Click" />
+            <div class="col-xs-3" style="margin-left:-5px">
+                <div class="col-md-2 col-xs-2">
+                    <asp:Button ID="Button4" runat="server" Text="ACEPTADO" CssClass="form-control btn-success" OnClick="Button4_Click" />
                 </div>
             </div>
+            <div class="col-xs-3" style="margin-left:-75px">
+                <div class="col-md-3 col-xs-3" >
+                   <asp:Button ID="Button1" runat="server" Text="REBOTADO" CssClass="form-control btn-danger" OnClick="Button1_Click" />
+                </div>
+            </div>
+            
         </div>
         
             
@@ -340,7 +328,7 @@
             <div class="form-group">
                 <label class="control-label col-md-4" style="color: white">IMPORTE:</label>
                 <div class="col-xs-8 col-md-6">
-                    <asp:TextBox runat="server" ID="txtIMPORTE" CssClass="form-control" placeholder="Ingrese importe" MaxLength="100" Width="300px" ></asp:TextBox>
+                    <asp:TextBox runat="server" ID="txtIMPORTE" CssClass="form-control" placeholder="Ingrese importe" MaxLength="100" Width="300px" onkeyup = "javascript:this.value=Comma(this.value);" ></asp:TextBox>
                     <%--VALIDADOR--%>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server"
                         ControlToValidate="txtIMPORTE"
@@ -484,6 +472,7 @@
                  <asp:TemplateField>
                      <ItemTemplate>
                          <asp:LinkButton ID="LinkButtonActualizar" runat="server" CommandName="ACTUALIZAR">CAMBIAR ESTADO</asp:LinkButton>
+                        
                      </ItemTemplate>
                  </asp:TemplateField>
 
@@ -491,6 +480,7 @@
                  <asp:TemplateField>
                      <ItemTemplate>
                          <asp:LinkButton ID="LinkButtonEditar" runat="server" CommandName="EDITAR">EDITAR</asp:LinkButton>
+                          <asp:LinkButton ID="LinkButtonEliminar" runat="server" CommandName="ELIMINAR">ELIMINAR</asp:LinkButton>
                      </ItemTemplate>
                  </asp:TemplateField>
 

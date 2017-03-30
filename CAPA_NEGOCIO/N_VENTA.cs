@@ -467,6 +467,16 @@ namespace CAPA_NEGOCIO
             return OBJTIPO_BIEN.DREGISTRARCHEQUES(CHQ);
         }
 
+        public string NELIMINARCHEQUE(E_CHEQUES CHQ)
+        {
+            return OBJTIPO_BIEN.DELIMINARCHEQUES(CHQ);
+        }
+
+        public string NACTUALIZARESTADOCHEQUE(string id_cheque)
+        {
+            return OBJTIPO_BIEN.DACTUALIZARESTADOCHEQUES(id_cheque);
+        }
+
         public string NACTUALIZARCHEQUE(E_CHEQUES CHQ,string id_cheque)
         {
             return OBJTIPO_BIEN.DACTUALIZARCHEQUES(CHQ,id_cheque);
@@ -477,9 +487,9 @@ namespace CAPA_NEGOCIO
             return OBJTIPO_BIEN.DREGISTRARMOV(MVO,cond,emp);
         }
 
-        public string NREGISTRARMOV_CHEQUE(E_MOVIMIENTOS MVO, string cond, string emp,string id_cheque)
+        public string NREGISTRARMOV_CHEQUE(E_MOVIMIENTOS MVO, string cond, string emp,string id_cheque,string FECHA2)
         {
-            return OBJTIPO_BIEN.DREGISTRARMOV_CHEQUE(MVO, cond, emp, id_cheque);
+            return OBJTIPO_BIEN.DREGISTRARMOV_CHEQUE(MVO, cond, emp, id_cheque, FECHA2);
         }
 
         public string NACTUALIZARMOV(E_MOVIMIENTOS MVO, string cond, string emp)

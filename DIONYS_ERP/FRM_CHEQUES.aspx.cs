@@ -110,27 +110,27 @@ namespace DIONYS_ERP.PLANTILLAS
                 if (caseEstado == "1/01/1900 12:00:00 a. m.") //si retorna "1/01/1900 12:00:00 a. m." no se ha ingresado una fecha esta en blanco
                 {
                     dgvBANCOS.Rows[i].Cells[8].Text = "PENDIENTE";
-                    dgvBANCOS.Rows[i].Cells[8].BackColor = Color.MediumSeaGreen;
+                    dgvBANCOS.Rows[i].Cells[8].BackColor = Color.DeepSkyBlue;
                     dgvBANCOS.Rows[i].Cells[8].ForeColor = Color.White;
                     dgvBANCOS.Rows[i].Cells[8].Font.Bold = true;
                     dgvBANCOS.Rows[i].Cells[8].HorizontalAlign = HorizontalAlign.Center;
                     dgvBANCOS.Rows[i].Cells[8].VerticalAlign = VerticalAlign.Middle;
 
                 }
-                else if (caseEstado != "1/01/1900 12:00:00 a. m." && caseEstado != "1/01/3000 12:00:00 a. m.")//cualquier fecha indica deposito normal
+                else if (caseEstado == "31/12/1900 12:00:00 p. m." || caseEstado == "31/12/1900 12:00:00 a. m.")//cualquier fecha indica deposito normal
                 {
-                    dgvBANCOS.Rows[i].Cells[8].Text = "EN CONSULTA";
-                    dgvBANCOS.Rows[i].Cells[8].BackColor = Color.Gold;
+                    dgvBANCOS.Rows[i].Cells[8].Text = "DEPOSITADO";
+                    dgvBANCOS.Rows[i].Cells[8].BackColor = Color.Orange;
                     dgvBANCOS.Rows[i].Cells[8].ForeColor = Color.White;
                     dgvBANCOS.Rows[i].Cells[8].Font.Bold = true;
                     dgvBANCOS.Rows[i].Cells[8].HorizontalAlign = HorizontalAlign.Center;
                     dgvBANCOS.Rows[i].Cells[8].VerticalAlign = VerticalAlign.Middle;
                     dgvBANCOS.Rows[i].Cells[10].Enabled = false;
                 }
-                else if (caseEstado != "1/01/1900 12:00:00 a. m." && caseEstado != "1/01/3000 12:00:00 a. m.")//cualquier fecha indica deposito normal
+                else if (caseEstado != "1/01/1900 12:00:00 a. m." && caseEstado != "1/01/3000 12:00:00 a. m." && caseEstado != "31/12/1900 12:00:00 a. m." && caseEstado != "31/12/1900 12:00:00 p. m.")//cualquier fecha indica deposito normal
                 {
-                    dgvBANCOS.Rows[i].Cells[8].Text = "DEPOSITADO";
-                    dgvBANCOS.Rows[i].Cells[8].BackColor = Color.GreenYellow;
+                    dgvBANCOS.Rows[i].Cells[8].Text = "ACEPTADO";
+                    dgvBANCOS.Rows[i].Cells[8].BackColor = Color.LimeGreen;
                     dgvBANCOS.Rows[i].Cells[8].ForeColor = Color.White;
                     dgvBANCOS.Rows[i].Cells[8].Font.Bold = true;
                     dgvBANCOS.Rows[i].Cells[8].HorizontalAlign = HorizontalAlign.Center;
@@ -255,7 +255,7 @@ namespace DIONYS_ERP.PLANTILLAS
                 {
                     Button1.Enabled = true;
                 }
-
+                Session["ID_CHEQUE"] = row.Cells[0].Text;
                 mp1.Show();
 
             }else if (e.CommandName == "EDITAR")
@@ -274,7 +274,47 @@ namespace DIONYS_ERP.PLANTILLAS
                 Session["ID_CHEQUE"] = row.Cells[0].Text;
                 Session["ESTADO_CH"] = dt.Rows[0][8].ToString();
             }
-           
+            else if (e.CommandName == "ELIMINAR")
+            {
+                GridViewRow row = (GridViewRow)(((LinkButton)e.CommandSource).NamingContainer);
+                Session["ID_CHEQUE"] = row.Cells[0].Text;
+                OBJCHEQUE.id_cheque = Session["ID_CHEQUE"].ToString();
+                OBJCHEQUE.id_cliente = "00001";
+                OBJCHEQUE.fecha_giro = Convert.ToDateTime("31-12-1900").ToShortDateString();
+                OBJCHEQUE.fecha_cobro = Convert.ToDateTime("31-12-1900").ToShortDateString();
+                OBJCHEQUE.numero = "";
+                OBJCHEQUE.id_banco = "1000";
+                OBJCHEQUE.importe = Convert.ToDecimal(0);
+                OBJCHEQUE.moneda = "S";
+                OBJCHEQUE.estado = "";
+                OBJCHEQUE.id_empresa = Session["ID_EMPRESA"].ToString();
+                string empre = Session["ID_EMPRESA"].ToString();
+                string res = OBJVENTA.NELIMINARCHEQUE(OBJCHEQUE);
+               
+                if (res == "ok")
+                {
+                    Response.Write("<script>alert('Cheque correctamente eliminado')</script>");
+                    //ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+
+                    llenar_datos();
+                    LIMPIAR1();
+                    mp1.Dispose();
+                    mp1.Hide();
+
+
+
+                }
+                else
+                {
+                    Response.Write("<script>alert('Error movimiento no registrado')</script>");
+                    //ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal1();", true);
+                }
+
+
+
+
+            }
+
         }
 
         protected void btnREGISTRARMOV_Click(object sender, EventArgs e)
@@ -340,7 +380,8 @@ namespace DIONYS_ERP.PLANTILLAS
             {
                 OBJMOVS.id_mov = "";
                 OBJMOVS.id_concepto_banc = "1003";//EDITAR DE  ACUERDO AL CODIGO DE CONCEPTO BANCARIO EXISTENTE
-                OBJMOVS.fecha = Convert.ToDateTime(txtmFECH.Text).ToString("dd-MM-yyyy hh:mm:ss");
+                OBJMOVS.fecha = Convert.ToDateTime("31-12-1900").ToString("dd-MM-yyyy hh:mm:ss");
+                string FECHA2 = Convert.ToDateTime(txtmFECH.Text).ToString("dd-MM-yyyy hh:mm:ss");
                 OBJMOVS.lugar = txtmLUGAR.Text;
                 OBJMOVS.tipo_mov = DropDownList1.SelectedValue;
                 OBJMOVS.id_cuentasbancarias = cbomCUENTA.SelectedValue;
@@ -363,7 +404,7 @@ namespace DIONYS_ERP.PLANTILLAS
                 OBJMOVS.descripcion = txtmDESC.Text;
                 OBJMOVS.id_cliente = lblid_cliente.Text;
                 string empre = Session["ID_EMPRESA"].ToString();
-                string res = OBJVENTA.NREGISTRARMOV_CHEQUE(OBJMOVS, "1", empre,lblid_cheque.Text);
+                string res = OBJVENTA.NREGISTRARMOV_CHEQUE(OBJMOVS, "1", empre,lblid_cheque.Text,FECHA2);
 
                 if (res == "ok")
                 {
@@ -407,7 +448,7 @@ namespace DIONYS_ERP.PLANTILLAS
             OBJMOVS.descripcion = "";
             OBJMOVS.id_cliente = "";
             string empre = Session["ID_EMPRESA"].ToString();
-            string res = OBJVENTA.NREGISTRARMOV_CHEQUE(OBJMOVS, "2", empre, lblid_cheque.Text);
+            string res = OBJVENTA.NREGISTRARMOV_CHEQUE(OBJMOVS, "2", empre, lblid_cheque.Text,"");
 
             if (res == "ok")
             {
@@ -440,6 +481,22 @@ namespace DIONYS_ERP.PLANTILLAS
         {
             decimal deci = Convert.ToDecimal(txtIMPORTE.Text);
             txtIMPORTE.Text = String.Format("{0:0,0.00}", deci);
+        }
+
+        protected void Button4_Click(object sender, EventArgs e)
+        {
+            string respuesta = OBJVENTA.NACTUALIZARESTADOCHEQUE(Session["ID_CHEQUE"].ToString());
+            if (respuesta == "ok")
+            {
+                Response.Write("<script>alert('El estado fue cambiado con exito')</script>");
+            }
+            else
+            {
+                Response.Write("<script>alert('Error ...No se pudo cambiar el estado ...')</script>");
+            }
+            llenar_datos();
+            mp1.Dispose();
+            mp1.Hide();
         }
     }
 }

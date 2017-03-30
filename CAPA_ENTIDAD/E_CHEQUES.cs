@@ -18,5 +18,6 @@ namespace CAPA_ENTIDAD
         public string estado { get; set; }
         public string id_cliente { get; set; }
         public string id_empresa { get; set; }
+        public string FECHA2 { get; set; }
     }
 }
