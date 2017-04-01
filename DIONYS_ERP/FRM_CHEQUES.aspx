@@ -113,6 +113,80 @@
 
 
     </script>
+     <script type="text/javascript">
+        $(function () {
+            $("[id$=txtmLUGAR]").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: '<%=ResolveUrl("~/SERVICES/AUTOCOMPLETAR_MOVIMIENTOS.asmx/AUTOCOMPLETAR_LUGAR") %>',
+                        data: "{ 'prefix': '" + request.term + "'}",
+                        dataType: "json",
+                        type: "POST",
+                        contentType: "application/json; charset=utf-8",
+                        success: function (data) {
+                            response($.map(data.d, function (item) {
+                                return {
+                                    label: item.split('-')[0],
+                                    val: item.split('-')[1]
+                                }
+                            }))
+                        },
+                        error: function (response) {
+                            alert(response.responseText);
+                        },
+                        failure: function (response) {
+                            alert(response.responseText);
+                        }
+                    });
+                },
+                select: function (e, i) {
+                    $("[id$=txtmLUGAR]").val(i.item.text);
+                    $("[id$=txtmLUGAR]").val(i.item.val);
+                },
+                minLength: 1
+                
+            });
+        });
+
+         
+    </script>
+    <script type="text/javascript">
+        $(function () {
+            $("[id$=txtFiltroCli]").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: '<%=ResolveUrl("~/SERVICES/AUTOCOMPLETAR_MOVIMIENTOS.asmx/AUTOCOMPLETAR_CLIENTES") %>',
+                        data: "{ 'prefix': '" + request.term + "'}",
+                        dataType: "json",
+                        type: "POST",
+                        contentType: "application/json; charset=utf-8",
+                        success: function (data) {
+                            response($.map(data.d, function (item) {
+                                return {
+                                    label: item.split('-')[0],
+                                    val: item.split('-')[1]
+                                }
+                            }))
+                        },
+                        error: function (response) {
+                            alert(response.responseText);
+                        },
+                        failure: function (response) {
+                            alert(response.responseText);
+                        }
+                    });
+                },
+                select: function (e, i) {
+                    $("[id$=txtFiltroCli]").val(i.item.text);
+                    $("[id$=txtfiltroid_cli]").val(i.item.val);
+                },
+                minLength: 1
+            });
+        });
+
+
+    </script>
+
     <%--POUP AJAX --%>
     <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
 
@@ -445,7 +519,50 @@
             <div class="col-xs-10 col-sm-offset-0 col-sm-10 col-md-offset-0 col-md-8">
 
                 <h2 style="color: white" class="text-info">CARTERA DE CHEQUES</h2>
-                &nbsp
+                &nbsp;
+                 
+                <div class="form-group col-md-12 col-sm-12 col-xs-12 " style="text-align:center;margin-left:-20px; margin-top: 25px; ">
+
+                    <div class="col-xs-2 col-md-2"  style="text-align: center; top: -15px;margin-left:60px; ">
+                        <label style="color: white;  text-align: left; margin-right:90px;"> CLIENTE:</label>
+                        <asp:TextBox runat="server" ID="txtFiltroCli" CssClass="form-control" Width="300px"  Font-Bold="true" placeholder="Ingresar cliente,busqueda automatica" MaxLength="70"></asp:TextBox>
+                    </div>
+                    <asp:TextBox runat="server" ID="txtfiltroid_cli" CssClass="visible-xs" Width="300px"  Font-Bold="true" placeholder="Ingresar cliente,busqueda automatica" MaxLength="70"></asp:TextBox>
+                    <div class="col-xs-2 col-md-2" style="text-align: center; top: -15px;margin-left:110px; ">
+                        <label style="color: white; text-align: left; margin-right:90px; "> BANCO:</label>
+                        <asp:DropDownList runat="server" ID="cboFiltroBanco" CssClass="form-control" AutoPostBack="true" Width="180px"></asp:DropDownList>
+                    </div>
+                    
+                    <div class="col-xs-2 col-md-2" style="text-align: center; top: -15px;margin-left:-15px; ">
+                        <label style="color: white;  text-align: left; margin-right:90px;"> MONEDA:</label>
+                        <asp:DropDownList runat="server" ID="cboFiltroMoneda" CssClass="form-control" AutoPostBack="true" Width="150px">
+                            <asp:ListItem Text="-SELECCIONE-" Value="" />
+                            <asp:ListItem Text="SOLES" Value="S" />
+                            <asp:ListItem Text="DOLARES" Value="D" />
+                        </asp:DropDownList>
+                                        
+                    </div>
+
+                   
+                    <div class="col-xs-2 col-md-2" style="text-align: center; top: -15px;margin-left:-40px; ">
+                        <label style="color: white;  text-align: left; margin-right:55px;">FECHA INICIAL:</label>
+                        <asp:TextBox runat="server" ID="txtFiltroFechaIni" CssClass="form-control" Width="180px" Height="35px"  TextMode="Date" Font-Bold="true" placeholder="Ingrese Fecha inicial" MaxLength="70"></asp:TextBox>
+                    </div>
+                    <div class="col-xs-2 col-md-2" style="text-align: center; top: -15px;margin-left:-10px; ">
+                        <label style="color: white; text-align: left; margin-right:55px;">FECHA FINAL:</label>
+                        <asp:TextBox runat="server" ID="txtFiltroFechaFin" CssClass="form-control" Width="180px" Height="35px"  TextMode="Date" Font-Bold="true" placeholder="Ingrese Fecha final" MaxLength="70"></asp:TextBox>
+                    </div>
+                    <div class="col-xs-2 col-md-2" style="text-align: right; top: -12px;margin-left:1100px;">
+                        <asp:Button ID="btnConsulta" runat="server" Text="FILTRAR TABLA" CssClass="btn btn-info" Width="150px" OnClick="btnConsulta_Click"/>
+                    </div>
+                    <%--<div style="float: left; margin-top: 9px; width: 10%;">
+                       
+                                <asp:Button ID="btnREPORTE" runat="server" Text="GENERAR REPORTE" CssClass="btn btn-info" Width="200px" OnClick="btnREPORTE_Click" />
+                      </div>--%>
+                    
+                </div>
+
+
        
          <asp:GridView ID="dgvBANCOS" runat="server" CssClass="table table-striped table-bordered  table-hover" BackColor="White" AutoGenerateColumns="False" DataKeyNames="ID_CHEQUE" Font-Size="Small" OnRowCommand="dgvBANCOS_RowCommand">
              <PagerSettings Mode="NumericFirstLast" />

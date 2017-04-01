@@ -267,8 +267,8 @@ namespace DIONYS_ERP.PLANTILLAS
                 string mone = dt.Rows[0][0].ToString();
                 if (mone == "S") { LBLMONEDA.Text = "SOLES"; } else if (mone == "D") { LBLMONEDA.Text = "DOLARES"; }
                 LBLBANCO.Text = dt.Rows[0][1].ToString();
-                LBLSALDOC.Text = dt.Rows[0][2].ToString();
-                LBLSALDOD.Text = dt.Rows[0][3].ToString();
+                LBLSALDOC.Text =  dt.Rows[0][2].ToString();
+                LBLSALDOD.Text =  dt.Rows[0][3].ToString();
                 LBLNCUENTA.Text = dt.Rows[0][4].ToString();
                 btnNuevo.Enabled = true;
                 FileUpload1.Enabled = true;

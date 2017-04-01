@@ -1654,11 +1654,16 @@ namespace CAPA_DATOS
             return dt;
         }
 
-        public DataTable DLLENARGRILLACHEQUES(string id_empresa)
+        public DataTable DLLENARGRILLACHEQUES(E_CHEQUES CH)
         {
             SqlCommand cmd = new SqlCommand("SP_GRILLA_CHEQUES", con);
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@ID_EMPRESA", id_empresa);
+            cmd.Parameters.AddWithValue("@ID_EMPRESA", CH.id_empresa);
+            cmd.Parameters.AddWithValue("@ID_BANCOS", CH.id_banco);
+            cmd.Parameters.AddWithValue("@MONEDA", CH.moneda);
+            cmd.Parameters.AddWithValue("@ID_CLIENTE", CH.id_cliente);
+            cmd.Parameters.AddWithValue("@FECHA_INI", CH.fecha_giro);
+            cmd.Parameters.AddWithValue("@FECHA_FIN", CH.fecha_cobro);
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
             da.Fill(dt);
@@ -2426,6 +2431,16 @@ namespace CAPA_DATOS
         public DataTable CONSULTA_LISTA_BANCOS()
         {
             SqlCommand cmd = new SqlCommand("SP_LLENAR_COMBO_CUENTA_BANCOS", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            return dt;
+        }
+
+        public DataTable CONSULTA_LISTA_ESTADOS()
+        {
+            SqlCommand cmd = new SqlCommand("SP_LLENAR_COMBO_ESTADOS", con);
             cmd.CommandType = CommandType.StoredProcedure;
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();

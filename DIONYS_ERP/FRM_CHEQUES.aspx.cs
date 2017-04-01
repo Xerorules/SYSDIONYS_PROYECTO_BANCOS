@@ -21,12 +21,17 @@ namespace DIONYS_ERP.PLANTILLAS
                 txtFCOBRO.Text = DateTime.Now.ToString("yyyy-MM-dd");
                 rdbMONEDA.SelectedValue = "S";
 
-                txtIMPORTE.Attributes["onBlur"] = "IsAccNumberValid(" + txtIMPORTE.ClientID + ")";
+                txtFiltroFechaIni.Text = DateTime.Now.Date.AddMonths(-2).Date.ToString("yyyy-MM-dd");
+                txtFiltroFechaFin.Text = DateTime.Now.ToString("yyyy-MM-dd");
 
+                txtIMPORTE.Attributes["onBlur"] = "IsAccNumberValid(" + txtIMPORTE.ClientID + ")";
+                llenar_combo_filtro_bancos();
                 llenar_combo_bancos();
                 llenar_combo_bancos2();
                 llenar_datos();
-               
+                
+
+
             }
         }
 
@@ -44,6 +49,18 @@ namespace DIONYS_ERP.PLANTILLAS
             cboBANCO.DataValueField = "ID_BANCOS";
             cboBANCO.DataTextField = "NOMBRE";
             cboBANCO.DataBind();
+        }
+
+       
+
+        void llenar_combo_filtro_bancos()
+        {
+            DataTable dt = OBJVENTA.CONSULTA_LISTA_BANCOS();
+
+            cboFiltroBanco.DataSource = dt;
+            cboFiltroBanco.DataValueField = "ID_BANCOS";
+            cboFiltroBanco.DataTextField = "NOMBRE";
+            cboFiltroBanco.DataBind();
         }
 
         void llenar_combo_bancos2()
@@ -95,19 +112,24 @@ namespace DIONYS_ERP.PLANTILLAS
 
         void llenar_datos()
         {
-            
-            dgvBANCOS.DataSource = OBJVENTA.NLLENARGRILLACHEQUES(Session["ID_EMPRESA"].ToString());
+            OBJCHEQUE.id_empresa = Session["ID_EMPRESA"].ToString();
+            OBJCHEQUE.id_banco = "";
+            OBJCHEQUE.moneda = "";
+            OBJCHEQUE.id_cliente = "";
+            OBJCHEQUE.fecha_giro = Convert.ToDateTime(txtFiltroFechaIni.Text).ToString("dd-MM-yyyy");
+            OBJCHEQUE.fecha_cobro = Convert.ToDateTime(txtFiltroFechaFin.Text).ToString("dd-MM-yyyy");
+            dgvBANCOS.DataSource = OBJVENTA.NLLENARGRILLACHEQUES(OBJCHEQUE);
             dgvBANCOS.DataBind();
 
             ///necesito un estado en la tabla movimientos para cheques
 
             for (int i = 0; i < dgvBANCOS.Rows.Count; i++)
             {
-                string caseEstado = dgvBANCOS.Rows[i].Cells[8].Text;
+                string caseEstado = dgvBANCOS.Rows[i].Cells[8].Text.Substring(0,19);
                 dgvBANCOS.Rows[i].Cells[2].Text = Convert.ToDateTime(dgvBANCOS.Rows[i].Cells[2].Text).ToShortDateString();
                 dgvBANCOS.Rows[i].Cells[3].Text = Convert.ToDateTime(dgvBANCOS.Rows[i].Cells[3].Text).ToShortDateString();
 
-                if (caseEstado == "1/01/1900 12:00:00 a. m.") //si retorna "1/01/1900 12:00:00 a. m." no se ha ingresado una fecha esta en blanco
+                if (caseEstado == "1/01/1900 12:00:00 ") //si retorna "1/01/1900 12:00:00 a. m." no se ha ingresado una fecha esta en blanco
                 {
                     dgvBANCOS.Rows[i].Cells[8].Text = "PENDIENTE";
                     dgvBANCOS.Rows[i].Cells[8].BackColor = Color.DeepSkyBlue;
@@ -117,7 +139,7 @@ namespace DIONYS_ERP.PLANTILLAS
                     dgvBANCOS.Rows[i].Cells[8].VerticalAlign = VerticalAlign.Middle;
 
                 }
-                else if (caseEstado == "31/12/1900 12:00:00 p. m." || caseEstado == "31/12/1900 12:00:00 a. m.")//cualquier fecha indica deposito normal
+                else if (caseEstado == "31/12/1900 12:00:00")//cualquier fecha indica deposito normal
                 {
                     dgvBANCOS.Rows[i].Cells[8].Text = "DEPOSITADO";
                     dgvBANCOS.Rows[i].Cells[8].BackColor = Color.Orange;
@@ -127,7 +149,7 @@ namespace DIONYS_ERP.PLANTILLAS
                     dgvBANCOS.Rows[i].Cells[8].VerticalAlign = VerticalAlign.Middle;
                     dgvBANCOS.Rows[i].Cells[10].Enabled = false;
                 }
-                else if (caseEstado != "1/01/1900 12:00:00 a. m." && caseEstado != "1/01/3000 12:00:00 a. m." && caseEstado != "31/12/1900 12:00:00 a. m." && caseEstado != "31/12/1900 12:00:00 p. m.")//cualquier fecha indica deposito normal
+                else if (caseEstado != "1/01/1900 12:00:00 " && caseEstado != "1/01/3000 12:00:00 " && caseEstado != "31/12/1900 12:00:00")//cualquier fecha indica deposito normal
                 {
                     dgvBANCOS.Rows[i].Cells[8].Text = "ACEPTADO";
                     dgvBANCOS.Rows[i].Cells[8].BackColor = Color.LimeGreen;
@@ -136,8 +158,9 @@ namespace DIONYS_ERP.PLANTILLAS
                     dgvBANCOS.Rows[i].Cells[8].HorizontalAlign = HorizontalAlign.Center;
                     dgvBANCOS.Rows[i].Cells[8].VerticalAlign = VerticalAlign.Middle;
                     dgvBANCOS.Rows[i].Cells[10].Enabled = false;
+                    dgvBANCOS.Rows[i].Cells[9].Enabled = false;
                 }
-                else if (caseEstado == "1/01/3000 12:00:00 a. m.")//si retorna "1/01/3000 12:00:00 a. m." el estado es rebotado
+                else if (caseEstado == "1/01/3000 12:00:00 ")//si retorna "1/01/3000 12:00:00 a. m." el estado es rebotado
                 {
                     dgvBANCOS.Rows[i].Cells[8].Text = "REBOTADO";
                     dgvBANCOS.Rows[i].Cells[8].BackColor = Color.Red;
@@ -245,15 +268,14 @@ namespace DIONYS_ERP.PLANTILLAS
                 Session["MONEDA_CHEQUE"] = row.Cells[7].Text;
                 if (row.Cells[8].Text == "PENDIENTE")
                 {
-                    Button1.Enabled = false;   
-                }
-                else if(row.Cells[8].Text == "EN CONSULTA")
-                {
                     Button1.Enabled = false;
+                    Button4.Enabled = false;
                 }
-                else
+                
+                else if (row.Cells[8].Text == "DEPOSITADO")
                 {
                     Button1.Enabled = true;
+                    Button4.Enabled = true;
                 }
                 Session["ID_CHEQUE"] = row.Cells[0].Text;
                 mp1.Show();
@@ -497,6 +519,74 @@ namespace DIONYS_ERP.PLANTILLAS
             llenar_datos();
             mp1.Dispose();
             mp1.Hide();
+        }
+
+        protected void btnConsulta_Click(object sender, EventArgs e)
+        {
+            OBJCHEQUE.id_empresa = Session["ID_EMPRESA"].ToString();
+            OBJCHEQUE.id_banco = cboFiltroBanco.SelectedValue;
+            OBJCHEQUE.moneda = cboFiltroMoneda.SelectedValue;
+            OBJCHEQUE.id_cliente = txtfiltroid_cli.Text;
+            OBJCHEQUE.fecha_giro = Convert.ToDateTime(txtFiltroFechaIni.Text).ToString("dd-MM-yyyy hh:mm:ss");
+            OBJCHEQUE.fecha_cobro = Convert.ToDateTime(txtFiltroFechaFin.Text).ToString("dd-MM-yyyy hh:mm:ss");
+            
+            dgvBANCOS.DataSource = OBJVENTA.NLLENARGRILLACHEQUES(OBJCHEQUE);
+            dgvBANCOS.DataBind();
+
+            ///necesito un estado en la tabla movimientos para cheques
+
+            for (int i = 0; i < dgvBANCOS.Rows.Count; i++)
+            {
+                string caseEstado = dgvBANCOS.Rows[i].Cells[8].Text.Substring(0, 19);
+                dgvBANCOS.Rows[i].Cells[2].Text = Convert.ToDateTime(dgvBANCOS.Rows[i].Cells[2].Text).ToShortDateString();
+                dgvBANCOS.Rows[i].Cells[3].Text = Convert.ToDateTime(dgvBANCOS.Rows[i].Cells[3].Text).ToShortDateString();
+
+                if (caseEstado == "1/01/1900 12:00:00 ") //si retorna "1/01/1900 12:00:00 a. m." no se ha ingresado una fecha esta en blanco
+                {
+                    dgvBANCOS.Rows[i].Cells[8].Text = "PENDIENTE";
+                    dgvBANCOS.Rows[i].Cells[8].BackColor = Color.DeepSkyBlue;
+                    dgvBANCOS.Rows[i].Cells[8].ForeColor = Color.White;
+                    dgvBANCOS.Rows[i].Cells[8].Font.Bold = true;
+                    dgvBANCOS.Rows[i].Cells[8].HorizontalAlign = HorizontalAlign.Center;
+                    dgvBANCOS.Rows[i].Cells[8].VerticalAlign = VerticalAlign.Middle;
+
+                }
+                else if (caseEstado == "31/12/1900 12:00:00")//cualquier fecha indica deposito normal
+                {
+                    dgvBANCOS.Rows[i].Cells[8].Text = "DEPOSITADO";
+                    dgvBANCOS.Rows[i].Cells[8].BackColor = Color.Orange;
+                    dgvBANCOS.Rows[i].Cells[8].ForeColor = Color.White;
+                    dgvBANCOS.Rows[i].Cells[8].Font.Bold = true;
+                    dgvBANCOS.Rows[i].Cells[8].HorizontalAlign = HorizontalAlign.Center;
+                    dgvBANCOS.Rows[i].Cells[8].VerticalAlign = VerticalAlign.Middle;
+                    dgvBANCOS.Rows[i].Cells[10].Enabled = false;
+                }
+                else if (caseEstado != "1/01/1900 12:00:00 " && caseEstado != "1/01/3000 12:00:00 " && caseEstado != "31/12/1900 12:00:00")//cualquier fecha indica deposito normal
+                {
+                    dgvBANCOS.Rows[i].Cells[8].Text = "ACEPTADO";
+                    dgvBANCOS.Rows[i].Cells[8].BackColor = Color.LimeGreen;
+                    dgvBANCOS.Rows[i].Cells[8].ForeColor = Color.White;
+                    dgvBANCOS.Rows[i].Cells[8].Font.Bold = true;
+                    dgvBANCOS.Rows[i].Cells[8].HorizontalAlign = HorizontalAlign.Center;
+                    dgvBANCOS.Rows[i].Cells[8].VerticalAlign = VerticalAlign.Middle;
+                    dgvBANCOS.Rows[i].Cells[10].Enabled = false;
+                    dgvBANCOS.Rows[i].Cells[9].Enabled = false;
+                }
+                else if (caseEstado == "1/01/3000 12:00:00 ")//si retorna "1/01/3000 12:00:00 a. m." el estado es rebotado
+                {
+                    dgvBANCOS.Rows[i].Cells[8].Text = "REBOTADO";
+                    dgvBANCOS.Rows[i].Cells[8].BackColor = Color.Red;
+                    dgvBANCOS.Rows[i].Cells[8].ForeColor = Color.White;
+                    dgvBANCOS.Rows[i].Cells[8].Font.Bold = true;
+                    dgvBANCOS.Rows[i].Cells[8].HorizontalAlign = HorizontalAlign.Center;
+                    dgvBANCOS.Rows[i].Cells[8].VerticalAlign = VerticalAlign.Middle;
+                    dgvBANCOS.Rows[i].Cells[9].Enabled = false;
+                    dgvBANCOS.Rows[i].Cells[10].Enabled = false;
+                }
+
+
+
+            }
         }
     }
 }

@@ -233,7 +233,7 @@
         
         <div class="col-xs-4 col-md-2 right" style=" float: right; ">
              <label style="color: white; top: 0px;">SALDO CONTABLE:</label>&nbsp
-            <asp:Label ID="LBLSALDOC" runat="server" Text="--" ForeColor="White" CssClass="form-control" Font-Bold="true" Font-Size="Large" BackColor="CornflowerBlue" Height="35px"></asp:Label>
+            <asp:Label ID="LBLSALDOC" runat="server" Text="--" ForeColor="White" CssClass="form-control" Font-Bold="true" Font-Size="Large" BackColor="Gold" Height="35px"></asp:Label>
         </div>
            
         
@@ -355,20 +355,20 @@
                                 <div class="form-group col-md-12 col-sm-12 col-xs-12 center-block">
 
                                     <div class="col-md-3 col-sm-3 col-xs-12">
-                                        <asp:Button runat="server" CssClass="form-control  btn-info col-md-10 col-sm-10 col-xs-12" Text="NUEVO" ID="btnNuevo"  OnClick="btnNuevo_Click" />
+                                        <asp:Button runat="server" CssClass="form-control  btn-info col-md-10 col-sm-10 col-xs-12" Font-Bold="true" Text="NUEVO" ID="btnNuevo"  OnClick="btnNuevo_Click" />
 
                                     </div>
                                     <div class="col-md-3 col-sm-3 col-xs-12"  >
-                                        <asp:Button runat="server" CssClass="form-control  btn-info col-md-10 col-sm-10 col-xs-12" Text="REGISTRAR" ID="btnRegistrar"  OnClick="btnRegistrar_Click"  />
+                                        <asp:Button runat="server" CssClass="form-control  btn-info col-md-10 col-sm-10 col-xs-12" Font-Bold="true" Text="REGISTRAR" ID="btnRegistrar"  OnClick="btnRegistrar_Click"  />
 
                                     </div>
                                     <div class="col-md-3 col-sm-3 col-xs-12" >
-                                        <asp:Button runat="server" CssClass="form-control  btn-info col-md-10 col-sm-10 col-xs-12" Text="ACTUALIZAR" ID="btnActualizar"   OnClick="btnActualizar_Click"/>
+                                        <asp:Button runat="server" CssClass="form-control  btn-info col-md-10 col-sm-10 col-xs-12" Font-Bold="true" Text="ACTUALIZAR" ID="btnActualizar"   OnClick="btnActualizar_Click"/>
 
                                     </div>
 
                                     <div class="col-md-3 col-sm-3 col-xs-12">
-                                        <asp:Button runat="server" CssClass="form-control  btn-info col-md-10 col-sm-10 col-xs-12" Text="CANCELAR" ID="btnCancelar" OnClick="btnCancelar_Click"  />
+                                        <asp:Button runat="server" CssClass="form-control  btn-info col-md-10 col-sm-10 col-xs-12" Font-Bold="true" Text="CANCELAR" ID="btnCancelar" OnClick="btnCancelar_Click"  />
                                     </div>
 
                                 </div>
@@ -466,7 +466,7 @@
                             <asp:BoundField DataField="OPERACION" HeaderText="N° OPERACION" > <ItemStyle HorizontalAlign="Center"/></asp:BoundField>
                             <asp:BoundField DataField="IMPORTE" HeaderText="IMPORTE" DataFormatString="{0:N}" ><ItemStyle HorizontalAlign="Right"/></asp:BoundField>
                             <asp:BoundField DataField="MONEDA" HeaderText="MON" Visible="false" />
-                            <asp:BoundField DataField="ID_CLIENTE" HeaderText="CLIENTE" />
+                            <asp:BoundField DataField="NOM_CLI" HeaderText="CLIENTE" />
                             <asp:BoundField DataField="NOMBRE" HeaderText="BANCO"  Visible="false"/>
                             <asp:BoundField DataField="LUGAR" HeaderText="LUGAR" />
                            
