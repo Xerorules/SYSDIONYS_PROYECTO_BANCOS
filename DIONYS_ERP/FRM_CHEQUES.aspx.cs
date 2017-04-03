@@ -174,7 +174,7 @@ namespace DIONYS_ERP.PLANTILLAS
 
 
 
-            }
+            } 
 
         }
 
@@ -523,12 +523,13 @@ namespace DIONYS_ERP.PLANTILLAS
 
         protected void btnConsulta_Click(object sender, EventArgs e)
         {
+            if (txtFiltroCli.Text == string.Empty) { txtfiltroid_cli.Text = ""; }
             OBJCHEQUE.id_empresa = Session["ID_EMPRESA"].ToString();
             OBJCHEQUE.id_banco = cboFiltroBanco.SelectedValue;
             OBJCHEQUE.moneda = cboFiltroMoneda.SelectedValue;
             OBJCHEQUE.id_cliente = txtfiltroid_cli.Text;
-            OBJCHEQUE.fecha_giro = Convert.ToDateTime(txtFiltroFechaIni.Text).ToString("dd-MM-yyyy hh:mm:ss");
-            OBJCHEQUE.fecha_cobro = Convert.ToDateTime(txtFiltroFechaFin.Text).ToString("dd-MM-yyyy hh:mm:ss");
+            OBJCHEQUE.fecha_giro = Convert.ToDateTime(txtFiltroFechaIni.Text).ToString("yyyy-dd-MM");
+            OBJCHEQUE.fecha_cobro = Convert.ToDateTime(txtFiltroFechaFin.Text).ToString("yyyy-dd-MM");
             
             dgvBANCOS.DataSource = OBJVENTA.NLLENARGRILLACHEQUES(OBJCHEQUE);
             dgvBANCOS.DataBind();
@@ -587,6 +588,12 @@ namespace DIONYS_ERP.PLANTILLAS
 
 
             }
+            
+        }
+
+        protected void txtFiltroCli_TextChanged(object sender, EventArgs e)
+        {
+            
         }
     }
 }

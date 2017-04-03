@@ -1732,6 +1732,29 @@ namespace CAPA_DATOS
             return dt;
         }
 
+        public DataTable DLLENARDESCRIPCIONCLIENTE(string cod)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                if (con.State == ConnectionState.Closed) { con.Open(); }
+                SqlCommand cmd = new SqlCommand("SP_NOMBRE_CLIENTE_X_ID", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@ID_CLIENTE", cod);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+
+                da.Fill(dt);
+                con.Close();
+
+            }
+            catch (Exception ex)
+            {
+                System.Console.Write("Esta cuenta no tiene movimientos anteriores");
+            }
+            return dt;
+        }
+
+
         public DataTable DLLENARDATOSACTUALIZAR(string id_cheque)
         {
             DataTable dt = new DataTable();

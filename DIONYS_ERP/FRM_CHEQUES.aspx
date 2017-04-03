@@ -525,7 +525,7 @@
 
                     <div class="col-xs-2 col-md-2"  style="text-align: center; top: -15px;margin-left:60px; ">
                         <label style="color: white;  text-align: left; margin-right:90px;"> CLIENTE:</label>
-                        <asp:TextBox runat="server" ID="txtFiltroCli" CssClass="form-control" Width="300px"  Font-Bold="true" placeholder="Ingresar cliente,busqueda automatica" MaxLength="70"></asp:TextBox>
+                        <asp:TextBox runat="server" ID="txtFiltroCli" CssClass="form-control" Width="300px"  Font-Bold="true" placeholder="Ingresar cliente,busqueda automatica" MaxLength="70" OnTextChanged="txtFiltroCli_TextChanged"></asp:TextBox>
                     </div>
                     <asp:TextBox runat="server" ID="txtfiltroid_cli" CssClass="visible-xs" Width="300px"  Font-Bold="true" placeholder="Ingresar cliente,busqueda automatica" MaxLength="70"></asp:TextBox>
                     <div class="col-xs-2 col-md-2" style="text-align: center; top: -15px;margin-left:110px; ">

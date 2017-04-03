@@ -432,6 +432,11 @@ namespace CAPA_NEGOCIO
             return OBJTIPO_BIEN.DLLENARGRILLAMOVIMIENTOS(cod, id_empresa, id_cta);
         }
 
+        public DataTable NLLENARDESCRIPCIONCLIENTE(string cod)
+        {
+            return OBJTIPO_BIEN.DLLENARDESCRIPCIONCLIENTE(cod);
+        }
+
         public DataTable NLLENARDATOSACTUALIZAR(string id_cheque)
         {
             return OBJTIPO_BIEN.DLLENARDATOSACTUALIZAR(id_cheque);

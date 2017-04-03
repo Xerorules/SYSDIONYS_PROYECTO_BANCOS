@@ -55,8 +55,24 @@ namespace DIONYS_ERP.PLANTILLAS
 
         void llenar_datos(string cod, string id_empresa,string id_cta)
         {
+            System.Data.DataTable ds = OBJVENTA.NLLENARGRILLAMOVIMIENTOS(cod, id_empresa, id_cta);
             dgvMOVIMIENTOS.DataSource = OBJVENTA.NLLENARGRILLAMOVIMIENTOS(cod, id_empresa, id_cta);
             dgvMOVIMIENTOS.DataBind();
+            
+            DataTable dt = OBJVENTA.NLLENARDESCRIPCIONCLIENTE("");
+            for (int i = 0; i < dgvMOVIMIENTOS.Rows.Count; i++)
+            {
+                string caseEstado = ds.Rows[i]["NOM_CLI"].ToString();
+
+                for (int e = 0; e < dt.Rows.Count; e++) {
+                    if (caseEstado == dt.Rows[e]["ID_CLIENTE"].ToString())
+                    {
+                        dgvMOVIMIENTOS.Rows[i].Cells[6].Text = dt.Rows[e]["DESCRIPCION"].ToString();
+                        
+                    }
+                }
+                
+            }
 
         }
 
@@ -264,6 +280,7 @@ namespace DIONYS_ERP.PLANTILLAS
                
                 llenar_datos("1", Session["ID_EMPRESA"].ToString(), Session["ID_CUENTA_MOV"].ToString());
                 DataTable dt = OBJVENTA.NLLENAR_CABECERA_MOVIMIENTOS(TXTprueba.Text);
+
                 string mone = dt.Rows[0][0].ToString();
                 if (mone == "S") { LBLMONEDA.Text = "SOLES"; } else if (mone == "D") { LBLMONEDA.Text = "DOLARES"; }
                 LBLBANCO.Text = dt.Rows[0][1].ToString();
@@ -310,7 +327,7 @@ namespace DIONYS_ERP.PLANTILLAS
                             {
                                 string fechaex = Convert.ToDateTime(DT.Rows[n][2].ToString()).ToShortDateString();
                                 string opeex = DT.Rows[n][0].ToString();
-                                string impoex = DT.Rows[n][1].ToString();
+                                string impoex = Convert.ToDecimal(DT.Rows[n][1].ToString()).ToString("N2");
                                 string concepex = DT.Rows[n][3].ToString();
 
                                 if (n_ope1 == opeex && imp2 == impoex && fecha3 == fechaex && concpto == concepex)
@@ -357,7 +374,7 @@ namespace DIONYS_ERP.PLANTILLAS
                                     string res = OBJVENTA.NREGISTRARMOV(OBJMOVS, "2", empre);
                                     if (res == "ok")
                                     {
-                                    if (i == dtexcel.Rows.Count - 1) { Response.Write("<script>alert('Carga realizada con éxito.. !')</script>"); }
+                                     
                                         llenar_datos("1", empre, Session["ID_CUENTA_MOV"].ToString());
                                         LIMPIAR();
                                         txtFECHA.Text = DateTime.Now.ToLocalTime().ToString("dd-MM-yyyy HH:mm");
@@ -367,7 +384,9 @@ namespace DIONYS_ERP.PLANTILLAS
                                         LBLBANCO.Text = dt.Rows[0][1].ToString();
                                         LBLSALDOC.Text = dt.Rows[0][2].ToString();
                                         LBLSALDOD.Text = dt.Rows[0][3].ToString();
-                                    }
+                                    
+
+                                }
                                     else
                                     {
                                         Response.Write("<script>alert('Error datos no Modificados')</script>");
@@ -376,14 +395,22 @@ namespace DIONYS_ERP.PLANTILLAS
                             }
                             else
                             {
-                            if (i == dtexcel.Rows.Count-1)
-                            { /*Response.Write("<script>alert('Datos Modificados correctamente..')</script>");*/
-                                var json = JsonConvert.SerializeObject(lista);
-                                Response.Write("<script>alert('LOS SIGUIENTES NUMEROS DE OPERACION SON REPETIDOS Y NO SE INCLUYERON EN EL PROCESO DE REGISTRO: " + json + "')</script>");
-                            }
+                            
+                             
+                               
+                            
                         }
 
                         
+                    }
+                    if (lista.Count > 0)
+                    {
+                        var json = JsonConvert.SerializeObject(lista);
+                        Response.Write("<script>alert('LOS SIGUIENTES NUMEROS DE OPERACION SON REPETIDOS Y NO SE INCLUYERON EN EL PROCESO DE REGISTRO: " + json + "')</script>");
+                    }
+                    else
+                    {
+                        Response.Write("<script>alert('Carga realizada con éxito.. !')</script>");// VERFICAR SI SE REPITE
                     }
 
 
