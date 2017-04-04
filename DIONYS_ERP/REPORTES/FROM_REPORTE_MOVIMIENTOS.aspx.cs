@@ -34,6 +34,7 @@ namespace DIONYS_ERP.PLANTILLAS
 
                 DataSet ds2 = objnego.REPORTE_MOVIMIENTOS_CUENTAS_BANCARIAS_DETALLE(ID_CUENTA_MOV, FECHA_INI, FECHA_FIN);
                 //DataSet ds_reporte2 = new DataSet();
+                //
 
                 DataTable dtcliente = ds.Tables[0].Copy();
                 dtcliente.TableName = "DATOSM";
