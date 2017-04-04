@@ -661,6 +661,8 @@ namespace DIONYS_ERP.REPORTES {
             
             private global::System.Data.DataColumn columnDESCRIPCION;
             
+            private global::System.Data.DataColumn columnSALDO;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public DETALLEMDataTable() {
@@ -760,6 +762,14 @@ namespace DIONYS_ERP.REPORTES {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn SALDOColumn {
+                get {
+                    return this.columnSALDO;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -795,7 +805,7 @@ namespace DIONYS_ERP.REPORTES {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public DETALLEMRow AddDETALLEMRow(string ID_MOVIMIENTOS, string FECHA, string OPERACION, string TIPO_MOV, string CONCEPTO_B, string IMPORTE, string ID_CLIENTE, string DESCRIPCION) {
+            public DETALLEMRow AddDETALLEMRow(string ID_MOVIMIENTOS, string FECHA, string OPERACION, string TIPO_MOV, string CONCEPTO_B, string IMPORTE, string ID_CLIENTE, string DESCRIPCION, string SALDO) {
                 DETALLEMRow rowDETALLEMRow = ((DETALLEMRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         ID_MOVIMIENTOS,
@@ -805,7 +815,8 @@ namespace DIONYS_ERP.REPORTES {
                         CONCEPTO_B,
                         IMPORTE,
                         ID_CLIENTE,
-                        DESCRIPCION};
+                        DESCRIPCION,
+                        SALDO};
                 rowDETALLEMRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowDETALLEMRow);
                 return rowDETALLEMRow;
@@ -836,6 +847,7 @@ namespace DIONYS_ERP.REPORTES {
                 this.columnIMPORTE = base.Columns["IMPORTE"];
                 this.columnID_CLIENTE = base.Columns["ID_CLIENTE"];
                 this.columnDESCRIPCION = base.Columns["DESCRIPCION"];
+                this.columnSALDO = base.Columns["SALDO"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -857,6 +869,8 @@ namespace DIONYS_ERP.REPORTES {
                 base.Columns.Add(this.columnID_CLIENTE);
                 this.columnDESCRIPCION = new global::System.Data.DataColumn("DESCRIPCION", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnDESCRIPCION);
+                this.columnSALDO = new global::System.Data.DataColumn("SALDO", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnSALDO);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1338,6 +1352,22 @@ namespace DIONYS_ERP.REPORTES {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string SALDO {
+                get {
+                    try {
+                        return ((string)(this[this.tableDETALLEM.SALDOColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'SALDO\' de la tabla \'DETALLEM\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDETALLEM.SALDOColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsID_MOVIMIENTOSNull() {
                 return this.IsNull(this.tableDETALLEM.ID_MOVIMIENTOSColumn);
             }
@@ -1430,6 +1460,18 @@ namespace DIONYS_ERP.REPORTES {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetDESCRIPCIONNull() {
                 this[this.tableDETALLEM.DESCRIPCIONColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsSALDONull() {
+                return this.IsNull(this.tableDETALLEM.SALDOColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetSALDONull() {
+                this[this.tableDETALLEM.SALDOColumn] = global::System.Convert.DBNull;
             }
         }
         
