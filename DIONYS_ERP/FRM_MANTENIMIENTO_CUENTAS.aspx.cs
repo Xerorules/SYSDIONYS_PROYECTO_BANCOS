@@ -37,8 +37,7 @@ namespace DIONYS_ERP.PLANTILLAS
             txtEMAIL.Text = string.Empty;
             //cboBANCO.SelectedIndex =0;
             txtOFICINA.Text = string.Empty;
-            txtSCONTABLE.Text = string.Empty;
-            txtSDISPONIBLE.Text = string.Empty;
+            
             txtSECTOR.Text = string.Empty;
             txtTELEFONO.Text = string.Empty;
         }
@@ -83,8 +82,8 @@ namespace DIONYS_ERP.PLANTILLAS
                 OBJCUENTAS.ID_EMPRESA = CBOEMPRESA.SelectedValue;
                 OBJCUENTAS.N_CUENTA = txtCUENTA.Text;
                 OBJCUENTAS.N_CCI = txtCCI.Text;
-                OBJCUENTAS.SALDO_CONTABLE = Convert.ToDecimal(txtSCONTABLE.Text.ToString());
-                OBJCUENTAS.SALDO_DISPONIBLE = Convert.ToDecimal(txtSDISPONIBLE.Text.ToString());
+                OBJCUENTAS.SALDO_CONTABLE = Convert.ToDecimal(0);
+                OBJCUENTAS.SALDO_DISPONIBLE = Convert.ToDecimal(0);
                 if (rdbMONEDA.SelectedValue == "SOLES") { OBJCUENTAS.MONEDA = "S"; } else if(rdbMONEDA.SelectedValue == "DOLARES") { OBJCUENTAS.MONEDA = "D"; }
                 OBJCUENTAS.SECTORISTA = txtSECTOR.Text;
                 OBJCUENTAS.OFICINA = txtOFICINA.Text;
@@ -121,8 +120,8 @@ namespace DIONYS_ERP.PLANTILLAS
                 OBJCUENTAS.ID_EMPRESA = CBOEMPRESA.SelectedValue;
                 OBJCUENTAS.N_CUENTA = txtCUENTA.Text;
                 OBJCUENTAS.N_CCI = txtCCI.Text;
-                OBJCUENTAS.SALDO_CONTABLE = Convert.ToDecimal(txtSCONTABLE.Text);
-                OBJCUENTAS.SALDO_DISPONIBLE = Convert.ToDecimal(txtSDISPONIBLE.Text);
+                OBJCUENTAS.SALDO_CONTABLE = Convert.ToDecimal(0);
+                OBJCUENTAS.SALDO_DISPONIBLE = Convert.ToDecimal(0);
                 OBJCUENTAS.SECTORISTA = txtSECTOR.Text;
                 OBJCUENTAS.OFICINA = txtOFICINA.Text;
                 OBJCUENTAS.TELEFONO = txtTELEFONO.Text;
@@ -171,8 +170,6 @@ namespace DIONYS_ERP.PLANTILLAS
                 string d = row.Cells[4].Text;
                 if (row.Cells[4].Text == "S") { rdbMONEDA.SelectedValue = "SOLES"; }
                 else if(row.Cells[4].Text == "D")  { rdbMONEDA.SelectedValue = "DOLARES"; }
-                txtSCONTABLE.Text = row.Cells[5].Text;
-                txtSDISPONIBLE.Text = row.Cells[6].Text;
                 txtSECTOR.Text = row.Cells[7].Text;
                 txtOFICINA.Text = row.Cells[8].Text;
                 txtTELEFONO.Text = row.Cells[9].Text;

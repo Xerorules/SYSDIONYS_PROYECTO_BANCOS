@@ -1654,11 +1654,16 @@ namespace CAPA_DATOS
             return dt;
         }
 
-        public DataTable DLLENARGRILLACHEQUES(string id_empresa)
+        public DataTable DLLENARGRILLACHEQUES(E_CHEQUES CH)
         {
             SqlCommand cmd = new SqlCommand("SP_GRILLA_CHEQUES", con);
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@ID_EMPRESA", id_empresa);
+            cmd.Parameters.AddWithValue("@ID_EMPRESA", CH.id_empresa);
+            cmd.Parameters.AddWithValue("@ID_BANCOS", CH.id_banco);
+            cmd.Parameters.AddWithValue("@MONEDA", CH.moneda);
+            cmd.Parameters.AddWithValue("@ID_CLIENTE", CH.id_cliente);
+            cmd.Parameters.AddWithValue("@FECHA_INI", CH.fecha_giro);
+            cmd.Parameters.AddWithValue("@FECHA_FIN", CH.fecha_cobro);
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
             da.Fill(dt);
@@ -1727,6 +1732,29 @@ namespace CAPA_DATOS
             return dt;
         }
 
+        public DataTable DLLENARDESCRIPCIONCLIENTE(string cod)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                if (con.State == ConnectionState.Closed) { con.Open(); }
+                SqlCommand cmd = new SqlCommand("SP_NOMBRE_CLIENTE_X_ID", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@ID_CLIENTE", cod);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+
+                da.Fill(dt);
+                con.Close();
+
+            }
+            catch (Exception ex)
+            {
+                System.Console.Write("Esta cuenta no tiene movimientos anteriores");
+            }
+            return dt;
+        }
+
+
         public DataTable DLLENARDATOSACTUALIZAR(string id_cheque)
         {
             DataTable dt = new DataTable();
@@ -1780,14 +1808,19 @@ namespace CAPA_DATOS
 
         public DataTable DVALIDAROPERACION(string id_cta)
         {
-            if (con.State == ConnectionState.Closed) { con.Open(); }
-            SqlCommand cmd = new SqlCommand("SP_VALIDAR_OPERACION", con);
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@ID_CTA", id_cta);
-            SqlDataAdapter da = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
-            da.Fill(dt);
-            con.Close();
+            try
+            {
+                if (con.State == ConnectionState.Closed) { con.Open(); }
+                SqlCommand cmd = new SqlCommand("SP_VALIDAR_OPERACION", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@ID_CTA", id_cta);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+
+                da.Fill(dt);
+                con.Close();
+            }
+            catch { }
             return dt;
         }
 
@@ -1906,6 +1939,68 @@ namespace CAPA_DATOS
             return res;
         }
 
+        public string DELIMINARCHEQUES(E_CHEQUES BCO)
+        {
+            string res = "";
+            try
+            {
+                if (con.State == ConnectionState.Closed) { con.Open(); }
+                SqlCommand cmd = new SqlCommand("SP_MANT_CHEQUES", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@ID_CHEQUE", BCO.id_cheque);
+                cmd.Parameters.AddWithValue("@FECHA_GIRO", BCO.fecha_giro);
+                cmd.Parameters.AddWithValue("@FECHA_COBRO", BCO.fecha_cobro);
+                cmd.Parameters.AddWithValue("@NUMERO", BCO.numero);
+                cmd.Parameters.AddWithValue("@ID_BANCOS", BCO.id_banco);
+                cmd.Parameters.AddWithValue("@IMPORTE", BCO.importe);
+                cmd.Parameters.AddWithValue("@MONEDA", BCO.moneda);
+                cmd.Parameters.AddWithValue("@ESTADO", BCO.estado);
+                cmd.Parameters.AddWithValue("@ID_CLIENTE", BCO.id_cliente);
+                cmd.Parameters.AddWithValue("@CONDICION", "4");
+                cmd.Parameters.AddWithValue("@ID_EMPRESA", BCO.id_empresa);
+                int a = cmd.ExecuteNonQuery();
+                if (a > 0)
+                {
+                    res = "ok";
+                }
+            }
+            catch (Exception ex)
+            {
+
+                System.Console.Write(ex.Message);
+            }
+
+            if (con.State == ConnectionState.Open) { con.Close(); }
+            return res;
+        }
+
+
+        public string DACTUALIZARESTADOCHEQUES(string id_cheque)
+        {
+            string res = "";
+            try
+            {
+                if (con.State == ConnectionState.Closed) { con.Open(); }
+                SqlCommand cmd = new SqlCommand("SP_ACTUALIZAR_ESTADO_CHEQUE", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@ID_CHEQUE", id_cheque);
+                int a = cmd.ExecuteNonQuery();
+                if (a > 0)
+                {
+                    res = "ok";
+                }
+            }
+            catch (Exception ex)
+            {
+
+                System.Console.Write(ex.Message);
+            }
+
+            if (con.State == ConnectionState.Open) { con.Close(); }
+            return res;
+        }
+
+
         public string DACTUALIZARCHEQUES(E_CHEQUES BCO,string id_cheque)
         {
             string res = "";
@@ -1981,7 +2076,7 @@ namespace CAPA_DATOS
             return res;
         }
 
-        public string DREGISTRARMOV_CHEQUE(E_MOVIMIENTOS MVO, string cond, string emp,string id_cheque)
+        public string DREGISTRARMOV_CHEQUE(E_MOVIMIENTOS MVO, string cond, string emp,string id_cheque,string FECHA2)
         {
             string res = "";
             try
@@ -2003,6 +2098,7 @@ namespace CAPA_DATOS
                 cmd.Parameters.AddWithValue("@SALDO", MVO.saldo);
                 cmd.Parameters.AddWithValue("@CONDICION", cond);
                 cmd.Parameters.AddWithValue("@ID_CHEQUE", id_cheque);
+                cmd.Parameters.AddWithValue("@FECHA2", FECHA2);
                 int a = cmd.ExecuteNonQuery();
                 if (a > 0)
                 {
@@ -2370,12 +2466,23 @@ namespace CAPA_DATOS
             return dt;
         }
 
-        public DataTable CONSULTA_LISTA_CUENTAS(string id_bancos,string id_empresa)
+        public DataTable CONSULTA_LISTA_ESTADOS()
+        {
+            SqlCommand cmd = new SqlCommand("SP_LLENAR_COMBO_ESTADOS", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            return dt;
+        }
+
+        public DataTable CONSULTA_LISTA_CUENTAS(string id_bancos,string id_empresa,string moneda)
         {
             SqlCommand cmd = new SqlCommand("SP_LLENAR_COMBO_CUENTAS", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@ID_BANCO", id_bancos);
             cmd.Parameters.AddWithValue("@ID_EMPRESA", id_empresa);
+            cmd.Parameters.AddWithValue("@MONEDA", moneda);
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
             da.Fill(dt);

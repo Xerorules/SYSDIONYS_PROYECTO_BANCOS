@@ -9,6 +9,34 @@
     <script src="assets/js/jquery-1.10.2.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>
     <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.3/animate.min.css' />
+    
+    <script type="text/javascript">
+        function addCommas(clientID) {
+            
+            var nStr = document.getElementById(clientID.id).value;
+
+            nStr += '';
+            x = nStr.split('.');
+            if (!x[0]) {
+                x[0] = "0";
+
+            }
+            x1 = x[0];
+            if (!x[1]) {
+                x[1] = "00";
+            }
+            x2 = x.length > 1 ? '.' + x[1] : '';
+            var rgx = /(\d+)(\d{3})/;
+            while (rgx.test(x1)) {
+                x1 = x1.replace(rgx, '$1' + ',' + '$2');
+            }
+
+            document.getElementById(clientID.id).value = x1 + x2;
+            return true;
+           
+        }
+    </script>
+
     <script type="text/javascript">
 
 
@@ -24,42 +52,10 @@
             $('#myModal2').modal('show');
         }
 
-        function Comma(Num) {
-            Num += '';
-            Num = Num.replace(',', ''); Num = Num.replace(',', ''); Num = Num.replace(',', '');
-            Num = Num.replace(',', ''); Num = Num.replace(',', ''); Num = Num.replace(',', '');
-            x = Num.split('.');
-            x1 = x[0];
-            x2 = x.length > 1 ? '.' + x[1] : '';
-            var rgx = /(\d+)(\d{3})/;
-            while (rgx.test(x1))
-                x1 = x1.replace(rgx, '$1' + ',' + '$2');
-            return x1 + x2;
-        }
-     
-        function IsAccNumberValid(txtIMPORTE) {
-            var val = '' + (+txtIMPORTE.value);
-            if (val) {
-                val = val.split('\.');
-                var out = val[0];
-                while (out.length < 3) {
-                    out = '0' + out;
-                }
-                if (val[1]) {
-                    out = out + '.' + val[1]
-                    if (out.length < 6) out = out + '0';
-                } else {
-                    out = out + '.00';
-                }
-                txtIMPORTE.value = out;
-            } else {
-                txtIMPORTE.value = '000.00';
-            }
-        }
-
-
-
+        
     </script>
+
+    
 
     <style type="text/css">
         .Background {
@@ -75,7 +71,7 @@
             border-color: black;
             padding-top: 6px;
             padding-left: 10px;
-            width: 450px;
+            width: 460px;
             height: 480px;
             opacity: 50;
         }
@@ -131,6 +127,80 @@
 
 
     </script>
+     <script type="text/javascript">
+        $(function () {
+            $("[id$=txtmLUGAR]").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: '<%=ResolveUrl("~/SERVICES/AUTOCOMPLETAR_MOVIMIENTOS.asmx/AUTOCOMPLETAR_LUGAR") %>',
+                        data: "{ 'prefix': '" + request.term + "'}",
+                        dataType: "json",
+                        type: "POST",
+                        contentType: "application/json; charset=utf-8",
+                        success: function (data) {
+                            response($.map(data.d, function (item) {
+                                return {
+                                    label: item.split('-')[0],
+                                    val: item.split('-')[1]
+                                }
+                            }))
+                        },
+                        error: function (response) {
+                            alert(response.responseText);
+                        },
+                        failure: function (response) {
+                            alert(response.responseText);
+                        }
+                    });
+                },
+                select: function (e, i) {
+                    $("[id$=txtmLUGAR]").val(i.item.text);
+                    $("[id$=txtmLUGAR]").val(i.item.val);
+                },
+                minLength: 1
+                
+            });
+        });
+
+         
+    </script>
+    <script type="text/javascript">
+        $(function () {
+            $("[id$=txtFiltroCli]").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: '<%=ResolveUrl("~/SERVICES/AUTOCOMPLETAR_MOVIMIENTOS.asmx/AUTOCOMPLETAR_CLIENTES") %>',
+                        data: "{ 'prefix': '" + request.term + "'}",
+                        dataType: "json",
+                        type: "POST",
+                        contentType: "application/json; charset=utf-8",
+                        success: function (data) {
+                            response($.map(data.d, function (item) {
+                                return {
+                                    label: item.split('-')[0],
+                                    val: item.split('-')[1]
+                                }
+                            }))
+                        },
+                        error: function (response) {
+                            alert(response.responseText);
+                        },
+                        failure: function (response) {
+                            alert(response.responseText);
+                        }
+                    });
+                },
+                select: function (e, i) {
+                    $("[id$=txtFiltroCli]").val(i.item.text);
+                    $("[id$=txtfiltroid_cli]").val(i.item.val);
+                },
+                minLength: 1
+            });
+        });
+
+
+    </script>
+
     <%--POUP AJAX --%>
     <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
 
@@ -206,7 +276,7 @@
                     <asp:Label ID="Label3" runat="server" CssClass="lbl" Text="IMPORTE:"></asp:Label>
                 </td>
                 <td>
-                    <asp:TextBox ID="txtmIMPORTE" runat="server" Font-Size="14px" CssClass="form-control" Width="250px"  onkeyup = "javascript:this.value=Comma(this.value);" ></asp:TextBox>
+                    <asp:TextBox ID="txtmIMPORTE" runat="server" Font-Size="14px" CssClass="form-control" Width="250px"   ></asp:TextBox>
                 </td>
             </tr>
 
@@ -226,21 +296,27 @@
         <br />
         <div class="row">
             
-            <div class="col-xs-4 text-center">
-                <div class="next" style="margin-left:20px">
-                   <asp:Button ID="Button2" runat="server" Text="ACEPTAR" CssClass="form-control btn-info" OnClick="Button2_Click"  />
+            <div class="col-xs-3">
+                <div class="col-md-2 col-xs-2"  style="margin-left:60px">
+                   <asp:Button ID="Button2" runat="server" Text="ACEPTAR" CssClass="form-control btn-info" OnClick="Button2_Click" />
                 </div>
             </div>
-            <div class="col-xs-4 text-center">
-                <div class="previous" style="margin-left:20px">
+            <div class="col-xs-3" style="margin-left:40px">
+                <div class="col-md-2 col-xs-2" >
                    <asp:Button ID="Button3" runat="server" Text="CANCELAR" CssClass="form-control btn-info" OnClick="Button3_Click"/>
                 </div>
             </div>
-            <div class="col-xs-4 text-center">
-                <div class="next">
-                    <asp:Button ID="Button1" runat="server" Text="REBOTADO" CssClass="form-control btn-danger" OnClick="Button1_Click" />
+            <div class="col-xs-3" style="margin-left:-5px">
+                <div class="col-md-2 col-xs-2">
+                    <asp:Button ID="Button4" runat="server" Text="ACEPTADO" CssClass="form-control btn-success" OnClick="Button4_Click" />
                 </div>
             </div>
+            <div class="col-xs-3" style="margin-left:-75px">
+                <div class="col-md-3 col-xs-3" >
+                   <asp:Button ID="Button1" runat="server" Text="REBOTADO" CssClass="form-control btn-danger" OnClick="Button1_Click" />
+                </div>
+            </div>
+            
         </div>
         
             
@@ -340,8 +416,8 @@
             <div class="form-group">
                 <label class="control-label col-md-4" style="color: white">IMPORTE:</label>
                 <div class="col-xs-8 col-md-6">
-                    <asp:TextBox runat="server" ID="txtIMPORTE" CssClass="form-control" placeholder="Ingrese importe" MaxLength="100" Width="300px" ></asp:TextBox>
-                    <%--VALIDADOR--%>
+                    <asp:TextBox runat="server" ID="txtIMPORTE" CssClass="form-control" placeholder="Ingrese importe" type="numeric" MaxLength="100" Width="300px" OnBlur="addCommas(this)"  ></asp:TextBox>
+                    <%--<%--<%--VALIDADOR--%>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server"
                         ControlToValidate="txtIMPORTE"
                         ErrorMessage="(*)El importe es requerido"
@@ -457,7 +533,50 @@
             <div class="col-xs-10 col-sm-offset-0 col-sm-10 col-md-offset-0 col-md-8">
 
                 <h2 style="color: white" class="text-info">CARTERA DE CHEQUES</h2>
-                &nbsp
+                &nbsp;
+                 
+                <div class="form-group col-md-12 col-sm-12 col-xs-12 " style="text-align:center;margin-left:-20px; margin-top: 25px; ">
+
+                    <div class="col-xs-2 col-md-2"  style="text-align: center; top: -15px;margin-left:60px; ">
+                        <label style="color: white;  text-align: left; margin-right:90px;"> CLIENTE:</label>
+                        <asp:TextBox runat="server" ID="txtFiltroCli" CssClass="form-control" Width="300px"  Font-Bold="true" placeholder="Ingresar cliente,busqueda automatica" MaxLength="70" OnTextChanged="txtFiltroCli_TextChanged"></asp:TextBox>
+                    </div>
+                    <asp:TextBox runat="server" ID="txtfiltroid_cli" CssClass="visible-xs" Width="300px"  Font-Bold="true" placeholder="Ingresar cliente,busqueda automatica" MaxLength="70"></asp:TextBox>
+                    <div class="col-xs-2 col-md-2" style="text-align: center; top: -15px;margin-left:110px; ">
+                        <label style="color: white; text-align: left; margin-right:90px; "> BANCO:</label>
+                        <asp:DropDownList runat="server" ID="cboFiltroBanco" CssClass="form-control" AutoPostBack="true" Width="180px"></asp:DropDownList>
+                    </div>
+                    
+                    <div class="col-xs-2 col-md-2" style="text-align: center; top: -15px;margin-left:-15px; ">
+                        <label style="color: white;  text-align: left; margin-right:90px;"> MONEDA:</label>
+                        <asp:DropDownList runat="server" ID="cboFiltroMoneda" CssClass="form-control" AutoPostBack="true" Width="150px">
+                            <asp:ListItem Text="-SELECCIONE-" Value="" />
+                            <asp:ListItem Text="SOLES" Value="S" />
+                            <asp:ListItem Text="DOLARES" Value="D" />
+                        </asp:DropDownList>
+                                        
+                    </div>
+
+                   
+                    <div class="col-xs-2 col-md-2" style="text-align: center; top: -15px;margin-left:-40px; ">
+                        <label style="color: white;  text-align: left; margin-right:55px;">FECHA INICIAL:</label>
+                        <asp:TextBox runat="server" ID="txtFiltroFechaIni" CssClass="form-control" Width="180px" Height="35px"  TextMode="Date" Font-Bold="true" placeholder="Ingrese Fecha inicial" MaxLength="70"></asp:TextBox>
+                    </div>
+                    <div class="col-xs-2 col-md-2" style="text-align: center; top: -15px;margin-left:-10px; ">
+                        <label style="color: white; text-align: left; margin-right:55px;">FECHA FINAL:</label>
+                        <asp:TextBox runat="server" ID="txtFiltroFechaFin" CssClass="form-control" Width="180px" Height="35px"  TextMode="Date" Font-Bold="true" placeholder="Ingrese Fecha final" MaxLength="70"></asp:TextBox>
+                    </div>
+                    <div class="col-xs-2 col-md-2" style="text-align: right; top: -12px;margin-left:1100px;">
+                        <asp:Button ID="btnConsulta" runat="server" Text="FILTRAR TABLA" CssClass="btn btn-info" Width="150px" OnClick="btnConsulta_Click"/>
+                    </div>
+                    <%--<div style="float: left; margin-top: 9px; width: 10%;">
+                       
+                                <asp:Button ID="btnREPORTE" runat="server" Text="GENERAR REPORTE" CssClass="btn btn-info" Width="200px" OnClick="btnREPORTE_Click" />
+                      </div>--%>
+                    
+                </div>
+
+
        
          <asp:GridView ID="dgvBANCOS" runat="server" CssClass="table table-striped table-bordered  table-hover" BackColor="White" AutoGenerateColumns="False" DataKeyNames="ID_CHEQUE" Font-Size="Small" OnRowCommand="dgvBANCOS_RowCommand">
              <PagerSettings Mode="NumericFirstLast" />
@@ -484,6 +603,7 @@
                  <asp:TemplateField>
                      <ItemTemplate>
                          <asp:LinkButton ID="LinkButtonActualizar" runat="server" CommandName="ACTUALIZAR">CAMBIAR ESTADO</asp:LinkButton>
+                        
                      </ItemTemplate>
                  </asp:TemplateField>
 
@@ -491,6 +611,7 @@
                  <asp:TemplateField>
                      <ItemTemplate>
                          <asp:LinkButton ID="LinkButtonEditar" runat="server" CommandName="EDITAR">EDITAR</asp:LinkButton>
+                          <asp:LinkButton ID="LinkButtonEliminar" runat="server" CommandName="ELIMINAR">ELIMINAR</asp:LinkButton>
                      </ItemTemplate>
                  </asp:TemplateField>
 

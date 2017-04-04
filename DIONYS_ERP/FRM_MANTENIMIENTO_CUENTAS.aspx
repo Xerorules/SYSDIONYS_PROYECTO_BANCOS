@@ -34,7 +34,7 @@
             <div class="form-group">
                 <label class="control-label col-xs-3" style="color: white">EMPRESA:</label>
                 <div class="col-xs-8 col-md-7">
-                    <asp:DropDownList runat="server" ID="CBOEMPRESA" CssClass="form-control" AutoPostBack="true">
+                    <asp:DropDownList runat="server" ID="CBOEMPRESA" CssClass="form-control" AutoPostBack="true" Width="320px">
                     </asp:DropDownList>
                     &nbsp
                 </div>
@@ -43,7 +43,7 @@
             <div class="form-group">
                 <label class="control-label col-xs-3" style="color: white">CUENTA:</label>
                 <div class="col-xs-8 col-md-7">
-                    <asp:TextBox runat="server" ID="txtCUENTA" CssClass="form-control" placeholder="INGRESE NUMERO DE CUENTA" MaxLength="100"></asp:TextBox>
+                    <asp:TextBox runat="server" ID="txtCUENTA" CssClass="form-control" placeholder="INGRESE NUMERO DE CUENTA" MaxLength="100" Width="320px"></asp:TextBox>
                     <%--VALIDADOR--%>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server"
                         ControlToValidate="txtCUENTA"
@@ -58,7 +58,7 @@
             <div class="form-group">
                 <label class="control-label col-xs-3" style="color: white">BANCO:</label>
                 <div class="col-xs-8 col-md-7">
-                    <asp:DropDownList runat="server" ID="cboBANCO" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="cboBANCO_SelectedIndexChanged">
+                    <asp:DropDownList runat="server" ID="cboBANCO" CssClass="form-control" AutoPostBack="true" Width="320px" OnSelectedIndexChanged="cboBANCO_SelectedIndexChanged">
                     </asp:DropDownList>
                     <%--VALIDADOR--%>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator8" runat="server"
@@ -74,7 +74,7 @@
             <div class="form-group">
                 <label class="control-label col-xs-3" style="color: white">CCI:</label>
                 <div class="col-xs-8 col-md-7">
-                    <asp:TextBox runat="server" ID="txtCCI" CssClass="form-control" placeholder="CCI" MaxLength="100"></asp:TextBox>
+                    <asp:TextBox runat="server" ID="txtCCI" CssClass="form-control" placeholder="CCI" Width="320px" MaxLength="100"></asp:TextBox>
                     <%--VALIDADOR--%>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server"
                         ControlToValidate="txtCCI"
@@ -98,31 +98,25 @@
 
             </div>
 
-            <div class="form-group">
+           <%-- <div class="form-group" style="visibility:hidden">
                 <label class="control-label col-xs-3" style="color: white">SALDO CONTABLE:</label>
                 <div class="col-xs-8 col-md-7">
-                    <asp:TextBox runat="server" ID="txtSCONTABLE" CssClass="form-control" placeholder="" MaxLength="100" type="number"></asp:TextBox>
-                    <%--VALIDADOR--%>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server"
-                        ControlToValidate="txtSCONTABLE"
-                        ErrorMessage="(*)Ingrese el Saldo Contable"
-                        ForeColor="Gold"
-                        ValidationGroup="Registro" Display="Dynamic">
-                    </asp:RequiredFieldValidator>
-                    &nbsp
+                    <asp:TextBox runat="server" ID="txtSCONTABLE" CssClass="form-control" placeholder="" Width="320px" MaxLength="100" type="number" Text="0" Visible="false"></asp:TextBox>
+                    
+                  
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group" style="visibility:hidden">
                 <label class="control-label col-xs-3" style="color: white">SALDO DISPONIBLE:</label>
                 <div class="col-xs-8 col-md-7">
-                    <asp:TextBox runat="server" ID="txtSDISPONIBLE" CssClass="form-control" placeholder="" MaxLength="100" type="number"></asp:TextBox>
-                    &nbsp
+                    <asp:TextBox runat="server" ID="txtSDISPONIBLE" CssClass="form-control" placeholder="" Width="320px" MaxLength="100" type="number" Text="0" Visible="false"></asp:TextBox>
+                    
                 </div>
-            </div>
+            </div>--%>
             <div class="form-group">
                 <label class="control-label col-xs-3" style="color: white">SECTORISTA:</label>
                 <div class="col-xs-8 col-md-7">
-                    <asp:TextBox runat="server" ID="txtSECTOR" CssClass="form-control" placeholder="SECTORISTA" MaxLength="100"></asp:TextBox>
+                    <asp:TextBox runat="server" ID="txtSECTOR" CssClass="form-control" placeholder="SECTORISTA" Width="320px" MaxLength="100"></asp:TextBox>
                     <%--VALIDADOR--%>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server"
                         ControlToValidate="txtSECTOR"
@@ -136,7 +130,7 @@
             <div class="form-group">
                 <label class="control-label col-xs-3" style="color: white">OFICINA:</label>
                 <div class="col-xs-8 col-md-7">
-                    <asp:TextBox runat="server" ID="txtOFICINA" CssClass="form-control" placeholder="DIRECCION DE OFICINA" MaxLength="100"></asp:TextBox>
+                    <asp:TextBox runat="server" ID="txtOFICINA" CssClass="form-control" placeholder="DIRECCION DE OFICINA" Width="320px" MaxLength="100"></asp:TextBox>
                     <%--VALIDADOR--%>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server"
                         ControlToValidate="txtOFICINA"
@@ -150,7 +144,7 @@
             <div class="form-group">
                 <label class="control-label col-xs-3" style="color: white">TELEFONO:</label>
                 <div class="col-xs-8 col-md-7">
-                    <asp:TextBox runat="server" ID="txtTELEFONO" CssClass="form-control" placeholder="5555555" MaxLength="45"></asp:TextBox>
+                    <asp:TextBox runat="server" ID="txtTELEFONO" CssClass="form-control" placeholder="5555555" Width="320px" MaxLength="45"></asp:TextBox>
                     <%--VALIDADOR--%>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server"
                         ControlToValidate="txtTELEFONO"
@@ -164,7 +158,7 @@
             <div class="form-group">
                 <label class="control-label col-xs-3" style="color: white">E-MAIL:</label>
                 <div class="col-xs-8 col-md-7">
-                    <asp:TextBox runat="server" ID="txtEMAIL" CssClass="form-control" placeholder="ejemplo@gmail.com" MaxLength="100"></asp:TextBox>
+                    <asp:TextBox runat="server" ID="txtEMAIL" CssClass="form-control" placeholder="ejemplo@gmail.com" Width="320px" MaxLength="100"></asp:TextBox>
                     <%--VALIDADOR--%>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server"
                         ControlToValidate="txtEMAIL"
@@ -275,10 +269,10 @@
                    <asp:BoundField DataField="ID_CUENTASBANCARIAS" HeaderText="CODIGO" />
                    <asp:BoundField DataField="N_CUENTA" HeaderText="NUMERO DE CUENTA" ><ItemStyle Width="150px"  /> </asp:BoundField>
                    <asp:BoundField DataField="NOMBRE" HeaderText="BANCO" />
-                   <asp:BoundField DataField="N_CCI" HeaderText="CCI" />
+                   <asp:BoundField DataField="N_CCI" HeaderText="CCI"><ItemStyle Width="150px"  /> </asp:BoundField>
                    <asp:BoundField DataField="MONEDA" HeaderText="MONEDA" />
-                   <asp:BoundField DataField="SALDO_CONTABLE" HeaderText="SALDO CONTABLE" />
-                   <asp:BoundField DataField="SALDO_DISPONIBLE" HeaderText="SALDO DISPONIBLE" />
+                   <asp:BoundField DataField="SALDO_CONTABLE" HeaderText="SALDO CONTABLE" DataFormatString="{0:N}" ><ItemStyle HorizontalAlign="Right"/></asp:BoundField>
+                   <asp:BoundField DataField="SALDO_DISPONIBLE" HeaderText="SALDO DISPONIBLE" ><ItemStyle HorizontalAlign="Right"/></asp:BoundField>
                    <asp:BoundField DataField="SECTORISTA" HeaderText="SECTORISTA" />
                    <asp:BoundField DataField="OFICINA" HeaderText="OFICINA" />
                    <asp:BoundField DataField="TELEFONO" HeaderText="TELEFONO" />

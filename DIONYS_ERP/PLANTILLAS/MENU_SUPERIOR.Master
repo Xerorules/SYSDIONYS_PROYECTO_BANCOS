@@ -127,7 +127,7 @@
         </asp:ContentPlaceHolder>
     </div>
                 
-<div style="visibility:hidden">
+<div>
     <table id="BARRA_ESTADO">
         <tr>
             <td>

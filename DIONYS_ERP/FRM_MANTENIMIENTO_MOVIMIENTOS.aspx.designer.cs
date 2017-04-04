@@ -49,6 +49,15 @@ namespace DIONYS_ERP.PLANTILLAS {
         protected global::System.Web.UI.WebControls.Button btnTraeDatos;
         
         /// <summary>
+        /// Control LBLBANCO.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LBLBANCO;
+        
+        /// <summary>
         /// Control LBLNCUENTA.
         /// </summary>
         /// <remarks>
@@ -67,13 +76,13 @@ namespace DIONYS_ERP.PLANTILLAS {
         protected global::System.Web.UI.WebControls.Label LBLMONEDA;
         
         /// <summary>
-        /// Control LBLBANCO.
+        /// Control LBLSALDOD.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LBLBANCO;
+        protected global::System.Web.UI.WebControls.Label LBLSALDOD;
         
         /// <summary>
         /// Control LBLSALDOC.
@@ -83,15 +92,6 @@ namespace DIONYS_ERP.PLANTILLAS {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LBLSALDOC;
-        
-        /// <summary>
-        /// Control LBLSALDOD.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LBLSALDOD;
         
         /// <summary>
         /// Control txtFECHA.

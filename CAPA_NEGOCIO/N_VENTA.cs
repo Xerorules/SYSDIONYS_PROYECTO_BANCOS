@@ -412,9 +412,9 @@ namespace CAPA_NEGOCIO
             return OBJTIPO_BIEN.DLLENARGRILLABANCOS();
         }
 
-        public DataTable NLLENARGRILLACHEQUES(string id_empresa)
+        public DataTable NLLENARGRILLACHEQUES(E_CHEQUES CH)
         {
-            return OBJTIPO_BIEN.DLLENARGRILLACHEQUES(id_empresa);
+            return OBJTIPO_BIEN.DLLENARGRILLACHEQUES(CH);
         }
 
         public DataTable NLLENARGRILLACONCEPTO()
@@ -430,6 +430,11 @@ namespace CAPA_NEGOCIO
         public DataTable NLLENARGRILLAMOVIMIENTOS(string cod,string id_empresa,string id_cta)
         {
             return OBJTIPO_BIEN.DLLENARGRILLAMOVIMIENTOS(cod, id_empresa, id_cta);
+        }
+
+        public DataTable NLLENARDESCRIPCIONCLIENTE(string cod)
+        {
+            return OBJTIPO_BIEN.DLLENARDESCRIPCIONCLIENTE(cod);
         }
 
         public DataTable NLLENARDATOSACTUALIZAR(string id_cheque)
@@ -467,6 +472,16 @@ namespace CAPA_NEGOCIO
             return OBJTIPO_BIEN.DREGISTRARCHEQUES(CHQ);
         }
 
+        public string NELIMINARCHEQUE(E_CHEQUES CHQ)
+        {
+            return OBJTIPO_BIEN.DELIMINARCHEQUES(CHQ);
+        }
+
+        public string NACTUALIZARESTADOCHEQUE(string id_cheque)
+        {
+            return OBJTIPO_BIEN.DACTUALIZARESTADOCHEQUES(id_cheque);
+        }
+
         public string NACTUALIZARCHEQUE(E_CHEQUES CHQ,string id_cheque)
         {
             return OBJTIPO_BIEN.DACTUALIZARCHEQUES(CHQ,id_cheque);
@@ -477,9 +492,9 @@ namespace CAPA_NEGOCIO
             return OBJTIPO_BIEN.DREGISTRARMOV(MVO,cond,emp);
         }
 
-        public string NREGISTRARMOV_CHEQUE(E_MOVIMIENTOS MVO, string cond, string emp,string id_cheque)
+        public string NREGISTRARMOV_CHEQUE(E_MOVIMIENTOS MVO, string cond, string emp,string id_cheque,string FECHA2)
         {
-            return OBJTIPO_BIEN.DREGISTRARMOV_CHEQUE(MVO, cond, emp, id_cheque);
+            return OBJTIPO_BIEN.DREGISTRARMOV_CHEQUE(MVO, cond, emp, id_cheque, FECHA2);
         }
 
         public string NACTUALIZARMOV(E_MOVIMIENTOS MVO, string cond, string emp)
@@ -537,9 +552,14 @@ namespace CAPA_NEGOCIO
             return OBJTIPO_BIEN.CONSULTA_LISTA_BANCOS();
         }
 
-        public DataTable CONSULTA_LISTA_CUENTAS(string id_bancos,string id_empresa)
+        public DataTable CONSULTA_LISTA_ESTADOS()
         {
-            return OBJTIPO_BIEN.CONSULTA_LISTA_CUENTAS(id_bancos, id_empresa);
+            return OBJTIPO_BIEN.CONSULTA_LISTA_ESTADOS();
+        }
+
+        public DataTable CONSULTA_LISTA_CUENTAS(string id_bancos,string id_empresa,string moneda)
+        {
+            return OBJTIPO_BIEN.CONSULTA_LISTA_CUENTAS(id_bancos, id_empresa, moneda);
         }
 
         public DataTable CONSULTA_LISTA_CONCEPTOS()

@@ -12,11 +12,13 @@ using System.IO;
 using OfficeOpenXml;
 using System.Globalization;
 using Newtonsoft.Json;
+using System.Windows.Forms;
 
 namespace DIONYS_ERP.PLANTILLAS
 {
     public partial class Formulario_web3 : System.Web.UI.Page
     {
+        List<String> lista = new List<string>();
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -55,8 +57,25 @@ namespace DIONYS_ERP.PLANTILLAS
 
         void llenar_datos(string cod, string id_empresa,string id_cta)
         {
+            System.Data.DataTable ds = OBJVENTA.NLLENARGRILLAMOVIMIENTOS(cod, id_empresa, id_cta);
             dgvMOVIMIENTOS.DataSource = OBJVENTA.NLLENARGRILLAMOVIMIENTOS(cod, id_empresa, id_cta);
             dgvMOVIMIENTOS.DataBind();
+            
+            DataTable dt = OBJVENTA.NLLENARDESCRIPCIONCLIENTE("");
+            for (int i = 0; i < dgvMOVIMIENTOS.Rows.Count; i++)
+            {
+                dgvMOVIMIENTOS.Rows[i].Cells[1].Text = Convert.ToDateTime(dgvMOVIMIENTOS.Rows[i].Cells[1].Text).ToShortDateString();
+                string caseEstado = ds.Rows[i]["NOM_CLI"].ToString();
+
+                for (int e = 0; e < dt.Rows.Count; e++) {
+                    if (caseEstado == dt.Rows[e]["ID_CLIENTE"].ToString())
+                    {
+                        dgvMOVIMIENTOS.Rows[i].Cells[10].Text = dt.Rows[e]["DESCRIPCION"].ToString();
+                        
+                    }
+                }
+                
+            }
 
         }
 
@@ -261,17 +280,15 @@ namespace DIONYS_ERP.PLANTILLAS
             if (TXTprueba.Text != string.Empty && TXTprueba.Text.Length == 4)
             {
                 Session["ID_CUENTA_MOV"] = TXTprueba.Text;
-                //string fechini = Convert.ToDateTime(txtFechaIni.Text).ToString("dd-MM-yyyy");
-                //string fechfin = Convert.ToDateTime(txtFechaFin.Text).ToString("dd-MM-yyyy");
-                //filtrar_grilla(Session["ID_EMPRESA"].ToString(), Session["ID_CUENTA_MOV"].ToString(), fechini, fechfin, txtConsultaOpe.Text, cboFiltroConc.SelectedValue.ToString(), txtConsultaCli.Text);
-
+               
                 llenar_datos("1", Session["ID_EMPRESA"].ToString(), Session["ID_CUENTA_MOV"].ToString());
                 DataTable dt = OBJVENTA.NLLENAR_CABECERA_MOVIMIENTOS(TXTprueba.Text);
+
                 string mone = dt.Rows[0][0].ToString();
                 if (mone == "S") { LBLMONEDA.Text = "SOLES"; } else if (mone == "D") { LBLMONEDA.Text = "DOLARES"; }
                 LBLBANCO.Text = dt.Rows[0][1].ToString();
-                LBLSALDOC.Text = dt.Rows[0][2].ToString();
-                LBLSALDOD.Text = dt.Rows[0][3].ToString();
+                LBLSALDOC.Text =  dt.Rows[0][2].ToString();
+                LBLSALDOD.Text =  dt.Rows[0][3].ToString();
                 LBLNCUENTA.Text = dt.Rows[0][4].ToString();
                 btnNuevo.Enabled = true;
                 FileUpload1.Enabled = true;
@@ -296,7 +313,7 @@ namespace DIONYS_ERP.PLANTILLAS
                     /*----------------------------------------------------------------------------------------------------------------------------*/
                     ExcelPackage package = new ExcelPackage(FileUpload1.FileContent);
                     DataTable dtexcel = package.ToDataTable();
-                    List<String> lista = new List<string>();
+                   
                     //ACA SE HACEN LAS OPERACIONES PARA EDITAR LA TABLA
                     for (int i = 0; i < dtexcel.Rows.Count; i++)
                     {//por la cantidad de filas de la tabla
@@ -313,7 +330,7 @@ namespace DIONYS_ERP.PLANTILLAS
                             {
                                 string fechaex = Convert.ToDateTime(DT.Rows[n][2].ToString()).ToShortDateString();
                                 string opeex = DT.Rows[n][0].ToString();
-                                string impoex = DT.Rows[n][1].ToString();
+                                string impoex = Convert.ToDecimal(DT.Rows[n][1].ToString()).ToString("N2");
                                 string concepex = DT.Rows[n][3].ToString();
 
                                 if (n_ope1 == opeex && imp2 == impoex && fecha3 == fechaex && concpto == concepex)
@@ -360,8 +377,8 @@ namespace DIONYS_ERP.PLANTILLAS
                                     string res = OBJVENTA.NREGISTRARMOV(OBJMOVS, "2", empre);
                                     if (res == "ok")
                                     {
-                                       
-                                    llenar_datos("1", empre, Session["ID_CUENTA_MOV"].ToString());
+                                     
+                                        llenar_datos("1", empre, Session["ID_CUENTA_MOV"].ToString());
                                         LIMPIAR();
                                         txtFECHA.Text = DateTime.Now.ToLocalTime().ToString("dd-MM-yyyy HH:mm");
                                         DataTable dt = OBJVENTA.NLLENAR_CABECERA_MOVIMIENTOS(TXTprueba.Text);
@@ -370,7 +387,9 @@ namespace DIONYS_ERP.PLANTILLAS
                                         LBLBANCO.Text = dt.Rows[0][1].ToString();
                                         LBLSALDOC.Text = dt.Rows[0][2].ToString();
                                         LBLSALDOD.Text = dt.Rows[0][3].ToString();
-                                    }
+                                    
+
+                                }
                                     else
                                     {
                                         Response.Write("<script>alert('Error datos no Modificados')</script>");
@@ -379,14 +398,33 @@ namespace DIONYS_ERP.PLANTILLAS
                             }
                             else
                             {
-                            if (i == dtexcel.Rows.Count-1)
-                            { /*Response.Write("<script>alert('Datos Modificados correctamente..')</script>");*/
-                                var json = JsonConvert.SerializeObject(lista);
-                                Response.Write("<script>alert('LOS SIGUIENTES NUMEROS DE OPERACION SON REPETIDOS Y NO SE INCLUYERON EN EL PROCESO DE REGISTRO: " + json + "')</script>");
-                            }
+                            
+                             
+                               
+                            
                         }
 
                         
+                    }
+                    if (lista.Count > 0)
+                    {
+                        
+                        registrar_evento();
+                        
+                        if (System.Windows.Forms.MessageBox.Show("EXISTEN REGISTROS REPETIDOS EN LA CARGA, ¿DESEA VER LOS REGISTROS REPETIDOS?: ",
+                        "RESUMEN DE ERRORES",
+                        System.Windows.Forms.MessageBoxButtons.YesNo,
+                        System.Windows.Forms.MessageBoxIcon.Information)
+
+                            == DialogResult.Yes)
+                        {
+                            System.Diagnostics.Process.Start(@"C:\temp\LOG_REPETIDOS.txt");
+                        }
+
+                    }
+                    else
+                    {
+                        Response.Write("<script>alert('CARGA REALIZADA CON ÉXITO.. !')</script>");// VERFICAR SI SE REPITE
                     }
 
 
@@ -405,6 +443,28 @@ namespace DIONYS_ERP.PLANTILLAS
             dgvMOVIMIENTOS.DataBind();
         }
 
+        /*------------------------------------------------------------------*/
+        void registrar_evento()
+        {
+
+            /*-------------------------PRUEBA DE MONITOREO DE RED(LOGS)----------------------*/
+            string path = @"c:\temp\LOG_REPETIDOS.txt";
+            string fechad = DateTime.Now.ToShortDateString();
+            // This text is always added, making the file longer over time
+            // if it is not deleted.
+            try
+            {
+                StreamWriter sw = File.AppendText(path);
+                string hora = DateTime.Now.ToLongTimeString();
+                var json = JsonConvert.SerializeObject(lista);
+                sw.WriteLine(" NUMEROS DE OPERACION REPETIDOS :  "  + json);
+                sw.Dispose();
+
+            }
+            catch { }
+        }
+        /*------------------------------------------------------------------*/
+
 
 
         protected void btnCancelar_Click(object sender, EventArgs e)
@@ -412,9 +472,11 @@ namespace DIONYS_ERP.PLANTILLAS
             
             deshabilitar();
             LIMPIAR();
+            txtFECHA.Text = DateTime.Now.ToString("yyyy-MM-dd");
             btnRegistrar.Enabled = false;
             btnNuevo.Enabled = true;
             btnActualizar.Enabled = false;
+            
         }
 
         protected void btnConsulta_Click(object sender, EventArgs e)
@@ -522,7 +584,7 @@ namespace DIONYS_ERP.PLANTILLAS
 
                 llenar_datos("1", empre, Session["ID_CUENTA_MOV"].ToString());
                 LIMPIAR();
-                txtFECHA.Text = DateTime.Now.ToLocalTime().ToString("dd-MM-yyyy HH:mm");
+                
                 /*---------------------------------------------------------------------------*/
                 DataTable dt = OBJVENTA.NLLENAR_CABECERA_MOVIMIENTOS(TXTprueba.Text);
                 string mone = dt.Rows[0][0].ToString();
@@ -535,6 +597,7 @@ namespace DIONYS_ERP.PLANTILLAS
                 btnCancelar.Enabled = false;
                 btnNuevo.Enabled = true;
                 btnRegistrar.Enabled = false;
+                txtFECHA.Text = DateTime.Now.ToString("yyyy-MM-dd");
                 TXTid_cliente.Text = string.Empty;
                 /*---------------------------------------------------------------------------*/
             }
