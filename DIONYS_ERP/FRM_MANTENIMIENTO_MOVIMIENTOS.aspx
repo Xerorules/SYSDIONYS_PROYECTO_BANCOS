@@ -239,15 +239,16 @@
 
     </div>
     <div class="col-xs-4 col-md-12" style=" text-align: center; margin-left:-60px;  margin-top:4px; ">
-        <div class="col-xs-4 col-md-2 right" style=" float: right; ">
+        <div class="col-xs-4 col-md-3 " style=" margin-left:1000px; ">
+             <label style="color: white; top: 0px;">SALDO CONTABLE:</label>&nbsp
+            <asp:Label ID="LBLSALDOC" runat="server" Text="--" ForeColor="White" CssClass="form-control" Font-Bold="true" Font-Size="Large" DataFormatString="{0:N}" BackColor="Gold" Height="35px"></asp:Label>
+        </div>
+        <div class="col-xs-4 col-md-3 " style="margin-left:-80px; ">
             <label style="color: white; top: 0px; ">SALDO DISPONIBLE:</label>&nbsp
-            <asp:Label ID="LBLSALDOD" runat="server" Text="--" ForeColor="White" CssClass="form-control"   Font-Bold="true" Font-Size="Large" BackColor="CornflowerBlue" Height="35px"></asp:Label>
+            <asp:Label ID="LBLSALDOD" runat="server" Text="--" ForeColor="White" CssClass="form-control"   Font-Bold="true" Font-Size="Large" DataFormatString="{0:N}" BackColor="CornflowerBlue" Height="35px"></asp:Label>
         </div>
         
-        <div class="col-xs-4 col-md-2 right" style=" float: right; ">
-             <label style="color: white; top: 0px;">SALDO CONTABLE:</label>&nbsp
-            <asp:Label ID="LBLSALDOC" runat="server" Text="--" ForeColor="White" CssClass="form-control" Font-Bold="true" Font-Size="Large" BackColor="Gold" Height="35px"></asp:Label>
-        </div>
+        
            
         
             

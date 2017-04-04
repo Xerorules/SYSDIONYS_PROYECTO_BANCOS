@@ -195,8 +195,8 @@ namespace DIONYS_ERP.PLANTILLAS
                 {
                     impo = Convert.ToDecimal(txtIMPORTE.Text);
                 }
-                decimal saldoc = Convert.ToDecimal(LBLSALDOC.Text);
-                decimal saldod = Convert.ToDecimal(LBLSALDOD.Text);
+                decimal saldoc = Convert.ToDecimal((LBLSALDOC.Text.Substring(3)));
+                decimal saldod = Convert.ToDecimal((LBLSALDOD.Text.Substring(3)));
                 saldod = saldod + impo;
                 saldoc = saldoc + impo;
                
@@ -222,10 +222,20 @@ namespace DIONYS_ERP.PLANTILLAS
                     /*---------------------------------------------------------------------------*/
                     DataTable dt = OBJVENTA.NLLENAR_CABECERA_MOVIMIENTOS(TXTprueba.Text);
                     string mone = dt.Rows[0][0].ToString();
-                    if (mone == "S") { LBLMONEDA.Text = "SOLES"; } else if (mone == "D") { LBLMONEDA.Text = "DOLARES"; }
+                   
                     LBLBANCO.Text = dt.Rows[0][1].ToString();
-                    LBLSALDOC.Text = dt.Rows[0][2].ToString();
-                    LBLSALDOD.Text = dt.Rows[0][3].ToString();
+                    if (mone == "S")
+                    {
+                        LBLMONEDA.Text = "SOLES";
+                        LBLSALDOC.Text = "S/." + Convert.ToDecimal(dt.Rows[0][2].ToString()).ToString("#,###0.00");
+                        LBLSALDOD.Text = "S/." + Convert.ToDecimal(dt.Rows[0][3].ToString()).ToString("#,###0.00");
+                    }
+                    else if (mone == "D")
+                    {
+                        LBLMONEDA.Text = "DOLARES";
+                        LBLSALDOC.Text = "$  " + Convert.ToDecimal(dt.Rows[0][2].ToString()).ToString("#,###0.00");
+                        LBLSALDOD.Text = "$  " + Convert.ToDecimal(dt.Rows[0][3].ToString()).ToString("#,###0.00");
+                    }
                     /*---------------------------------------------------------------------------*/
                 }
                 else
@@ -285,10 +295,19 @@ namespace DIONYS_ERP.PLANTILLAS
                 DataTable dt = OBJVENTA.NLLENAR_CABECERA_MOVIMIENTOS(TXTprueba.Text);
 
                 string mone = dt.Rows[0][0].ToString();
-                if (mone == "S") { LBLMONEDA.Text = "SOLES"; } else if (mone == "D") { LBLMONEDA.Text = "DOLARES"; }
+                if (mone == "S")
+                {
+                    LBLMONEDA.Text = "SOLES";
+                    LBLSALDOC.Text = "S/." + Convert.ToDecimal(dt.Rows[0][2].ToString()).ToString("#,###0.00");
+                    LBLSALDOD.Text = "S/." + Convert.ToDecimal(dt.Rows[0][3].ToString()).ToString("#,###0.00");
+                }
+                else if (mone == "D")
+                {
+                    LBLMONEDA.Text = "DOLARES";
+                    LBLSALDOC.Text = "$  " + Convert.ToDecimal(dt.Rows[0][2].ToString()).ToString("#,###0.00");
+                    LBLSALDOD.Text = "$  " + Convert.ToDecimal(dt.Rows[0][3].ToString()).ToString("#,###0.00");
+                }
                 LBLBANCO.Text = dt.Rows[0][1].ToString();
-                LBLSALDOC.Text =  dt.Rows[0][2].ToString();
-                LBLSALDOD.Text =  dt.Rows[0][3].ToString();
                 LBLNCUENTA.Text = dt.Rows[0][4].ToString();
                 btnNuevo.Enabled = true;
                 FileUpload1.Enabled = true;
@@ -363,8 +382,8 @@ namespace DIONYS_ERP.PLANTILLAS
                                     /*--------------- //SUMAR O RESTAR EL IMPORTE DEL MOV AL SALDO--------------------*/
                                     
                                     decimal impo = Convert.ToDecimal(dtexcel.Rows[i][6].ToString());
-                                    decimal saldoc = Convert.ToDecimal(LBLSALDOC.Text);
-                                    decimal saldod = Convert.ToDecimal(LBLSALDOD.Text);
+                                    decimal saldoc = Convert.ToDecimal(LBLSALDOC.Text.Substring(3));
+                                    decimal saldod = Convert.ToDecimal(LBLSALDOD.Text.Substring(3));
                                     saldod = saldod + impo;
                                     saldoc = saldoc + impo;
                                     OBJMOVS.saldod = Convert.ToDecimal(saldod);
@@ -383,11 +402,21 @@ namespace DIONYS_ERP.PLANTILLAS
                                         txtFECHA.Text = DateTime.Now.ToLocalTime().ToString("dd-MM-yyyy HH:mm");
                                         DataTable dt = OBJVENTA.NLLENAR_CABECERA_MOVIMIENTOS(TXTprueba.Text);
                                         string mone = dt.Rows[0][0].ToString();
-                                        if (mone == "S") { LBLMONEDA.Text = "SOLES"; } else if (mone == "D") { LBLMONEDA.Text = "DOLARES"; }
+                                        
                                         LBLBANCO.Text = dt.Rows[0][1].ToString();
-                                        LBLSALDOC.Text = dt.Rows[0][2].ToString();
-                                        LBLSALDOD.Text = dt.Rows[0][3].ToString();
-                                    
+                                    if (mone == "S")
+                                    {
+                                        LBLMONEDA.Text = "SOLES";
+                                        LBLSALDOC.Text = "S/." + Convert.ToDecimal(dt.Rows[0][2].ToString()).ToString("#,###0.00");
+                                        LBLSALDOD.Text = "S/." + Convert.ToDecimal(dt.Rows[0][3].ToString()).ToString("#,###0.00");
+                                    }
+                                    else if (mone == "D")
+                                    {
+                                        LBLMONEDA.Text = "DOLARES";
+                                        LBLSALDOC.Text = "$  " + Convert.ToDecimal(dt.Rows[0][2].ToString()).ToString("#,###0.00");
+                                        LBLSALDOD.Text = "$  " + Convert.ToDecimal(dt.Rows[0][3].ToString()).ToString("#,###0.00");
+                                    }
+
 
                                 }
                                     else
