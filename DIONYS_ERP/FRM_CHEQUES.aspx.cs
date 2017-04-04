@@ -22,9 +22,9 @@ namespace DIONYS_ERP.PLANTILLAS
                 rdbMONEDA.SelectedValue = "S";
 
                 txtFiltroFechaIni.Text = DateTime.Now.Date.AddMonths(-2).Date.ToString("yyyy-MM-dd");
-                txtFiltroFechaFin.Text = DateTime.Now.ToString("yyyy-MM-dd");
+                txtFiltroFechaFin.Text = DateTime.Now.Date.AddDays(7).Date.ToString("yyyy-MM-dd");
 
-                txtIMPORTE.Attributes["onBlur"] = "IsAccNumberValid(" + txtIMPORTE.ClientID + ")";
+               
                 llenar_combo_filtro_bancos();
                 llenar_combo_bancos();
                 llenar_combo_bancos2();
@@ -205,6 +205,8 @@ namespace DIONYS_ERP.PLANTILLAS
 
                     llenar_datos();
                     LIMPIAR2();
+                    txtFGIRO.Text = DateTime.Now.ToString("yyyy-MM-dd");
+                    txtFCOBRO.Text = DateTime.Now.ToString("yyyy-MM-dd");
 
                 }
                 else
@@ -239,6 +241,8 @@ namespace DIONYS_ERP.PLANTILLAS
                 btnRegistrar.Enabled = true;
                 llenar_datos();
                 LIMPIAR2();
+                txtFGIRO.Text = DateTime.Now.ToString("yyyy-MM-dd");
+                txtFCOBRO.Text = DateTime.Now.ToString("yyyy-MM-dd");
 
             }
             else
@@ -252,6 +256,8 @@ namespace DIONYS_ERP.PLANTILLAS
         {
             LIMPIAR2();
             btnRegistrar.Enabled = true;
+            txtFGIRO.Text = DateTime.Now.ToString("yyyy-MM-dd");
+            txtFCOBRO.Text = DateTime.Now.ToString("yyyy-MM-dd");
 
         }
 
@@ -501,8 +507,7 @@ namespace DIONYS_ERP.PLANTILLAS
 
         protected void txtIMPORTE_TextChanged(object sender, EventArgs e)
         {
-            decimal deci = Convert.ToDecimal(txtIMPORTE.Text);
-            txtIMPORTE.Text = String.Format("{0:0,0.00}", deci);
+            //
         }
 
         protected void Button4_Click(object sender, EventArgs e)

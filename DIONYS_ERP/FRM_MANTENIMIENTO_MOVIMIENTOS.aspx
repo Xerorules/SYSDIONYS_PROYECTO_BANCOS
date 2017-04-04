@@ -10,19 +10,32 @@
  
 
     <script type="text/javascript">
-        function Comma(Num) {
-            Num += '';
-            Num = Num.replace(',', ''); Num = Num.replace(',', ''); Num = Num.replace(',', '');
-            Num = Num.replace(',', ''); Num = Num.replace(',', ''); Num = Num.replace(',', '');
-            x = Num.split('.');
+        function addCommas(clientID) {
+            
+            var nStr = document.getElementById(clientID.id).value;
+
+            nStr += '';
+            x = nStr.split('.');
+            if (!x[0]) {
+                x[0] = "0";
+
+            }
             x1 = x[0];
+            if (!x[1]) {
+                x[1] = "00";
+            }
             x2 = x.length > 1 ? '.' + x[1] : '';
             var rgx = /(\d+)(\d{3})/;
-            while (rgx.test(x1))
+            while (rgx.test(x1)) {
                 x1 = x1.replace(rgx, '$1' + ',' + '$2');
-            return x1 + x2;
+            }
+
+            document.getElementById(clientID.id).value = x1 + x2;
+            return true;
+           
         }
     </script>
+
     <script type="text/javascript">
         function openModal() {
             $('#myModalCUENTA').modal('show');
@@ -331,7 +344,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-xs-3" style="color: white">IMPORTE:</label>
                                     <div class="col-xs-8 col-md-8">
-                                        <asp:TextBox runat="server" ID="txtIMPORTE" CssClass="form-control" placeholder="00.00" MaxLength="100" type="numeric"  Width="336px"  onkeyup = "javascript:this.value=Comma(this.value);" ></asp:TextBox>
+                                        <asp:TextBox runat="server" ID="txtIMPORTE" CssClass="form-control" placeholder="00.00" MaxLength="100" type="numeric"  Width="336px"  OnBlur="addCommas(this)"  ></asp:TextBox>
                                     </div>
 
                                 </div>

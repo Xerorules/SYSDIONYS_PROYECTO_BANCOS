@@ -9,6 +9,34 @@
     <script src="assets/js/jquery-1.10.2.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>
     <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.3/animate.min.css' />
+    
+    <script type="text/javascript">
+        function addCommas(clientID) {
+            
+            var nStr = document.getElementById(clientID.id).value;
+
+            nStr += '';
+            x = nStr.split('.');
+            if (!x[0]) {
+                x[0] = "0";
+
+            }
+            x1 = x[0];
+            if (!x[1]) {
+                x[1] = "00";
+            }
+            x2 = x.length > 1 ? '.' + x[1] : '';
+            var rgx = /(\d+)(\d{3})/;
+            while (rgx.test(x1)) {
+                x1 = x1.replace(rgx, '$1' + ',' + '$2');
+            }
+
+            document.getElementById(clientID.id).value = x1 + x2;
+            return true;
+           
+        }
+    </script>
+
     <script type="text/javascript">
 
 
@@ -24,24 +52,10 @@
             $('#myModal2').modal('show');
         }
 
-        function Comma(Num) {
-            Num += '';
-            Num = Num.replace(',', ''); Num = Num.replace(',', ''); Num = Num.replace(',', '');
-            Num = Num.replace(',', ''); Num = Num.replace(',', ''); Num = Num.replace(',', '');
-            x = Num.split('.');
-            x1 = x[0];
-            x2 = x.length > 1 ? '.' + x[1] : '';
-            var rgx = /(\d+)(\d{3})/;
-            while (rgx.test(x1))
-                x1 = x1.replace(rgx, '$1' + ',' + '$2');
-            return x1 + x2;
-        }
-     
-      
-
-
-
+        
     </script>
+
+    
 
     <style type="text/css">
         .Background {
@@ -262,7 +276,7 @@
                     <asp:Label ID="Label3" runat="server" CssClass="lbl" Text="IMPORTE:"></asp:Label>
                 </td>
                 <td>
-                    <asp:TextBox ID="txtmIMPORTE" runat="server" Font-Size="14px" CssClass="form-control" Width="250px"  onkeyup = "javascript:this.value=Comma(this.value);" ></asp:TextBox>
+                    <asp:TextBox ID="txtmIMPORTE" runat="server" Font-Size="14px" CssClass="form-control" Width="250px"   ></asp:TextBox>
                 </td>
             </tr>
 
@@ -402,8 +416,8 @@
             <div class="form-group">
                 <label class="control-label col-md-4" style="color: white">IMPORTE:</label>
                 <div class="col-xs-8 col-md-6">
-                    <asp:TextBox runat="server" ID="txtIMPORTE" CssClass="form-control" placeholder="Ingrese importe" MaxLength="100" Width="300px" onkeyup = "javascript:this.value=Comma(this.value);" ></asp:TextBox>
-                    <%--VALIDADOR--%>
+                    <asp:TextBox runat="server" ID="txtIMPORTE" CssClass="form-control" placeholder="Ingrese importe" type="numeric" MaxLength="100" Width="300px" OnBlur="addCommas(this)"  ></asp:TextBox>
+                    <%--<%--<%--VALIDADOR--%>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server"
                         ControlToValidate="txtIMPORTE"
                         ErrorMessage="(*)El importe es requerido"

@@ -1808,14 +1808,19 @@ namespace CAPA_DATOS
 
         public DataTable DVALIDAROPERACION(string id_cta)
         {
-            if (con.State == ConnectionState.Closed) { con.Open(); }
-            SqlCommand cmd = new SqlCommand("SP_VALIDAR_OPERACION", con);
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@ID_CTA", id_cta);
-            SqlDataAdapter da = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
-            da.Fill(dt);
-            con.Close();
+            try
+            {
+                if (con.State == ConnectionState.Closed) { con.Open(); }
+                SqlCommand cmd = new SqlCommand("SP_VALIDAR_OPERACION", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@ID_CTA", id_cta);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+
+                da.Fill(dt);
+                con.Close();
+            }
+            catch { }
             return dt;
         }
 
