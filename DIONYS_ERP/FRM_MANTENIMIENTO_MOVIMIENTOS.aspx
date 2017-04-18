@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/PLANTILLAS/MENU_SUPERIOR.Master" AutoEventWireup="true" CodeBehind="FRM_MANTENIMIENTO_MOVIMIENTOS.aspx.cs" Inherits="DIONYS_ERP.PLANTILLAS.Formulario_web3" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/PLANTILLAS/MENU_SUPERIOR.Master" EnableEventValidation="true" AutoEventWireup="true" CodeBehind="FRM_MANTENIMIENTO_MOVIMIENTOS.aspx.cs" Inherits="DIONYS_ERP.PLANTILLAS.Formulario_web3" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server" >
     <link href="assets/css/ptoledo.css" rel="stylesheet" />
@@ -448,22 +448,26 @@
                         <asp:DropDownList runat="server" ID="cboFiltroConc" CssClass="form-control" AutoPostBack="true" Width="222px"></asp:DropDownList>
                                         
                     </div>
-                    <div class="col-xs-4 col-md-4" style="width: 15%; text-align: center; top: -15px;">
+                    <div class="col-xs-4 col-md-4" style="width: 14%; text-align: center; top: -15px;">
                         <label style="color: white;  text-align: left; margin-right:60px;">FILTRO FECHA INICIAL:</label>
-                        <asp:TextBox runat="server" ID="txtFechaIni" CssClass="form-control" Width="222px" Height="35px"  TextMode="Date" Font-Bold="true" placeholder="Ingrese Fecha inicial" MaxLength="70"></asp:TextBox>
+                        <asp:TextBox runat="server" ID="txtFechaIni" CssClass="form-control" Width="215px" Height="35px"  TextMode="Date" Font-Bold="true" placeholder="Ingrese Fecha inicial" MaxLength="70"></asp:TextBox>
                     </div>
-                    <div class="col-xs-4 col-md-4" style="width: 15%; text-align: center; top: -15px;">
+                    <div class="col-xs-4 col-md-4" style="width: 14%; text-align: center; top: -15px;">
                         <label style="color: white; text-align: left; margin-right:60px;">FILTRO FECHA FINAL:</label>
                         <asp:TextBox runat="server" ID="txtFechaFin" CssClass="form-control" Width="216px" Height="35px"  TextMode="Date" Font-Bold="true" placeholder="Ingrese Fecha final" MaxLength="70"></asp:TextBox>
                     </div>
-                    <div style="float: left; margin-top: 9px; width: 10%;">
-                        &nbsp;&nbsp;
-                                <asp:Button ID="btnConsulta" runat="server" Text="FILTRAR TABLA" CssClass="btn btn-info" Width="150px" OnClick="btnConsulta_Click"/>
+                    <div style="float: left; margin-top: 9px; width: 8%;">
+                        &nbsp;
+                                <asp:Button ID="btnConsulta" runat="server" Text="BUSCAR" CssClass="btn btn-info" Width="120px" Font-Bold="true" OnClick="btnConsulta_Click"/>
                                 
                       </div>
-                    <div style="float: left; margin-top: 9px; width: 10%;">
+                    <div style="float: left; margin-top: 9px; width: 8%; margin-left:-5px;">
                        
-                                <asp:Button ID="btnREPORTE" runat="server" Text="GENERAR REPORTE" CssClass="btn btn-info" Width="200px" OnClick="btnREPORTE_Click" />
+                                <asp:Button ID="btnREPORTE" runat="server" Text="VER REPORTE" CssClass="btn btn-info" Width="140px" Font-Bold="true" OnClick="btnREPORTE_Click" />
+                      </div>
+                    <div style="float: left; margin-top: 9px; width: 8%; margin-left:5px;">
+                       
+                                <asp:Button ID="btnSALDOS" runat="server" Text="ACTUALIZAR SALDOS" CssClass="btn btn-warning text-box"  Width="175px" Font-Bold="true" OnClick="btnSALDOS_Click" />
                       </div>
                     
                 </div>

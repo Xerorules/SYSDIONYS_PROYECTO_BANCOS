@@ -502,6 +502,11 @@ namespace CAPA_NEGOCIO
             return OBJTIPO_BIEN.DACTUALIZARMOV(MVO, cond, emp);
         }
 
+        public string NRECALCULARSALDOS(string codcta)
+        {
+            return OBJTIPO_BIEN.DRECALCULAR_SALDOS(codcta);
+        }
+
         public string NREGISTRARCUENTA(E_CUENTAS CTA)
         {
             return OBJTIPO_BIEN.DREGISTRARCUENTA(CTA);

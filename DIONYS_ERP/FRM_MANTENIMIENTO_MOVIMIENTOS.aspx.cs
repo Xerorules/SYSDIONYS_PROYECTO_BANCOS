@@ -180,7 +180,7 @@ namespace DIONYS_ERP.PLANTILLAS
             {
                 OBJMOVS.id_mov = "";
                 OBJMOVS.id_concepto_banc = cboCONCEPTO.SelectedValue;
-                OBJMOVS.fecha = Convert.ToDateTime(txtFECHA.Text).ToString("dd-MM-yyyy hh:mm:ss");
+                OBJMOVS.fecha = Convert.ToDateTime(txtFECHA.Text).ToString("dd-MM-yyyy");
                 OBJMOVS.lugar = txtLugar.Text;
                 OBJMOVS.tipo_mov = cboTIPOMOV.SelectedValue;
                 OBJMOVS.id_cuentasbancarias = TXTprueba.Text;
@@ -353,15 +353,15 @@ namespace DIONYS_ERP.PLANTILLAS
                                 string concepex = DT.Rows[n][3].ToString();
 
                                 if (n_ope1 == opeex && imp2 == impoex && fecha3 == fechaex && concpto == concepex)
-                                    {
-                                        validador += 1;
-                                        lista.Add(dtexcel.Rows[i][4].ToString());
-                                    
-                                    }
+                                {
+                                    validador += 1;
+                                    lista.Add(dtexcel.Rows[i][4].ToString());
+
                                 }
                             }
-                            catch { validador = 0;  }
-                            if (validador == 0)
+                        }
+                        catch { validador = 0; }
+                        if (validador == 0)
                             {
                                 if (dtexcel.Rows[i][4].ToString() != null && dtexcel.Rows[i][4].ToString() != string.Empty && dtexcel.Rows[i][4].ToString() != "")
                                 {
@@ -539,7 +539,7 @@ namespace DIONYS_ERP.PLANTILLAS
                 txtLugar.Text = row.Cells[9].Text.Replace("&nbsp;", "");
                 txtOPE.Text = row.Cells[4].Text.Replace("&nbsp;", ""); ;
                 txtIMPORTE.Text = row.Cells[5].Text;
-                txtDESC.Text = row.Cells[2].Text;
+                txtDESC.Text = row.Cells[2].Text.Replace("&nbsp;", "");
                 txtCLIENTE.Text = row.Cells[7].Text.Replace("&nbsp;", "");
                 habilitar();
                 btnRegistrar.Enabled = false;
@@ -584,15 +584,15 @@ namespace DIONYS_ERP.PLANTILLAS
         {
             OBJMOVS.id_mov = Session["CodigoSede"].ToString();
             OBJMOVS.id_concepto_banc = cboCONCEPTO.SelectedValue;
-            OBJMOVS.fecha = Convert.ToDateTime(txtFECHA.Text).ToString("dd-MM-yyyy HH:mm");
+            OBJMOVS.fecha = Convert.ToDateTime(txtFECHA.Text).ToString("dd-MM-yyyy");
             OBJMOVS.lugar = txtLugar.Text;
             OBJMOVS.tipo_mov = cboTIPOMOV.SelectedValue;
             OBJMOVS.id_cuentasbancarias = TXTprueba.Text;
             OBJMOVS.importe = Convert.ToDecimal(txtIMPORTE.Text);
             decimal nvoimporte = Convert.ToDecimal(txtIMPORTE.Text);
             decimal antimporte = Convert.ToDecimal(Session["IMPORTE_MOV"].ToString());
-            decimal saldod = Convert.ToDecimal(LBLSALDOC.Text);
-            decimal saldoc = Convert.ToDecimal(LBLSALDOD.Text);
+            decimal saldod = Convert.ToDecimal((LBLSALDOC.Text.Substring(3)));
+            decimal saldoc = Convert.ToDecimal((LBLSALDOD.Text.Substring(3)));
             saldod = saldod + nvoimporte - antimporte;
             saldoc = saldoc + nvoimporte - antimporte;
             OBJMOVS.saldoc = Convert.ToDecimal(saldoc);
@@ -645,7 +645,7 @@ namespace DIONYS_ERP.PLANTILLAS
             object[] args = new object[] { ID_CUENTA_MOV, FECHA_INI, FECHA_FIN };
             String url = String.Format("REPORTES/FROM_REPORTE_MOVIMIENTOS.aspx?ID_CUENTA_MOV={0}&FECHA_INI={1}&FECHA_FIN={2}", args);
             // Response.Redirect(url);
-            string s = "window.open('" + url + "', 'popup_window', 'width=700,height=400,left=10%,top=10%,resizable=yes');"; //con esto muestro la venta en una nueva ventana 
+            string s = "window.open('" + url + "', 'popup_window', 'width=700,height=900,left=10%,top=10%,resizable=yes');"; //con esto muestro la venta en una nueva ventana 
             ClientScript.RegisterStartupScript(this.GetType(), "script", s, true);
             
         }
@@ -654,6 +654,19 @@ namespace DIONYS_ERP.PLANTILLAS
         {
             decimal deci = Convert.ToDecimal(txtIMPORTE.Text);
             txtIMPORTE.Text = String.Format("{0:0,0.00}", deci);
+        }
+
+        protected void btnSALDOS_Click(object sender, EventArgs e)
+        {
+            string codcta = Session["ID_CUENTA_MOV"].ToString();
+            
+            string res = OBJVENTA.NRECALCULARSALDOS(codcta);
+
+            if (res == "ok")
+            {
+                Response.Write("<script>alert('Saldos Actualizados!!')</script>");
+                llenar_datos("1", Session["ID_EMPRESA"].ToString(), Session["ID_CUENTA_MOV"].ToString());
+            }
         }
     }
 }

@@ -2054,12 +2054,12 @@ namespace CAPA_DATOS
                 cmd.Parameters.AddWithValue("@OPERACION", MVO.operacion);
                 cmd.Parameters.AddWithValue("@DESCRIPCION", MVO.descripcion);
                 cmd.Parameters.AddWithValue("@IMPORTE", MVO.importe);
-                cmd.Parameters.AddWithValue("@SALDOC", MVO.saldoc);
-                cmd.Parameters.AddWithValue("@SALDOD", MVO.saldod);
+                cmd.Parameters.AddWithValue("@SALDOC", 0);
+                cmd.Parameters.AddWithValue("@SALDOD",0);
                 cmd.Parameters.AddWithValue("@ID_CLIENTE", MVO.id_cliente);
                 cmd.Parameters.AddWithValue("@ID_CUENTASBANCARIAS", MVO.id_cuentasbancarias);
-                cmd.Parameters.AddWithValue("@SALDO",MVO.saldo);
-                cmd.Parameters.AddWithValue("@CONDICION", cond);
+                cmd.Parameters.AddWithValue("@SALDO",0);
+                cmd.Parameters.AddWithValue("@CONDICION", 2);
                 int a = cmd.ExecuteNonQuery();
                 if (a > 0)
                 {
@@ -2154,6 +2154,30 @@ namespace CAPA_DATOS
             return res;
         }
 
+        public string DRECALCULAR_SALDOS(string codcta)
+        {
+            string res = "";
+            try
+            {
+                if (con.State == ConnectionState.Closed) { con.Open(); }
+                SqlCommand cmd = new SqlCommand("SP_RECALCULAR_SALDOS", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@ID_CUENTA", codcta);
+                int a = cmd.ExecuteNonQuery();
+                if (a > 0)
+                {
+                    res = "ok";
+                }
+            }
+            catch (Exception ex)
+            {
+
+                System.Console.Write(ex.Message);
+            }
+
+            if (con.State == ConnectionState.Open) { con.Close(); }
+            return res;
+        }
 
 
         public string DREGISTRARCUENTA(E_CUENTAS CTA)

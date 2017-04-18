@@ -28,9 +28,9 @@
             <li>
                 <a href="#">CAJA</a>
                 <ul>
-                    <li><a href="FRM_CERRAR_CAJA.aspx">ABRIR / CERRAR CAJA</a></li>
-                    <li><a href="FRM_MOVIMIENTO_CAJA.aspx">MOVIMIENTOS CAJA</a></li>
-                    <li><a href="FRM_LIBRO_CAJA.aspx">LIBRO CAJA</a></li>
+                    <li><a href="#">ABRIR / CERRAR CAJA</a></li>
+                    <li><a href="#">MOVIMIENTOS CAJA</a></li>
+                    <li><a href="#">LIBRO CAJA</a></li>
                 </ul>
             </li>
             <li>
@@ -40,7 +40,7 @@
             <a href="#">MANTENIMIENTO</a>
               <ul>
 	      
-	              <li><a href="FRM_MANTENIMIENTO_CLIENTE.aspx">CLIENTE</a></li>
+	              <li><a href="#">CLIENTE</a></li>
 	              <!-- <li><a href="FRM_MANTENIMIENTO_BIEN.aspx">BIEN</a>
                       <%--<ul>
                         <li><a href="MANT_AREA.aspx">Area</a></li>
@@ -50,7 +50,7 @@
                   <li><a href="FRM_MANTENIMIENTO_EMPLEADOS.aspx">EMPLEADOS</a></li>
                   <li><a href="#">CLASE BIEN</a></li>
 	              <li><a href="#">TIPO BIEN</a></li>-->
-                  <li><a href="FRM_MANTENIMIENTO_PROVEEDOR.aspx">PROVEEDOR</a></li>
+                  <li><a href="#">PROVEEDOR</a></li>
                   
                   
                </ul>
@@ -58,39 +58,39 @@
             <li>    
                 <a href="#">OPERACION</a>
                 <ul>
-                    <li><a href="FRM_MENUVENTA.aspx">VENTA DIRECTA</a></li>
-                    <li><a href="FRM_VENTA.aspx">GENERAR VENTA</a></li>
-                    <li><a href="FRM_COMPRA.aspx">GENERAR COMPRA </a></li>
-                    <li><a href="FRM_CUENTAS_POR_COBRAR.aspx">CUENTAS X COBRAR </a></li>
-                    <li><a href="FRM_CUENTAS_POR_PAGAR.aspx">CUENTAS X PAGAR </a></li>
+                    <li><a href="#">VENTA DIRECTA</a></li>
+                    <li><a href="#">GENERAR VENTA</a></li>
+                    <li><a href="#">GENERAR COMPRA </a></li>
+                    <li><a href="#">CUENTAS X COBRAR </a></li>
+                    <li><a href="#">CUENTAS X PAGAR </a></li>
                 </ul>
             </li>
             <li>    
                 <a href="#">UTILITARIOS</a>
                 <ul>
-                    <li><a href="FRM_REIMPRESIONES.aspx">REIMPRIMIR VENTA</a></li>
+                    <li><a href="#">REIMPRIMIR VENTA</a></li>
                 </ul>
             </li>
             <li>    
                 <a href="#">REPORTES</a>
                 <ul>
-                    <li><a href="FRM_REPORTE.aspx">REPORTE DE VENTAS</a></li>
-                    <li><a href="FRM_REPORTE_BIEN.aspx">REPORTE DE BIENES</a></li>
+                    <li><a href="#">REPORTE DE VENTAS</a></li>
+                    <li><a href="#">REPORTE DE BIENES</a></li>
                 </ul>
             </li>
             <li>    
                 <a href="#">GALERIA</a>
                 <ul>
-                    <li><a href="FRM_CONTROLGALERIA.aspx">CONTROL DE TIENDAS</a></li>
-                    <li><a href="FRM_CONTROLGALERIA_GARANTIAS.aspx">CONTROL GARANTIAS</a></li>
-                    <li><a href="FRM_CONTROLGALERIA_ARBITRIOS.aspx">CONTROL ARBITRIOS</a></li>
-                    <li><a href="FRM_CONTROLGALERIA_ESTADOSTIENDAS.aspx">ESTADO DE TIENDAS</a></li>
+                    <li><a href="#">CONTROL DE TIENDAS</a></li>
+                    <li><a href="#">CONTROL GARANTIAS</a></li>
+                    <li><a href="#">CONTROL ARBITRIOS</a></li>
+                    <li><a href="#">ESTADO DE TIENDAS</a></li>
                 </ul>
             </li>
             <li>
                 <a href="#">PANTALLAS</a>
                 <ul>
-                    <li><a href="FRM_PANTALLA_COCINA.aspx">PANTALLA COCINA</a></li>
+                    <li><a href="#">PANTALLA COCINA</a></li>
                 </ul>
             </li>
             
@@ -103,6 +103,8 @@
                     <li><a href="FRM_MANTENIMIENTO_MOVIMIENTOS.aspx">MOVIMIENTOS </a></li>
                     <li><a href="FRM_MANTENIMIENTO_CONCEPTOS.aspx">CONCEPTOS</a></li>
                     <li><a href="FRM_CHEQUES.aspx">CHEQUES</a></li>
+                    <li><a href="FRM_CUENTAS_POR_PAGAR_CHEQUES.aspx">CUENTAS POR PAGAR(*)</a></li>
+                    
                 </ul>
             </li>
              <li>

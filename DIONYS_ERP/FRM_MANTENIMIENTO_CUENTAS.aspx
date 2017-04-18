@@ -272,7 +272,7 @@
                    <asp:BoundField DataField="N_CCI" HeaderText="CCI"><ItemStyle Width="150px"  /> </asp:BoundField>
                    <asp:BoundField DataField="MONEDA" HeaderText="MONEDA" />
                    <asp:BoundField DataField="SALDO_CONTABLE" HeaderText="SALDO CONTABLE" DataFormatString="{0:N}" ><ItemStyle HorizontalAlign="Right"/></asp:BoundField>
-                   <asp:BoundField DataField="SALDO_DISPONIBLE" HeaderText="SALDO DISPONIBLE" ><ItemStyle HorizontalAlign="Right"/></asp:BoundField>
+                   <asp:BoundField DataField="SALDO_DISPONIBLE" HeaderText="SALDO DISPONIBLE" DataFormatString="{0:N}" ><ItemStyle HorizontalAlign="Right"/></asp:BoundField>
                    <asp:BoundField DataField="SECTORISTA" HeaderText="SECTORISTA" />
                    <asp:BoundField DataField="OFICINA" HeaderText="OFICINA" />
                    <asp:BoundField DataField="TELEFONO" HeaderText="TELEFONO" />

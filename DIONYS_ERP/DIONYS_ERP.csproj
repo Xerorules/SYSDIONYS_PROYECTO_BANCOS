@@ -202,6 +202,7 @@
     <Content Include="FRM_MANTENIMIENTO_CUENTAS.aspx" />
     <Content Include="FRM_MANTENIMIENTO_MOVIMIENTOS.aspx" />
     <Content Include="FRM_CHEQUES.aspx" />
+    <Content Include="FRM_CUENTAS_POR_PAGAR_CHEQUES.aspx" />
     <Content Include="REPORTES\FROM_REPORTE_MOVIMIENTOS.aspx" />
     <Content Include="Pruebas_test.aspx" />
     <Content Include="REPORTES\FRM_REPORTE_BOLETA.aspx" />
@@ -591,6 +592,13 @@
     </Compile>
     <Compile Include="FRM_CHEQUES.aspx.designer.cs">
       <DependentUpon>FRM_CHEQUES.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FRM_CUENTAS_POR_PAGAR_CHEQUES.aspx.cs">
+      <DependentUpon>FRM_CUENTAS_POR_PAGAR_CHEQUES.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FRM_CUENTAS_POR_PAGAR_CHEQUES.aspx.designer.cs">
+      <DependentUpon>FRM_CUENTAS_POR_PAGAR_CHEQUES.aspx</DependentUpon>
     </Compile>
     <Compile Include="REPORTES\FROM_REPORTE_MOVIMIENTOS.aspx.cs">
       <DependentUpon>FROM_REPORTE_MOVIMIENTOS.aspx</DependentUpon>
