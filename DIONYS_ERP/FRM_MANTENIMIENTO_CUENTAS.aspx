@@ -1,10 +1,18 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/PLANTILLAS/MENU_SUPERIOR.Master" AutoEventWireup="true" CodeBehind="FRM_MANTENIMIENTO_CUENTAS.aspx.cs" Inherits="DIONYS_ERP.PLANTILLAS.Formulario_web2" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <link href="assets/css/bootstrap.css" rel="stylesheet" />
+   
+    
+     <link href="assets/css/bootstrap.css" rel="stylesheet" />
     <link href="assets/css/custom-styles.css" rel="stylesheet" />
     <link href="assets/css/font-awesome.css" rel="stylesheet" />
+    
     <link href="ESTILOS/ESTILOS_FRM_PRINCIPAL.css" rel="stylesheet" />
+    <link href="../ESTILOS/EstilosGeneral.css" rel="stylesheet" type="text/css" />
+    <script src="../SCRIPT/jquerymenu.js" type="text/javascript"></script>
+    <link href="../ESTILOS/ESTILOS_BARRA_ESTADO.css" rel="stylesheet" />
+    <link href="../ESTILOS/menu.css" rel="stylesheet" type="text/css" />
+
     <script src="assets/js/jquery-1.10.2.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>
     <script type="text/javascript">
@@ -22,7 +30,7 @@
             $('#myModal2').modal('show');
         }
     </script>
-  
+ 
 
     
 </asp:Content>
@@ -170,27 +178,22 @@
                 </div>
             </div>
 
-            <div class="form-group col-md-12 col-sm-12 col-xs-12" style="position: center;">
-                &nbsp
-
-                <div class="col-md-3 col-sm-3 col-xs-12" style="position: center;">
-                    <asp:Button runat="server" class="form-control btn btn-primary" ValidationGroup="Registro" Text="REGISTRAR" ID="btnRegistrar" OnClick="btnRegistrar_Click" />
-                    &nbsp
-                </div>
-                <div class="col-md-3 col-sm-3 col-xs-12" style="position: center;">
-                    <asp:Button runat="server" class="form-control btn btn-primary" Text="ACTUALIZAR" ID="btnActualizar" OnClick="btnActualizar_Click" />
-                    &nbsp
-                </div>
-                <div class="col-md-3 col-sm-3 col-xs-12" style="position: center">
-                    <asp:Button runat="server" class="form-control btn btn-primary" Text="CANCELAR" ID="btnCancelar" OnClick="btnCancelar_Click" />
-
-
-                </div>
-
-
-                &nbsp
+            <div class="form-group" style="position: center;">
                 
-            </div>
+
+                <div class="col-sm-4 col-md-4 col-xs-12" style="text-align:center">
+                    <asp:Button runat="server" CssClass="form-control btn btn-primary col-xs-12 col-sm-12" ValidationGroup="Registro" Text="REGISTRAR" ID="btnRegistrar" OnClick="btnRegistrar_Click" />
+                    &nbsp
+                </div>
+                <div class="col-sm-4 col-md-4 col-xs-12" style="text-align:center">
+                    <asp:Button runat="server" CssClass="form-control btn btn-primary col-xs-12 col-sm-12" Text="ACTUALIZAR" ID="btnActualizar" OnClick="btnActualizar_Click" />
+                    &nbsp
+                </div>
+                <div class="col-sm-4 col-md-4 col-xs-12" style="text-align:center">
+                    <asp:Button runat="server" CssClass="form-control btn btn-primary col-xs-12 col-sm-12" Text="CANCELAR" ID="btnCancelar" OnClick="btnCancelar_Click" />
+                </div>
+                &nbsp
+             </div>
 
         </div>
     </div>
@@ -255,13 +258,13 @@
     </div>
     <!-- -----------------------------Modal RegistroError-------------------------------------------------------------->
 
-    <div class="container-fluid col-lg-8 col-md-8">
+    <div class="container-fluid">
         <div class="row">
-            <div class="col-xs-11 col-sm-offset-0 col-sm-11 col-md-offset-0 col-md-10">
+            <div class="col-xs-12 col-sm-8 col-md-8">
 
                 <h2 style="color: white" class="text-info">LISTA DE CUENTAS</h2>
                 &nbsp
-       <div style="width: 120%; height: 700px; overflow: scroll">
+       <div style="width: 100%; height: 600px; overflow: scroll">
            <asp:GridView ID="dgvBANCOS" runat="server" CssClass="table table-striped table-bordered  table-hover " BackColor="White" AutoGenerateColumns="False" DataKeyNames="ID_CUENTASBANCARIAS" PageSize="1"
                AllowPaging="false" OnPageIndexChanging="dgvBANCOS_PageIndexChanging"  OnRowCommand="dgvBANCOS_RowCommand">
               

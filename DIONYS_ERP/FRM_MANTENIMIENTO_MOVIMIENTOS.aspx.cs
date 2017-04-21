@@ -13,12 +13,16 @@ using OfficeOpenXml;
 using System.Globalization;
 using Newtonsoft.Json;
 using System.Windows.Forms;
+using System.Text;
+using System.Web.UI.HtmlControls;
+using System.Web.DynamicData;
 
 namespace DIONYS_ERP.PLANTILLAS
 {
     public partial class Formulario_web3 : System.Web.UI.Page
     {
         List<String> lista = new List<string>();
+        System.Web.UI.WebControls.DataGrid dg = new System.Web.UI.WebControls.DataGrid();
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -152,7 +156,7 @@ namespace DIONYS_ERP.PLANTILLAS
         {   //VALIDAMOS QUE EL NUMERO DE OPERACION NO SE REPITA PARA LA CUENTA 
             int validador = 0;//VARIABLE SI ES 0 NO SE REPITE
             List<String> lista = new List<string>();
-            DataTable DT = OBJVENTA.NVALIDARROPERACION(Session["ID_CUENTA_MOV"].ToString());//TREAEMOS LOS NUMEROS DE OPERACION
+            DataTable DT = OBJVENTA.NVALIDARROPERACION(Session["ID_CUENTA_MOV"].ToString(), Convert.ToDateTime(txtFECHA.Text).ToShortDateString());//TREAEMOS LOS NUMEROS DE OPERACION
             string n_ope1 = txtOPE.Text;
             string imp2 = Convert.ToDecimal(txtIMPORTE.Text).ToString("N2");
             string fecha3 = Convert.ToDateTime(txtFECHA.Text).ToShortDateString();
@@ -338,9 +342,9 @@ namespace DIONYS_ERP.PLANTILLAS
                     {//por la cantidad de filas de la tabla
                         int validador = 0;//VARIABLE SI ES 0 NO SE REPITE
                         /* -----------------------------------------CREAMOS COLUMNAS D ELA TABLA PLANTILLA-------------------------------------------*/
-                        DataTable DT = OBJVENTA.NVALIDARROPERACION(Session["ID_CUENTA_MOV"].ToString());//TREAEMOS LOS NUMEROS DE OPERACION
+                        DataTable DT = OBJVENTA.NVALIDARROPERACION(Session["ID_CUENTA_MOV"].ToString(), Convert.ToDateTime(dtexcel.Rows[i][1].ToString()).ToShortDateString());//TREAEMOS LOS NUMEROS DE OPERACION
                         string n_ope1 = dtexcel.Rows[i][4].ToString();
-                        string imp2 = dtexcel.Rows[i][6].ToString();
+                        string imp2 = Convert.ToDecimal(dtexcel.Rows[i][6].ToString()).ToString("N2"); 
                         string fecha3 = dtexcel.Rows[i][1].ToString();
                         string concpto = dtexcel.Rows[i][0].ToString();
                         try
@@ -438,17 +442,18 @@ namespace DIONYS_ERP.PLANTILLAS
                     if (lista.Count > 0)
                     {
                         
-                        registrar_evento();
-                        
-                        if (System.Windows.Forms.MessageBox.Show("EXISTEN REGISTROS REPETIDOS EN LA CARGA, ¿DESEA VER LOS REGISTROS REPETIDOS?: ",
-                        "RESUMEN DE ERRORES",
-                        System.Windows.Forms.MessageBoxButtons.YesNo,
-                        System.Windows.Forms.MessageBoxIcon.Information)
+                        registrar_evento();/*ESTE CODIGO REGISTRA UN LOG DE NUMEROS DE OPERACION RPETIDOS*/
+                        Response.Write("<script>alert('CARGA REALIZADA CON ÉXITO ...!! DURANTE EL PROCESO SE DETECTÓ ALGUNOS REGISTROS DUPLICADOS, QUE NO SE SUBIERON A LA BASE DE DATOS!!... !')</script>");
+                        /*---ESTE CODIGO PERMITE MOSTRAR LOS NUMEROS DE OPERACION REPETIDOS---*/
+                        //if (System.Windows.Forms.MessageBox.Show("EXISTEN REGISTROS REPETIDOS EN LA CARGA, ¿DESEA VER LOS REGISTROS REPETIDOS?: ",
+                        //"RESUMEN DE ERRORES",
+                        //System.Windows.Forms.MessageBoxButtons.YesNo,
+                        //System.Windows.Forms.MessageBoxIcon.Information)
 
-                            == DialogResult.Yes)
-                        {
-                            System.Diagnostics.Process.Start(@"C:\temp\LOG_REPETIDOS.txt");
-                        }
+                        //    == DialogResult.Yes)
+                        //{
+                        //    System.Diagnostics.Process.Start(@"C:\temp\LOG_REPETIDOS.txt");
+                        //}
 
                     }
                     else
@@ -486,15 +491,40 @@ namespace DIONYS_ERP.PLANTILLAS
                 StreamWriter sw = File.AppendText(path);
                 string hora = DateTime.Now.ToLongTimeString();
                 var json = JsonConvert.SerializeObject(lista);
-                sw.WriteLine(" NUMEROS DE OPERACION REPETIDOS :  "  + json);
+                sw.WriteLine(fechad +"  "+" NUMEROS DE OPERACION REPETIDOS :  "  + json);
                 sw.Dispose();
 
             }
             catch { }
         }
         /*------------------------------------------------------------------*/
+        void EXPORTAR_EXCEL(GridView TABLA)
+        {
+            
 
-
+            if (TABLA.Rows.Count > 0)
+            {
+                StringBuilder sb = new StringBuilder();
+                StringWriter sw = new StringWriter(sb);
+                HtmlTextWriter htw = new HtmlTextWriter(sw);
+                Page pagina = new Page();
+                HtmlForm form = new HtmlForm();
+                pagina.EnableEventValidation = false;
+                pagina.DesignerInitialize();
+                pagina.Controls.Add(form);
+                form.Controls.Add(dg);
+                pagina.RenderControl(htw);
+                Response.Clear();
+                Response.Buffer = true;
+                Response.ContentType = "application/vnd.ms-excel";
+                Response.AddHeader("Content-Disposition", "attachment;filename=REPORTE_MOVIMIENTOS.xls");
+                Response.Charset = "UTF-8";
+                Response.ContentEncoding = Encoding.Default;
+                Response.Write(sb.ToString());
+                Response.End();
+            }
+        }
+       
 
         protected void btnCancelar_Click(object sender, EventArgs e)
         {
@@ -513,7 +543,9 @@ namespace DIONYS_ERP.PLANTILLAS
 
             string fechini = Convert.ToDateTime(txtFechaIni.Text).ToString("dd-MM-yyyy");
             string fechfin = Convert.ToDateTime(txtFechaFin.Text).ToString("dd-MM-yyyy");
-            filtrar_grilla(Session["ID_EMPRESA"].ToString(), Session["ID_CUENTA_MOV"].ToString(), fechini, fechfin, txtConsultaOpe.Text, cboFiltroConc.SelectedValue.ToString(), txtConsultaCli.Text);
+            string ID_CLIENTE2 = "";
+            if (txtConsultaCli.Text == "") { ID_CLIENTE2 = ""; } else { ID_CLIENTE2 = txtConsultaCliValor.Text; }
+            filtrar_grilla(Session["ID_EMPRESA"].ToString(), Session["ID_CUENTA_MOV"].ToString(), fechini, fechfin, txtConsultaOpe.Text, cboFiltroConc.SelectedValue.ToString(), ID_CLIENTE2.ToString());
         }
 
         protected void dgvMOVIMIENTOS_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -575,7 +607,9 @@ namespace DIONYS_ERP.PLANTILLAS
                 }
                 else
                 {
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal1();", true);
+                    //ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal1();", true);
+                    Response.Write("<script>alert('Hubo un error no se pudo eliminar el registro, intente de nuevo')</script>");
+                    
                 }
             }
         }
@@ -640,12 +674,16 @@ namespace DIONYS_ERP.PLANTILLAS
         protected void btnREPORTE_Click(object sender, EventArgs e)
         {
             string ID_CUENTA_MOV = TXTprueba.Text;
-            string FECHA_INI = Convert.ToDateTime(txtFechaIni.Text).ToString("dd-MM-yyyy"); ;
-            string FECHA_FIN = Convert.ToDateTime(txtFechaFin.Text).ToString("dd-MM-yyyy"); ;
-            object[] args = new object[] { ID_CUENTA_MOV, FECHA_INI, FECHA_FIN };
-            String url = String.Format("REPORTES/FROM_REPORTE_MOVIMIENTOS.aspx?ID_CUENTA_MOV={0}&FECHA_INI={1}&FECHA_FIN={2}", args);
+            string FECHA_INI = Convert.ToDateTime(txtFechaIni.Text).ToString("dd-MM-yyyy"); 
+            string FECHA_FIN = Convert.ToDateTime(txtFechaFin.Text).ToString("dd-MM-yyyy");
+            string OPE = txtConsultaOpe.Text;
+            string CONBANC = cboFiltroConc.SelectedValue;
+            string ID_CLIENTE = "";
+            if (txtConsultaCli.Text == "") { ID_CLIENTE = ""; } else { ID_CLIENTE = txtConsultaCliValor.Text; }
+            object[] args = new object[] { ID_CUENTA_MOV, FECHA_INI, FECHA_FIN, OPE, CONBANC, ID_CLIENTE };
+            String url = String.Format("REPORTES/FROM_REPORTE_MOVIMIENTOS.aspx?ID_CUENTA_MOV={0}&FECHA_INI={1}&FECHA_FIN={2}&OPE={3}&CONBANC={4}&ID_CLIENTE={5}", args);
             // Response.Redirect(url);
-            string s = "window.open('" + url + "', 'popup_window', 'width=700,height=900,left=10%,top=10%,resizable=yes');"; //con esto muestro la venta en una nueva ventana 
+            string s = "window.open('" + url + "', 'popup_window', 'width=700,height=800,left=10%,top=10%,resizable=yes');"; //con esto muestro la venta en una nueva ventana 
             ClientScript.RegisterStartupScript(this.GetType(), "script", s, true);
             
         }
@@ -667,6 +705,36 @@ namespace DIONYS_ERP.PLANTILLAS
                 Response.Write("<script>alert('Saldos Actualizados!!')</script>");
                 llenar_datos("1", Session["ID_EMPRESA"].ToString(), Session["ID_CUENTA_MOV"].ToString());
             }
+        }
+
+        protected void reportePDF_Click(object sender, ImageClickEventArgs e)
+        {
+            string ID_CUENTA_MOV = TXTprueba.Text;
+            string FECHA_INI = Convert.ToDateTime(txtFechaIni.Text).ToString("dd-MM-yyyy");
+            string FECHA_FIN = Convert.ToDateTime(txtFechaFin.Text).ToString("dd-MM-yyyy");
+            string OPE = txtConsultaOpe.Text;
+            string CONBANC = cboFiltroConc.SelectedValue;
+            string ID_CLIENTE = "";
+            if (txtConsultaCli.Text == "") { ID_CLIENTE = ""; } else { ID_CLIENTE = txtConsultaCliValor.Text; }
+            object[] args = new object[] { ID_CUENTA_MOV, FECHA_INI, FECHA_FIN, OPE, CONBANC, ID_CLIENTE };
+            String url = String.Format("REPORTES/FROM_REPORTE_MOVIMIENTOS.aspx?ID_CUENTA_MOV={0}&FECHA_INI={1}&FECHA_FIN={2}&OPE={3}&CONBANC={4}&ID_CLIENTE={5}", args);
+            // Response.Redirect(url);
+            string s = "window.open('" + url + "', 'popup_window', 'width=700,height=800,left=10%,top=10%,resizable=yes');"; //con esto muestro la venta en una nueva ventana 
+            ClientScript.RegisterStartupScript(this.GetType(), "script", s, true);
+        }
+
+        protected void reporteEXCEL_Click(object sender, ImageClickEventArgs e)
+        {
+            string fechini = Convert.ToDateTime(txtFechaIni.Text).ToString("dd-MM-yyyy");
+            string fechfin = Convert.ToDateTime(txtFechaFin.Text).ToString("dd-MM-yyyy");
+            string ID_CLIENTE2 = "";
+            if (txtConsultaCli.Text == "") { ID_CLIENTE2 = ""; } else { ID_CLIENTE2 = txtConsultaCliValor.Text; }
+            DataTable tab = (DataTable)OBJVENTA.NFILTRARGRILLAMOVIMIENTOS(Session["ID_EMPRESA"].ToString(), Session["ID_CUENTA_MOV"].ToString(), fechini, fechfin, txtConsultaOpe.Text, cboFiltroConc.SelectedValue.ToString(), ID_CLIENTE2.ToString());
+            System.Web.UI.WebControls.GridView dg = new System.Web.UI.WebControls.GridView();
+            dg.DataSource = tab;
+            dg.DataBind();
+
+            EXPORTAR_EXCEL(dg);
         }
     }
 }

@@ -1,10 +1,17 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/PLANTILLAS/MENU_SUPERIOR.Master" AutoEventWireup="true" CodeBehind="FRM_MANTENIMIENTO_CONCEPTOS.aspx.cs" Inherits="DIONYS_ERP.PLANTILLAS.Formulario_web13" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    
+
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
     <link href="assets/css/custom-styles.css" rel="stylesheet" />
     <link href="assets/css/font-awesome.css" rel="stylesheet" />
+    
     <link href="ESTILOS/ESTILOS_FRM_PRINCIPAL.css" rel="stylesheet" />
+    <link href="../ESTILOS/EstilosGeneral.css" rel="stylesheet" type="text/css" />
+    <script src="../SCRIPT/jquerymenu.js" type="text/javascript"></script>
+    <link href="../ESTILOS/ESTILOS_BARRA_ESTADO.css" rel="stylesheet" />
+
     <script src="assets/js/jquery-1.10.2.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>
     <script type="text/javascript">
@@ -22,7 +29,7 @@
             $('#myModal2').modal('show');
         }
     </script>
-    
+   
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container-fluid col-lg-5">
@@ -32,7 +39,7 @@
             <div class="form-group">
                 <label class="control-label col-xs-3" style="color: white">CONCEPTO BANCARIO:</label>
                 <div class="col-xs-8 col-md-6">
-                    <asp:TextBox runat="server" ID="txtNOM" CssClass="form-control" placeholder="Ingrese Concepto Bancario" MaxLength="100"></asp:TextBox>
+                    <asp:TextBox runat="server" ID="txtNOM" CssClass="form-control col-xs-12 col-sm-10" placeholder="Ingrese Concepto Bancario" MaxLength="100"></asp:TextBox>
                     <%--VALIDADOR--%>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server"
                         ControlToValidate="txtNOM"
@@ -47,19 +54,19 @@
                 </div>
             </div>
 
-            <div class="form-group col-md-12 col-sm-12 col-xs-12" style="position: center;">
-                &nbsp
+            <div class="form-group" style="position: center;">
+                
 
-                <div class="col-md-3 col-sm-3 col-xs-12" style="position: center;">
-                    <asp:Button runat="server" class="form-control btn btn-primary" Text="REGISTRAR" ValidationGroup="Registro"  ID="btnRegistrar" OnClick="btnRegistrar_Click" />
+                <div class="col-md-3 col-sm-3 col-xs-12" style="text-align:center;">
+                    <asp:Button runat="server" CssClass="form-control btn btn-primary col-xs-12 col-sm-12" Text="REGISTRAR" ValidationGroup="Registro"  ID="btnRegistrar" OnClick="btnRegistrar_Click" />
                     &nbsp
                 </div>
-                <div class="col-md-3 col-sm-3 col-xs-12" style="position: center;">
-                    <asp:Button runat="server" class="form-control btn btn-primary" Text="ACTUALIZAR" ID="btnActualizar" OnClick="btnActualizar_Click" />
+                <div class="col-md-3 col-sm-3 col-xs-12" style="text-align:center;">
+                    <asp:Button runat="server" CssClass="form-control btn btn-primary col-xs-12 col-sm-12" Text="ACTUALIZAR" ID="btnActualizar" OnClick="btnActualizar_Click" />
                     &nbsp
                 </div>
-                <div class="col-md-3 col-sm-3 col-xs-12" style="position: center">
-                    <asp:Button runat="server" class="form-control btn btn-primary" Text="CANCELAR" ID="btnCancelar" OnClick="btnCancelar_Click" />
+                <div class="col-md-3 col-sm-3 col-xs-12" style="text-align:center">
+                    <asp:Button runat="server" CssClass="form-control btn btn-primary col-xs-12 col-sm-12" Text="CANCELAR" ID="btnCancelar" OnClick="btnCancelar_Click" />
 
 
                 </div>
@@ -134,9 +141,9 @@
 
 
 
-    <div class="container-fluid">
+    <div class="container-fluid ">
         <div class="row">
-            <div class="col-xs-10 col-sm-offset-0 col-sm-10 col-md-offset-0 col-md-6">
+            <div class="col-md-7 col-sm-10 col-xs-10">
 
                 <h2 style="color: white" class="text-info">CONCEPTOS BANCARIOS:</h2>
                 &nbsp

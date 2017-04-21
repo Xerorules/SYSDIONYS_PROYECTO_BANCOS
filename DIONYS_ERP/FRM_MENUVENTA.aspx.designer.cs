@@ -13,15 +13,6 @@ namespace DIONYS_ERP {
     public partial class FRM_MENUVENTA {
         
         /// <summary>
-        /// Control ToolkitScriptManager1.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        //protected global::AjaxControlToolkit.ToolkitScriptManager ToolkitScriptManager1;
-        
-        /// <summary>
         /// Control Label7.
         /// </summary>
         /// <remarks>

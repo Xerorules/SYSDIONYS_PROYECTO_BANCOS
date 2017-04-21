@@ -335,7 +335,7 @@
             <div class="form-group">
                 <label class="control-label col-md-4" style="color: white">CLIENTE:</label>
                 <div class="col-xs-8 col-md-6">
-                    <asp:TextBox ID="TXTid_cliente" runat="server" CssClass="visible-xs"></asp:TextBox>
+                    
                     <asp:TextBox runat="server" ID="txtCLIENTE" CssClass="form-control" placeholder="Busqueda automática de clientes" MaxLength="100" Width="300px"></asp:TextBox>
                     <%--VALIDADOR--%>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server"
@@ -440,22 +440,22 @@
 
             </div>
 
-
+            <asp:TextBox ID="TXTid_cliente" runat="server" CssClass="visible-xs"></asp:TextBox>
 
             <div class="form-group col-md-12 col-sm-12 col-xs-12" style="position: center;">
-                &nbsp
+                
 
-                <div class="col-md-3 col-sm-3 col-xs-12" style="position: center;">
-                    <asp:Button runat="server" CssClass="form-control  btn-info" Text="REGISTRAR" ValidationGroup="Registro" ID="btnRegistrar" OnClick="btnRegistrar_Click" />
+                <div class="col-md-4 col-sm-4 col-xs-12" style="position: center;">
+                    <asp:Button runat="server" CssClass="form-control btn btn-info col-xs-12 col-sm-12" Text="REGISTRAR" ValidationGroup="Registro" ID="btnRegistrar" OnClick="btnRegistrar_Click" />
                     &nbsp
                 </div>
-                <div class="col-md-3 col-sm-3 col-xs-12" style="position: center;">
-                    <asp:Button runat="server" CssClass="form-control  btn-info" Text="ACTUALIZAR" ID="btnActualizar" OnClick="btnActualizar_Click" />
+                <div class="col-md-4 col-sm-4 col-xs-12" style="position: center;">
+                    <asp:Button runat="server" CssClass="form-control btn btn-info col-xs-12 col-sm-12" Text="ACTUALIZAR" ID="btnActualizar" OnClick="btnActualizar_Click" />
                     &nbsp
                 </div>
-                <div class="col-md-3 col-sm-3 col-xs-12" style="position: center">
-                    <asp:Button runat="server" CssClass="form-control  btn-info" Text="CANCELAR" ID="btnCancelar" OnClick="btnCancelar_Click" />
-                    <asp:Button runat="server" type="hidden" Text="REGISTRARMOV" CssClass="visible-xs" ID="btnREGISTRARMOV" OnClick="btnREGISTRARMOV_Click" />
+                <div class="col-md-4 col-sm-4 col-xs-12" style="position: center">
+                    <asp:Button runat="server" CssClass="form-control  btn btn-info col-xs-12 col-sm-12" Text="CANCELAR" ID="btnCancelar" OnClick="btnCancelar_Click" />
+                    <asp:Button runat="server" BackColor="DarkCyan" BorderColor="DarkCyan" ForeColor="DarkCyan" type="hidden" Text="REGISTRARMOV" CssClass="visible-xs" ID="btnREGISTRARMOV" OnClick="btnREGISTRARMOV_Click" />
 
                 </div>
 
@@ -530,27 +530,27 @@
 
     <div class="container-fluid">
         <div class="row">
-            <div class="col-xs-10 col-sm-offset-0 col-sm-10 col-md-offset-0 col-md-8">
-
+            <div class="col-xs-12 col-sm-12  col-md-8">
+                <asp:TextBox runat="server" ID="txtfiltroid_cli" CssClass="visible-xs"  Font-Bold="true" placeholder="Ingresar cliente,busqueda automatica" MaxLength="70"></asp:TextBox>
                 <h2 style="color: white" class="text-info">CARTERA DE CHEQUES</h2>
                 &nbsp;
                  
-                <div class="form-group col-md-12 col-sm-12 col-xs-12 " style="text-align:center;margin-left:-20px; margin-top: 25px; ">
+                <div class="form-group col-md-12 col-sm-12 col-xs-12" >
 
-                    <div class="col-xs-2 col-md-2"  style="text-align: center; top: -15px;margin-left:60px; ">
+                    <div class="col-xs-4 col-md-3">
                         <label style="color: white;  text-align: left; margin-right:90px;"> CLIENTE:</label>
-                        <asp:TextBox runat="server" ID="txtFiltroCli" CssClass="form-control" Width="300px"  Font-Bold="true" placeholder="Ingresar cliente,busqueda automatica" MaxLength="70" OnTextChanged="txtFiltroCli_TextChanged"></asp:TextBox>
-                    </div>
-                    <asp:TextBox runat="server" ID="txtfiltroid_cli" CssClass="visible-xs" Width="300px"  Font-Bold="true" placeholder="Ingresar cliente,busqueda automatica" MaxLength="70"></asp:TextBox>
-                    <div class="col-xs-2 col-md-2" style="text-align: center; top: -15px;margin-left:110px; ">
-                        <label style="color: white; text-align: left; margin-right:90px; "> BANCO:</label>
-                        <asp:DropDownList runat="server" ID="cboFiltroBanco" CssClass="form-control" AutoPostBack="true" Width="180px"></asp:DropDownList>
+                        <asp:TextBox runat="server" ID="txtFiltroCli" CssClass="form-control col-sm-12 col-xs-12"  Font-Bold="true" placeholder="Ingresar cliente,busqueda automatica" MaxLength="70" OnTextChanged="txtFiltroCli_TextChanged"></asp:TextBox>
                     </div>
                     
-                    <div class="col-xs-2 col-md-2" style="text-align: center; top: -15px;margin-left:-15px; ">
+                    <div class="col-xs-4 col-md-2">
+                        <label style="color: white; text-align: left; margin-right:90px; "> BANCO:</label>
+                        <asp:DropDownList runat="server" ID="cboFiltroBanco" CssClass="form-control col-sm-12 col-xs-12" AutoPostBack="true" ></asp:DropDownList>
+                    </div>
+                    
+                    <div class="col-xs-4 col-md-2">
                         <label style="color: white;  text-align: left; margin-right:90px;"> MONEDA:</label>
-                        <asp:DropDownList runat="server" ID="cboFiltroMoneda" CssClass="form-control" AutoPostBack="true" Width="150px">
-                            <asp:ListItem Text="-SELECCIONE-" Value="" />
+                        <asp:DropDownList runat="server" ID="cboFiltroMoneda" CssClass="form-control col-sm-12 col-xs-12" AutoPostBack="true" >
+                            <asp:ListItem Text="-MONEDA-" Value="" />
                             <asp:ListItem Text="SOLES" Value="S" />
                             <asp:ListItem Text="DOLARES" Value="D" />
                         </asp:DropDownList>
@@ -558,26 +558,25 @@
                     </div>
 
                    
-                    <div class="col-xs-2 col-md-2" style="text-align: center; top: -15px;margin-left:-40px; ">
-                        <label style="color: white;  text-align: left; margin-right:55px;">FECHA INICIAL:</label>
-                        <asp:TextBox runat="server" ID="txtFiltroFechaIni" CssClass="form-control" Width="180px" Height="35px"  TextMode="Date" Font-Bold="true" placeholder="Ingrese Fecha inicial" MaxLength="70"></asp:TextBox>
+                    <div class="col-xs-4 col-md-2">
+                        <label style="color: white;  text-align: left; margin-right:55px;">F. INICIAL:</label>
+                        <asp:TextBox runat="server" ID="txtFiltroFechaIni" CssClass="form-control col-sm-12 col-xs-12"  Height="35px"  TextMode="Date" Font-Bold="true" placeholder="Ingrese Fecha inicial" MaxLength="70"></asp:TextBox>
                     </div>
-                    <div class="col-xs-2 col-md-2" style="text-align: center; top: -15px;margin-left:-10px; ">
-                        <label style="color: white; text-align: left; margin-right:55px;">FECHA FINAL:</label>
-                        <asp:TextBox runat="server" ID="txtFiltroFechaFin" CssClass="form-control" Width="180px" Height="35px"  TextMode="Date" Font-Bold="true" placeholder="Ingrese Fecha final" MaxLength="70"></asp:TextBox>
+                    <div class="col-xs-4 col-md-2">
+                        <label style="color: white; text-align: left; margin-right:55px;">F. FINAL:</label>
+                        <asp:TextBox runat="server" ID="txtFiltroFechaFin" CssClass="form-control col-sm-12 col-xs-12"  Height="35px"  TextMode="Date" Font-Bold="true" placeholder="Ingrese Fecha final" MaxLength="70"></asp:TextBox>
                     </div>
-                    <div class="col-xs-2 col-md-2" style="text-align: right; top: -12px;margin-left:1100px;">
-                        <asp:Button ID="btnConsulta" runat="server" Text="FILTRAR TABLA" CssClass="btn btn-info" Width="150px" OnClick="btnConsulta_Click"/>
+                    <div class="col-xs-4 col-md-1" style="top:25px">
+                        <asp:Button ID="btnConsulta" runat="server" Text="FILTRAR" CssClass="btn btn-info"  OnClick="btnConsulta_Click"/>
                     </div>
-                    <%--<div style="float: left; margin-top: 9px; width: 10%;">
-                       
-                                <asp:Button ID="btnREPORTE" runat="server" Text="GENERAR REPORTE" CssClass="btn btn-info" Width="200px" OnClick="btnREPORTE_Click" />
-                      </div>--%>
+                   &nbsp
                     
                 </div>
 
 
-       
+       &nbsp
+             <div> 
+                  &nbsp
          <asp:GridView ID="dgvBANCOS" runat="server" CssClass="table table-striped table-bordered  table-hover" BackColor="White" AutoGenerateColumns="False" DataKeyNames="ID_CHEQUE" Font-Size="Small" OnRowCommand="dgvBANCOS_RowCommand">
              <PagerSettings Mode="NumericFirstLast" />
              <PagerStyle CssClass="pagination-ys" Wrap="True" BorderStyle="None" HorizontalAlign="Center" />
@@ -596,7 +595,7 @@
                  </asp:BoundField>
                  <asp:BoundField DataField="NUM_CHEQUE" HeaderText="NUMERO" />
                  <asp:BoundField DataField="BANCO" HeaderText="BANCO" />
-                 <asp:BoundField DataField="IMPORTE" HeaderText="IMPORTE" />
+                 <asp:BoundField DataField="IMPORTE" HeaderText="IMPORTE"  DataFormatString="{0:N}"/>
                  <asp:BoundField DataField="MONEDA" HeaderText="MONEDA" />
                  <asp:BoundField DataField="ESTADO" HeaderText="ESTADO" />
 
@@ -621,6 +620,7 @@
 
              </Columns>
          </asp:GridView>
+                 </div> 
             </div>
         </div>
     </div>

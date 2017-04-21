@@ -1290,13 +1290,16 @@ namespace CAPA_DATOS
             return ds;
         }
 
-        public DataSet REPORTE_MOVIMIENTOS_CUENTAS_BANCARIAS_DETALLE(string IDCUENTA, string FECHA_INI, string FECHA_FIN)
+        public DataSet REPORTE_MOVIMIENTOS_CUENTAS_BANCARIAS_DETALLE(string IDCUENTA, string FECHA_INI, string FECHA_FIN, string OPE, string CONBANC, string ID_CLIENTE)
         {
             SqlCommand cmd = new SqlCommand("SP_REPORTE_MOVIMIENTOS_BANCARIOS_DETALLE", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@ID_CUENTAS", IDCUENTA);
             cmd.Parameters.AddWithValue("@FECHA_INI", FECHA_INI);
             cmd.Parameters.AddWithValue("@FECHA_FIN", FECHA_FIN);
+            cmd.Parameters.AddWithValue("@OPERACION", OPE);
+            cmd.Parameters.AddWithValue("@CONBANC", CONBANC);
+            cmd.Parameters.AddWithValue("@ID_CLIENTE", ID_CLIENTE);
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             DataSet ds = new DataSet();
             da.Fill(ds);
@@ -1806,7 +1809,7 @@ namespace CAPA_DATOS
         }
 
 
-        public DataTable DVALIDAROPERACION(string id_cta)
+        public DataTable DVALIDAROPERACION(string id_cta,string fech)
         {
             DataTable dt = new DataTable();
             try
@@ -1815,6 +1818,7 @@ namespace CAPA_DATOS
                 SqlCommand cmd = new SqlCommand("SP_VALIDAR_OPERACION", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@ID_CTA", id_cta);
+                cmd.Parameters.AddWithValue("@FECHA", fech);
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
 
                 da.Fill(dt);

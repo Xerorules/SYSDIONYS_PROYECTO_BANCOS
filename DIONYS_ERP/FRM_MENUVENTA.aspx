@@ -191,10 +191,7 @@
 
     <!--================= FIN CODIGO JAVASCRIPT =======================-->
 
-
-
-
-    <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server"></asp:ToolkitScriptManager>
+    <%--<asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server"></asp:ToolkitScriptManager>--%>
         <fieldset>
         <table class="auto-style1009" style="background-color:transparent; border-bottom-width:medium;border-bottom-color:black ;border-bottom:2px;color:white;font-family:Tahoma;font-weight:bold;width: 100% ">
             <tr>

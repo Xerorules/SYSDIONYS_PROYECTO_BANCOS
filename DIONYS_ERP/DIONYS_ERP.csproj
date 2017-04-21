@@ -152,6 +152,8 @@
     <Content Include="ICONOS\aaaa.png" />
     <Content Include="ICONOS\CHOCOLATE.png" />
     <Content Include="ICONOS\GOLD.png" />
+    <Content Include="ICONOS\Graphicloads-Filetype-Excel-xls.ico" />
+    <Content Include="ICONOS\Graphicloads-Filetype-Pdf.ico" />
     <Content Include="ICONOS\OCUPADO.png" />
     <Content Include="ICONOS\ORANGE.png" />
     <Content Include="ICONOS\TUURQUESA.png" />
@@ -346,7 +348,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Datatable.cs" />
     <Compile Include="ExcelPackageExtensions.cs" />
     <Compile Include="FRM_ABRIR_CAJA.aspx.cs">
       <DependentUpon>FRM_ABRIR_CAJA.aspx</DependentUpon>

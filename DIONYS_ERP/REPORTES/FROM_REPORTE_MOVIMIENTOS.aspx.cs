@@ -20,11 +20,14 @@ namespace DIONYS_ERP.PLANTILLAS
                 String valor = Request.QueryString["ID_CUENTA_MOV"].ToString();
                 String fecha_ini = Request.QueryString["FECHA_INI"].ToString();
                 String fecha_fin = Request.QueryString["FECHA_FIN"].ToString();
-                imprimir(valor, fecha_ini, fecha_fin);
+                String oper = Request.QueryString["OPE"].ToString();
+                String conbanca = Request.QueryString["CONBANC"].ToString();
+                String idcli = Request.QueryString["ID_CLIENTE"].ToString();
+                imprimir(valor, fecha_ini, fecha_fin, oper, conbanca, idcli);
             }
         }
 
-        void imprimir(string ID_CUENTA_MOV,string FECHA_INI,string FECHA_FIN)
+        void imprimir(string ID_CUENTA_MOV,string FECHA_INI,string FECHA_FIN,string OPE,string CONBANC,string ID_CLIENTE)
         {
             try
             {
@@ -32,7 +35,7 @@ namespace DIONYS_ERP.PLANTILLAS
                 DataSet ds = objnego.REPORTE_MOVIMIENTOS_CUENTAS_BANCARIAS(ID_CUENTA_MOV, "", "");
                 DataSet ds_reporte = new DataSet();
 
-                DataSet ds2 = objnego.REPORTE_MOVIMIENTOS_CUENTAS_BANCARIAS_DETALLE(ID_CUENTA_MOV, FECHA_INI, FECHA_FIN);
+                DataSet ds2 = objnego.REPORTE_MOVIMIENTOS_CUENTAS_BANCARIAS_DETALLE(ID_CUENTA_MOV, FECHA_INI, FECHA_FIN, OPE,CONBANC,ID_CLIENTE);
                 //DataSet ds_reporte2 = new DataSet();
                 //
 

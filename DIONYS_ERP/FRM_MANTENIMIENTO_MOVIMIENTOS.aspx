@@ -1,13 +1,19 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/PLANTILLAS/MENU_SUPERIOR.Master" EnableEventValidation="true" AutoEventWireup="true" CodeBehind="FRM_MANTENIMIENTO_MOVIMIENTOS.aspx.cs" Inherits="DIONYS_ERP.PLANTILLAS.Formulario_web3" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server" >
+    
+
     <link href="assets/css/ptoledo.css" rel="stylesheet" />
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
     <link href="assets/css/custom-styles.css" rel="stylesheet" />
     <link href="assets/css/font-awesome.css" rel="stylesheet" />
-    <link href="ESTILOS/ESTILOS_FRM_PRINCIPAL.css" rel="stylesheet" />
+  
     <link href="assets/css/css_tab_panel_csspuro.css" rel="stylesheet" />
  
+    <link href="ESTILOS/ESTILOS_FRM_PRINCIPAL.css" rel="stylesheet" />
+    <link href="../ESTILOS/EstilosGeneral.css" rel="stylesheet" type="text/css" />
+    <script src="../SCRIPT/jquerymenu.js" type="text/javascript"></script>
+    <link href="../ESTILOS/ESTILOS_BARRA_ESTADO.css" rel="stylesheet" />
 
     <script type="text/javascript">
         function addCommas(clientID) {
@@ -79,7 +85,7 @@
     <style type="text/css">
         .left {}
     </style>
-
+    
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <!-- ============================================= INICIO DE CODIGO PARA GENERAR EL AUTOCOMPLETAR ===================================================== -->
@@ -202,48 +208,88 @@
 
     </script>
 
+     <script type="text/javascript">
+        $(function () {
+            $("[id$=txtConsultaCli]").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: '<%=ResolveUrl("~/SERVICES/AUTOCOMPLETAR_MOVIMIENTOS.asmx/AUTOCOMPLETAR_CLIENTES") %>',
+                        data: "{ 'prefix': '" + request.term + "'}",
+                        dataType: "json",
+                        type: "POST",
+                        contentType: "application/json; charset=utf-8",
+                        success: function (data) {
+                            response($.map(data.d, function (item) {
+                                return {
+                                    label: item.split('-')[0],
+                                    val: item.split('-')[1]
+                                }
+                            }))
+                        },
+                        error: function (response) {
+                            alert(response.responseText);
+                        },
+                        failure: function (response) {
+                            alert(response.responseText);
+                        }
+                    });
+                },
+                select: function (e, i) {
+                    $("[id$=txtConsultaCli]").val(i.item.text);
+                    $("[id$=txtConsultaCliValor]").val(i.item.val);
+                },
+                minLength: 1
+            });
+        });
 
-    <div class="form-group col-md-12 col-sm-12 col-xs-12 center-block" >
 
-        <input type="button" id="btnSubmit" name="btnSubmit" class="visible-xs" />
+    </script>
+    <input type="button" id="btnSubmit" name="btnSubmit" class="visible-xs" />
+        <asp:TextBox ID="txtConsultaCliValor" runat="server" CssClass="visible-xs"></asp:TextBox>
         <div class="visible-xs" style="height: 5px; width: 1px; border-color: darkcyan; background-color: darkcyan; color: white;">
             <asp:TextBox ID="TXTprueba" runat="server" BackColor="DarkCyan" BorderColor="DarkCyan" BorderStyle="None" ForeColor="DarkCyan" OnTextChanged="TXTprueba_TextChanged" AutoPostBack="True"></asp:TextBox>
             <asp:TextBox ID="TXTid_cliente" runat="server" BackColor="DarkCyan" BorderColor="DarkCyan" BorderStyle="None" ForeColor="DarkCyan" OnTextChanged="TXTid_cliente_TextChanged"></asp:TextBox>
 
         </div>
-
-
-        <div class="col-xs-4 col-md-4" style=" text-align: left; margin-top:-10px;">
-            <label class="col-md-3" style="color: white; top: 0px; left: 1px; text-align: center; margin-left:-45px;">N° CUENTA:</label>&nbsp
-            <asp:TextBox runat="server" ID="txtCuentaModal" CssClass="left col-md-7"  BackColor="AliceBlue" Font-Bold="true" placeholder="Ingrese el número de cuenta, búsqueda automática" MaxLength="150"></asp:TextBox>
-            <asp:Button ID="btnTraeDatos" runat="server" Text="FILTRAR" CssClass="btn btn-info"  OnClick="btnTraeDatos_Click" />
-        </div>
+    <div class="form-group col-md-12 col-sm-12 col-xs-12 center-block" >
         
-         <div class="col-xs-4 col-md-3" style=" text-align: center; margin-top:-10px;">
+        <div class="col-xs-4 col-md-4" style=" text-align: right; margin-top:-10px;">
+            <label class="col-xs-3 col-md-3" style="color: white;">N° CUENTA:</label>
+            <asp:TextBox runat="server" ID="txtCuentaModal" CssClass="form-control col-xs-9 col-md-9" BackColor="AliceBlue" Font-Bold="true" placeholder="Ingrese el número de cuenta, búsqueda automática" MaxLength="150"></asp:TextBox>
+         </div>
+
+        <div class="col-xs-1 col-md-1" style=" text-align: right; margin-top:-10px;">
+        <asp:Button ID="btnTraeDatos" runat="server" Text="FILTRAR" CssClass="btn btn-info col-sm-12 col-xs-12" Height="35px" OnClick="btnTraeDatos_Click" />
+         </div>
+
+            <div class="col-xs-4 col-md-4" style=" text-align: center; margin-top:-10px;">
             <label style="color: white; top: -10px; ">BANCO:</label>&nbsp
             <asp:Label ID="LBLBANCO" runat="server" Text="--" ForeColor="White"  CssClass="form-control" Font-Bold="true" Font-Size="Large" BackColor="CornflowerBlue" Height="35px"></asp:Label>
         </div>
 
-          <div class="col-xs-4 col-md-3" style="text-align:center; margin-top:-10px;">
+          <div class="col-xs-3 col-md-3" style="text-align:center; margin-top:-10px;">
             <label style="color: white; top: 0px; text-align: left;">N° CUENTA:</label>&nbsp
             <asp:Label ID="LBLNCUENTA" runat="server" Text="--" ForeColor="White" CssClass="form-control" Font-Bold="true" Font-Size="Large" BackColor="CornflowerBlue" Height="35px"></asp:Label>
         </div>
 
-        <div class="col-xs-4 col-md-2" style=" text-align: center; margin-top:-10px;">
-            <label style="color: white; top: 0px; text-align: left;">MONEDA:</label>&nbsp
-            <asp:Label ID="LBLMONEDA" runat="server" Text="--" ForeColor="White" CssClass="form-control" Font-Bold="true" Font-Size="Large" BackColor="CornflowerBlue" Height="35px"></asp:Label>
-        </div>
+       
 
        
         
 
     </div>
-    <div class="col-xs-4 col-md-12" style=" text-align: center; margin-left:-60px;  margin-top:4px; ">
-        <div class="col-xs-4 col-md-3 " style=" margin-left:1000px; ">
+    <div class="col-xs-4 col-md-12" style=" text-align: right; left:350px;  margin-top:4px; float:right; ">
+
+         <div class="col-xs-4 col-md-3 right">
+            <label style="color: white; top: 0px;">MONEDA:</label>&nbsp
+            <asp:Label ID="LBLMONEDA" runat="server" Text="--" ForeColor="White" CssClass="form-control" Font-Bold="true" Font-Size="Large" BackColor="CornflowerBlue" Height="35px"></asp:Label>
+        </div>
+
+        <div class="col-xs-4 col-md-3 right">
              <label style="color: white; top: 0px;">SALDO CONTABLE:</label>&nbsp
             <asp:Label ID="LBLSALDOC" runat="server" Text="--" ForeColor="White" CssClass="form-control" Font-Bold="true" Font-Size="Large" DataFormatString="{0:N}" BackColor="Gold" Height="35px"></asp:Label>
         </div>
-        <div class="col-xs-4 col-md-3 " style="margin-left:-80px; ">
+        <div class="col-xs-4 col-md-3 right">
             <label style="color: white; top: 0px; ">SALDO DISPONIBLE:</label>&nbsp
             <asp:Label ID="LBLSALDOD" runat="server" Text="--" ForeColor="White" CssClass="form-control"   Font-Bold="true" Font-Size="Large" DataFormatString="{0:N}" BackColor="CornflowerBlue" Height="35px"></asp:Label>
         </div>
@@ -434,36 +480,38 @@
         <div class="row">
             <div class="col-xs-12 col-sm-offset-0 col-sm-12 col-md-offset-0 col-md-12">
                 <div class="form-group col-md-12 col-sm-12 col-xs-12 center-block" style="text-align:center">
-
+                    
                     <div class="col-xs-4 col-md-4" style="width: 15%; text-align: center; top: -15px;">
-                        <label style="color: white; text-align: left; margin-right:60px; ">FILTRO N° OPERACION:</label>
-                        <asp:TextBox runat="server" ID="txtConsultaOpe" CssClass="form-control" Width="230px" Font-Bold="true" placeholder="Ingrese número de operación" MaxLength="70"></asp:TextBox>
+                        <label style="color: white; text-align: left; margin-left:-60px; ">FILTROS:</label>
+                        <asp:TextBox runat="server" ID="txtConsultaOpe" CssClass="form-control col-xs-12 col-sm-12" Font-Bold="true" placeholder="Ingrese N° operación" MaxLength="70"></asp:TextBox>
                     </div>
                     <div class="col-xs-4 col-md-4" style="width: 15%; text-align: center; top: -15px;">
-                        <label style="color: white;  text-align: left; margin-right:60px;">FILTRO CLIENTE:</label>
-                        <asp:TextBox runat="server" ID="txtConsultaCli" CssClass="form-control" Width="216px"  Font-Bold="true" placeholder="Ingrese Codigo cliente" MaxLength="70"></asp:TextBox>
+                        <label style="color: white;  text-align: left; margin-right:60px;">CLIENTE:</label>
+                        <asp:TextBox runat="server" ID="txtConsultaCli" CssClass="form-control col-xs-12 col-sm-12"  Font-Bold="true" placeholder="Búsqueda de cliente" MaxLength="70"></asp:TextBox>
                     </div>
                     <div class="col-xs-4 col-md-4" style="width: 15%; text-align: center; top: -15px;">
-                        <label style="color: white;  text-align: left; margin-right:60px;">FILTRO CONCEPTO:</label>
-                        <asp:DropDownList runat="server" ID="cboFiltroConc" CssClass="form-control" AutoPostBack="true" Width="222px"></asp:DropDownList>
+                        <label style="color: white;  text-align: left; margin-right:60px;">CONCEPTO:</label>
+                        <asp:DropDownList runat="server" ID="cboFiltroConc" CssClass="form-control col-xs-12 col-sm-12" AutoPostBack="true" ></asp:DropDownList>
                                         
                     </div>
                     <div class="col-xs-4 col-md-4" style="width: 14%; text-align: center; top: -15px;">
-                        <label style="color: white;  text-align: left; margin-right:60px;">FILTRO FECHA INICIAL:</label>
-                        <asp:TextBox runat="server" ID="txtFechaIni" CssClass="form-control" Width="215px" Height="35px"  TextMode="Date" Font-Bold="true" placeholder="Ingrese Fecha inicial" MaxLength="70"></asp:TextBox>
+                        <label style="color: white;  text-align: left; margin-right:60px;">F.INICIAL:</label>
+                        <asp:TextBox runat="server" ID="txtFechaIni" CssClass="form-control col-xs-12 col-sm-12" Height="35px"  TextMode="Date" Font-Bold="true" placeholder="Ingrese Fecha inicial" MaxLength="70"></asp:TextBox>
                     </div>
                     <div class="col-xs-4 col-md-4" style="width: 14%; text-align: center; top: -15px;">
-                        <label style="color: white; text-align: left; margin-right:60px;">FILTRO FECHA FINAL:</label>
-                        <asp:TextBox runat="server" ID="txtFechaFin" CssClass="form-control" Width="216px" Height="35px"  TextMode="Date" Font-Bold="true" placeholder="Ingrese Fecha final" MaxLength="70"></asp:TextBox>
+                        <label style="color: white; text-align: left; margin-right:60px;">F.FINAL:</label>
+                        <asp:TextBox runat="server" ID="txtFechaFin" CssClass="form-control col-xs-12 col-sm-12"  Height="35px"  TextMode="Date" Font-Bold="true" placeholder="Ingrese Fecha final" MaxLength="70"></asp:TextBox>
                     </div>
                     <div style="float: left; margin-top: 9px; width: 8%;">
-                        &nbsp;
-                                <asp:Button ID="btnConsulta" runat="server" Text="BUSCAR" CssClass="btn btn-info" Width="120px" Font-Bold="true" OnClick="btnConsulta_Click"/>
+                        
+                                <asp:Button ID="btnConsulta" runat="server" Text="BUSCAR" CssClass="btn btn-info" Font-Bold="true" OnClick="btnConsulta_Click"/>
                                 
                       </div>
-                    <div style="float: left; margin-top: 9px; width: 8%; margin-left:-5px;">
+                    <div style="float: left; margin-top: 0px; width: 8%; margin-left:-5px;">
                        
-                                <asp:Button ID="btnREPORTE" runat="server" Text="VER REPORTE" CssClass="btn btn-info" Width="140px" Font-Bold="true" OnClick="btnREPORTE_Click" />
+                       <%-- <asp:Button ID="btnREPORTE" runat="server" Text="VER REPORTE" CssClass="btn btn-info"  Font-Bold="true" OnClick="btnREPORTE_Click" />--%>
+                        <asp:ImageButton ID="reportePDF" runat="server" Height="50px" ImageUrl="~/ICONOS/Graphicloads-Filetype-Pdf.ico" OnClick="reportePDF_Click" Width="50px" />
+                        <%--<asp:ImageButton ID="reporteEXCEL" runat="server" Height="50px" ImageUrl="~/ICONOS/Graphicloads-Filetype-Excel-xls.ico" OnClick="reporteEXCEL_Click" Width="50px" />--%>
                       </div>
                     <div style="float: left; margin-top: 9px; width: 8%; margin-left:5px;">
                        
@@ -473,20 +521,20 @@
                 </div>
 
                 <div style="width: 100%; height: 400px; overflow-y: scroll">
-                    <asp:GridView ID="dgvMOVIMIENTOS" runat="server" CssClass="table table-striped table-bordered  table-hover " BackColor="White" AutoGenerateColumns="False" DataKeyNames="ID_MOVIMIENTOS" OnRowCommand="dgvMOVIMIENTOS_RowCommand">
+                    <asp:GridView ID="dgvMOVIMIENTOS" runat="server"  CssClass="table table-striped table-bordered  table-hover " BackColor="White" AutoGenerateColumns="False" DataKeyNames="ID_MOVIMIENTOS" OnRowCommand="dgvMOVIMIENTOS_RowCommand">
                         <PagerSettings Mode="NumericFirstLast" />
                         <PagerStyle CssClass="pager" Wrap="True" BorderStyle="None" HorizontalAlign="Center" />
                         <Columns>
-                            <asp:BoundField DataField="ID_MOVIMIENTOS" HeaderText="CODIGO" />
-                             <asp:BoundField DataField="FECHA" HeaderText="FECHA MOV" />
-                            <asp:BoundField DataField="DESCRIPCION" HeaderText="DESCRIPCION" />
-                            <asp:BoundField DataField="CONCEPTO" HeaderText="CONCEPTO" />
-                            <asp:BoundField DataField="OPERACION" HeaderText="N° OPERACION" > <ItemStyle HorizontalAlign="Center"/></asp:BoundField>
-                            <asp:BoundField DataField="IMPORTE" HeaderText="IMPORTE" DataFormatString="{0:N}" ><ItemStyle HorizontalAlign="Right"/></asp:BoundField>
-                            <asp:BoundField DataField="MONEDA" HeaderText="MON" Visible="false" />
-                            <asp:BoundField DataField="NOM_CLI" HeaderText="CLIENTE" />
-                            <asp:BoundField DataField="NOMBRE" HeaderText="BANCO"  Visible="false"/>
-                            <asp:BoundField DataField="LUGAR" HeaderText="LUGAR" />
+                            <asp:BoundField DataField="ID_MOVIMIENTOS" HeaderText="CODIGO" HeaderStyle-HorizontalAlign="Center" />
+                             <asp:BoundField DataField="FECHA" HeaderText="FECHA MOV" HeaderStyle-HorizontalAlign="Center"/>
+                            <asp:BoundField DataField="DESCRIPCION" HeaderText="DESCRIPCION" HeaderStyle-HorizontalAlign="Center"/>
+                            <asp:BoundField DataField="CONCEPTO" HeaderText="CONCEPTO" HeaderStyle-HorizontalAlign="Center"/>
+                            <asp:BoundField DataField="OPERACION" HeaderText="N° OPERACION" HeaderStyle-HorizontalAlign="Center"> <ItemStyle HorizontalAlign="Center"/></asp:BoundField>
+                            <asp:BoundField DataField="IMPORTE" HeaderText="IMPORTE" DataFormatString="{0:N}" HeaderStyle-HorizontalAlign="Center"><ItemStyle HorizontalAlign="Right"/></asp:BoundField>
+                            <asp:BoundField DataField="MONEDA" HeaderText="MON" Visible="false" HeaderStyle-HorizontalAlign="Center"/>
+                            <asp:BoundField DataField="NOM_CLI" HeaderText="CLIENTE" HeaderStyle-HorizontalAlign="Center"/>
+                            <asp:BoundField DataField="NOMBRE" HeaderText="BANCO"  Visible="false" />
+                            <asp:BoundField DataField="LUGAR" HeaderText="LUGAR" HeaderStyle-HorizontalAlign="Center"/>
                            
                             <asp:BoundField DataField="TIPO_MOV" HeaderText="TIPO MOV" />
                             

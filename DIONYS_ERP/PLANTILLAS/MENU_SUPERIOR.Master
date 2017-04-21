@@ -6,13 +6,13 @@
 <head runat="server">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title></title>
-    <asp:ContentPlaceHolder ID="head" runat="server">
-    </asp:ContentPlaceHolder>
+   
     <link href="../ESTILOS/menu.css" rel="stylesheet" type="text/css" />
     <link href="../ESTILOS/EstilosGeneral.css" rel="stylesheet" type="text/css" />
     <script src="../SCRIPT/jquerymenu.js" type="text/javascript"></script>
     <link href="../ESTILOS/ESTILOS_BARRA_ESTADO.css" rel="stylesheet" />
-   
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
      
 </head>
     
@@ -28,9 +28,9 @@
             <li>
                 <a href="#">CAJA</a>
                 <ul>
-                    <li><a href="#">ABRIR / CERRAR CAJA</a></li>
+                    <%--<li><a href="#">ABRIR / CERRAR CAJA</a></li>
                     <li><a href="#">MOVIMIENTOS CAJA</a></li>
-                    <li><a href="#">LIBRO CAJA</a></li>
+                    <li><a href="#">LIBRO CAJA</a></li>--%>
                 </ul>
             </li>
             <li>
@@ -40,7 +40,7 @@
             <a href="#">MANTENIMIENTO</a>
               <ul>
 	      
-	              <li><a href="#">CLIENTE</a></li>
+	           <%--   <li><a href="#">CLIENTE</a></li>--%>
 	              <!-- <li><a href="FRM_MANTENIMIENTO_BIEN.aspx">BIEN</a>
                       <%--<ul>
                         <li><a href="MANT_AREA.aspx">Area</a></li>
@@ -50,7 +50,7 @@
                   <li><a href="FRM_MANTENIMIENTO_EMPLEADOS.aspx">EMPLEADOS</a></li>
                   <li><a href="#">CLASE BIEN</a></li>
 	              <li><a href="#">TIPO BIEN</a></li>-->
-                  <li><a href="#">PROVEEDOR</a></li>
+              <%--    <li><a href="#">PROVEEDOR</a></li>--%>
                   
                   
                </ul>
@@ -58,52 +58,52 @@
             <li>    
                 <a href="#">OPERACION</a>
                 <ul>
-                    <li><a href="#">VENTA DIRECTA</a></li>
+                    <%--<li><a href="#">VENTA DIRECTA</a></li>
                     <li><a href="#">GENERAR VENTA</a></li>
                     <li><a href="#">GENERAR COMPRA </a></li>
                     <li><a href="#">CUENTAS X COBRAR </a></li>
-                    <li><a href="#">CUENTAS X PAGAR </a></li>
+                    <li><a href="#">CUENTAS X PAGAR </a></li>--%>
                 </ul>
             </li>
             <li>    
                 <a href="#">UTILITARIOS</a>
                 <ul>
-                    <li><a href="#">REIMPRIMIR VENTA</a></li>
+                    <%--<li><a href="#">REIMPRIMIR VENTA</a></li>--%>
                 </ul>
             </li>
             <li>    
                 <a href="#">REPORTES</a>
                 <ul>
-                    <li><a href="#">REPORTE DE VENTAS</a></li>
-                    <li><a href="#">REPORTE DE BIENES</a></li>
+                    <%--<li><a href="#">REPORTE DE VENTAS</a></li>
+                    <li><a href="#">REPORTE DE BIENES</a></li>--%>
                 </ul>
             </li>
             <li>    
                 <a href="#">GALERIA</a>
                 <ul>
-                    <li><a href="#">CONTROL DE TIENDAS</a></li>
+                    <%--<li><a href="#">CONTROL DE TIENDAS</a></li>
                     <li><a href="#">CONTROL GARANTIAS</a></li>
                     <li><a href="#">CONTROL ARBITRIOS</a></li>
-                    <li><a href="#">ESTADO DE TIENDAS</a></li>
+                    <li><a href="#">ESTADO DE TIENDAS</a></li>--%>
                 </ul>
             </li>
             <li>
                 <a href="#">PANTALLAS</a>
                 <ul>
-                    <li><a href="#">PANTALLA COCINA</a></li>
+                <%--    <li><a href="#">PANTALLA COCINA</a></li>--%>
                 </ul>
             </li>
             
            
-            <li>    
+            <li >    
                 <a href="#">MODULO BANCOS</a>
-                <ul>
+                <ul style="width:160px">
                     <li><a href="FRM_MANTENIMIENTO_BANCOS.aspx">BANCOS</a></li>
                     <li><a href="FRM_MANTENIMIENTO_CUENTAS.aspx">CUENTAS</a></li>
                     <li><a href="FRM_MANTENIMIENTO_MOVIMIENTOS.aspx">MOVIMIENTOS </a></li>
                     <li><a href="FRM_MANTENIMIENTO_CONCEPTOS.aspx">CONCEPTOS</a></li>
-                    <li><a href="FRM_CHEQUES.aspx">CHEQUES</a></li>
-                    <li><a href="FRM_CUENTAS_POR_PAGAR_CHEQUES.aspx">CUENTAS POR PAGAR(*)</a></li>
+                    <li ><a href="FRM_CHEQUES.aspx">CHEQUES EN CARTERA</a></li>
+                 
                     
                 </ul>
             </li>

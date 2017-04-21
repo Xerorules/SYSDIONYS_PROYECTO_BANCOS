@@ -304,9 +304,9 @@ namespace CAPA_NEGOCIO
         {
             return OBJTIPO_BIEN.REPORTE_MOVIMIENTOS_CUENTAS_BANCARIAS(IDCUENTA, FECHA_INI, FECHA_FIN);
         }
-        public DataSet REPORTE_MOVIMIENTOS_CUENTAS_BANCARIAS_DETALLE(string IDCUENTA, string FECHA_INI, string FECHA_FIN)
+        public DataSet REPORTE_MOVIMIENTOS_CUENTAS_BANCARIAS_DETALLE(string IDCUENTA, string FECHA_INI, string FECHA_FIN, string OPE, string CONBANC, string ID_CLIENTE)
         {
-            return OBJTIPO_BIEN.REPORTE_MOVIMIENTOS_CUENTAS_BANCARIAS_DETALLE(IDCUENTA, FECHA_INI, FECHA_FIN);
+            return OBJTIPO_BIEN.REPORTE_MOVIMIENTOS_CUENTAS_BANCARIAS_DETALLE(IDCUENTA, FECHA_INI, FECHA_FIN,OPE,CONBANC,ID_CLIENTE);
         }
         
 
@@ -447,9 +447,9 @@ namespace CAPA_NEGOCIO
             return OBJTIPO_BIEN.DFILTRARGRILLAMOVIMIENTOS(id_empresa, id_cta,fechaini, fechafin, nrope, concepto, idcli);
         }
 
-        public DataTable NVALIDARROPERACION(string id_cta)
+        public DataTable NVALIDARROPERACION(string id_cta,string fech)
         {
-            return OBJTIPO_BIEN.DVALIDAROPERACION(id_cta);
+            return OBJTIPO_BIEN.DVALIDAROPERACION(id_cta, fech);
         }
 
         public DataTable NTABLADATOSCHEQUE(string id_cheque)

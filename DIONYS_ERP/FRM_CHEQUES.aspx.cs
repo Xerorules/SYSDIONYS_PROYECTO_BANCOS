@@ -125,11 +125,11 @@ namespace DIONYS_ERP.PLANTILLAS
 
             for (int i = 0; i < dgvBANCOS.Rows.Count; i++)
             {
-                string caseEstado = dgvBANCOS.Rows[i].Cells[8].Text.Substring(0,19);
+                string caseEstado = Convert.ToDateTime(dgvBANCOS.Rows[i].Cells[8].Text).ToString("dd-MM-yyyy"); 
                 dgvBANCOS.Rows[i].Cells[2].Text = Convert.ToDateTime(dgvBANCOS.Rows[i].Cells[2].Text).ToShortDateString();
                 dgvBANCOS.Rows[i].Cells[3].Text = Convert.ToDateTime(dgvBANCOS.Rows[i].Cells[3].Text).ToShortDateString();
 
-                if (caseEstado == "1/01/1900 12:00:00 ") //si retorna "1/01/1900 12:00:00 a. m." no se ha ingresado una fecha esta en blanco
+                if (caseEstado == "01-01-1900") //si retorna "01/01/1900" no se ha ingresado una fecha esta en blanco
                 {
                     dgvBANCOS.Rows[i].Cells[8].Text = "PENDIENTE";
                     dgvBANCOS.Rows[i].Cells[8].BackColor = Color.DeepSkyBlue;
@@ -139,7 +139,7 @@ namespace DIONYS_ERP.PLANTILLAS
                     dgvBANCOS.Rows[i].Cells[8].VerticalAlign = VerticalAlign.Middle;
 
                 }
-                else if (caseEstado == "31/12/1900 12:00:00")//cualquier fecha indica deposito normal
+                else if (caseEstado == "31-12-1900")//cualquier fecha indica deposito normal
                 {
                     dgvBANCOS.Rows[i].Cells[8].Text = "DEPOSITADO";
                     dgvBANCOS.Rows[i].Cells[8].BackColor = Color.Orange;
@@ -149,7 +149,7 @@ namespace DIONYS_ERP.PLANTILLAS
                     dgvBANCOS.Rows[i].Cells[8].VerticalAlign = VerticalAlign.Middle;
                     dgvBANCOS.Rows[i].Cells[10].Enabled = false;
                 }
-                else if (caseEstado != "1/01/1900 12:00:00 " && caseEstado != "1/01/3000 12:00:00 " && caseEstado != "31/12/1900 12:00:00")//cualquier fecha indica deposito normal
+                else if (caseEstado != "01-01-1900" && caseEstado != "01-01-3000" && caseEstado != "31-12-1900")//cualquier fecha indica deposito normal
                 {
                     dgvBANCOS.Rows[i].Cells[8].Text = "ACEPTADO";
                     dgvBANCOS.Rows[i].Cells[8].BackColor = Color.LimeGreen;
@@ -160,7 +160,7 @@ namespace DIONYS_ERP.PLANTILLAS
                     dgvBANCOS.Rows[i].Cells[10].Enabled = false;
                     dgvBANCOS.Rows[i].Cells[9].Enabled = false;
                 }
-                else if (caseEstado == "1/01/3000 12:00:00 ")//si retorna "1/01/3000 12:00:00 a. m." el estado es rebotado
+                else if (caseEstado == "01-01-3000")//si retorna "1/01/3000 12:00:00 a. m." el estado es rebotado
                 {
                     dgvBANCOS.Rows[i].Cells[8].Text = "REBOTADO";
                     dgvBANCOS.Rows[i].Cells[8].BackColor = Color.Red;
@@ -376,7 +376,7 @@ namespace DIONYS_ERP.PLANTILLAS
             //registrar mov y actualizar estado cheques a depositado
             int validador = 0;//VARIABLE SI ES 0 NO SE REPITE
             List<String> lista = new List<string>();
-            DataTable DT = OBJVENTA.NVALIDARROPERACION(cbomCUENTA.SelectedValue);//TREAEMOS LOS NUMEROS DE OPERACION
+            DataTable DT = OBJVENTA.NVALIDARROPERACION(cbomCUENTA.SelectedValue, Convert.ToDateTime(txtmFECH.Text).ToShortDateString());//TREAEMOS LOS NUMEROS DE OPERACION
             DataTable dtcheque = OBJVENTA.NTABLADATOSCHEQUE(lblid_cheque.Text);
             lblid_cliente.Text = dtcheque.Rows[0][0].ToString();
             string n_ope1 = txtmOPE.Text;
@@ -543,11 +543,11 @@ namespace DIONYS_ERP.PLANTILLAS
 
             for (int i = 0; i < dgvBANCOS.Rows.Count; i++)
             {
-                string caseEstado = dgvBANCOS.Rows[i].Cells[8].Text.Substring(0, 19);
+                string caseEstado = Convert.ToDateTime(dgvBANCOS.Rows[i].Cells[8].Text).ToString("dd-MM-yyyy"); 
                 dgvBANCOS.Rows[i].Cells[2].Text = Convert.ToDateTime(dgvBANCOS.Rows[i].Cells[2].Text).ToShortDateString();
                 dgvBANCOS.Rows[i].Cells[3].Text = Convert.ToDateTime(dgvBANCOS.Rows[i].Cells[3].Text).ToShortDateString();
 
-                if (caseEstado == "1/01/1900 12:00:00 ") //si retorna "1/01/1900 12:00:00 a. m." no se ha ingresado una fecha esta en blanco
+                if (caseEstado == "01-01-1900") //si retorna "1/01/1900 12:00:00 a. m." no se ha ingresado una fecha esta en blanco
                 {
                     dgvBANCOS.Rows[i].Cells[8].Text = "PENDIENTE";
                     dgvBANCOS.Rows[i].Cells[8].BackColor = Color.DeepSkyBlue;
@@ -557,7 +557,7 @@ namespace DIONYS_ERP.PLANTILLAS
                     dgvBANCOS.Rows[i].Cells[8].VerticalAlign = VerticalAlign.Middle;
 
                 }
-                else if (caseEstado == "31/12/1900 12:00:00")//cualquier fecha indica deposito normal
+                else if (caseEstado == "31-12-1900")//cualquier fecha indica deposito normal
                 {
                     dgvBANCOS.Rows[i].Cells[8].Text = "DEPOSITADO";
                     dgvBANCOS.Rows[i].Cells[8].BackColor = Color.Orange;
@@ -567,7 +567,7 @@ namespace DIONYS_ERP.PLANTILLAS
                     dgvBANCOS.Rows[i].Cells[8].VerticalAlign = VerticalAlign.Middle;
                     dgvBANCOS.Rows[i].Cells[10].Enabled = false;
                 }
-                else if (caseEstado != "1/01/1900 12:00:00 " && caseEstado != "1/01/3000 12:00:00 " && caseEstado != "31/12/1900 12:00:00")//cualquier fecha indica deposito normal
+                else if (caseEstado != "01-01-1900" && caseEstado != "01-01-3000" && caseEstado != "31-12-1900")//cualquier fecha indica deposito normal
                 {
                     dgvBANCOS.Rows[i].Cells[8].Text = "ACEPTADO";
                     dgvBANCOS.Rows[i].Cells[8].BackColor = Color.LimeGreen;
@@ -578,7 +578,7 @@ namespace DIONYS_ERP.PLANTILLAS
                     dgvBANCOS.Rows[i].Cells[10].Enabled = false;
                     dgvBANCOS.Rows[i].Cells[9].Enabled = false;
                 }
-                else if (caseEstado == "1/01/3000 12:00:00 ")//si retorna "1/01/3000 12:00:00 a. m." el estado es rebotado
+                else if (caseEstado == "01-01-3000")//si retorna "1/01/3000 12:00:00 a. m." el estado es rebotado
                 {
                     dgvBANCOS.Rows[i].Cells[8].Text = "REBOTADO";
                     dgvBANCOS.Rows[i].Cells[8].BackColor = Color.Red;

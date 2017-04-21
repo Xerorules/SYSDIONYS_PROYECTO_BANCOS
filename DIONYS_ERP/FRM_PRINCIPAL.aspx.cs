@@ -47,27 +47,27 @@ namespace DIONYS_ERP
 
         protected void ImageButton3_Click(object sender, ImageClickEventArgs e)
         {
-            Response.Redirect("FRM_MANTENIMIENTO_BIEN.aspx");
+            //Response.Redirect("FRM_MANTENIMIENTO_BIEN.aspx");
         }
 
         protected void ImageButton4_Click(object sender, ImageClickEventArgs e)
         {
-            Response.Redirect("FRM_MANTENIMIENTO_EMPLEADOS.aspx");
+            //Response.Redirect("FRM_MANTENIMIENTO_EMPLEADOS.aspx");
         }
 
         protected void ImageButton5_Click(object sender, ImageClickEventArgs e)
         {
-            Response.Redirect("FRM_REPORTE_BIEN.aspx");
+            //Response.Redirect("FRM_REPORTE_BIEN.aspx");
         }
 
         protected void ImageButton6_Click(object sender, ImageClickEventArgs e)
         {
-            Response.Redirect("FRM_REPORTE.aspx");
+            //Response.Redirect("FRM_REPORTE.aspx");
         }
 
         protected void ImageButton7_Click(object sender, ImageClickEventArgs e)
         {
-            Response.Redirect("FRM_REIMPRESIONES.aspx");
+            //Response.Redirect("FRM_REIMPRESIONES.aspx");
         }
     }
 }

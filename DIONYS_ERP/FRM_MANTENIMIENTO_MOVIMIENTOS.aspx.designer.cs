@@ -13,6 +13,15 @@ namespace DIONYS_ERP.PLANTILLAS {
     public partial class Formulario_web3 {
         
         /// <summary>
+        /// Control txtConsultaCliValor.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtConsultaCliValor;
+        
+        /// <summary>
         /// Control TXTprueba.
         /// </summary>
         /// <remarks>
@@ -274,13 +283,13 @@ namespace DIONYS_ERP.PLANTILLAS {
         protected global::System.Web.UI.WebControls.Button btnConsulta;
         
         /// <summary>
-        /// Control btnREPORTE.
+        /// Control reportePDF.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnREPORTE;
+        protected global::System.Web.UI.WebControls.ImageButton reportePDF;
         
         /// <summary>
         /// Control btnSALDOS.

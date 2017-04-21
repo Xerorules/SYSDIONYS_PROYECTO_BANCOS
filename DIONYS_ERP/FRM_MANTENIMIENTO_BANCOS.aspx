@@ -1,10 +1,18 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/PLANTILLAS/MENU_SUPERIOR.Master" AutoEventWireup="true" CodeBehind="FRM_MANTENIMIENTO_BANCOS.aspx.cs" Inherits="DIONYS_ERP.PLANTILLAS.Formulario_web12" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    
+
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
     <link href="assets/css/custom-styles.css" rel="stylesheet" />
     <link href="assets/css/font-awesome.css" rel="stylesheet" />
-    <link href="ESTILOS/ESTILOS_FRM_PRINCIPAL.css" rel="stylesheet" />
+
+   
+    <link href="../ESTILOS/EstilosGeneral.css" rel="stylesheet" type="text/css" />
+    <script src="../SCRIPT/jquerymenu.js" type="text/javascript"></script>
+    <link href="../ESTILOS/ESTILOS_BARRA_ESTADO.css" rel="stylesheet" />
+     <link href="ESTILOS/ESTILOS_FRM_PRINCIPAL.css" rel="stylesheet" />
+
     <script src="assets/js/jquery-1.10.2.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>
     <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.3/animate.min.css'/>
@@ -30,7 +38,9 @@
         
     </script>
     
+    
 </asp:Content>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container-fluid col-lg-5">
         <div class="form-horizontal" style="position: relative;">
@@ -39,7 +49,7 @@
             <div class="form-group">
                 <label class="control-label col-xs-3" style="color: white">Nombre o Razón Social:</label>
                 <div class="col-xs-8 col-md-6">
-                    <asp:TextBox runat="server" ID="txtNOM" CssClass="form-control" placeholder="Nombre o Razon Social" MaxLength="100"></asp:TextBox>
+                    <asp:TextBox runat="server" ID="txtNOM" CssClass="form-control col-xs-10 col-md-10" placeholder="Nombre o Razon Social" MaxLength="100"></asp:TextBox>
                     <%--VALIDADOR--%>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server"
                         ControlToValidate="txtNOM"
@@ -47,15 +57,15 @@
                         ForeColor="Gold"
                         ValidationGroup="Registro"  Display="Dynamic">
                     </asp:RequiredFieldValidator>
-                     &nbsp
+                     
                 </div>
 
             </div>
-
+            &nbsp;
             <div class="form-group">
                 <label class="control-label col-xs-3" style="color: white">RUC:</label>
                 <div class="col-xs-8 col-md-6">
-                    <asp:TextBox runat="server" ID="txtRUC" CssClass="form-control" placeholder="RUC" MaxLength="45"></asp:TextBox>
+                    <asp:TextBox runat="server" ID="txtRUC" CssClass="form-control col-xs-10 col-md-10" placeholder="RUC" MaxLength="45"></asp:TextBox>
                     <%--VALIDADOR--%>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server"
                         ControlToValidate="txtRUC"
@@ -63,15 +73,15 @@
                         ForeColor="Gold"
                         ValidationGroup="Registro"  Display="Dynamic">
                     </asp:RequiredFieldValidator>
-                     &nbsp
+                    
                 </div>
                 
-            </div>
+            </div> &nbsp;
 
             <div class="form-group">
                 <label class="control-label col-xs-3" style="color: white">Dirección:</label>
                 <div class="col-xs-8 col-md-6">
-                    <asp:TextBox runat="server" ID="txtDIRECCION" CssClass="form-control" placeholder="Dirección" MaxLength="100"></asp:TextBox>
+                    <asp:TextBox runat="server" ID="txtDIRECCION" CssClass="form-control col-xs-10 col-md-10" placeholder="Dirección" MaxLength="100"></asp:TextBox>
                     <%--VALIDADOR--%>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server"
                         ControlToValidate="txtDIRECCION"
@@ -79,14 +89,14 @@
                         ForeColor="Gold"
                         ValidationGroup="Registro"  Display="Dynamic">
                     </asp:RequiredFieldValidator>
-                     &nbsp
+                    
                 </div>
                 
-            </div>
+            </div> &nbsp;
             <div class="form-group">
                 <label class="control-label col-xs-3" style="color: white">Teléfono:</label>
                 <div class="col-xs-8 col-md-6">
-                    <asp:TextBox runat="server" ID="txtTelefono" CssClass="form-control" placeholder="5555555" MaxLength="45"></asp:TextBox>
+                    <asp:TextBox runat="server" ID="txtTelefono" CssClass="form-control col-xs-10 col-md-10" placeholder="5555555" MaxLength="45"></asp:TextBox>
                     <%--VALIDADOR--%>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server"
                         ControlToValidate="txtTelefono"
@@ -94,7 +104,7 @@
                         ForeColor="Gold"
                         ValidationGroup="Registro"  Display="Dynamic">
                     </asp:RequiredFieldValidator>
-                     &nbsp
+                     &nbsp;
                 </div>
                 
             </div>
@@ -102,17 +112,21 @@
             <div class="form-group col-md-12 col-sm-12 col-xs-12" style="position: center;">
                 &nbsp
 
-                <div class="col-md-3 col-sm-3 col-xs-12" style="position: center;">
-                    <asp:Button runat="server" class="form-control btn btn-primary" Text="REGISTRAR"  ValidationGroup="Registro"  ID="btnRegistrar" OnClick="btnRegistrar_Click" />
-                    &nbsp
+                <div class="col-lg-4 col-sm-4 col-xs-12" style="text-align:left;">
+                    <asp:Button runat="server" class="form-control btn btn-primary col-md-12 col-sm-12 col-xs-12" Text="REGISTRAR"  ValidationGroup="Registro"  ID="btnRegistrar" OnClick="btnRegistrar_Click" />
+                    
                 </div>
-                <div class="col-md-3 col-sm-3 col-xs-12" style="position: center;">
-                    <asp:Button runat="server" class="form-control btn btn-primary" Text="ACTUALIZAR" ID="btnActualizar" OnClick="btnActualizar_Click" />
-                    &nbsp
-                </div>
-                <div class="col-md-3 col-sm-3 col-xs-12" style="position: center">
-                    <asp:Button runat="server" class="form-control btn btn-primary" Text="CANCELAR" ID="btnCancelar" OnClick="btnCancelar_Click" />
-
+                &nbsp
+                <div class="col-lg-4 col-sm-4 col-xs-12" style="text-align:center;">
+                    <asp:Button runat="server" class="form-control btn btn-primary col-md-12 col-sm-12 col-xs-12" Text="ACTUALIZAR" ID="btnActualizar" OnClick="btnActualizar_Click" />
+                    &nbsp 
+                  
+                </div> 
+                &nbsp
+                <div class="col-lg-4 col-sm-4 col-xs-12" style="text-align:right; top:-20px;">
+                   
+                    <asp:Button runat="server" class="form-control btn btn-primary col-md-12 col-sm-12 col-xs-12" Text="CANCELAR" ID="btnCancelar" OnClick="btnCancelar_Click" />
+                     
 
                 </div>
 
@@ -207,7 +221,7 @@
 
     <div class="container-fluid">
         <div class="row">
-            <div class="col-xs-10 col-sm-offset-0 col-sm-10 col-md-offset-0 col-md-6">
+            <div class="col-lg-6  col-sm-10 col-md-12 col-xs-10">
 
                 <h2 style="color: white" class="text-info">LISTA DE BANCOS</h2>
                 &nbsp

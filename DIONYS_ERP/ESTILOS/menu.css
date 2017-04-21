@@ -107,7 +107,8 @@
         _margin: 0; /*IE6 only*/
         -moz-box-shadow: -1px 0 0 rgba(255,255,255,.3);
         -webkit-box-shadow: -1px 0 0 rgba(255,255,255,.3);
-        box-shadow: -1px 0 0 rgba(255,255,255,.3);       
+        box-shadow: -1px 0 0 rgba(255,255,255,.3);  
+           
     }
    
     #menu ul li {
@@ -118,6 +119,7 @@
         -moz-box-shadow: 0 1px 0 #111, 0 2px 0 #666;
         -webkit-box-shadow: 0 1px 0 #111, 0 2px 0 #666;
         box-shadow: 0 1px 0 #111, 0 2px 0 #666;
+
     }
    
     #menu ul li:last-child {  
@@ -128,15 +130,14 @@
    
     #menu ul a {   
         padding: 10px;
-        width: 130px;
-        _height: 10px; /*IE6 only*/
         display: block;
         white-space: nowrap;
         float: none;
         text-transform: none;
+        width: 160px;
     }
    
-    #menu ul a:hover {
+    #menu ul a:hover {/*HOVER AZUL*/
         background-color: #0186ba;
         background-image: -moz-linear-gradient(#04acec,  #0186ba);   
         background-image: -webkit-gradient(linear, left top, left bottom, from(#04acec), to(#0186ba));
@@ -144,6 +145,7 @@
         background-image: -o-linear-gradient(#04acec, #0186ba);
         background-image: -ms-linear-gradient(#04acec, #0186ba);
         background-image: linear-gradient(#04acec, #0186ba);
+       width:auto;
     }
    
     #menu ul li:first-child > a {
@@ -261,7 +263,8 @@
             background: none;
             -moz-box-shadow: none;
             -webkit-box-shadow: none;
-            box-shadow: none;               
+            box-shadow: none;  
+                            
         }
 
         #menu ul ul {
@@ -279,14 +282,16 @@
             margin: 5px;
             -moz-box-shadow: none;
             -webkit-box-shadow: none;
-            box-shadow: none;           
+            box-shadow: none;  
+                     
         }
 
         #menu ul li{
             margin-left: 20px;
             -moz-box-shadow: none;
             -webkit-box-shadow: none;
-            box-shadow: none;       
+            box-shadow: none;   
+            width:100%;     
         }
 
         #menu a{
@@ -294,6 +299,7 @@
             float: none;
             padding: 0;
             color: #FFFFFF;
+            width:160px; 
         }
 
         #menu a:hover{
@@ -301,8 +307,7 @@
         }   
 
         #menu ul a{
-            padding: 0;
-            width: auto;       
+            padding: 0;       
         }
 
         #menu ul a:hover{
