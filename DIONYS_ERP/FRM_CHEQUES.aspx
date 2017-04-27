@@ -584,8 +584,8 @@
                  <asp:BoundField DataField="ID_CHEQUE" HeaderText="CODIGO">
                      <ItemStyle Width="10px" />
                  </asp:BoundField>
-                 <asp:BoundField DataField="DESCRIPCION" HeaderText="CLIENTE">
-                     <ItemStyle Width="250px" />
+                   <asp:BoundField DataField="DESCRIPCION" HeaderText="CLIENTE">
+                       <ItemStyle Width="280px" />
                  </asp:BoundField>
                  <asp:BoundField DataField="FECHA_GIRO" HeaderText="FECHA GIRO">
                      <ItemStyle Width="100px" />
@@ -613,6 +613,12 @@
                           <asp:LinkButton ID="LinkButtonEliminar" runat="server" CommandName="ELIMINAR">ELIMINAR</asp:LinkButton>
                      </ItemTemplate>
                  </asp:TemplateField>
+
+
+
+
+
+               
 
 
 

@@ -65,8 +65,16 @@ namespace DIONYS_ERP.SERVICES
             List<string> cuentas = new List<string>();
             using (SqlConnection conn = new SqlConnection())
             {
-                conn.ConnectionString = ConfigurationManager
-                        .ConnectionStrings["sql"].ConnectionString;
+                if (Session["ID_EMPRESA"].ToString() == "005")
+                {
+                    conn.ConnectionString = ConfigurationManager
+                            .ConnectionStrings["sql2"].ConnectionString;
+                }
+                else
+                {
+                    conn.ConnectionString = ConfigurationManager
+                            .ConnectionStrings["sql"].ConnectionString;
+                }
                 using (SqlCommand cmd = new SqlCommand("AUTOCOMPLETAR_CLIENTES", conn))
                 {
                     

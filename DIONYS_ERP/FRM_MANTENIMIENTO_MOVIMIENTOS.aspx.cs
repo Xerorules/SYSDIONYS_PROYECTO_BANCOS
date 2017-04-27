@@ -152,6 +152,31 @@ namespace DIONYS_ERP.PLANTILLAS
             //btnConsulta.Enabled = false;
         }
 
+
+        void llenar_labels_cabecera()
+        {
+            /*---------------------------------------------------------------------------*/
+            DataTable dt = OBJVENTA.NLLENAR_CABECERA_MOVIMIENTOS(TXTprueba.Text);
+            string mone = dt.Rows[0][0].ToString();
+
+            LBLBANCO.Text = dt.Rows[0][1].ToString();
+            if (mone == "S")
+            {
+                LBLMONEDA.Text = "SOLES";
+                LBLSALDOC.Text = "S/." + Convert.ToDecimal(dt.Rows[0][2].ToString()).ToString("#,###0.00");
+                LBLSALDOD.Text = "S/." + Convert.ToDecimal(dt.Rows[0][3].ToString()).ToString("#,###0.00");
+            }
+            else if (mone == "D")
+            {
+                LBLMONEDA.Text = "DOLARES";
+                LBLSALDOC.Text = "$  " + Convert.ToDecimal(dt.Rows[0][2].ToString()).ToString("#,###0.00");
+                LBLSALDOD.Text = "$  " + Convert.ToDecimal(dt.Rows[0][3].ToString()).ToString("#,###0.00");
+            }
+
+            LBLNCUENTA.Text = dt.Rows[0][4].ToString();
+            /*---------------------------------------------------------------------------*/
+        }
+
         protected void btnRegistrar_Click(object sender, EventArgs e)
         {   //VALIDAMOS QUE EL NUMERO DE OPERACION NO SE REPITA PARA LA CUENTA 
             int validador = 0;//VARIABLE SI ES 0 NO SE REPITE
@@ -211,7 +236,9 @@ namespace DIONYS_ERP.PLANTILLAS
                 OBJMOVS.importe = Convert.ToDecimal(impo);
                 OBJMOVS.operacion = txtOPE.Text;
                 OBJMOVS.descripcion = txtDESC.Text;
-                OBJMOVS.id_cliente = TXTid_cliente.Text;
+                
+                OBJMOVS.id_cliente = (txtCLIENTE.Text == "") ? "" : TXTid_cliente.Text;
+
                 string empre = Session["ID_EMPRESA"].ToString();
                 string res = OBJVENTA.NREGISTRARMOV(OBJMOVS, "2", empre);
 
@@ -223,24 +250,7 @@ namespace DIONYS_ERP.PLANTILLAS
                     llenar_datos("1", empre, Session["ID_CUENTA_MOV"].ToString());
                     LIMPIAR();
                     txtFECHA.Text = DateTime.Now.ToLocalTime().ToString("dd-MM-yyyy HH:mm");
-                    /*---------------------------------------------------------------------------*/
-                    DataTable dt = OBJVENTA.NLLENAR_CABECERA_MOVIMIENTOS(TXTprueba.Text);
-                    string mone = dt.Rows[0][0].ToString();
-                   
-                    LBLBANCO.Text = dt.Rows[0][1].ToString();
-                    if (mone == "S")
-                    {
-                        LBLMONEDA.Text = "SOLES";
-                        LBLSALDOC.Text = "S/." + Convert.ToDecimal(dt.Rows[0][2].ToString()).ToString("#,###0.00");
-                        LBLSALDOD.Text = "S/." + Convert.ToDecimal(dt.Rows[0][3].ToString()).ToString("#,###0.00");
-                    }
-                    else if (mone == "D")
-                    {
-                        LBLMONEDA.Text = "DOLARES";
-                        LBLSALDOC.Text = "$  " + Convert.ToDecimal(dt.Rows[0][2].ToString()).ToString("#,###0.00");
-                        LBLSALDOD.Text = "$  " + Convert.ToDecimal(dt.Rows[0][3].ToString()).ToString("#,###0.00");
-                    }
-                    /*---------------------------------------------------------------------------*/
+                    llenar_labels_cabecera();
                 }
                 else
                 {
@@ -296,23 +306,7 @@ namespace DIONYS_ERP.PLANTILLAS
                 Session["ID_CUENTA_MOV"] = TXTprueba.Text;
                
                 llenar_datos("1", Session["ID_EMPRESA"].ToString(), Session["ID_CUENTA_MOV"].ToString());
-                DataTable dt = OBJVENTA.NLLENAR_CABECERA_MOVIMIENTOS(TXTprueba.Text);
-
-                string mone = dt.Rows[0][0].ToString();
-                if (mone == "S")
-                {
-                    LBLMONEDA.Text = "SOLES";
-                    LBLSALDOC.Text = "S/." + Convert.ToDecimal(dt.Rows[0][2].ToString()).ToString("#,###0.00");
-                    LBLSALDOD.Text = "S/." + Convert.ToDecimal(dt.Rows[0][3].ToString()).ToString("#,###0.00");
-                }
-                else if (mone == "D")
-                {
-                    LBLMONEDA.Text = "DOLARES";
-                    LBLSALDOC.Text = "$  " + Convert.ToDecimal(dt.Rows[0][2].ToString()).ToString("#,###0.00");
-                    LBLSALDOD.Text = "$  " + Convert.ToDecimal(dt.Rows[0][3].ToString()).ToString("#,###0.00");
-                }
-                LBLBANCO.Text = dt.Rows[0][1].ToString();
-                LBLNCUENTA.Text = dt.Rows[0][4].ToString();
+                llenar_labels_cabecera();
                 btnNuevo.Enabled = true;
                 FileUpload1.Enabled = true;
                 Button1.Enabled = true;
@@ -404,25 +398,8 @@ namespace DIONYS_ERP.PLANTILLAS
                                         llenar_datos("1", empre, Session["ID_CUENTA_MOV"].ToString());
                                         LIMPIAR();
                                         txtFECHA.Text = DateTime.Now.ToLocalTime().ToString("dd-MM-yyyy HH:mm");
-                                        DataTable dt = OBJVENTA.NLLENAR_CABECERA_MOVIMIENTOS(TXTprueba.Text);
-                                        string mone = dt.Rows[0][0].ToString();
-                                        
-                                        LBLBANCO.Text = dt.Rows[0][1].ToString();
-                                    if (mone == "S")
-                                    {
-                                        LBLMONEDA.Text = "SOLES";
-                                        LBLSALDOC.Text = "S/." + Convert.ToDecimal(dt.Rows[0][2].ToString()).ToString("#,###0.00");
-                                        LBLSALDOD.Text = "S/." + Convert.ToDecimal(dt.Rows[0][3].ToString()).ToString("#,###0.00");
+                                        llenar_labels_cabecera();
                                     }
-                                    else if (mone == "D")
-                                    {
-                                        LBLMONEDA.Text = "DOLARES";
-                                        LBLSALDOC.Text = "$  " + Convert.ToDecimal(dt.Rows[0][2].ToString()).ToString("#,###0.00");
-                                        LBLSALDOD.Text = "$  " + Convert.ToDecimal(dt.Rows[0][3].ToString()).ToString("#,###0.00");
-                                    }
-
-
-                                }
                                     else
                                     {
                                         Response.Write("<script>alert('Error datos no Modificados')</script>");
@@ -569,7 +546,7 @@ namespace DIONYS_ERP.PLANTILLAS
                 }
                 Session["IMPORTE_MOV"] = row.Cells[5].Text;
                 txtLugar.Text = row.Cells[9].Text.Replace("&nbsp;", "");
-                txtOPE.Text = row.Cells[4].Text.Replace("&nbsp;", ""); ;
+                txtOPE.Text = row.Cells[4].Text.Replace("&#160;", "");
                 txtIMPORTE.Text = row.Cells[5].Text;
                 txtDESC.Text = row.Cells[2].Text.Replace("&nbsp;", "");
                 txtCLIENTE.Text = row.Cells[7].Text.Replace("&nbsp;", "");
@@ -596,12 +573,7 @@ namespace DIONYS_ERP.PLANTILLAS
                     llenar_datos("1", Session["ID_EMPRESA"].ToString(), Session["ID_CUENTA_MOV"].ToString());
                     LIMPIAR();
                     txtFECHA.Text = DateTime.Now.ToLocalTime().ToString("dd-MM-yyyy HH:mm");
-                    DataTable dt = OBJVENTA.NLLENAR_CABECERA_MOVIMIENTOS(TXTprueba.Text);
-                    string mone = dt.Rows[0][0].ToString();
-                    if (mone == "S") { LBLMONEDA.Text = "SOLES"; } else if (mone == "D") { LBLMONEDA.Text = "DOLARES"; }
-                    LBLBANCO.Text = dt.Rows[0][1].ToString();
-                    LBLSALDOC.Text = dt.Rows[0][2].ToString();
-                    LBLSALDOD.Text = dt.Rows[0][3].ToString();
+                    llenar_labels_cabecera();
                     LIMPIAR();
                     Session["CodigoBCOE"] = "";
                 }
@@ -647,14 +619,9 @@ namespace DIONYS_ERP.PLANTILLAS
 
                 llenar_datos("1", empre, Session["ID_CUENTA_MOV"].ToString());
                 LIMPIAR();
-                
+
                 /*---------------------------------------------------------------------------*/
-                DataTable dt = OBJVENTA.NLLENAR_CABECERA_MOVIMIENTOS(TXTprueba.Text);
-                string mone = dt.Rows[0][0].ToString();
-                if (mone == "S") { LBLMONEDA.Text = "SOLES"; } else if (mone == "D") { LBLMONEDA.Text = "DOLARES"; }
-                LBLBANCO.Text = dt.Rows[0][1].ToString();
-                LBLSALDOC.Text = dt.Rows[0][2].ToString();
-                LBLSALDOD.Text = dt.Rows[0][3].ToString();
+                llenar_labels_cabecera();
                 LIMPIAR();
                 btnActualizar.Enabled = false;
                 btnCancelar.Enabled = false;
