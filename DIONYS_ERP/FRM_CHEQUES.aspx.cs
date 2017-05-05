@@ -200,7 +200,7 @@ namespace DIONYS_ERP.PLANTILLAS
 
                 if (res == "ok")
                 {
-                    Response.Write("<script>alert('Cheque registrado correctamente..')</script>");
+                   Response.Write("<script>alert('Cheque registrado correctamente..')</script>");
                     //ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
 
                     llenar_datos();
@@ -431,6 +431,7 @@ namespace DIONYS_ERP.PLANTILLAS
                 OBJMOVS.operacion = txtmOPE.Text;
                 OBJMOVS.descripcion = txtmDESC.Text;
                 OBJMOVS.id_cliente = lblid_cliente.Text;
+                OBJMOVS.observacion = "";
                 string empre = Session["ID_EMPRESA"].ToString();
                 string res = OBJVENTA.NREGISTRARMOV_CHEQUE(OBJMOVS, "1", empre,lblid_cheque.Text,FECHA2);
 

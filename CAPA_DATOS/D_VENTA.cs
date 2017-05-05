@@ -1722,6 +1722,7 @@ namespace CAPA_DATOS
                 cmd.Parameters.AddWithValue("@ID_CLIENTE", "");
                 cmd.Parameters.AddWithValue("@ID_CUENTASBANCARIAS", id_cta);
                 cmd.Parameters.AddWithValue("@CONDICION", cond);
+                cmd.Parameters.AddWithValue("@OBS", ""); 
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 
                 da.Fill(dt);
@@ -1734,6 +1735,59 @@ namespace CAPA_DATOS
             }
             return dt;
         }
+
+        public DataTable DLLENARGRILLAPOPUP(string ID_MOV,string ID_VENTA,string OBS,string COND,string FECHAV, string FECHAF, string CODDBC)
+        {
+            DataTable dt = new DataTable();
+            if (con.State == ConnectionState.Closed) { con.Open(); }
+            SqlCommand cmd = new SqlCommand("SP_MANT_TABLA_TEMPORAL_DBCOMERCIAL", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@ID_MOVIMIENTO", ID_MOV);
+            cmd.Parameters.AddWithValue("@DV_NUMEROINT", ID_VENTA);
+            cmd.Parameters.AddWithValue("@OBSERVACION", OBS);
+            cmd.Parameters.AddWithValue("@CONDICION", COND);
+            cmd.Parameters.AddWithValue("@FECHAV", FECHAV);
+            cmd.Parameters.AddWithValue("@FECHAF", FECHAF);
+            cmd.Parameters.AddWithValue("@CODDBC", CODDBC);
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            da.Fill(dt);
+            con.Close();
+
+
+            return dt;
+        }
+
+        public string DAMARRARVENTAMOVIMIENTO(string ID_MOV, string ID_VENTA, string OBS, string COND,string FECHAV,string FECHAF,string CODDBC)
+        {
+            string res = "";
+            try
+            {
+                DataTable dt = new DataTable();
+                if (con.State == ConnectionState.Closed) { con.Open(); }
+                SqlCommand cmd = new SqlCommand("SP_MANT_TABLA_TEMPORAL_DBCOMERCIAL", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@ID_MOVIMIENTO", ID_MOV);
+                cmd.Parameters.AddWithValue("@DV_NUMEROINT", ID_VENTA);
+                cmd.Parameters.AddWithValue("@OBSERVACION", OBS);
+                cmd.Parameters.AddWithValue("@CONDICION", COND);
+                cmd.Parameters.AddWithValue("@FECHAV", FECHAV);
+                cmd.Parameters.AddWithValue("@FECHAF", FECHAF);
+                cmd.Parameters.AddWithValue("@CODDBC", CODDBC);
+                int i = cmd.ExecuteNonQuery();
+                if (i > 0)
+                {
+                    res = "ok";
+                }
+                con.Close();
+
+            }
+            catch(Exception ex)
+            {
+                
+            }
+            return res;
+        }
+
 
         public DataTable DLLENARDESCRIPCIONCLIENTE(string cod)
         {
@@ -2064,6 +2118,7 @@ namespace CAPA_DATOS
                 cmd.Parameters.AddWithValue("@ID_CUENTASBANCARIAS", MVO.id_cuentasbancarias);
                 cmd.Parameters.AddWithValue("@SALDO",0);
                 cmd.Parameters.AddWithValue("@CONDICION", 2);
+                cmd.Parameters.AddWithValue("@OBS", MVO.observacion); 
                 int a = cmd.ExecuteNonQuery();
                 if (a > 0)
                 {
@@ -2142,6 +2197,7 @@ namespace CAPA_DATOS
                 cmd.Parameters.AddWithValue("@ID_CUENTASBANCARIAS", MVO.id_cuentasbancarias);
                 cmd.Parameters.AddWithValue("@SALDO", MVO.saldo);
                 cmd.Parameters.AddWithValue("@CONDICION", cond);
+                cmd.Parameters.AddWithValue("@OBS", MVO.observacion);
                 int a = cmd.ExecuteNonQuery();
                 if (a > 0)
                 {
@@ -2399,6 +2455,7 @@ namespace CAPA_DATOS
                 cmd.Parameters.AddWithValue("@ID_CUENTASBANCARIAS", "");
                 cmd.Parameters.AddWithValue("@SALDO", 0);
                 cmd.Parameters.AddWithValue("@CONDICION", 3);
+                cmd.Parameters.AddWithValue("@OBS", "");
                 int a = cmd.ExecuteNonQuery();
                 if (a > 0)
                 {

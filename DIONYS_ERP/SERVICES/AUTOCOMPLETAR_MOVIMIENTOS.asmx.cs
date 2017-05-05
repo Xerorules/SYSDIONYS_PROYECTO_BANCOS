@@ -68,7 +68,7 @@ namespace DIONYS_ERP.SERVICES
                 if (Session["ID_EMPRESA"].ToString() == "005")
                 {
                     conn.ConnectionString = ConfigurationManager
-                            .ConnectionStrings["sql2"].ConnectionString;
+                            .ConnectionStrings["sql"].ConnectionString;
                 }
                 else
                 {
@@ -94,6 +94,45 @@ namespace DIONYS_ERP.SERVICES
                 return cuentas.ToArray();
             }
         }
+
+
+        [WebMethod(EnableSession = true)]
+        [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+        public string[] AUTOCOMPLETAR_CLIENTES_DBCOMERCIAL(string prefix)
+        {
+            List<string> cuentas = new List<string>();
+            using (SqlConnection conn = new SqlConnection())
+            {
+                if (Session["ID_EMPRESA"].ToString() == "005")
+                {
+                    conn.ConnectionString = ConfigurationManager
+                            .ConnectionStrings["sql"].ConnectionString;
+                }
+                else
+                {
+                    conn.ConnectionString = ConfigurationManager
+                            .ConnectionStrings["sql"].ConnectionString;
+                }
+                using (SqlCommand cmd = new SqlCommand("AUTOCOMPLETAR_CLIENTES_DBCOMERCIAL", conn))
+                {
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@DATO", prefix);
+                    cmd.Connection = conn;
+                    conn.Open();
+                    using (SqlDataReader sdr = cmd.ExecuteReader())
+                    {
+                        while (sdr.Read())
+                        {
+                            cuentas.Add(string.Format("{0}-{1}", sdr["DESCRIPCION"], sdr["COD_CLIENTE"]));
+                        }
+                    }
+                    conn.Close();
+                }
+                return cuentas.ToArray();
+            }
+        }
+
 
         [WebMethod(EnableSession = true)]
         [ScriptMethod(ResponseFormat = ResponseFormat.Json)]

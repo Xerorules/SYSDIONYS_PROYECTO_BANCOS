@@ -6,7 +6,7 @@
     <link href="assets/css/custom-styles.css" rel="stylesheet" />
     <link href="assets/css/font-awesome.css" rel="stylesheet" />
     <link href="ESTILOS/ESTILOS_FRM_PRINCIPAL.css" rel="stylesheet" />
-    <script src="assets/js/jquery-1.10.2.js"></script>
+    <%--<script src="assets/js/jquery-1.10.2.js"></script>--%>
     <script src="assets/js/bootstrap.min.js"></script>
     <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.3/animate.min.css' />
     
@@ -86,11 +86,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <!-- ============================================= INICIO DE CODIGO PARA GENERAR EL AUTOCOMPLETAR ===================================================== -->
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js" type="text/javascript"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"
-        type="text/javascript"></script>
-    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css"
-        rel="Stylesheet" type="text/css" />
+   
     <script type="text/javascript">
         $(function () {
             $("[id$=txtCLIENTE]").autocomplete({
@@ -234,7 +230,7 @@
                     <asp:Label ID="Label6" runat="server" CssClass="lbl" Text="CUENTA:"></asp:Label>
                 </td>
                 <td>
-                    <asp:DropDownList runat="server" ID="cbomCUENTA" CssClass="form-control" AutoPostBack="true" Width="250px" OnSelectedIndexChanged="cbomCUENTA_SelectedIndexChanged">
+                    <asp:DropDownList runat="server" ID="cbomCUENTA" CssClass="form-control" AutoPostBack="false" Width="250px" OnSelectedIndexChanged="cbomCUENTA_SelectedIndexChanged">
                          <asp:ListItem Text="--SELECCIONE--" Value="NADA" />  
                     </asp:DropDownList>
                 </td>
@@ -394,13 +390,12 @@
                     </asp:RequiredFieldValidator>
                     &nbsp
                 </div>
-
             </div>
 
             <div class="form-group">
                 <label class="control-label col-md-4" style="color: white">BANCO:</label>
                 <div class="col-xs-8 col-md-6">
-                    <asp:DropDownList runat="server" ID="cboBANCO" CssClass="form-control" AutoPostBack="true" Width="300px" OnSelectedIndexChanged="cboBANCO_SelectedIndexChanged">
+                    <asp:DropDownList runat="server" ID="cboBANCO" CssClass="form-control" AutoPostBack="false" Width="300px" OnSelectedIndexChanged="cboBANCO_SelectedIndexChanged">
                     </asp:DropDownList><%--VALIDADOR--%>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server"
                         ControlToValidate="cboBANCO"
@@ -431,7 +426,7 @@
             <div class="form-group">
                 <label class="control-label col-md-4" style="color: white; margin-top: -8px;">TIPO DE MONEDA:</label>
                 <div class="col-xs-8 col-md-7">
-                    <asp:RadioButtonList ID="rdbMONEDA" runat="server" RepeatDirection="Horizontal" Width="200px" Font-Bold="True" Font-Names="Tahoma" Font-Size="14px" ForeColor="White" AutoPostBack="True">
+                    <asp:RadioButtonList ID="rdbMONEDA" runat="server" RepeatDirection="Horizontal" Width="200px" Font-Bold="True" Font-Names="Tahoma" Font-Size="14px" ForeColor="White" AutoPostBack="false">
                         <asp:ListItem Value="S">&nbsp;&nbsp;SOLES</asp:ListItem>
                         <asp:ListItem Value="D">&nbsp;&nbsp;DOLARES</asp:ListItem>
                     </asp:RadioButtonList>
@@ -544,12 +539,12 @@
                     
                     <div class="col-xs-4 col-md-2">
                         <label style="color: white; text-align: left; margin-right:90px; "> BANCO:</label>
-                        <asp:DropDownList runat="server" ID="cboFiltroBanco" CssClass="form-control col-sm-12 col-xs-12" AutoPostBack="true" ></asp:DropDownList>
+                        <asp:DropDownList runat="server" ID="cboFiltroBanco" CssClass="form-control col-sm-12 col-xs-12" AutoPostBack="false" ></asp:DropDownList>
                     </div>
                     
                     <div class="col-xs-4 col-md-2">
                         <label style="color: white;  text-align: left; margin-right:90px;"> MONEDA:</label>
-                        <asp:DropDownList runat="server" ID="cboFiltroMoneda" CssClass="form-control col-sm-12 col-xs-12" AutoPostBack="true" >
+                        <asp:DropDownList runat="server" ID="cboFiltroMoneda" CssClass="form-control col-sm-12 col-xs-12" AutoPostBack="false" >
                             <asp:ListItem Text="-MONEDA-" Value="" />
                             <asp:ListItem Text="SOLES" Value="S" />
                             <asp:ListItem Text="DOLARES" Value="D" />
@@ -633,6 +628,15 @@
 
     <script src='http://cdnjs.cloudflare.com/ajax/libs/mouse0270-bootstrap-notify/3.1.5/bootstrap-notify.min.js'></script>
     <script src="Scripts/index.js"></script>
+
+
+     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js" type="text/javascript"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"
+        type="text/javascript"></script>
+    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css"
+        rel="Stylesheet" type="text/css" />
+
+
 
     <script src="assets/js/bootstrap.min.js"></script>
 </asp:Content>

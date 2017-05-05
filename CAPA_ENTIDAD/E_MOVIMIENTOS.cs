@@ -22,5 +22,6 @@ namespace CAPA_ENTIDAD
         public string id_cuentasbancarias { get; set; }
         public string id_cliente { get; set; }
         public decimal saldo { get; set; }
+        public string observacion { get; set; }
     }
 }

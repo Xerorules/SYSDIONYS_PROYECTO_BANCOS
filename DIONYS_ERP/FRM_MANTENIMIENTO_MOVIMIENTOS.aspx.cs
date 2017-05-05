@@ -34,7 +34,10 @@ namespace DIONYS_ERP.PLANTILLAS
                 llenar_combo_concepto();
                 llenar_combo_filtro_concepto();
                 deshabilitar();
-                
+                TextBoxssss.Text = "2017-01-01";
+                txtFechaFinDB.Text = DateTime.Now.ToString("yyyy-MM-dd");
+
+                cargar_grilla_popup("", "", "", "1", Convert.ToDateTime(TextBoxssss.Text).ToShortDateString(), Convert.ToDateTime(txtFechaFinDB.Text).ToShortDateString(),txtClienteDBCom.Text); 
             }
 
         }
@@ -56,7 +59,7 @@ namespace DIONYS_ERP.PLANTILLAS
             txtLugar.Text = string.Empty;
             txtOPE.Text = string.Empty;
             TXTid_cliente.Text = string.Empty;
-            
+            txtObservacione.Text = string.Empty;
         }
 
         void llenar_datos(string cod, string id_empresa,string id_cta)
@@ -147,7 +150,7 @@ namespace DIONYS_ERP.PLANTILLAS
             btnNuevo.Enabled = false;
             btnRegistrar.Enabled = false;
             btnCancelar.Enabled = false;
-            FileUpload1.Enabled = false;
+            FileUpload1.Enabled = true;
             Button1.Enabled = false;
             //btnConsulta.Enabled = false;
         }
@@ -238,7 +241,14 @@ namespace DIONYS_ERP.PLANTILLAS
                 OBJMOVS.descripcion = txtDESC.Text;
                 
                 OBJMOVS.id_cliente = (txtCLIENTE.Text == "") ? "" : TXTid_cliente.Text;
-
+                if (txtObservacione.Text == "" || txtObservacione.Text == "&nbsp;")
+                {
+                    OBJMOVS.observacion = "";
+                }
+                else
+                {
+                    OBJMOVS.observacion = txtObservacione.Text;
+                }
                 string empre = Session["ID_EMPRESA"].ToString();
                 string res = OBJVENTA.NREGISTRARMOV(OBJMOVS, "2", empre);
 
@@ -365,7 +375,7 @@ namespace DIONYS_ERP.PLANTILLAS
                                 {
                                     OBJMOVS.id_mov = ""; /*---CONCEPTO BANCARIO depende de la descripcion en el bcp---*/
                                     OBJMOVS.id_concepto_banc = dtexcel.Rows[i][0].ToString();
-                                    OBJMOVS.fecha = Convert.ToDateTime(dtexcel.Rows[i][1].ToString()).ToString("dd-MM-yyyy hh:mm:ss");
+                                    OBJMOVS.fecha = Convert.ToDateTime(dtexcel.Rows[i][1].ToString()).ToString("dd-MM-yyyy");
                                     if (dtexcel.Rows[i][2].ToString() == null || dtexcel.Rows[i][2].ToString() == ""|| dtexcel.Rows[i][2].ToString() == string.Empty)
                                     {
                                         OBJMOVS.lugar = "";
@@ -373,7 +383,7 @@ namespace DIONYS_ERP.PLANTILLAS
                                     else { OBJMOVS.lugar = dtexcel.Rows[i][2].ToString(); }
 
                                     decimal num = Convert.ToDecimal(dtexcel.Rows[i][6].ToString());
-                                    if (num > 0) { OBJMOVS.tipo_mov = "INGRESO"; } else if (num < 0) { OBJMOVS.tipo_mov = "EGRESO"; }
+                                    if (num >= 0) { OBJMOVS.tipo_mov = "INGRESO"; } else if (num < 0) { OBJMOVS.tipo_mov = "EGRESO"; }
                                     OBJMOVS.operacion = dtexcel.Rows[i][4].ToString();
                                     OBJMOVS.id_cuentasbancarias = Session["ID_CUENTA_MOV"].ToString();
                                     OBJMOVS.importe = Convert.ToDecimal(dtexcel.Rows[i][6].ToString());
@@ -389,7 +399,8 @@ namespace DIONYS_ERP.PLANTILLAS
                                     OBJMOVS.saldo = Convert.ToDecimal(saldoc);
                                 /*-------------------------------------------------------------------------------*/
                                 OBJMOVS.descripcion = dtexcel.Rows[i][5].ToString();
-                                    OBJMOVS.id_cliente = "";
+                                OBJMOVS.id_cliente = "";
+                                OBJMOVS.observacion = "";
                                     string empre = Session["ID_EMPRESA"].ToString();
                                     string res = OBJVENTA.NREGISTRARMOV(OBJMOVS, "2", empre);
                                     if (res == "ok")
@@ -479,27 +490,27 @@ namespace DIONYS_ERP.PLANTILLAS
         {
             
 
-            if (TABLA.Rows.Count > 0)
-            {
-                StringBuilder sb = new StringBuilder();
-                StringWriter sw = new StringWriter(sb);
-                HtmlTextWriter htw = new HtmlTextWriter(sw);
-                Page pagina = new Page();
-                HtmlForm form = new HtmlForm();
-                pagina.EnableEventValidation = false;
-                pagina.DesignerInitialize();
-                pagina.Controls.Add(form);
-                form.Controls.Add(dg);
-                pagina.RenderControl(htw);
-                Response.Clear();
-                Response.Buffer = true;
-                Response.ContentType = "application/vnd.ms-excel";
-                Response.AddHeader("Content-Disposition", "attachment;filename=REPORTE_MOVIMIENTOS.xls");
-                Response.Charset = "UTF-8";
-                Response.ContentEncoding = Encoding.Default;
-                Response.Write(sb.ToString());
-                Response.End();
-            }
+            //if (TABLA.Rows.Count > 0)
+            //{
+            //    StringBuilder sb = new StringBuilder();
+            //    StringWriter sw = new StringWriter(sb);
+            //    HtmlTextWriter htw = new HtmlTextWriter(sw);
+            //    Page pagina = new Page();
+            //    HtmlForm form = new HtmlForm();
+            //    pagina.EnableEventValidation = false;
+            //    pagina.DesignerInitialize();
+            //    pagina.Controls.Add(form);
+            //    form.Controls.Add(dg);
+            //    pagina.RenderControl(htw);
+            //    Response.Clear();
+            //    Response.Buffer = true;
+            //    Response.ContentType = "application/vnd.ms-excel";
+            //    Response.AddHeader("Content-Disposition", "attachment;filename=REPORTE_MOVIMIENTOS.xls");
+            //    Response.Charset = "UTF-8";
+            //    Response.ContentEncoding = Encoding.Default;
+            //    Response.Write(sb.ToString());
+            //    Response.End();
+            //}
         }
        
 
@@ -535,7 +546,7 @@ namespace DIONYS_ERP.PLANTILLAS
                 Session["CodigoSede"] = row.Cells[0].Text;
                 txtFECHA.Text = Convert.ToDateTime(row.Cells[1].Text).ToString("yyyy-MM-dd");
                 cboTIPOMOV.SelectedValue = row.Cells[10].Text;
-                for(int i = 0; i < dt.Rows.Count; i++)
+                for (int i = 0; i < dt.Rows.Count; i++)
                 {
                     string nombre = dt.Rows[i][1].ToString();
                     if (dt.Rows[i][1].ToString() == row.Cells[3].Text)
@@ -550,6 +561,7 @@ namespace DIONYS_ERP.PLANTILLAS
                 txtIMPORTE.Text = row.Cells[5].Text;
                 txtDESC.Text = row.Cells[2].Text.Replace("&nbsp;", "");
                 txtCLIENTE.Text = row.Cells[7].Text.Replace("&nbsp;", "");
+                txtObservacione.Text = row.Cells[12].Text.Replace("&nbsp;", "");
                 habilitar();
                 btnRegistrar.Enabled = false;
                 btnNuevo.Enabled = false;
@@ -581,9 +593,26 @@ namespace DIONYS_ERP.PLANTILLAS
                 {
                     //ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal1();", true);
                     Response.Write("<script>alert('Hubo un error no se pudo eliminar el registro, intente de nuevo')</script>");
-                    
+
                 }
             }
+            else if (e.CommandName == "AMARRE")
+            {
+                GridViewRow rew = (GridViewRow)(((LinkButton)e.CommandSource).NamingContainer);
+                Session["CodigoMOVAMARRE"] = rew.Cells[0].Text;
+                Session["OBSAMARRE"] = rew.Cells[12].Text;
+                Session["DV_NUMEROINT"] = rew.Cells[13].Text;
+                string CODVTA = Session["DV_NUMEROINT"].ToString();
+                if (CODVTA == "" || CODVTA == "&nbsp;")
+                {
+                    CODVTA = "";
+                }
+                else { CODVTA = Session["DV_NUMEROINT"].ToString(); }
+                cargar_grilla_popup("", CODVTA, "", "1", Convert.ToDateTime(TextBoxssss.Text).ToShortDateString(), Convert.ToDateTime(txtFechaFinDB.Text).ToShortDateString(), txtClienteDBCom.Text);
+                Session["DV_NUMEROINT"] = "";
+                mp1.Show();
+            }
+
         }
 
         protected void btnActualizar_Click(object sender, EventArgs e)
@@ -609,6 +638,7 @@ namespace DIONYS_ERP.PLANTILLAS
             OBJMOVS.operacion = txtOPE.Text;
             OBJMOVS.descripcion = txtDESC.Text;
             OBJMOVS.id_cliente = TXTid_cliente.Text;
+            OBJMOVS.observacion = txtObservacione.Text;
             string empre = Session["ID_EMPRESA"].ToString();
             string res = OBJVENTA.NACTUALIZARMOV(OBJMOVS, "4", empre);
 
@@ -702,6 +732,65 @@ namespace DIONYS_ERP.PLANTILLAS
             dg.DataBind();
 
             EXPORTAR_EXCEL(dg);
+        }
+
+        protected void dgvMOVIMIENTOS_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+           
+        }
+        
+        void cargar_grilla_popup(string ID_MOV, string ID_VENTA, string OBS, string COND, string FECHAV, string FECHAF, string CODDBC)
+        {
+           
+            dgvPOPUPAMARRE.DataSource = OBJVENTA.NLLENARGRILLAPOPUP(ID_MOV, ID_VENTA, OBS, COND,FECHAV,FECHAF,CODDBC);
+            dgvPOPUPAMARRE.DataBind();
+
+        }
+
+        protected void Button2_Click(object sender, EventArgs e)
+        {
+            mp1.Show();
+        }
+
+        protected void dgvPOPUPAMARRE_RowCommand(object sender, GridViewCommandEventArgs e)
+       {
+            if (e.CommandName == "UNIR")
+            {
+                GridViewRow raw = (GridViewRow)(((LinkButton)e.CommandSource).NamingContainer);
+                string COD_VENT =  raw.Cells[1].Text;
+                string COD_MOVI = Session["CodigoMOVAMARRE"].ToString();
+                string condi = "";
+                if  (Session["OBSAMARRE"].ToString() != "" && Session["OBSAMARRE"].ToString() != "&nbsp;")
+                {
+                    condi = "2";
+                }
+                else { condi = "3"; }
+                string resp = OBJVENTA.NAMARRARVENTAMOVIMIENTO(COD_MOVI, COD_VENT, "", condi,"01-01-2017","01-01-2017","");
+
+                if (resp == "ok")
+                {
+                    Response.Write("<script>alert('Registro amarrado con ÉXITO')</script>");
+                    llenar_datos("1", Session["ID_EMPRESA"].ToString(), Session["ID_CUENTA_MOV"].ToString());
+                    Session["CodigoMOVAMARRE"] = "";
+                }
+                else { Response.Write("<script>alert('Hubo un error no se pudo amarrar el registro, intente de nuevo')</script>"); }
+
+               
+            }
+        }
+
+        protected void btnBuscarPopUp_Click(object sender, EventArgs e)
+        {
+            string codv = cbomTipoDoc.Text;
+            string fechai = "";
+            string fechaf = "";
+            string cod_cli_dbco = "";
+            cod_cli_dbco = txtClienteDBCom.Text;
+            fechaf = Convert.ToDateTime(txtFechaFinDB.Text).ToShortDateString();
+            fechai = Convert.ToDateTime(TextBoxssss.Text).ToShortDateString();
+            cargar_grilla_popup("",codv,"","1",fechai,fechaf, cod_cli_dbco);
+            //Session["CodigoMOVAMARRE"] = "";
+            mp1.Show();
         }
     }
 }

@@ -149,6 +149,7 @@
     <Content Include="FRM_REPORTE.aspx" />
     <Content Include="FRM_REPORTE_BIEN.aspx" />
     <Content Include="FRM_VENTA.aspx" />
+    <Content Include="ICONOS\58603181-enlace-icono.jpg" />
     <Content Include="ICONOS\aaaa.png" />
     <Content Include="ICONOS\CHOCOLATE.png" />
     <Content Include="ICONOS\GOLD.png" />
