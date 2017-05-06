@@ -374,6 +374,10 @@
                     <asp:TextBox ID="txtClienteDBCom" runat="server" CssClass="form-control" Width="280px"></asp:TextBox>
                 </div>
             </div>
+            <!-- -->
+
+
+
             <div class="form-group col-lg-1 col-md-1" style="left:100px; top:25px;">
                  <div class="col-lg-12 col-md-12">
                      <asp:Button ID="btnBuscarPopUp" runat="server" Text="BUSCAR" CssClass="form-control btn-warning" Width="120px" OnClick="btnBuscarPopUp_Click" />
@@ -433,9 +437,7 @@
 
     </asp:Panel>
     <%--POPUP AJAX--%>
-
-
-
+    
     <input type="button" id="btnSubmit" name="btnSubmit" class="visible-xs" />
     <asp:TextBox ID="txtConsultaCliValor" runat="server" CssClass="visible-xs"></asp:TextBox>
     <div class="visible-xs" style="height: 5px; width: 1px; border-color: darkcyan; background-color: darkcyan; color: white;">
@@ -523,10 +525,10 @@
                         <h1>
                             <label for="tabbed1">REGISTRO MANUAL</label>
                         </h1>
-                        <div style="background-color: darkcyan">
+                        <div style="background-color: grey">
                             <%--aca empieza el form manual--%>
 
-                            <div class="form-horizontal col-xs-12 col-md-4 col-lg-4" style="position: relative; background-color: darkcyan">
+                            <div class="form-horizontal col-xs-12 col-md-4 col-lg-4" style="position: relative; background-color: grey">
 
                                 <div class="form-group">
                                     <label class="control-label col-xs-3" style="color: white;">FECHA:</label>
@@ -566,7 +568,7 @@
 
                                 </div>
                             </div>
-                            <div class="form-horizontal col-xs-12 col-md-4 col-lg-4" style="position: relative; background-color: darkcyan">
+                            <div class="form-horizontal col-xs-12 col-md-4 col-lg-4" style="position: relative; background-color: grey">
                                 <div class="form-group">
                                     <label class="control-label col-xs-3" style="color: white">N° OPERACION:</label>
                                     <div class="col-xs-8 col-md-8">
@@ -597,7 +599,7 @@
                                 </div>
                             </div>
                             &nbsp
-                          <div class="form-horizontal col-xs-12 col-md-4 col-lg-4" style="position: relative; background-color: darkcyan">
+                          <div class="form-horizontal col-xs-12 col-md-4 col-lg-4" style="position: relative; background-color: grey">
                               <div class="form-group">
                                   <label class="control-label col-xs-3" style="color: white">OBSERVACIÓN:</label>
                                   <div class="col-xs-8 col-md-8">
@@ -641,7 +643,7 @@
                                 CARGAR ARCHIVO EXCEL
                             </label>
                         </h1>
-                        <div style="background-color: darkcyan">
+                        <div style="background-color: grey">
 
 
                             <div class="col-xs-3 col-md-3" style="width: 10%; text-align: right; margin-top: 9px;">

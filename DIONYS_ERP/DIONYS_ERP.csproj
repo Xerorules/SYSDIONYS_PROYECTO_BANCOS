@@ -301,7 +301,6 @@
     <Content Include="REPORTES\dsMOVIMIENTOS.xsc">
       <DependentUpon>dsMOVIMIENTOS.xsd</DependentUpon>
     </Content>
-    <Content Include="ICONOS\DBDIONYS.bak" />
     <None Include="REPORTES\dsMOVIMIENTOS.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
