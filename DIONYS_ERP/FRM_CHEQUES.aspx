@@ -55,6 +55,53 @@
         
     </script>
 
+
+      <script>
+          var prevRowIndex;
+          function ChangeRowColor(row, rowIndex) {
+              var parent = document.getElementById(row);
+              var currentRowIndex = parseInt(rowIndex) + 1;
+
+              if (prevRowIndex == currentRowIndex) {
+                  return;
+              }
+              else if (prevRowIndex != null) {
+                  parent.rows[prevRowIndex].style.backgroundColor = "#FFFFFF";
+              }
+
+              parent.rows[currentRowIndex].style.backgroundColor = "#a7e6ef";
+
+              prevRowIndex = currentRowIndex;
+
+              $('#<%= hfParentContainer.ClientID %>').val(row);
+            $('#<%= hfCurrentRowIndex.ClientID %>').val(rowIndex);
+          }
+
+          $(function () {
+              RetainSelectedRow();
+          });
+
+
+
+          function RetainSelectedRow() {
+              var parent = $('#<%= hfParentContainer.ClientID %>').val();
+            var currentIndex = $('#<%= hfCurrentRowIndex.ClientID %>').val();
+            if (parent != null) {
+                ChangeRowColor(parent, currentIndex);
+            }
+          }
+
+          function RetainSelectedRow2() {
+              var parent = $('#<%= hfParentContainer.ClientID %>').val();
+              var currentIndex = -1;
+              if (parent != null) {
+                  ChangeRowColor(parent, currentIndex);
+              }
+          }
+
+    </script>
+
+
     
 
     <style type="text/css">
@@ -206,9 +253,19 @@
         CancelControlID="Button3"  BackgroundCssClass="Background">
     </cc1:ModalPopupExtender>
     <asp:Panel ID="Panl1" runat="server" CssClass="Popup" align="center" Style="display: none">
+       <div class="col-sm-12">
+           <asp:Label ID="label_confirmar" runat="server" Text="CONFIRMAR CHEQUE PENDIENTE"></asp:Label>
+            
+       </div>
+        <div class="col-sm-12">
+            <asp:Label ID="label_deposito" runat="server" Text="CONFIRMAR DEPÓSITO"></asp:Label>
+             
+        </div>
+        
+       
+        
         <table>
             <tr style="height:60px">
-                <p style="font-weight:600">GENERAR MOVIMIENTO</p>
                 <td>
                     <div style="float:left; width:120px"><asp:Label runat="server" CssClass="lbl" Text="FECHA:"></asp:Label></div>
                 </td>
@@ -572,9 +629,11 @@
        &nbsp
              <div> 
                   &nbsp
-         <asp:GridView ID="dgvBANCOS" runat="server" CssClass="table table-striped table-bordered  table-hover" BackColor="White" AutoGenerateColumns="False" DataKeyNames="ID_CHEQUE" Font-Size="Small" OnRowCommand="dgvBANCOS_RowCommand">
-             <PagerSettings Mode="NumericFirstLast" />
-             <PagerStyle CssClass="pagination-ys" Wrap="True" BorderStyle="None" HorizontalAlign="Center" />
+
+                  <asp:HiddenField ID="hfCurrentRowIndex" runat="server"></asp:HiddenField>
+                    <asp:HiddenField ID="hfParentContainer" runat="server"></asp:HiddenField>
+         <asp:GridView ID="dgvBANCOS" runat="server" CssClass="table-striped table-bordered table-responsive table-condensed" BackColor="White" AutoGenerateColumns="False" DataKeyNames="ID_CHEQUE" Font-Size="Small" OnRowCommand="dgvBANCOS_RowCommand" OnRowDataBound="dgvBANCOS_RowDataBound">
+            
              <Columns>
                  <asp:BoundField DataField="ID_CHEQUE" HeaderText="CODIGO">
                      <ItemStyle Width="10px" />
@@ -604,7 +663,7 @@
 
                  <asp:TemplateField>
                      <ItemTemplate>
-                         <asp:LinkButton ID="LinkButtonEditar" runat="server" CommandName="EDITAR">EDITAR</asp:LinkButton>
+                         <asp:LinkButton ID="LinkButtonEditar" runat="server" CommandName="EDITAR" OnClientClick = "return GetSelectedRow(this)">EDITAR</asp:LinkButton>
                           <asp:LinkButton ID="LinkButtonEliminar" runat="server" CommandName="ELIMINAR" OnClientClick="if (!confirm('Esta seguro de eliminar el registro?')) return false;">ELIMINAR</asp:LinkButton>
                      </ItemTemplate>
                  </asp:TemplateField>

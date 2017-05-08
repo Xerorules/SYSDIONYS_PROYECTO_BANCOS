@@ -267,24 +267,45 @@ namespace DIONYS_ERP.PLANTILLAS
             if (e.CommandName.ToUpper() == "ACTUALIZAR")
             {
                 GridViewRow row = (GridViewRow)(((LinkButton)e.CommandSource).NamingContainer);
-                txtmIMPORTE.Text = row.Cells[6].Text;
-                txtmFECH.Text = DateTime.Now.ToString("yyyy-MM-dd");
-                txtmIMPORTE.Enabled = false;
-                lblid_cheque.Text = row.Cells[0].Text;
-                Session["MONEDA_CHEQUE"] = row.Cells[7].Text;
                 if (row.Cells[8].Text == "PENDIENTE")
                 {
                     Button1.Enabled = false;
                     Button4.Enabled = false;
+                    label_confirmar.Visible = true;
+                    label_deposito.Visible = false;
+                    if (Convert.ToInt32(row.Cells[3].Text.Substring(0, 2)) <= Convert.ToInt32((DateTime.Now).ToString().Substring(0, 2)))
+                    {
+                        txtmIMPORTE.Text = row.Cells[6].Text;
+                        txtmFECH.Text = DateTime.Now.ToString("yyyy-MM-dd");
+                        txtmIMPORTE.Enabled = false;
+                        lblid_cheque.Text = row.Cells[0].Text;
+                        Session["MONEDA_CHEQUE"] = row.Cells[7].Text;
+
+                        Session["ID_CHEQUE"] = row.Cells[0].Text;
+                        mp1.Show();
+                    }
+                    else { Response.Write("<script>alert('El cheque debe ser depositado en la fecha de cobro respectiva!')</script>"); }
                 }
-                
+
                 else if (row.Cells[8].Text == "DEPOSITADO")
                 {
                     Button1.Enabled = true;
                     Button4.Enabled = true;
+                    label_confirmar.Visible = false;
+                    label_deposito.Visible = true;
+                    txtmIMPORTE.Text = row.Cells[6].Text;
+                    txtmFECH.Text = DateTime.Now.ToString("yyyy-MM-dd");
+                    txtmIMPORTE.Enabled = false;
+                    lblid_cheque.Text = row.Cells[0].Text;
+                    Session["MONEDA_CHEQUE"] = row.Cells[7].Text;
+
+                    Session["ID_CHEQUE"] = row.Cells[0].Text;
+                    mp1.Show();
                 }
-                Session["ID_CHEQUE"] = row.Cells[0].Text;
-                mp1.Show();
+
+              
+
+               
 
             }else if (e.CommandName == "EDITAR")
             {
@@ -601,6 +622,15 @@ namespace DIONYS_ERP.PLANTILLAS
         protected void txtFiltroCli_TextChanged(object sender, EventArgs e)
         {
             
+        }
+
+        protected void dgvBANCOS_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            //if (e.Row.RowType == DataControlRowType.DataRow)
+            //{
+            //    e.Row.Attributes.Add("onclick", string.Format("ChangeRowColor('{0}','{1}');", e.Row.ClientID, e.Row.RowIndex));
+            //    //e.Row.Attributes.Add("",string.Format("ChangeRowColor('{0}','{1}');", -1, -1));
+            //}
         }
     }
 }
