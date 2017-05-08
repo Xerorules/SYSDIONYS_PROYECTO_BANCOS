@@ -263,7 +263,7 @@
                     <asp:Label ID="Label2" runat="server" CssClass="lbl" Text="LUGAR:"></asp:Label>
                 </td>
                 <td>
-                    <asp:TextBox ID="txtmLUGAR" runat="server" Font-Size="14px" CssClass="form-control" Width="250px"></asp:TextBox>
+                    <asp:TextBox ID="txtmLUGAR" runat="server" Font-Size="14px" Style="text-transform: uppercase" CssClass="form-control" Width="250px"></asp:TextBox>
                 </td>
             </tr>
 
@@ -281,7 +281,7 @@
                     <asp:Label ID="Label4" runat="server" CssClass="lbl" Text="DESCRIPCIÓN:"></asp:Label>
                 </td>
                 <td>
-                    <asp:TextBox ID="txtmDESC" runat="server" Font-Size="14px" CssClass="form-control" Width="250px"></asp:TextBox>
+                    <asp:TextBox ID="txtmDESC" runat="server" Font-Size="14px" Style="text-transform: uppercase" CssClass="form-control" Width="250px"></asp:TextBox>
                 </td>
             </tr>
             <asp:Label ID="lblid_cliente" runat="server" CssClass="visible-xs" Text="DESCRIPCIÓN:"></asp:Label>
@@ -332,7 +332,7 @@
                 <label class="control-label col-md-4" style="color: white">CLIENTE:</label>
                 <div class="col-xs-8 col-md-6">
                     
-                    <asp:TextBox runat="server" ID="txtCLIENTE" CssClass="form-control" placeholder="Busqueda automática de clientes" MaxLength="100" Width="300px"></asp:TextBox>
+                    <asp:TextBox runat="server" ID="txtCLIENTE" CssClass="form-control" Style="text-transform: uppercase" placeholder="Busqueda automática de clientes" MaxLength="100" Width="300px"></asp:TextBox>
                     <%--VALIDADOR--%>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server"
                         ControlToValidate="txtCLIENTE"
@@ -407,7 +407,17 @@
                 </div>
 
             </div>
+            <div class="form-group">
+                <label class="control-label col-md-4" style="color: white; margin-top: -8px;">TIPO DE MONEDA:</label>
+                <div class="col-xs-8 col-md-7">
+                    <asp:RadioButtonList ID="rdbMONEDA" runat="server" RepeatDirection="Horizontal" Width="200px" Font-Bold="True" Font-Names="Tahoma" Font-Size="14px" ForeColor="White" AutoPostBack="false">
+                        <asp:ListItem Value="S">&nbsp;&nbsp;SOLES</asp:ListItem>
+                        <asp:ListItem Value="D">&nbsp;&nbsp;DOLARES</asp:ListItem>
+                    </asp:RadioButtonList>
 
+                </div>
+
+            </div>
             <div class="form-group">
                 <label class="control-label col-md-4" style="color: white">IMPORTE:</label>
                 <div class="col-xs-8 col-md-6">
@@ -423,17 +433,7 @@
                 </div>
             </div>
 
-            <div class="form-group">
-                <label class="control-label col-md-4" style="color: white; margin-top: -8px;">TIPO DE MONEDA:</label>
-                <div class="col-xs-8 col-md-7">
-                    <asp:RadioButtonList ID="rdbMONEDA" runat="server" RepeatDirection="Horizontal" Width="200px" Font-Bold="True" Font-Names="Tahoma" Font-Size="14px" ForeColor="White" AutoPostBack="false">
-                        <asp:ListItem Value="S">&nbsp;&nbsp;SOLES</asp:ListItem>
-                        <asp:ListItem Value="D">&nbsp;&nbsp;DOLARES</asp:ListItem>
-                    </asp:RadioButtonList>
-
-                </div>
-
-            </div>
+            
 
             <asp:TextBox ID="TXTid_cliente" runat="server" CssClass="visible-xs"></asp:TextBox>
 
@@ -605,7 +605,7 @@
                  <asp:TemplateField>
                      <ItemTemplate>
                          <asp:LinkButton ID="LinkButtonEditar" runat="server" CommandName="EDITAR">EDITAR</asp:LinkButton>
-                          <asp:LinkButton ID="LinkButtonEliminar" runat="server" CommandName="ELIMINAR">ELIMINAR</asp:LinkButton>
+                          <asp:LinkButton ID="LinkButtonEliminar" runat="server" CommandName="ELIMINAR" OnClientClick="if (!confirm('Esta seguro de eliminar el registro?')) return false;">ELIMINAR</asp:LinkButton>
                      </ItemTemplate>
                  </asp:TemplateField>
 

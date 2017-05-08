@@ -37,7 +37,11 @@ namespace DIONYS_ERP.PLANTILLAS
                 TextBoxssss.Text = "2017-01-01";
                 txtFechaFinDB.Text = DateTime.Now.ToString("yyyy-MM-dd");
 
-                cargar_grilla_popup("", "", "", "1", Convert.ToDateTime(TextBoxssss.Text).ToShortDateString(), Convert.ToDateTime(txtFechaFinDB.Text).ToShortDateString(),txtClienteDBCom.Text); 
+                cargar_grilla_popup("", "", "", "1", Convert.ToDateTime(TextBoxssss.Text).ToShortDateString(), Convert.ToDateTime(txtFechaFinDB.Text).ToShortDateString(),txtClienteDBCom.Text);
+                if (txtCuentaModal.Text == "" )
+                {
+                    txtCuentaModal.Focus();
+                }
             }
 
         }
@@ -54,7 +58,7 @@ namespace DIONYS_ERP.PLANTILLAS
             txtDESC.Text = string.Empty;
             cboCONCEPTO.SelectedIndex =0;
             cboTIPOMOV.SelectedIndex = 0;
-            txtFECHA.Text = string.Empty;
+            txtFECHA.Text = DateTime.Now.ToString("yyyy-MM-dd");
             txtIMPORTE.Text = string.Empty;
             txtLugar.Text = string.Empty;
             txtOPE.Text = string.Empty;
@@ -148,7 +152,7 @@ namespace DIONYS_ERP.PLANTILLAS
             txtOPE.Enabled = false;
             txtCLIENTE.Enabled = false;
             btnNuevo.Enabled = false;
-            btnRegistrar.Enabled = false;
+            btnRegistrar.Enabled = true;
             btnCancelar.Enabled = false;
             FileUpload1.Enabled = true;
             Button1.Enabled = false;
@@ -171,7 +175,7 @@ namespace DIONYS_ERP.PLANTILLAS
             }
             else if (mone == "D")
             {
-                LBLMONEDA.Text = "DOLARES";
+                LBLMONEDA.Text = "DOLAR";
                 LBLSALDOC.Text = "$  " + Convert.ToDecimal(dt.Rows[0][2].ToString()).ToString("#,###0.00");
                 LBLSALDOD.Text = "$  " + Convert.ToDecimal(dt.Rows[0][3].ToString()).ToString("#,###0.00");
             }
@@ -181,7 +185,10 @@ namespace DIONYS_ERP.PLANTILLAS
         }
 
         protected void btnRegistrar_Click(object sender, EventArgs e)
-        {   //VALIDAMOS QUE EL NUMERO DE OPERACION NO SE REPITA PARA LA CUENTA 
+        {
+            /*ACA EMPIEZA*/
+            if (Session["CodigoSede"].ToString() == "") { 
+            //VALIDAMOS QUE EL NUMERO DE OPERACION NO SE REPITA PARA LA CUENTA 
             int validador = 0;//VARIABLE SI ES 0 NO SE REPITE
             List<String> lista = new List<string>();
             DataTable DT = OBJVENTA.NVALIDARROPERACION(Session["ID_CUENTA_MOV"].ToString(), Convert.ToDateTime(txtFECHA.Text).ToShortDateString());//TREAEMOS LOS NUMEROS DE OPERACION
@@ -189,7 +196,7 @@ namespace DIONYS_ERP.PLANTILLAS
             string imp2 = Convert.ToDecimal(txtIMPORTE.Text).ToString("N2");
             string fecha3 = Convert.ToDateTime(txtFECHA.Text).ToShortDateString();
             string cptob = cboCONCEPTO.SelectedValue.ToString();
-            
+
             try
             {
                 for (int n = 0; n < DT.Rows.Count; n++)//COMPARAMOS LSO NUMERO DE OPERACION PARA QUE NO SE REPITAN
@@ -216,7 +223,7 @@ namespace DIONYS_ERP.PLANTILLAS
                 OBJMOVS.lugar = txtLugar.Text;
                 OBJMOVS.tipo_mov = cboTIPOMOV.SelectedValue;
                 OBJMOVS.id_cuentasbancarias = TXTprueba.Text;
-                
+
                 /*-------------------------SALDO +- IMPORTE--------------------*/
                 decimal impo = 0;
                 if (cboTIPOMOV.SelectedValue == "EGRESO")
@@ -231,7 +238,7 @@ namespace DIONYS_ERP.PLANTILLAS
                 decimal saldod = Convert.ToDecimal((LBLSALDOD.Text.Substring(3)));
                 saldod = saldod + impo;
                 saldoc = saldoc + impo;
-               
+
                 OBJMOVS.saldod = Convert.ToDecimal(saldod);
                 OBJMOVS.saldoc = Convert.ToDecimal(saldoc);
                 OBJMOVS.saldo = saldoc;
@@ -239,7 +246,7 @@ namespace DIONYS_ERP.PLANTILLAS
                 OBJMOVS.importe = Convert.ToDecimal(impo);
                 OBJMOVS.operacion = txtOPE.Text;
                 OBJMOVS.descripcion = txtDESC.Text;
-                
+
                 OBJMOVS.id_cliente = (txtCLIENTE.Text == "") ? "" : TXTid_cliente.Text;
                 if (txtObservacione.Text == "" || txtObservacione.Text == "&nbsp;")
                 {
@@ -259,7 +266,7 @@ namespace DIONYS_ERP.PLANTILLAS
 
                     llenar_datos("1", empre, Session["ID_CUENTA_MOV"].ToString());
                     LIMPIAR();
-                    txtFECHA.Text = DateTime.Now.ToLocalTime().ToString("dd-MM-yyyy HH:mm");
+                    txtFECHA.Text = DateTime.Now.ToString("yyyy-MM-dd");
                     llenar_labels_cabecera();
                 }
                 else
@@ -273,6 +280,61 @@ namespace DIONYS_ERP.PLANTILLAS
                 Response.Write("<script>alert('El número de operación ya existe para esta Cuenta')</script>");
                 //ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal1();", true);
             }
+        }
+        else if(Session["CodigoSede"].ToString() != "")
+        {
+            OBJMOVS.id_mov = Session["CodigoSede"].ToString();
+            OBJMOVS.id_concepto_banc = cboCONCEPTO.SelectedValue;
+            OBJMOVS.fecha = Convert.ToDateTime(txtFECHA.Text).ToString("dd-MM-yyyy");
+            OBJMOVS.lugar = txtLugar.Text;
+            OBJMOVS.tipo_mov = cboTIPOMOV.SelectedValue;
+            OBJMOVS.id_cuentasbancarias = TXTprueba.Text;
+            OBJMOVS.importe = Convert.ToDecimal(txtIMPORTE.Text);
+            decimal nvoimporte = Convert.ToDecimal(txtIMPORTE.Text);
+            decimal antimporte = Convert.ToDecimal(Session["IMPORTE_MOV"].ToString());
+            decimal saldod = Convert.ToDecimal((LBLSALDOC.Text.Substring(3)));
+            decimal saldoc = Convert.ToDecimal((LBLSALDOD.Text.Substring(3)));
+            saldod = saldod + nvoimporte - antimporte;
+            saldoc = saldoc + nvoimporte - antimporte;
+            OBJMOVS.saldoc = Convert.ToDecimal(saldoc);
+            OBJMOVS.saldod = Convert.ToDecimal(saldoc);
+            OBJMOVS.saldo = Convert.ToDecimal(saldoc);
+
+            /*-----------------------------------------------------*/
+            OBJMOVS.operacion = txtOPE.Text;
+            OBJMOVS.descripcion = txtDESC.Text;
+            OBJMOVS.id_cliente = TXTid_cliente.Text;
+            OBJMOVS.observacion = txtObservacione.Text;
+            string empre = Session["ID_EMPRESA"].ToString();
+            string res = OBJVENTA.NACTUALIZARMOV(OBJMOVS, "4", empre);
+
+            if (res == "ok")
+            {
+                Response.Write("<script>alert('Datos Actualizados correctamente..')</script>");
+                //ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+
+                llenar_datos("1", empre, Session["ID_CUENTA_MOV"].ToString());
+                LIMPIAR();
+
+                /*---------------------------------------------------------------------------*/
+                llenar_labels_cabecera();
+                LIMPIAR();
+                btnActualizar.Enabled = false;
+                btnCancelar.Enabled = false;
+                btnNuevo.Enabled = true;
+                btnRegistrar.Enabled = true;
+                
+                TXTid_cliente.Text = string.Empty;
+                txtFECHA.Text = DateTime.Now.ToString("yyyy-MM-dd");
+                    Session["CodigoSede"] = "";
+                /*---------------------------------------------------------------------------*/
+            }
+            else
+            {
+                Response.Write("<script>alert('Error datos no Actualizados')</script>");
+                //ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal1();", true);
+            }
+        }
 
         }
         
@@ -284,6 +346,8 @@ namespace DIONYS_ERP.PLANTILLAS
            habilitar();
             btnNuevo.Enabled = false;
             txtFECHA.Text = DateTime.Now.ToString("yyyy-MM-dd");
+            txtFECHA.Focus();
+
         }
 
         protected void txtcuentainvi_TextChanged(object sender, EventArgs e)
@@ -322,6 +386,7 @@ namespace DIONYS_ERP.PLANTILLAS
                 Button1.Enabled = true;
                 btnConsulta.Enabled = true;
                 btnActualizar.Enabled = false;
+                txtFECHA.Text = DateTime.Now.ToString("yyyy-MM-dd");
             }
             else
             {
@@ -519,11 +584,11 @@ namespace DIONYS_ERP.PLANTILLAS
             
             deshabilitar();
             LIMPIAR();
-            txtFECHA.Text = DateTime.Now.ToString("yyyy-MM-dd");
-            btnRegistrar.Enabled = false;
+            
+            btnRegistrar.Enabled = true;
             btnNuevo.Enabled = true;
             btnActualizar.Enabled = false;
-            
+            txtFECHA.Text = DateTime.Now.ToString("yyyy-MM-dd");
         }
 
         protected void btnConsulta_Click(object sender, EventArgs e)
@@ -563,9 +628,10 @@ namespace DIONYS_ERP.PLANTILLAS
                 txtCLIENTE.Text = row.Cells[7].Text.Replace("&nbsp;", "");
                 txtObservacione.Text = row.Cells[12].Text.Replace("&nbsp;", "");
                 habilitar();
-                btnRegistrar.Enabled = false;
+                btnRegistrar.Enabled = true;
                 btnNuevo.Enabled = false;
-                btnActualizar.Enabled = true;
+                btnActualizar.Enabled = false;
+                
 
             }
             else if (e.CommandName == "ELIMINAR")
@@ -617,55 +683,56 @@ namespace DIONYS_ERP.PLANTILLAS
 
         protected void btnActualizar_Click(object sender, EventArgs e)
         {
-            OBJMOVS.id_mov = Session["CodigoSede"].ToString();
-            OBJMOVS.id_concepto_banc = cboCONCEPTO.SelectedValue;
-            OBJMOVS.fecha = Convert.ToDateTime(txtFECHA.Text).ToString("dd-MM-yyyy");
-            OBJMOVS.lugar = txtLugar.Text;
-            OBJMOVS.tipo_mov = cboTIPOMOV.SelectedValue;
-            OBJMOVS.id_cuentasbancarias = TXTprueba.Text;
-            OBJMOVS.importe = Convert.ToDecimal(txtIMPORTE.Text);
-            decimal nvoimporte = Convert.ToDecimal(txtIMPORTE.Text);
-            decimal antimporte = Convert.ToDecimal(Session["IMPORTE_MOV"].ToString());
-            decimal saldod = Convert.ToDecimal((LBLSALDOC.Text.Substring(3)));
-            decimal saldoc = Convert.ToDecimal((LBLSALDOD.Text.Substring(3)));
-            saldod = saldod + nvoimporte - antimporte;
-            saldoc = saldoc + nvoimporte - antimporte;
-            OBJMOVS.saldoc = Convert.ToDecimal(saldoc);
-            OBJMOVS.saldod = Convert.ToDecimal(saldoc);
-            OBJMOVS.saldo = Convert.ToDecimal(saldoc);
+            //OBJMOVS.id_mov = Session["CodigoSede"].ToString();
+            //OBJMOVS.id_concepto_banc = cboCONCEPTO.SelectedValue;
+            //OBJMOVS.fecha = Convert.ToDateTime(txtFECHA.Text).ToString("dd-MM-yyyy");
+            //OBJMOVS.lugar = txtLugar.Text;
+            //OBJMOVS.tipo_mov = cboTIPOMOV.SelectedValue;
+            //OBJMOVS.id_cuentasbancarias = TXTprueba.Text;
+            //OBJMOVS.importe = Convert.ToDecimal(txtIMPORTE.Text);
+            //decimal nvoimporte = Convert.ToDecimal(txtIMPORTE.Text);
+            //decimal antimporte = Convert.ToDecimal(Session["IMPORTE_MOV"].ToString());
+            //decimal saldod = Convert.ToDecimal((LBLSALDOC.Text.Substring(3)));
+            //decimal saldoc = Convert.ToDecimal((LBLSALDOD.Text.Substring(3)));
+            //saldod = saldod + nvoimporte - antimporte;
+            //saldoc = saldoc + nvoimporte - antimporte;
+            //OBJMOVS.saldoc = Convert.ToDecimal(saldoc);
+            //OBJMOVS.saldod = Convert.ToDecimal(saldoc);
+            //OBJMOVS.saldo = Convert.ToDecimal(saldoc);
 
-            /*-----------------------------------------------------*/
-            OBJMOVS.operacion = txtOPE.Text;
-            OBJMOVS.descripcion = txtDESC.Text;
-            OBJMOVS.id_cliente = TXTid_cliente.Text;
-            OBJMOVS.observacion = txtObservacione.Text;
-            string empre = Session["ID_EMPRESA"].ToString();
-            string res = OBJVENTA.NACTUALIZARMOV(OBJMOVS, "4", empre);
+            ///*-----------------------------------------------------*/
+            //OBJMOVS.operacion = txtOPE.Text;
+            //OBJMOVS.descripcion = txtDESC.Text;
+            //OBJMOVS.id_cliente = TXTid_cliente.Text;
+            //OBJMOVS.observacion = txtObservacione.Text;
+            //string empre = Session["ID_EMPRESA"].ToString();
+            //string res = OBJVENTA.NACTUALIZARMOV(OBJMOVS, "4", empre);
 
-            if (res == "ok")
-            {
-                Response.Write("<script>alert('Datos Actualizados correctamente..')</script>");
-                //ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+            //if (res == "ok")
+            //{
+            //    Response.Write("<script>alert('Datos Actualizados correctamente..')</script>");
+            //    //ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
 
-                llenar_datos("1", empre, Session["ID_CUENTA_MOV"].ToString());
-                LIMPIAR();
+            //    llenar_datos("1", empre, Session["ID_CUENTA_MOV"].ToString());
+            //    LIMPIAR();
 
-                /*---------------------------------------------------------------------------*/
-                llenar_labels_cabecera();
-                LIMPIAR();
-                btnActualizar.Enabled = false;
-                btnCancelar.Enabled = false;
-                btnNuevo.Enabled = true;
-                btnRegistrar.Enabled = false;
-                txtFECHA.Text = DateTime.Now.ToString("yyyy-MM-dd");
-                TXTid_cliente.Text = string.Empty;
-                /*---------------------------------------------------------------------------*/
-            }
-            else
-            {
-                Response.Write("<script>alert('Error datos no Actualizados')</script>");
-                //ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal1();", true);
-            }
+            //    /*---------------------------------------------------------------------------*/
+            //    llenar_labels_cabecera();
+            //    LIMPIAR();
+            //    btnActualizar.Enabled = false;
+            //    btnCancelar.Enabled = false;
+            //    btnNuevo.Enabled = true;
+            //    btnRegistrar.Enabled = false;
+                
+            //    TXTid_cliente.Text = string.Empty;
+            //    txtFECHA.Text = DateTime.Now.ToString("yyyy-MM-dd");
+            //    /*---------------------------------------------------------------------------*/
+            //}
+            //else
+            //{
+            //    Response.Write("<script>alert('Error datos no Actualizados')</script>");
+            //    //ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal1();", true);
+            //}
         }
 
         protected void btnREPORTE_Click(object sender, EventArgs e)
@@ -736,7 +803,12 @@ namespace DIONYS_ERP.PLANTILLAS
 
         protected void dgvMOVIMIENTOS_RowDataBound(object sender, GridViewRowEventArgs e)
         {
-           
+            //e.Row.Attributes.Add("onclick", Page.ClientScript.GetPostBackEventReference(dgvMOVIMIENTOS, "Select$" + e.Row.RowIndex.ToString()));
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                e.Row.Attributes.Add("onclick", string.Format("ChangeRowColor('{0}','{1}');", e.Row.ClientID, e.Row.RowIndex));
+                //e.Row.Attributes.Add("",string.Format("ChangeRowColor('{0}','{1}');", -1, -1));
+            }
         }
         
         void cargar_grilla_popup(string ID_MOV, string ID_VENTA, string OBS, string COND, string FECHAV, string FECHAF, string CODDBC)

@@ -87,14 +87,27 @@
     <Content Include="assets\css\bootstrap.css" />
     <Content Include="assets\css\css_tab_panel_csspuro.css" />
     <Content Include="assets\css\custom-styles.css" />
+    <Content Include="assets\css\demo.css" />
     <Content Include="assets\css\font-awesome.css" />
+    <Content Include="assets\css\fonts\BebasNeue-webfont.svg" />
+    <Content Include="assets\css\fonts\Dharma Type Font License.txt" />
     <Content Include="assets\css\ptoledo.css" />
+    <Content Include="assets\css\style1.css" />
+    <Content Include="assets\css\style2.css" />
+    <Content Include="assets\css\style3.css" />
+    <Content Include="assets\css\style4.css" />
+    <Content Include="assets\css\style5.css" />
+    <Content Include="assets\css\stylosheader.css" />
     <Content Include="assets\font-awesome\fonts\fontawesome-webfontba72.svg" />
     <Content Include="assets\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="assets\img\bg.jpg" />
     <Content Include="assets\img\borrar.png" />
     <Content Include="assets\img\cancelar.png" />
     <Content Include="assets\img\editar.png" />
     <Content Include="assets\img\fondo-conctacta_tcm924-545665.jpg" />
+    <Content Include="assets\img\heart.gif" />
+    <Content Include="assets\img\ImageAttribution.txt" />
+    <Content Include="assets\img\right_arrow.png" />
     <Content Include="assets\js\bootstrap.min.js" />
     <Content Include="assets\js\custom-scripts.js" />
     <Content Include="assets\js\custom.js" />
@@ -206,6 +219,7 @@
     <Content Include="FRM_MANTENIMIENTO_MOVIMIENTOS.aspx" />
     <Content Include="FRM_CHEQUES.aspx" />
     <Content Include="FRM_CUENTAS_POR_PAGAR_CHEQUES.aspx" />
+    <Content Include="prueba botones.html" />
     <Content Include="REPORTES\FROM_REPORTE_MOVIMIENTOS.aspx" />
     <Content Include="Pruebas_test.aspx" />
     <Content Include="REPORTES\FRM_REPORTE_BOLETA.aspx" />
@@ -301,6 +315,9 @@
     <Content Include="REPORTES\dsMOVIMIENTOS.xsc">
       <DependentUpon>dsMOVIMIENTOS.xsd</DependentUpon>
     </Content>
+    <Content Include="assets\css\fonts\BebasNeue-webfont.eot" />
+    <Content Include="assets\css\fonts\BebasNeue-webfont.ttf" />
+    <Content Include="assets\css\fonts\BebasNeue-webfont.woff" />
     <None Include="REPORTES\dsMOVIMIENTOS.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>

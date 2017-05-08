@@ -29,8 +29,8 @@ namespace DIONYS_ERP.PLANTILLAS
                 llenar_combo_bancos();
                 llenar_combo_bancos2();
                 llenar_datos();
-                
 
+                txtCLIENTE.Focus();
 
             }
         }
@@ -301,6 +301,7 @@ namespace DIONYS_ERP.PLANTILLAS
                 btnRegistrar.Enabled = false;
                 Session["ID_CHEQUE"] = row.Cells[0].Text;
                 Session["ESTADO_CH"] = dt.Rows[0][8].ToString();
+                txtCLIENTE.Focus();
             }
             else if (e.CommandName == "ELIMINAR")
             {
