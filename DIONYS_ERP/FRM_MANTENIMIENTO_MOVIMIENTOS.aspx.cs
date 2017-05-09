@@ -140,6 +140,7 @@ namespace DIONYS_ERP.PLANTILLAS
             txtCLIENTE.Enabled = true;
             btnRegistrar.Enabled = true;
             btnCancelar.Enabled = true;
+            txtObservacione.Enabled = true;
         }
 
         void deshabilitar()
@@ -157,6 +158,7 @@ namespace DIONYS_ERP.PLANTILLAS
             btnCancelar.Enabled = false;
             FileUpload1.Enabled = true;
             Button1.Enabled = false;
+            txtObservacione.Enabled = false;
             //btnConsulta.Enabled = false;
         }
 
@@ -221,7 +223,7 @@ namespace DIONYS_ERP.PLANTILLAS
                 OBJMOVS.id_mov = "";
                 OBJMOVS.id_concepto_banc = cboCONCEPTO.SelectedValue;
                 OBJMOVS.fecha = Convert.ToDateTime(txtFECHA.Text).ToString("dd-MM-yyyy");
-                OBJMOVS.lugar = txtLugar.Text;
+                OBJMOVS.lugar = txtLugar.Text.ToUpper();
                 OBJMOVS.tipo_mov = cboTIPOMOV.SelectedValue;
                 OBJMOVS.id_cuentasbancarias = TXTprueba.Text;
 
@@ -246,7 +248,7 @@ namespace DIONYS_ERP.PLANTILLAS
                 /*-----------------------------------------------------*/
                 OBJMOVS.importe = Convert.ToDecimal(impo);
                 OBJMOVS.operacion = txtOPE.Text;
-                OBJMOVS.descripcion = txtDESC.Text;
+                OBJMOVS.descripcion = txtDESC.Text.ToUpper();
 
                 OBJMOVS.id_cliente = (txtCLIENTE.Text == "") ? "" : TXTid_cliente.Text;
                 if (txtObservacione.Text == "" || txtObservacione.Text == "&nbsp;")
@@ -255,7 +257,7 @@ namespace DIONYS_ERP.PLANTILLAS
                 }
                 else
                 {
-                    OBJMOVS.observacion = txtObservacione.Text;
+                    OBJMOVS.observacion = txtObservacione.Text.ToUpper();
                 }
                 string empre = Session["ID_EMPRESA"].ToString();
                 string res = OBJVENTA.NREGISTRARMOV(OBJMOVS, "2", empre);
@@ -269,6 +271,7 @@ namespace DIONYS_ERP.PLANTILLAS
                     LIMPIAR();
                     txtFECHA.Text = DateTime.Now.ToString("yyyy-MM-dd");
                     llenar_labels_cabecera();
+                    inicio();
                 }
                 else
                 {
@@ -290,7 +293,15 @@ namespace DIONYS_ERP.PLANTILLAS
             OBJMOVS.lugar = txtLugar.Text;
             OBJMOVS.tipo_mov = cboTIPOMOV.SelectedValue;
             OBJMOVS.id_cuentasbancarias = TXTprueba.Text;
-            OBJMOVS.importe = Convert.ToDecimal(txtIMPORTE.Text);
+            if (cboTIPOMOV.SelectedValue == "INGRESO")
+                {
+                    OBJMOVS.importe = Convert.ToDecimal(txtIMPORTE.Text);
+                }
+            else if (cboTIPOMOV.SelectedValue == "EGRESO")
+                {
+                    OBJMOVS.importe = Convert.ToDecimal(txtIMPORTE.Text) * -1;
+                }
+                //OBJMOVS.importe = Convert.ToDecimal(txtIMPORTE.Text);
             decimal nvoimporte = Convert.ToDecimal(txtIMPORTE.Text);
             decimal antimporte = Convert.ToDecimal(Session["IMPORTE_MOV"].ToString());
             decimal saldod = Convert.ToDecimal((LBLSALDOC.Text.Substring(3)));
@@ -328,8 +339,9 @@ namespace DIONYS_ERP.PLANTILLAS
                 TXTid_cliente.Text = string.Empty;
                 txtFECHA.Text = DateTime.Now.ToString("yyyy-MM-dd");
                     Session["CodigoSede"] = "";
-                /*---------------------------------------------------------------------------*/
-            }
+                    inicio();
+                    /*---------------------------------------------------------------------------*/
+                }
             else
             {
                 Response.Write("<script>alert('Error datos no Actualizados')</script>");
@@ -585,7 +597,19 @@ namespace DIONYS_ERP.PLANTILLAS
             //    Response.End();
             //}
         }
-       
+
+        void inicio()
+        {
+            deshabilitar();
+            LIMPIAR();
+
+            btnRegistrar.Enabled = true;
+            btnNuevo.Enabled = true;
+            txtObservacione.Enabled = false;
+            txtFECHA.Text = DateTime.Now.ToString("yyyy-MM-dd");
+        }
+
+
 
         protected void btnCancelar_Click(object sender, EventArgs e)
         {
@@ -595,7 +619,7 @@ namespace DIONYS_ERP.PLANTILLAS
             
             btnRegistrar.Enabled = true;
             btnNuevo.Enabled = true;
-           
+            txtObservacione.Enabled = false;
             txtFECHA.Text = DateTime.Now.ToString("yyyy-MM-dd");
         }
 
@@ -635,13 +659,15 @@ namespace DIONYS_ERP.PLANTILLAS
                 txtDESC.Text = row.Cells[2].Text;
                 txtOPE.Text = row.Cells[4].Text;
 
-                Session["IMPORTE_MOV"] = row.Cells[5].Text;
+                
                 if (row.Cells[9].Text == "&nbsp;") { txtLugar.Text = row.Cells[9].Text.Replace("&nbsp;", ""); }
                 if (row.Cells[4].Text == "&nbsp;") { txtOPE.Text = row.Cells[4].Text.Replace("&nbsp;", ""); }
                 if (row.Cells[2].Text == "&nbsp;") { txtDESC.Text = row.Cells[2].Text.Replace("&nbsp;", ""); }
                 if (row.Cells[7].Text == "&nbsp;") { txtCLIENTE.Text = row.Cells[7].Text.Replace("&nbsp;", ""); }
                 if (row.Cells[12].Text == "&nbsp;") { txtObservacione.Text = row.Cells[12].Text.Replace("&nbsp;", ""); }
-                txtIMPORTE.Text = row.Cells[5].Text;
+                double importeact = Convert.ToDouble(row.Cells[5].Text);
+                if (importeact > 0) { txtIMPORTE.Text = Convert.ToString(importeact); Session["IMPORTE_MOV"] = Convert.ToString(importeact); } else { txtIMPORTE.Text = Convert.ToString(importeact * -1); Session["IMPORTE_MOV"] = Convert.ToString(importeact * -1); }
+                
                 if (row.Cells[9].Text == "&#160;") { txtLugar.Text = row.Cells[9].Text.Replace("&#160;", ""); }
                 if (row.Cells[4].Text == "&#160;") { txtOPE.Text = row.Cells[4].Text.Replace("&#160;", ""); }
                 if (row.Cells[2].Text == "&#160;") { txtDESC.Text = row.Cells[2].Text.Replace("&#160;", ""); }
@@ -896,6 +922,7 @@ namespace DIONYS_ERP.PLANTILLAS
                 cboCONCEPTO.DataValueField = "ID_CONCEPTOS_BANCARIOS";
                 cboCONCEPTO.DataTextField = "DESCRIPCION";
                 cboCONCEPTO.DataBind();
+                cboTIPOMOV.Focus();
             }else if(cboTIPOMOV.SelectedValue == "INGRESO")
             {
                 DataTable dt = OBJVENTA.CONSULTA_LISTA_CONCEPTOS2();
@@ -904,7 +931,8 @@ namespace DIONYS_ERP.PLANTILLAS
                 cboCONCEPTO.DataValueField = "ID_CONCEPTOS_BANCARIOS";
                 cboCONCEPTO.DataTextField = "DESCRIPCION";
                 cboCONCEPTO.DataBind();
-                
+                cboTIPOMOV.Focus();
+
             }
         }
 
@@ -914,11 +942,13 @@ namespace DIONYS_ERP.PLANTILLAS
             {
                 complemento.Text = "PROVEEDOR";
                 txtCLIENTE.Enabled = false;
+                cboCONCEPTO.Focus();
             }
             else if (cboCONCEPTO.SelectedValue != "1003")
             {
                 complemento.Text = "CLIENTE";
                 txtCLIENTE.Enabled = true;
+                cboCONCEPTO.Focus();
             }
                 
         }

@@ -56,10 +56,21 @@
     </script>
 
     <script type="text/javascript">
-        
+
         function mostrarpopUp() {
             $find("mp1").show();
         }
+
+
+        function clickMe(obj)
+        {
+            var textVal = obj.value;
+            if (textVal.match(/\-/g).length > 0)
+            {
+                document.getElementById(obj.id).value = '';
+            }
+        }
+
     </script>
     <script>
         var prevRowIndex;
@@ -77,24 +88,24 @@
             parent.rows[currentRowIndex].style.backgroundColor = "#a7e6ef";
 
             prevRowIndex = currentRowIndex;
-            
-          $('#<%= hfParentContainer.ClientID %>').val(row);
-          $('#<%= hfCurrentRowIndex.ClientID %>').val(rowIndex);
-         } 
+
+            $('#<%= hfParentContainer.ClientID %>').val(row);
+            $('#<%= hfCurrentRowIndex.ClientID %>').val(rowIndex);
+        }
 
         $(function () {
             RetainSelectedRow();
-        }); 
+        });
 
-       
+
 
         function RetainSelectedRow() {
             var parent = $('#<%= hfParentContainer.ClientID %>').val();
-             var currentIndex = $('#<%= hfCurrentRowIndex.ClientID %>').val();
-          if (parent != null) {
-              ChangeRowColor(parent, currentIndex);
-          }
-        } 
+            var currentIndex = $('#<%= hfCurrentRowIndex.ClientID %>').val();
+            if (parent != null) {
+                ChangeRowColor(parent, currentIndex);
+            }
+        }
 
         function RetainSelectedRow2() {
             var parent = $('#<%= hfParentContainer.ClientID %>').val();
@@ -102,7 +113,7 @@
             if (parent != null) {
                 ChangeRowColor(parent, currentIndex);
             }
-        } 
+        }
 
     </script>
 
@@ -229,33 +240,33 @@
                             source: function (request, response) {
                                 $.ajax({
                                     url: '<%=ResolveUrl("~/SERVICES/AUTOCOMPLETAR_MOVIMIENTOS.asmx/AUTOCOMPLETAR_CLIENTES") %>',
-                                     data: "{ 'prefix': '" + request.term + "'}",
-                                     dataType: "json",
-                                     type: "POST",
-                                     contentType: "application/json; charset=utf-8",
-                                     success: function (data) {
-                                         response($.map(data.d, function (item) {
-                                             return {
-                                                 label: item.split('-')[0],
-                                                 val: item.split('-')[1]
-                                             }
-                                         }))
-                                     },
-                                     error: function (response) {
-                                         alert(response.responseText);
-                                     },
-                                     failure: function (response) {
-                                         alert(response.responseText);
-                                     }
-                                 });
-                             },
-                             select: function (e, i) {
-                                 $("[id$=txtCLIENTE]").val(i.item.text);
-                                 $("[id$=TXTid_cliente]").val(i.item.val);
-                             },
-                             minLength: 1
-                         });
-                     });
+                                    data: "{ 'prefix': '" + request.term + "'}",
+                                    dataType: "json",
+                                    type: "POST",
+                                    contentType: "application/json; charset=utf-8",
+                                    success: function (data) {
+                                        response($.map(data.d, function (item) {
+                                            return {
+                                                label: item.split('-')[0],
+                                                val: item.split('-')[1]
+                                            }
+                                        }))
+                                    },
+                                    error: function (response) {
+                                        alert(response.responseText);
+                                    },
+                                    failure: function (response) {
+                                        alert(response.responseText);
+                                    }
+                                });
+                            },
+                            select: function (e, i) {
+                                $("[id$=txtCLIENTE]").val(i.item.text);
+                                $("[id$=TXTid_cliente]").val(i.item.val);
+                            },
+                            minLength: 1
+                        });
+                    });
                 }
             });
         };
@@ -439,7 +450,10 @@
 
             <div class="form-group col-lg-1 col-md-1" style="left: 100px; top: 25px;">
                 <div class="col-lg-12 col-md-12">
-                    <asp:Button ID="btnBuscarPopUp" runat="server" Text="BUSCAR" CssClass="form-control btn-warning" Width="120px" OnClick="btnBuscarPopUp_Click" />
+                     
+                                        <asp:Button ID="btnBuscarPopUp" runat="server" Text="BUSCAR" CssClass="form-control btn-warning" Width="120px" OnClick="btnBuscarPopUp_Click" />
+                                       
+                    
                 </div>
             </div>
 
@@ -454,7 +468,8 @@
 
             <div style="width: 1195px; height: 450px; overflow-y: scroll; margin-left: -12px;">
                 <div class="container">
-                    <asp:GridView ID="dgvPOPUPAMARRE" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed table-responsive table-hover" OnRowCommand="dgvPOPUPAMARRE_RowCommand">
+                    
+                    <asp:GridView ID="dgvPOPUPAMARRE" runat="server"  AutoGenerateColumns="false" CssClass="table table-bordered table-condensed table-responsive table-hover" OnRowCommand="dgvPOPUPAMARRE_RowCommand">
                         <Columns>
                             <asp:TemplateField>
                                 <ItemTemplate>
@@ -488,6 +503,7 @@
                             </asp:BoundField>
                         </Columns>
                     </asp:GridView>
+                        
                 </div>
             </div>
             <br />
@@ -664,7 +680,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-xs-3" style="color: white">IMPORTE:</label>
                                     <div class="col-xs-8 col-md-8">
-                                        <asp:TextBox runat="server" ID="txtIMPORTE" CssClass="form-control" placeholder="00.00" MaxLength="100" type="numeric" Width="336px" OnBlur="addCommas(this)"></asp:TextBox>
+                                        <asp:TextBox runat="server" ID="txtIMPORTE" CssClass="form-control" placeholder="00.00" MaxLength="100" type="numeric" Width="336px" OnBlur="addCommas(this)" onKeyUp="clickMe(this)"></asp:TextBox>
                                         <%--VALIDADOR--%>
                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server"
                                             ControlToValidate="txtIMPORTE"
