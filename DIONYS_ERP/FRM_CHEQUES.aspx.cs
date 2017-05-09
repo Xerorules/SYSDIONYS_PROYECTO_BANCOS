@@ -220,36 +220,39 @@ namespace DIONYS_ERP.PLANTILLAS
 
         protected void btnActualizar_Click(object sender, EventArgs e)
         {
-
-            OBJCHEQUE.id_cliente = TXTid_cliente.Text;
-            OBJCHEQUE.fecha_giro = Convert.ToDateTime(txtFGIRO.Text).ToShortDateString();
-            OBJCHEQUE.fecha_cobro = Convert.ToDateTime(txtFCOBRO.Text).ToShortDateString();
-            OBJCHEQUE.numero = txtNUMERO.Text;
-            OBJCHEQUE.id_banco = cboBANCO.SelectedValue;
-            OBJCHEQUE.importe = Convert.ToDecimal(txtIMPORTE.Text);
-            OBJCHEQUE.moneda = rdbMONEDA.SelectedValue;
-            OBJCHEQUE.estado = Convert.ToDateTime(Session["ESTADO_CH"].ToString()).ToShortDateString(); 
-            OBJCHEQUE.id_empresa = Session["ID_EMPRESA"].ToString();
-            string id_cheque = Session["ID_CHEQUE"].ToString();
-
-            string res = OBJVENTA.NACTUALIZARCHEQUE(OBJCHEQUE, id_cheque);
-
-            if (res == "ok")
+            try
             {
-                Response.Write("<script>alert('Datos actualizados correctamente..')</script>");
-                //ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
-                btnRegistrar.Enabled = true;
-                llenar_datos();
-                LIMPIAR2();
-                txtFGIRO.Text = DateTime.Now.ToString("yyyy-MM-dd");
-                txtFCOBRO.Text = DateTime.Now.ToString("yyyy-MM-dd");
-                txtCLIENTE.Focus();
+                OBJCHEQUE.id_cliente = TXTid_cliente.Text;
+                OBJCHEQUE.fecha_giro = Convert.ToDateTime(txtFGIRO.Text).ToShortDateString();
+                OBJCHEQUE.fecha_cobro = Convert.ToDateTime(txtFCOBRO.Text).ToShortDateString();
+                OBJCHEQUE.numero = txtNUMERO.Text;
+                OBJCHEQUE.id_banco = cboBANCO.SelectedValue;
+                OBJCHEQUE.importe = Convert.ToDecimal(txtIMPORTE.Text);
+                OBJCHEQUE.moneda = rdbMONEDA.SelectedValue;
+                OBJCHEQUE.estado = Convert.ToDateTime(Session["ESTADO_CH"].ToString()).ToShortDateString();
+                OBJCHEQUE.id_empresa = Session["ID_EMPRESA"].ToString();
+                string id_cheque = Session["ID_CHEQUE"].ToString();
+
+                string res = OBJVENTA.NACTUALIZARCHEQUE(OBJCHEQUE, id_cheque);
+
+                if (res == "ok")
+                {
+                    Response.Write("<script>alert('Datos actualizados correctamente..')</script>");
+                    //ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                    btnRegistrar.Enabled = true;
+                    llenar_datos();
+                    LIMPIAR2();
+                    txtFGIRO.Text = DateTime.Now.ToString("yyyy-MM-dd");
+                    txtFCOBRO.Text = DateTime.Now.ToString("yyyy-MM-dd");
+                    txtCLIENTE.Focus();
+                }
+                else
+                {
+                    Response.Write("<script>alert('Error cheque no actualizado')</script>");
+                    //ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal1();", true);
+                }
             }
-            else
-            {
-                Response.Write("<script>alert('Error cheque no actualizado')</script>");
-                //ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal1();", true);
-            }
+            catch(Exception) { Response.Write("<script>alert('Debe elegir el cheque a actualizar')</script>"); }
         }
 
         protected void btnCancelar_Click(object sender, EventArgs e)

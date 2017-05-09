@@ -4,6 +4,9 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
     <link href="assets/css/custom-styles.css" rel="stylesheet" />
+     <link rel="shortcut icon" href="../favicon.ico" />
+    <link href="assets/css/demo.css" rel="stylesheet" />
+    <link href="assets/css/style4.css" rel="stylesheet" />
     <link href="assets/css/font-awesome.css" rel="stylesheet" />
     <link href="ESTILOS/ESTILOS_FRM_PRINCIPAL.css" rel="stylesheet" />
     <%--<script src="assets/js/jquery-1.10.2.js"></script>--%>
@@ -133,7 +136,13 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <!-- ============================================= INICIO DE CODIGO PARA GENERAR EL AUTOCOMPLETAR ===================================================== -->
-   
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js" type="text/javascript"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"
+        type="text/javascript"></script>
+    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css"
+        rel="Stylesheet" type="text/css" />
+
+
     <script type="text/javascript">
         $(function () {
             $("[id$=txtCLIENTE]").autocomplete({
@@ -381,12 +390,18 @@
 
 
 
-    <div class="container-fluid col-lg-4 col-md-4">
+    <div class="container-fluid col-lg-4 col-md-4" style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
         <div class="form-horizontal" style="position: relative;">
             <h1 style="color: white;" class="main-text">CHEQUES</h1>
+            <div>
+                &nbsp;
             &nbsp
+            &nbsp
+            </div>
+            <div class="container col-lg-10 col-md-10"  style="background-color:lightgray; color:black; border-radius: 5px 5px 5px 5px;">
+                &nbsp
             <div class="form-group">
-                <label class="control-label col-md-4" style="color: white">CLIENTE:</label>
+                <label class="control-label col-md-4" style="color: black">CLIENTE:</label>
                 <div class="col-xs-8 col-md-6">
                     
                     <asp:TextBox runat="server" ID="txtCLIENTE" CssClass="form-control" Style="text-transform: uppercase" placeholder="Busqueda automática de clientes" MaxLength="100" Width="300px"></asp:TextBox>
@@ -394,7 +409,7 @@
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server"
                         ControlToValidate="txtCLIENTE"
                         ErrorMessage="(*)El Cliente es requerido"
-                        ForeColor="Gold"
+                        ForeColor="Red"
                         ValidationGroup="Registro" Display="Dynamic">
                     </asp:RequiredFieldValidator>
                     &nbsp
@@ -403,14 +418,14 @@
             </div>
 
             <div class="form-group">
-                <label class="control-label col-md-4" style="color: white">FECHA DE GIRO:</label>
+                <label class="control-label col-md-4" style="color: black">FECHA DE GIRO:</label>
                 <div class="col-xs-8 col-md-6">
                     <asp:TextBox runat="server" ID="txtFGIRO" CssClass="form-control" type="date" MaxLength="45" Width="300px" Height="35px"></asp:TextBox>
                     <%--VALIDADOR--%>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server"
                         ControlToValidate="txtFGIRO"
                         ErrorMessage="(*)La fecha de giro es requerida"
-                        ForeColor="Gold"
+                        ForeColor="Red"
                         ValidationGroup="Registro" Display="Dynamic">
                     </asp:RequiredFieldValidator>
                     &nbsp
@@ -419,14 +434,14 @@
             </div>
 
             <div class="form-group">
-                <label class="control-label col-md-4" style="color: white">FECHA DE COBRO:</label>
+                <label class="control-label col-md-4" style="color: black">FECHA DE COBRO:</label>
                 <div class="col-xs-8 col-md-6">
                     <asp:TextBox runat="server" ID="txtFCOBRO" CssClass="form-control" type="date" MaxLength="100" Width="300px" Height="35px"></asp:TextBox>
                     <%--VALIDADOR--%>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server"
                         ControlToValidate="txtFCOBRO"
                         ErrorMessage="(*)La fecha de cobro es requerida"
-                        ForeColor="Gold"
+                        ForeColor="Red"
                         ValidationGroup="Registro" Display="Dynamic">
                     </asp:RequiredFieldValidator>
                     &nbsp
@@ -435,14 +450,14 @@
             </div>
 
             <div class="form-group">
-                <label class="control-label col-md-4" style="color: white">N° DE CHEQUE:</label>
+                <label class="control-label col-md-4" style="color: black">N° DE CHEQUE:</label>
                 <div class="col-xs-8 col-md-6">
                     <asp:TextBox runat="server" ID="txtNUMERO" CssClass="form-control" placeholder="Ingrese número de cheque" MaxLength="100" Width="300px"></asp:TextBox>
                     <%--VALIDADOR--%>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server"
                         ControlToValidate="txtNUMERO"
                         ErrorMessage="(*)El Número de cheque es requerido"
-                        ForeColor="Gold"
+                        ForeColor="Red"
                         ValidationGroup="Registro" Display="Dynamic">
                     </asp:RequiredFieldValidator>
                     &nbsp
@@ -450,14 +465,14 @@
             </div>
 
             <div class="form-group">
-                <label class="control-label col-md-4" style="color: white">BANCO:</label>
+                <label class="control-label col-md-4" style="color: black">BANCO:</label>
                 <div class="col-xs-8 col-md-6">
                     <asp:DropDownList runat="server" ID="cboBANCO" CssClass="form-control" AutoPostBack="false" Width="300px" OnSelectedIndexChanged="cboBANCO_SelectedIndexChanged">
                     </asp:DropDownList><%--VALIDADOR--%>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server"
                         ControlToValidate="cboBANCO"
                         ErrorMessage="(*)Escoja un banco"
-                        ForeColor="Gold"
+                        ForeColor="Red"
                         ValidationGroup="Registro" Display="Dynamic">
                     </asp:RequiredFieldValidator>
                     &nbsp
@@ -465,9 +480,9 @@
 
             </div>
             <div class="form-group">
-                <label class="control-label col-md-4" style="color: white; margin-top: -8px;">TIPO DE MONEDA:</label>
+                <label class="control-label col-md-4" style="color: black; margin-top: -8px;">TIPO DE MONEDA:</label>
                 <div class="col-xs-8 col-md-7">
-                    <asp:RadioButtonList ID="rdbMONEDA" runat="server" RepeatDirection="Horizontal" Width="200px" Font-Bold="True" Font-Names="Tahoma" Font-Size="14px" ForeColor="White" AutoPostBack="false">
+                    <asp:RadioButtonList ID="rdbMONEDA" runat="server"  RepeatDirection="Horizontal" Width="200px" Font-Bold="True" Font-Names="Tahoma" Font-Size="14px" ForeColor="Black" AutoPostBack="false">
                         <asp:ListItem Value="S">&nbsp;&nbsp;SOLES</asp:ListItem>
                         <asp:ListItem Value="D">&nbsp;&nbsp;DOLARES</asp:ListItem>
                     </asp:RadioButtonList>
@@ -476,14 +491,14 @@
 
             </div>
             <div class="form-group">
-                <label class="control-label col-md-4" style="color: white">IMPORTE:</label>
+                <label class="control-label col-md-4" style="color: black">IMPORTE:</label>
                 <div class="col-xs-8 col-md-6">
                     <asp:TextBox runat="server" ID="txtIMPORTE" CssClass="form-control" placeholder="Ingrese importe" type="numeric" MaxLength="100" Width="300px" OnBlur="addCommas(this)"  ></asp:TextBox>
                     <%--<%--<%--VALIDADOR--%>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server"
                         ControlToValidate="txtIMPORTE"
                         ErrorMessage="(*)El importe es requerido"
-                        ForeColor="Gold"
+                        ForeColor="Red"
                         ValidationGroup="Registro" Display="Dynamic">
                     </asp:RequiredFieldValidator>
                     &nbsp
@@ -493,20 +508,20 @@
             
 
             <asp:TextBox ID="TXTid_cliente" runat="server" CssClass="visible-xs"></asp:TextBox>
-
+                &nbsp
             <div class="form-group col-md-12 col-sm-12 col-xs-12" style="position: center;">
                 
 
-                <div class="col-md-4 col-sm-4 col-xs-12" style="position: center;">
-                    <asp:Button runat="server" CssClass="form-control btn btn-info col-xs-12 col-sm-12" Text="REGISTRAR" ValidationGroup="Registro" ID="btnRegistrar" OnClick="btnRegistrar_Click" />
+                <div class="col-md-4 col-sm-4 col-xs-12" style="position: center; ">
+                    <asp:Button runat="server" CssClass="a_demo_four1 col-xs-12 col-sm-12" ForeColor="White" Font-Bold="true" Text="REGISTRAR" ValidationGroup="Registro" ID="btnRegistrar" OnClick="btnRegistrar_Click" />
                     &nbsp
                 </div>
                 <div class="col-md-4 col-sm-4 col-xs-12" style="position: center;">
-                    <asp:Button runat="server" CssClass="form-control btn btn-info col-xs-12 col-sm-12" Text="ACTUALIZAR" ID="btnActualizar" OnClick="btnActualizar_Click" />
+                    <asp:Button runat="server" CssClass="a_demo_four1 col-xs-12 col-sm-12" ForeColor="White" Font-Bold="true" Text="ACTUALIZAR" ID="btnActualizar" OnClick="btnActualizar_Click" />
                     &nbsp
                 </div>
                 <div class="col-md-4 col-sm-4 col-xs-12" style="position: center">
-                    <asp:Button runat="server" CssClass="form-control  btn btn-info col-xs-12 col-sm-12" Text="CANCELAR" ID="btnCancelar" OnClick="btnCancelar_Click" />
+                    <asp:Button runat="server" CssClass="a_demo_four1 col-xs-12 col-sm-12" Text="CANCELAR" Font-Bold="true" ForeColor="White" ID="btnCancelar" OnClick="btnCancelar_Click" />
                     <asp:Button runat="server" BackColor="DarkCyan" BorderColor="DarkCyan" ForeColor="DarkCyan" type="hidden" Text="REGISTRARMOV" CssClass="visible-xs" ID="btnREGISTRARMOV" OnClick="btnREGISTRARMOV_Click" />
 
                 </div>
@@ -515,10 +530,10 @@
                 &nbsp
                 
             </div>
-
+            </div>
         </div>
     </div>
-
+    </div>
     <!-- -----------------------------Modal Registro-------------------------------------------------------------->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
@@ -580,7 +595,7 @@
     </div>
     <!-- -----------------------------Modal RegistroError-------------------------------------------------------------->
 
-    <div class="container-fluid">
+    <div class="container-fluid" style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">
         <div class="row">
             <div class="col-xs-12 col-sm-12  col-md-8">
                 <asp:TextBox runat="server" ID="txtfiltroid_cli" CssClass="visible-xs"  Font-Bold="true" placeholder="Ingresar cliente,busqueda automatica" MaxLength="70"></asp:TextBox>
@@ -624,11 +639,11 @@
                    
                     <div class="col-xs-4 col-md-2" style="left:30px">
                         <label style="color: white;  text-align: left; margin-right:50px;">F. INICIAL:</label>
-                        <asp:TextBox runat="server" ID="txtFiltroFechaIni" CssClass="form-control col-sm-12 col-xs-12" Width="150px"  Height="30px"  TextMode="Date" Font-Bold="true" placeholder="Ingrese Fecha inicial" MaxLength="70"></asp:TextBox>
+                        <asp:TextBox runat="server" ID="txtFiltroFechaIni" CssClass="form-control col-sm-12 col-xs-12" Width="150px"  Height="35px"  TextMode="Date"  placeholder="Ingrese Fecha inicial" MaxLength="70"></asp:TextBox>
                     </div>
                     <div class="col-xs-4 col-md-2" style="left:10px">
                         <label style="color: white; text-align: left; margin-right:50px;">F. FINAL:</label>
-                        <asp:TextBox runat="server" ID="txtFiltroFechaFin" CssClass="form-control col-sm-12 col-xs-12" Width="150px"  Height="30px"  TextMode="Date" Font-Bold="true" placeholder="Ingrese Fecha final" MaxLength="70"></asp:TextBox>
+                        <asp:TextBox runat="server" ID="txtFiltroFechaFin" CssClass="form-control col-sm-12 col-xs-12" Width="150px"  Height="35px"  TextMode="Date"  placeholder="Ingrese Fecha final" MaxLength="70"></asp:TextBox>
                     </div>
                     <div class="col-xs-4 col-md-1" style="top:25px">
                         <asp:Button ID="btnConsulta" runat="server" Text="FILTRAR" CssClass="btn btn-info"  OnClick="btnConsulta_Click"/>
@@ -701,12 +716,7 @@
     <script src="Scripts/index.js"></script>
 
 
-     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js" type="text/javascript"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"
-        type="text/javascript"></script>
-    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css"
-        rel="Stylesheet" type="text/css" />
-
+    
 
 
     <script src="assets/js/bootstrap.min.js"></script>

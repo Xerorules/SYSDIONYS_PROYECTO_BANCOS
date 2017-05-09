@@ -3,7 +3,18 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-
+     <!-- ================================================= -->
+    <!-- SCRIPT PARA BLOQUEAR LAS FLECHAS DE NAVEGACION -->
+    <script type="text/javascript">
+        {
+            if (history.forward(1))
+                location.replace(history.forward(1))
+        }
+        </script>
+    
+    <meta http-equiv="Expires" content="0" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <!-- ================================================= -->
 
     <link href="assets/css/ptoledo.css" rel="stylesheet" />
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
@@ -70,6 +81,19 @@
                 document.getElementById(obj.id).value = '';
             }
         }
+
+        function filterDigits(eventInstance) {
+            eventInstance = eventInstance || window.event;
+            key = eventInstance.keyCode || eventInstance.which;
+            if ((47 < key) && (key < 58) || (key = 45) || (key == 8)) {
+                return true;
+            } else {
+                if (eventInstance.preventDefault) eventInstance.preventDefault();
+                eventInstance.returnValue = false;
+                return false;
+            } 
+        }
+
 
     </script>
     <script>
@@ -527,7 +551,7 @@
             <asp:TextBox runat="server" ID="txtCuentaModal" CssClass="form-control col-xs-9 col-md-9" BackColor="AliceBlue" Style="text-transform: uppercase" Font-Bold="true" placeholder="Ingrese el número de cuenta, búsqueda automática" MaxLength="150"></asp:TextBox>
         </div>
          <div class="col-md-2" style="text-align: right; margin-top: 0px;">
-            <asp:Button ID="btnTraeDatos" runat="server" Text="FILTRAR" CssClass="a_demo_four col-sm-12 col-xs-12" Height="35px" OnClick="btnTraeDatos_Click" />
+            <asp:Button ID="btnTraeDatos" runat="server" Text="FILTRAR" CssClass="a_demo_four1 col-sm-12 col-xs-12" Height="35px" OnClick="btnTraeDatos_Click" />
         </div>
      </div>
      <div class="form-group col-md-6 col-sm-6 col-xs-6 center-block">
@@ -600,13 +624,13 @@
                         <h1>
                             <label for="tabbed1">REGISTRO MANUAL</label>
                         </h1>
-                        <div style="background-color: grey">
+                        <div style="background-color: lightgray">
                             <%--aca empieza el form manual--%>
 
-                            <div class="form-horizontal col-xs-12 col-md-4 col-lg-4" style="position: relative; background-color: grey">
+                            <div class="form-horizontal col-xs-12 col-md-4 col-lg-4" style="position: relative; background-color: lightgray">
 
                                 <div class="form-group">
-                                    <label class="control-label col-xs-3" style="color: white;">FECHA:</label>
+                                    <label class="control-label col-xs-3" style="color: black;">FECHA:</label>
                                     <div class="col-xs-8 col-md-8">
                                         <asp:TextBox runat="server" TextMode="Date" ID="txtFECHA" CssClass="form-control" placeholder="" MaxLength="100" Width="335px" Height="35px"></asp:TextBox>
 
@@ -616,88 +640,92 @@
 
 
                                 <div class="form-group">
-                                    <label class="control-label col-xs-3" style="color: white">MOVIMIENTO:</label>
+                                    <label class="control-label col-xs-3" style="color: black">MOVIMIENTO:</label>
                                     <div class="col-xs-6 col-md-8">
                                         <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                                         <ContentTemplate>
                                         <asp:DropDownList runat="server" ID="cboTIPOMOV" CssClass="form-control" AutoPostBack="true" Width="335px"  OnSelectedIndexChanged="cboTIPOMOV_SelectedIndexChanged">
                                         </asp:DropDownList>
+                                          
                                         </ContentTemplate>
                                                 <Triggers>
                                                     <asp:AsyncPostBackTrigger ControlID="cboTIPOMOV" EventName="SelectedIndexChanged" />
                                                 </Triggers>
                                             </asp:UpdatePanel>
+                                       
                                     </div>
                                 </div>
 
 
                                 <div class="form-group">
-                                    <label class="control-label col-xs-3" style="color: white">C. BANCARIO:</label>
+                                    <label class="control-label col-xs-3" style="color: black">C. BANCARIO:</label>
                                     <div class="col-xs-8 col-md-8">
                                         <asp:UpdatePanel ID="UpdatePanel3" runat="server">
                                          <ContentTemplate>        
                                         <asp:DropDownList runat="server" ID="cboCONCEPTO" CssClass="form-control" AutoPostBack="true" Width="335px" EnableViewState="true" AppendDataBoundItems="True" CausesValidation="True" OnSelectedIndexChanged="cboCONCEPTO_SelectedIndexChanged">
                                         </asp:DropDownList>
+                                            
                                              </ContentTemplate>
                                             </asp:UpdatePanel>
+                                       
                                     </div>
 
                                 </div>
 
 
                             </div>
-                            <div class="form-horizontal col-xs-12 col-md-4 col-lg-4" style="position: relative; background-color: grey">
+                            <div class="form-horizontal col-xs-12 col-md-4 col-lg-4" style="position: relative; background-color: lightgray">
                                 <div class="form-group">
-                                    <label class="control-label col-xs-3" style="color: white;">LUGAR:</label>
+                                    <label class="control-label col-xs-3" style="color: black;">LUGAR:</label>
                                     <div class="col-xs-8 col-md-8">
                                         <asp:TextBox runat="server" ID="txtLugar" CssClass="form-control" Style="text-transform: uppercase" placeholder="Escriba el lugar" MaxLength="100" Width="335px"></asp:TextBox>
                                         <%--VALIDADOR--%>
                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server"
                                             ControlToValidate="txtLugar"
                                             ErrorMessage="(*)El Lugar es requerido"
-                                            ForeColor="Gold"
+                                            ForeColor="Red"
                                             ValidationGroup="Registro" Display="Dynamic">
                                         </asp:RequiredFieldValidator>
-
+                                         
                                     </div>
 
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-xs-3" style="color: white">N° OPERACION:</label>
+                                    <label class="control-label col-xs-3" style="color: black">N° OPERACION:</label>
                                     <div class="col-xs-8 col-md-8">
                                         <asp:TextBox runat="server" ID="txtOPE" CssClass="form-control" placeholder="Ingrese la operación" MaxLength="100" Width="336px"></asp:TextBox>
                                         <%--VALIDADOR--%>
                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server"
                                             ControlToValidate="txtOPE"
                                             ErrorMessage="(*)El Número de Operacion es requerido"
-                                            ForeColor="Gold"
+                                            ForeColor="Red"
                                             ValidationGroup="Registro" Display="Dynamic">
                                         </asp:RequiredFieldValidator>
-
+                                         
                                     </div>
 
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-xs-3" style="color: white">IMPORTE:</label>
+                                    <label class="control-label col-xs-3" style="color: black">IMPORTE:</label>
                                     <div class="col-xs-8 col-md-8">
                                         <asp:TextBox runat="server" ID="txtIMPORTE" CssClass="form-control" placeholder="00.00" MaxLength="100" type="numeric" Width="336px" OnBlur="addCommas(this)" onKeyUp="clickMe(this)"></asp:TextBox>
                                         <%--VALIDADOR--%>
                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server"
                                             ControlToValidate="txtIMPORTE"
                                             ErrorMessage="(*)El Importe es requerido"
-                                            ForeColor="Gold"
+                                            ForeColor="Red"
                                             ValidationGroup="Registro" Display="Dynamic">
                                         </asp:RequiredFieldValidator>
-
+                                         
                                     </div>
 
                                 </div>
 
                             </div>
 
-                            <div class="form-horizontal col-xs-12 col-md-4 col-lg-4" style="position: relative; background-color: grey">
+                            <div class="form-horizontal col-xs-12 col-md-4 col-lg-4" style="position: relative; background-color: lightgray">
                                 <div class="form-group">
-                                    <label class="control-label col-xs-3" style="color: white">DESCRIPCION:</label>
+                                    <label class="control-label col-xs-3" style="color: black">DESCRIPCION:</label>
                                     <div class="col-xs-8 col-md-8">
                                         <asp:TextBox runat="server" ID="txtDESC" CssClass="form-control" Style="text-transform: uppercase" placeholder="Ingrese una descripción" MaxLength="100" Width="336px"></asp:TextBox>
                                     </div>
@@ -708,7 +736,7 @@
                                    <%-- <label class="control-label col-xs-3" id="AAA"  style="color: white">CLIENTE:</label>--%>
                                     <asp:UpdatePanel ID="UpdatePanel2" runat="server">
                                          <ContentTemplate>  
-                                    <asp:Label ID="complemento" CssClass="control-label col-xs-3" runat="server" ForeColor="White">CLIENTE:</asp:Label>
+                                    <asp:Label ID="complemento" CssClass="control-label col-xs-3" runat="server" ForeColor="black" Font-Names="Segoe UI" Font-Bold="true">CLIENTE:</asp:Label>
                                         </ContentTemplate>
                                         </asp:UpdatePanel>
                                     <div class="col-xs-8 col-md-8">
@@ -720,7 +748,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-xs-3" style="color: white">OBSERVACIÓN:</label>
+                                    <label class="control-label col-xs-3" style="color: black">OBSERVACIÓN:</label>
                                     <div class="col-xs-8 col-md-8">
                                         <asp:TextBox runat="server" ID="txtObservacione" CssClass="form-control" Style="text-transform: uppercase" placeholder="Ingrese observación" MaxLength="100" Width="336px"></asp:TextBox>
                                     </div>
@@ -774,11 +802,11 @@
                                 CARGAR ARCHIVO EXCEL
                             </label>
                         </h1>
-                        <div style="background-color: grey">
+                        <div style="background-color: lightgray">
 
 
                             <div class="col-xs-3 col-md-3" style="width: 10%; text-align: right; margin-top: 9px;">
-                                <label style="color: white; top: 5px; left: 0px; text-align: center;">CARGA POR EXCEL:</label>
+                                <label style="color: black; top: 5px; left: 0px; text-align: center;">CARGA POR EXCEL:</label>
                             </div>
                             <div style="float: left; margin-top: 9px;">
                                 <asp:FileUpload ID="FileUpload1" runat="server" CssClass="form-control" />

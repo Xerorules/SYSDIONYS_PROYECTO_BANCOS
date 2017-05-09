@@ -940,13 +940,13 @@ namespace DIONYS_ERP.PLANTILLAS
         {
             if(cboCONCEPTO.SelectedValue == "1003")
             {
-                complemento.Text = "PROVEEDOR";
+                complemento.Text = "PROVEEDOR:";
                 txtCLIENTE.Enabled = false;
                 cboCONCEPTO.Focus();
             }
             else if (cboCONCEPTO.SelectedValue != "1003")
             {
-                complemento.Text = "CLIENTE";
+                complemento.Text = "CLIENTE:";
                 txtCLIENTE.Enabled = true;
                 cboCONCEPTO.Focus();
             }
