@@ -412,9 +412,9 @@ namespace CAPA_NEGOCIO
             return OBJTIPO_BIEN.DLLENARGRILLABANCOS();
         }
 
-        public DataTable NLLENARGRILLACHEQUES(E_CHEQUES CH)
+        public DataTable NLLENARGRILLACHEQUES(E_CHEQUES CH,string ESTADO)
         {
-            return OBJTIPO_BIEN.DLLENARGRILLACHEQUES(CH);
+            return OBJTIPO_BIEN.DLLENARGRILLACHEQUES(CH,ESTADO);
         }
 
         public DataTable NLLENARGRILLACONCEPTO()
@@ -582,7 +582,11 @@ namespace CAPA_NEGOCIO
             return OBJTIPO_BIEN.CONSULTA_LISTA_CONCEPTOS();
         }
 
-        
+        public DataTable CONSULTA_LISTA_CONCEPTOS2()
+        {
+            return OBJTIPO_BIEN.CONSULTA_LISTA_CONCEPTOS2();
+        }
+
 
         public DataTable NLLENAR_CABECERA_MOVIMIENTOS(string ID_CTA)
         {

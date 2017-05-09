@@ -118,7 +118,7 @@ namespace DIONYS_ERP.PLANTILLAS
             OBJCHEQUE.id_cliente = "";
             OBJCHEQUE.fecha_giro = Convert.ToDateTime(txtFiltroFechaIni.Text).ToString("dd-MM-yyyy");
             OBJCHEQUE.fecha_cobro = Convert.ToDateTime(txtFiltroFechaFin.Text).ToString("dd-MM-yyyy");
-            dgvBANCOS.DataSource = OBJVENTA.NLLENARGRILLACHEQUES(OBJCHEQUE);
+            dgvBANCOS.DataSource = OBJVENTA.NLLENARGRILLACHEQUES(OBJCHEQUE,"TODO");
             dgvBANCOS.DataBind();
 
             ///necesito un estado en la tabla movimientos para cheques
@@ -207,7 +207,7 @@ namespace DIONYS_ERP.PLANTILLAS
                     LIMPIAR2();
                     txtFGIRO.Text = DateTime.Now.ToString("yyyy-MM-dd");
                     txtFCOBRO.Text = DateTime.Now.ToString("yyyy-MM-dd");
-
+                    txtCLIENTE.Focus();
                 }
                 else
                 {
@@ -243,7 +243,7 @@ namespace DIONYS_ERP.PLANTILLAS
                 LIMPIAR2();
                 txtFGIRO.Text = DateTime.Now.ToString("yyyy-MM-dd");
                 txtFCOBRO.Text = DateTime.Now.ToString("yyyy-MM-dd");
-
+                txtCLIENTE.Focus();
             }
             else
             {
@@ -291,14 +291,21 @@ namespace DIONYS_ERP.PLANTILLAS
                 {
                     Button1.Enabled = true;
                     Button4.Enabled = true;
+                    Button2.Enabled = false;
                     label_confirmar.Visible = false;
                     label_deposito.Visible = true;
                     txtmIMPORTE.Text = row.Cells[6].Text;
                     txtmFECH.Text = DateTime.Now.ToString("yyyy-MM-dd");
+                    if (row.Cells[5].Text == "BANCO CONTINENTAL BBVA") { cboBANCO.SelectedIndex = 1; cbomBANCO.SelectedValue = "1000"; }
+                    else if (row.Cells[5].Text == "SCOTIABANK") { cboBANCO.SelectedIndex = 2; cbomBANCO.SelectedValue = "1001"; }
+                    else if (row.Cells[5].Text == "BANCO DE CREDITO BCP") { cboBANCO.SelectedIndex = 3; cbomBANCO.SelectedValue = "1002"; }
+                    
+                    llenar_combo_cuentas(cbomBANCO.SelectedValue.ToString(), Session["ID_EMPRESA"].ToString(), row.Cells[7].Text);
+                    cbomCUENTA.SelectedIndex = 1;
                     txtmIMPORTE.Enabled = false;
                     lblid_cheque.Text = row.Cells[0].Text;
                     Session["MONEDA_CHEQUE"] = row.Cells[7].Text;
-
+                    txtmOPE.Text = row.Cells[4].Text;
                     Session["ID_CHEQUE"] = row.Cells[0].Text;
                     mp1.Show();
                 }
@@ -558,8 +565,8 @@ namespace DIONYS_ERP.PLANTILLAS
             OBJCHEQUE.id_cliente = txtfiltroid_cli.Text;
             OBJCHEQUE.fecha_giro = Convert.ToDateTime(txtFiltroFechaIni.Text).ToString("yyyy-dd-MM");
             OBJCHEQUE.fecha_cobro = Convert.ToDateTime(txtFiltroFechaFin.Text).ToString("yyyy-dd-MM");
-            
-            dgvBANCOS.DataSource = OBJVENTA.NLLENARGRILLACHEQUES(OBJCHEQUE);
+            string ESTADO = cboEstado.Text;
+            dgvBANCOS.DataSource = OBJVENTA.NLLENARGRILLACHEQUES(OBJCHEQUE,ESTADO);
             dgvBANCOS.DataBind();
 
             ///necesito un estado en la tabla movimientos para cheques

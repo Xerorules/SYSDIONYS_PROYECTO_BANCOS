@@ -36,7 +36,7 @@ namespace DIONYS_ERP.PLANTILLAS
                 deshabilitar();
                 TextBoxssss.Text = "2017-01-01";
                 txtFechaFinDB.Text = DateTime.Now.ToString("yyyy-MM-dd");
-
+                Session["CodigoSede"] = "";
                 cargar_grilla_popup("", "", "", "1", Convert.ToDateTime(TextBoxssss.Text).ToShortDateString(), Convert.ToDateTime(txtFechaFinDB.Text).ToShortDateString(),txtClienteDBCom.Text);
                 if (txtCuentaModal.Text == "" )
                 {
@@ -108,6 +108,7 @@ namespace DIONYS_ERP.PLANTILLAS
 
         void llenar_combo_concepto()
         {
+
             DataTable dt = OBJVENTA.CONSULTA_LISTA_CONCEPTOS();
 
             cboCONCEPTO.DataSource = dt;
@@ -386,6 +387,12 @@ namespace DIONYS_ERP.PLANTILLAS
                 Button1.Enabled = true;
                 btnConsulta.Enabled = true;
                 btnActualizar.Enabled = false;
+                deshabilitar();
+                LIMPIAR();
+
+                btnRegistrar.Enabled = true;
+                btnNuevo.Enabled = true;
+
                 txtFECHA.Text = DateTime.Now.ToString("yyyy-MM-dd");
             }
             else
@@ -528,6 +535,7 @@ namespace DIONYS_ERP.PLANTILLAS
         {
             dgvMOVIMIENTOS.DataSource = OBJVENTA.NFILTRARGRILLAMOVIMIENTOS(id_empresa, id_cta,fechaini, fechafin, nrope, concepto, idcli);
             dgvMOVIMIENTOS.DataBind();
+
         }
 
         /*------------------------------------------------------------------*/
@@ -587,7 +595,7 @@ namespace DIONYS_ERP.PLANTILLAS
             
             btnRegistrar.Enabled = true;
             btnNuevo.Enabled = true;
-            btnActualizar.Enabled = false;
+           
             txtFECHA.Text = DateTime.Now.ToString("yyyy-MM-dd");
         }
 
@@ -620,13 +628,26 @@ namespace DIONYS_ERP.PLANTILLAS
                         cboCONCEPTO.SelectedValue = dt.Rows[i][0].ToString();
                     }
                 }
+                
+
+                txtCLIENTE.Text = row.Cells[7].Text;
+                txtLugar.Text = row.Cells[9].Text;
+                txtDESC.Text = row.Cells[2].Text;
+                txtOPE.Text = row.Cells[4].Text;
+
                 Session["IMPORTE_MOV"] = row.Cells[5].Text;
-                txtLugar.Text = row.Cells[9].Text.Replace("&nbsp;", "");
-                txtOPE.Text = row.Cells[4].Text.Replace("&#160;", "");
+                if (row.Cells[9].Text == "&nbsp;") { txtLugar.Text = row.Cells[9].Text.Replace("&nbsp;", ""); }
+                if (row.Cells[4].Text == "&nbsp;") { txtOPE.Text = row.Cells[4].Text.Replace("&nbsp;", ""); }
+                if (row.Cells[2].Text == "&nbsp;") { txtDESC.Text = row.Cells[2].Text.Replace("&nbsp;", ""); }
+                if (row.Cells[7].Text == "&nbsp;") { txtCLIENTE.Text = row.Cells[7].Text.Replace("&nbsp;", ""); }
+                if (row.Cells[12].Text == "&nbsp;") { txtObservacione.Text = row.Cells[12].Text.Replace("&nbsp;", ""); }
                 txtIMPORTE.Text = row.Cells[5].Text;
-                txtDESC.Text = row.Cells[2].Text.Replace("&nbsp;", "");
-                txtCLIENTE.Text = row.Cells[7].Text.Replace("&nbsp;", "");
-                txtObservacione.Text = row.Cells[12].Text.Replace("&nbsp;", "");
+                if (row.Cells[9].Text == "&#160;") { txtLugar.Text = row.Cells[9].Text.Replace("&#160;", ""); }
+                if (row.Cells[4].Text == "&#160;") { txtOPE.Text = row.Cells[4].Text.Replace("&#160;", ""); }
+                if (row.Cells[2].Text == "&#160;") { txtDESC.Text = row.Cells[2].Text.Replace("&#160;", ""); }
+                if (row.Cells[7].Text == "&#160;") { txtCLIENTE.Text = row.Cells[7].Text.Replace("&#160;", ""); }
+                if (row.Cells[12].Text == "&#160;") { txtObservacione.Text = row.Cells[12].Text.Replace("&#160;", ""); }
+
                 habilitar();
                 btnRegistrar.Enabled = true;
                 btnNuevo.Enabled = false;
@@ -863,6 +884,43 @@ namespace DIONYS_ERP.PLANTILLAS
             cargar_grilla_popup("",codv,"","1",fechai,fechaf, cod_cli_dbco);
             //Session["CodigoMOVAMARRE"] = "";
             mp1.Show();
+        }
+
+        protected void cboTIPOMOV_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            cboCONCEPTO.Items.Clear();
+            if (cboTIPOMOV.SelectedValue == "EGRESO") {
+                DataTable dt = OBJVENTA.CONSULTA_LISTA_CONCEPTOS();
+
+                cboCONCEPTO.DataSource = dt;
+                cboCONCEPTO.DataValueField = "ID_CONCEPTOS_BANCARIOS";
+                cboCONCEPTO.DataTextField = "DESCRIPCION";
+                cboCONCEPTO.DataBind();
+            }else if(cboTIPOMOV.SelectedValue == "INGRESO")
+            {
+                DataTable dt = OBJVENTA.CONSULTA_LISTA_CONCEPTOS2();
+                
+                cboCONCEPTO.DataSource = dt;
+                cboCONCEPTO.DataValueField = "ID_CONCEPTOS_BANCARIOS";
+                cboCONCEPTO.DataTextField = "DESCRIPCION";
+                cboCONCEPTO.DataBind();
+                
+            }
+        }
+
+        protected void cboCONCEPTO_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(cboCONCEPTO.SelectedValue == "1003")
+            {
+                complemento.Text = "PROVEEDOR";
+                txtCLIENTE.Enabled = false;
+            }
+            else if (cboCONCEPTO.SelectedValue != "1003")
+            {
+                complemento.Text = "CLIENTE";
+                txtCLIENTE.Enabled = true;
+            }
+                
         }
     }
 }

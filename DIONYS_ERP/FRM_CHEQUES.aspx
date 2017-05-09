@@ -595,28 +595,40 @@
                     </div>
                     
                     <div class="col-xs-4 col-md-2">
-                        <label style="color: white; text-align: left; margin-right:90px; "> BANCO:</label>
+                        <label style="color: white; text-align: left; margin-right:100px; "> BANCO:</label>
                         <asp:DropDownList runat="server" ID="cboFiltroBanco" CssClass="form-control col-sm-12 col-xs-12" AutoPostBack="false" ></asp:DropDownList>
                     </div>
                     
-                    <div class="col-xs-4 col-md-2">
-                        <label style="color: white;  text-align: left; margin-right:90px;"> MONEDA:</label>
-                        <asp:DropDownList runat="server" ID="cboFiltroMoneda" CssClass="form-control col-sm-12 col-xs-12" AutoPostBack="false" >
-                            <asp:ListItem Text="-MONEDA-" Value="" />
+                    <div class="col-md-1"style="left:-15px" >
+                        <label style="color: white;  text-align: left; margin-right:120px;"> MONEDA:</label>
+                        <asp:DropDownList runat="server" ID="cboFiltroMoneda" CssClass="form-control col-sm-12 col-xs-12" Width="98px" AutoPostBack="false" >
+                            <asp:ListItem Text="-MON-" Value="" />
                             <asp:ListItem Text="SOLES" Value="S" />
-                            <asp:ListItem Text="DOLARES" Value="D" />
+                            <asp:ListItem Text="DOLAR" Value="D" />
+                        </asp:DropDownList>
+                                        
+                    </div>
+                    <div class="col-md-1" style="left:-10px">
+                        <label style="color: white;  text-align: left; margin-right:95px;"> ESTADO:</label>
+                        <asp:DropDownList runat="server" ID="cboEstado" CssClass="form-control col-sm-12 col-xs-12" Width="125px" AutoPostBack="false" >
+                            <asp:ListItem Text="-ESTADO-" Value="TODO" />
+                            <asp:ListItem Text="PENDIENTE" Value="PENDIENTE" />
+                            <asp:ListItem Text="DEPOSITADO" Value="DEPOSITADO" />
+                            <asp:ListItem Text="ACEPTADO" Value="ACEPTADO" />
+                            <asp:ListItem Text="REBOTADO" Value="REBOTADO" />
+
                         </asp:DropDownList>
                                         
                     </div>
 
                    
-                    <div class="col-xs-4 col-md-2">
-                        <label style="color: white;  text-align: left; margin-right:55px;">F. INICIAL:</label>
-                        <asp:TextBox runat="server" ID="txtFiltroFechaIni" CssClass="form-control col-sm-12 col-xs-12"  Height="35px"  TextMode="Date" Font-Bold="true" placeholder="Ingrese Fecha inicial" MaxLength="70"></asp:TextBox>
+                    <div class="col-xs-4 col-md-2" style="left:30px">
+                        <label style="color: white;  text-align: left; margin-right:50px;">F. INICIAL:</label>
+                        <asp:TextBox runat="server" ID="txtFiltroFechaIni" CssClass="form-control col-sm-12 col-xs-12" Width="150px"  Height="30px"  TextMode="Date" Font-Bold="true" placeholder="Ingrese Fecha inicial" MaxLength="70"></asp:TextBox>
                     </div>
-                    <div class="col-xs-4 col-md-2">
-                        <label style="color: white; text-align: left; margin-right:55px;">F. FINAL:</label>
-                        <asp:TextBox runat="server" ID="txtFiltroFechaFin" CssClass="form-control col-sm-12 col-xs-12"  Height="35px"  TextMode="Date" Font-Bold="true" placeholder="Ingrese Fecha final" MaxLength="70"></asp:TextBox>
+                    <div class="col-xs-4 col-md-2" style="left:10px">
+                        <label style="color: white; text-align: left; margin-right:50px;">F. FINAL:</label>
+                        <asp:TextBox runat="server" ID="txtFiltroFechaFin" CssClass="form-control col-sm-12 col-xs-12" Width="150px"  Height="30px"  TextMode="Date" Font-Bold="true" placeholder="Ingrese Fecha final" MaxLength="70"></asp:TextBox>
                     </div>
                     <div class="col-xs-4 col-md-1" style="top:25px">
                         <asp:Button ID="btnConsulta" runat="server" Text="FILTRAR" CssClass="btn btn-info"  OnClick="btnConsulta_Click"/>

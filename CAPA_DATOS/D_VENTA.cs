@@ -1657,7 +1657,7 @@ namespace CAPA_DATOS
             return dt;
         }
 
-        public DataTable DLLENARGRILLACHEQUES(E_CHEQUES CH)
+        public DataTable DLLENARGRILLACHEQUES(E_CHEQUES CH,string ESTADO)
         {
             SqlCommand cmd = new SqlCommand("SP_GRILLA_CHEQUES", con);
             cmd.CommandType = CommandType.StoredProcedure;
@@ -1667,6 +1667,7 @@ namespace CAPA_DATOS
             cmd.Parameters.AddWithValue("@ID_CLIENTE", CH.id_cliente);
             cmd.Parameters.AddWithValue("@FECHA_INI", CH.fecha_giro);
             cmd.Parameters.AddWithValue("@FECHA_FIN", CH.fecha_cobro);
+            cmd.Parameters.AddWithValue("@ESTADO", ESTADO);
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
             da.Fill(dt);
@@ -2584,7 +2585,18 @@ namespace CAPA_DATOS
             return dt;
         }
 
-        
+
+        public DataTable CONSULTA_LISTA_CONCEPTOS2()
+        {
+            SqlCommand cmd = new SqlCommand("SP_LLENAR_COMBO_CONCEPTO2", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            return dt;
+        }
+
+
 
         public DataTable DLLENAR_CABECERA_MOVIMIENTOS(string ID_CTA)
         {
