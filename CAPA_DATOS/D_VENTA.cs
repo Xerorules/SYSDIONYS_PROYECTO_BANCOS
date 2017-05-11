@@ -1740,6 +1740,9 @@ namespace CAPA_DATOS
         public DataTable DLLENARGRILLAPOPUP(string ID_MOV,string ID_VENTA,string OBS,string COND,string FECHAV, string FECHAF, string CODDBC)
         {
             DataTable dt = new DataTable();
+            try
+            {
+                
             if (con.State == ConnectionState.Closed) { con.Open(); }
             SqlCommand cmd = new SqlCommand("SP_MANT_TABLA_TEMPORAL_DBCOMERCIAL", con);
             cmd.CommandType = CommandType.StoredProcedure;
@@ -1752,11 +1755,40 @@ namespace CAPA_DATOS
             cmd.Parameters.AddWithValue("@CODDBC", CODDBC);
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             da.Fill(dt);
+            }
+            catch (Exception ex)
+            {
+                System.Console.Write(ex.Message);
+            }
             con.Close();
 
 
             return dt;
         }
+
+        public DataTable Dpruebacarga(string cod)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                if (con.State == ConnectionState.Closed) { con.Open(); }
+                SqlCommand cmd = new SqlCommand("SP_PRUEBA_CARGA", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@ID_MOV", cod);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(dt);
+            }
+            catch (Exception ex)
+            {
+                System.Console.Write(ex.Message);
+            }
+            con.Close();
+
+
+            return dt;
+        }
+
+
 
         public string DAMARRARVENTAMOVIMIENTO(string ID_MOV, string ID_VENTA, string OBS, string COND,string FECHAV,string FECHAF,string CODDBC)
         {
@@ -1784,7 +1816,7 @@ namespace CAPA_DATOS
             }
             catch(Exception ex)
             {
-                
+                System.Console.Write(ex.Message);
             }
             return res;
         }
@@ -1799,6 +1831,27 @@ namespace CAPA_DATOS
                 SqlCommand cmd = new SqlCommand("SP_NOMBRE_CLIENTE_X_ID", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@ID_CLIENTE", cod);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+
+                da.Fill(dt);
+                con.Close();
+
+            }
+            catch (Exception ex)
+            {
+                System.Console.Write("Esta cuenta no tiene movimientos anteriores");
+            }
+            return dt;
+        }
+
+        public DataTable DSELECTCHEQUES()
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                if (con.State == ConnectionState.Closed) { con.Open(); }
+                SqlCommand cmd = new SqlCommand("SP_PINTA_MOV_CHEQUE", con);
+                cmd.CommandType = CommandType.StoredProcedure;
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
 
                 da.Fill(dt);

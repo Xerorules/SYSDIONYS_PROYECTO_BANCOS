@@ -295,7 +295,7 @@
             });
         };
 
-
+        
 
     </script>
 
@@ -332,6 +332,51 @@
                 minLength: 1
             });
         });
+
+
+        var prm = Sys.WebForms.PageRequestManager.getInstance();
+        if (prm != null) {
+            prm.add_endRequest(function (sender, e) {
+                if (sender._postBackSettings.panelsToUpdate != null) {
+                    $(function () {
+                        $("[id$=txtClienteDBCom]").autocomplete({
+                            source: function (request, response) {
+                                $.ajax({
+                                    url: '<%=ResolveUrl("~/SERVICES/AUTOCOMPLETAR_MOVIMIENTOS.asmx/AUTOCOMPLETAR_CLIENTES_DBCOMERCIAL") %>',
+                                    data: "{ 'prefix': '" + request.term + "'}",
+                                    dataType: "json",
+                                    type: "POST",
+                                    contentType: "application/json; charset=utf-8",
+                                    success: function (data) {
+                                        response($.map(data.d, function (item) {
+                                            return {
+                                                label: item.split('-')[0],
+                                                val: item.split('-')[1]
+                                            }
+                                        }))
+                                    },
+                                    error: function (response) {
+                                        alert(response.responseText);
+                                    },
+                                    failure: function (response) {
+                                        alert(response.responseText);
+                                    }
+                                });
+                            },
+                            select: function (e, i) {
+                                $("[id$=txtClienteDBCom]").val(i.item.text);
+                                $("[id$=id_cliente_dbcomercial]").val(i.item.val);
+                            },
+                            minLength: 1
+                        });
+                    });
+
+
+
+                }
+            });
+        };
+
 
 
     </script>
@@ -372,6 +417,52 @@
 
             });
         });
+
+
+        var prm = Sys.WebForms.PageRequestManager.getInstance();
+        if (prm != null) {
+            prm.add_endRequest(function (sender, e) {
+                if (sender._postBackSettings.panelsToUpdate != null) {
+
+                    $(function () {
+                        $("[id$=txtLugar]").autocomplete({
+                            source: function (request, response) {
+                                $.ajax({
+                                    url: '<%=ResolveUrl("~/SERVICES/AUTOCOMPLETAR_MOVIMIENTOS.asmx/AUTOCOMPLETAR_LUGAR") %>',
+                                     data: "{ 'prefix': '" + request.term + "'}",
+                                     dataType: "json",
+                                     type: "POST",
+                                     contentType: "application/json; charset=utf-8",
+                                     success: function (data) {
+                                         response($.map(data.d, function (item) {
+                                             return {
+                                                 label: item.split('-')[0],
+                                                 val: item.split('-')[1]
+                                             }
+                                         }))
+                                     },
+                                     error: function (response) {
+                                         alert(response.responseText);
+                                     },
+                                     failure: function (response) {
+                                         alert(response.responseText);
+                                     }
+                                 });
+                             },
+                             select: function (e, i) {
+                                 $("[id$=txtLugar]").val(i.item.text);
+                                 $("[id$=txtLugar]").val(i.item.val);
+                             },
+                             minLength: 1
+
+                         });
+                     });
+
+
+                }
+            });
+        };
+
 
 
     </script>
@@ -420,20 +511,22 @@
             $('#myModal').modal('show');
         }
 
-
-
-    </script>
+          </script>
 
 
     <%--POUP AJAX --%>
     <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
-
+    <div>
+    <asp:UpdatePanel ID="udpOutterUpdatePanel" runat="server"> 
+             <ContentTemplate> 
     <input id="Hid_Sno" type="hidden" name="hddclick" runat="server" />
     <!-- ModalPopupExtender -->
     <cc1:ModalPopupExtender ID="mp1" runat="server" PopupControlID="Panl1" TargetControlID="Hid_Sno"
         CancelControlID="Button3" BackgroundCssClass="Background" BehaviorID="mp1">
     </cc1:ModalPopupExtender>
     <asp:Panel ID="Panl1" runat="server" CssClass="Popup" align="center" Style="display: none">
+        <asp:UpdatePanel ID="udpInnerUpdatePanel" runat="Server" UpdateMode="Conditional"> 
+                        <ContentTemplate> 
         <div class="container col-lg-12 col-md-12" style="text-align: center">
             <h2 style="font-size:large;">CUENTAS POR COBRAR DBCOMERCIAL (Sólo referencial)</h2>
             &nbsp
@@ -475,7 +568,7 @@
             <div class="form-group col-lg-1 col-md-1" style="left: 100px; top: 25px;">
                 <div class="col-lg-12 col-md-12">
                      
-                                        <asp:Button ID="btnBuscarPopUp" runat="server" Text="BUSCAR" CssClass="form-control btn-warning" Width="120px" OnClick="btnBuscarPopUp_Click" />
+                     <asp:Button ID="btnBuscarPopUp" runat="server" Text="BUSCAR" CssClass="form-control btn-warning" Width="120px" OnClick="btnBuscarPopUp_Click" />
                                        
                     
                 </div>
@@ -493,14 +586,20 @@
             <div style="width: 1195px; height: 450px; overflow-y: scroll; margin-left: -12px;">
                 <div class="container">
                     
-                    <asp:GridView ID="dgvPOPUPAMARRE" runat="server"  AutoGenerateColumns="false" CssClass="table table-bordered table-condensed table-responsive table-hover" OnRowCommand="dgvPOPUPAMARRE_RowCommand">
+                    <asp:GridView ID="dgvPOPUPAMARRE" runat="server"  AutoGenerateColumns="false" CssClass="table table-bordered table-condensed table-responsive table-hover" OnRowCommand="dgvPOPUPAMARRE_RowCommand" OnRowDataBound="dgvPOPUPAMARRE_RowDataBound">
                         <Columns>
                             <asp:TemplateField>
                                 <ItemTemplate>
                                     <asp:LinkButton ID="LinkButtonUnir" runat="server" CommandName="UNIR" Font-Size="Small">&nbsp;Vincular</asp:LinkButton>
+
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <%--<asp:ButtonField Text="Vincular" CommandName="UNIR"/>--%>
+                            <asp:TemplateField>
+                                <ItemTemplate>
+                                    <asp:LinkButton ID="LinkButtonDESUnir" runat="server" ForeColor="Red" CommandName="DESUNIR" Font-Size="Small">&nbsp;Desvincular</asp:LinkButton>
+
+                                </ItemTemplate>
+                            </asp:TemplateField>
                             <asp:BoundField DataField="DV_NUMEROINT" HeaderText="COD VENTA" HeaderStyle-HorizontalAlign="Center">
                                 <HeaderStyle HorizontalAlign="Center"></HeaderStyle>
                             </asp:BoundField>
@@ -533,10 +632,18 @@
             <br />
         </div>
 
-
+        </ContentTemplate>       
+            <Triggers> 
+                <asp:AsyncPostBackTrigger ControlID="btnBuscarPopUp" EventName="Click" /> 
+                <asp:PostBackTrigger ControlID="dgvPOPUPAMARRE" /> 
+            </Triggers> 
+         </asp:UpdatePanel> 
     </asp:Panel>
+       </ContentTemplate> 
+        </asp:UpdatePanel> 
+    </div>
     <%--POPUP AJAX--%>
-
+       
     <input type="button" id="btnSubmit" name="btnSubmit" class="visible-xs" />
     <asp:TextBox ID="txtConsultaCliValor" runat="server" CssClass="visible-xs"></asp:TextBox>
     <div class="visible-xs" style="height: 5px; width: 1px; border-color: darkcyan; background-color: darkcyan; color: white;">
@@ -548,10 +655,10 @@
 
         <div class="col-md-8" style="text-align: right; margin-top: 0px;">
             <label class="col-xs-3 col-md-3" style="color: white;">N° CUENTA:</label>
-            <asp:TextBox runat="server" ID="txtCuentaModal" CssClass="form-control col-xs-9 col-md-9" BackColor="AliceBlue" Style="text-transform: uppercase" Font-Bold="true" placeholder="Ingrese el número de cuenta, búsqueda automática" MaxLength="150"></asp:TextBox>
+            <asp:TextBox runat="server" ID="txtCuentaModal" CssClass="form-control col-xs-9 col-md-9" BackColor="AliceBlue" Style="text-transform:uppercase" Font-Bold="true" placeholder="Ingrese el número de cuenta, búsqueda automática" MaxLength="150" ></asp:TextBox>
         </div>
          <div class="col-md-2" style="text-align: right; margin-top: 0px;">
-            <asp:Button ID="btnTraeDatos" runat="server" Text="FILTRAR" CssClass="a_demo_four1 col-sm-12 col-xs-12" Height="35px" OnClick="btnTraeDatos_Click" />
+            <asp:Button ID="btnTraeDatos" runat="server" Text="FILTRAR"  CssClass="a_demo_four1 col-sm-12 col-xs-12" Height="35px" OnClick="btnTraeDatos_Click" />
         </div>
      </div>
      <div class="form-group col-md-6 col-sm-6 col-xs-6 center-block">
@@ -560,7 +667,7 @@
         <div class="col-md-6">
             <label  style="color: white;">BANCO:</label>&nbsp;&nbsp;
 
-            <asp:Label ID="LBLBANCO" runat="server" Text="--" ForeColor="White" CssClass="label" Font-Bold="true" Font-Size="Large" BackColor="CornflowerBlue" Height="30px"></asp:Label>
+            <asp:Label ID="LBLBANCO" runat="server" Text="--"  ForeColor="White" CssClass="label" Font-Bold="true" Font-Size="Large" BackColor="CornflowerBlue" Height="30px"></asp:Label>
 
 
         </div>
@@ -632,8 +739,12 @@
                                 <div class="form-group">
                                     <label class="control-label col-xs-3" style="color: black;">FECHA:</label>
                                     <div class="col-xs-8 col-md-8">
+                                         <asp:UpdatePanel ID="UpdatePanel10" runat="server">
+                                        <ContentTemplate>
+                                           
                                         <asp:TextBox runat="server" TextMode="Date" ID="txtFECHA" CssClass="form-control" placeholder="" MaxLength="100" Width="335px" Height="35px"></asp:TextBox>
-
+                                    </ContentTemplate>
+                                            </asp:UpdatePanel>
                                     </div>
 
                                 </div>
@@ -678,7 +789,12 @@
                                 <div class="form-group">
                                     <label class="control-label col-xs-3" style="color: black;">LUGAR:</label>
                                     <div class="col-xs-8 col-md-8">
+                                         <asp:UpdatePanel ID="UpdatePanel9" runat="server">
+                                        <ContentTemplate>
+                                            
                                         <asp:TextBox runat="server" ID="txtLugar" CssClass="form-control" Style="text-transform: uppercase" placeholder="Escriba el lugar" MaxLength="100" Width="335px"></asp:TextBox>
+                                        </ContentTemplate>
+                                            </asp:UpdatePanel>
                                         <%--VALIDADOR--%>
                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server"
                                             ControlToValidate="txtLugar"
@@ -693,7 +809,12 @@
                                 <div class="form-group">
                                     <label class="control-label col-xs-3" style="color: black">N° OPERACION:</label>
                                     <div class="col-xs-8 col-md-8">
-                                        <asp:TextBox runat="server" ID="txtOPE" CssClass="form-control" placeholder="Ingrese la operación" MaxLength="100" Width="336px"></asp:TextBox>
+                                         <asp:UpdatePanel ID="UpdatePanel8" runat="server">
+                                        <ContentTemplate>
+                                           
+                                        <asp:TextBox runat="server" ID="txtOPE" CssClass="form-control" placeholder="INGRESE N° DE OPERACION" MaxLength="100" Width="336px"></asp:TextBox>
+                                        </ContentTemplate>
+                                            </asp:UpdatePanel>
                                         <%--VALIDADOR--%>
                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server"
                                             ControlToValidate="txtOPE"
@@ -708,7 +829,12 @@
                                 <div class="form-group">
                                     <label class="control-label col-xs-3" style="color: black">IMPORTE:</label>
                                     <div class="col-xs-8 col-md-8">
+                                         <asp:UpdatePanel ID="UpdatePanel7" runat="server">
+                                        <ContentTemplate>
+                                           
                                         <asp:TextBox runat="server" ID="txtIMPORTE" CssClass="form-control" placeholder="00.00" MaxLength="100" type="numeric" Width="336px" OnBlur="addCommas(this)" onKeyUp="clickMe(this)"></asp:TextBox>
+                                         </ContentTemplate>
+                                            </asp:UpdatePanel>
                                         <%--VALIDADOR--%>
                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server"
                                             ControlToValidate="txtIMPORTE"
@@ -727,8 +853,12 @@
                                 <div class="form-group">
                                     <label class="control-label col-xs-3" style="color: black">DESCRIPCION:</label>
                                     <div class="col-xs-8 col-md-8">
+                                        <asp:UpdatePanel ID="UpdatePanel11" runat="server">
+                                        <ContentTemplate>
                                         <asp:TextBox runat="server" ID="txtDESC" CssClass="form-control" Style="text-transform: uppercase" placeholder="Ingrese una descripción" MaxLength="100" Width="336px"></asp:TextBox>
-                                    </div>
+                                    </ContentTemplate>
+                                            </asp:UpdatePanel>
+                                            </div>
 
                                 </div>
 
@@ -742,7 +872,7 @@
                                     <div class="col-xs-8 col-md-8">
                                          <asp:UpdatePanel ID="UpdatePanel4" runat="server">
                                          <ContentTemplate> 
-                                        <asp:TextBox runat="server" ID="txtCLIENTE"  CssClass="form-control" AutoPostBack="true" Style="text-transform: uppercase" placeholder="Ingrese Cliente busqueda automática" Text="" MaxLength="45" Width="335px"></asp:TextBox>
+                                        <asp:TextBox runat="server" ID="txtCLIENTE"  CssClass="form-control" AutoPostBack="false" Style="text-transform: uppercase" placeholder="Ingrese Cliente busqueda automática" Text="" MaxLength="45" Width="335px"></asp:TextBox>
                                     </ContentTemplate>
                                         </asp:UpdatePanel>
                                     </div>
@@ -750,7 +880,12 @@
                                 <div class="form-group">
                                     <label class="control-label col-xs-3" style="color: black">OBSERVACIÓN:</label>
                                     <div class="col-xs-8 col-md-8">
+                                        <asp:UpdatePanel ID="UpdatePanel6" runat="server">
+                                        <ContentTemplate>
+                                            
                                         <asp:TextBox runat="server" ID="txtObservacione" CssClass="form-control" Style="text-transform: uppercase" placeholder="Ingrese observación" MaxLength="100" Width="336px"></asp:TextBox>
+                                    </ContentTemplate>
+                                            </asp:UpdatePanel>
                                     </div>
 
                                 </div>
@@ -762,21 +897,31 @@
                             <div class="form-group col-md-12 col-sm-12 col-xs-12 center-block">
 
                                 <div class="col-md-3 col-sm-3 col-md-offset-2 col-xs-12">
+                                    
                                     <asp:Button runat="server" CssClass="a_demo_four1 col-md-10 col-sm-10 col-xs-12" Font-Bold="true" Text="NUEVO" ID="btnNuevo" AccessKey="N" OnClick="btnNuevo_Click" />
-
+                                
                                 </div>
                                 <div class="col-md-3 col-sm-3  col-xs-12">
+                                    
                                     <asp:Button runat="server" CssClass="a_demo_four1 col-md-10 col-sm-10 col-xs-12" Font-Bold="true" ValidationGroup="Registro" AccessKey="G" Text="GRABAR" ID="btnRegistrar" OnClick="btnRegistrar_Click" />
-
+                                   
                                 </div>
                                 <div class="col-md-3 col-sm-3 col-xs-12">
+                                   
                                     <asp:Button runat="server" CssClass="a_demo_four1 col-md-10 col-sm-10 col-xs-12" Font-Bold="true" Visible="false" Text="ACTUALIZAR" ID="btnActualizar" OnClick="btnActualizar_Click" />
-
+                                          
                                 </div>
 
                                 <div class="col-md-3 col-sm-3  col-xs-12">
-                                    <asp:Button runat="server" CssClass="a_demo_four1 col-md-10 col-sm-10 col-xs-12" Font-Bold="true" Text="CANCELAR" ID="btnCancelar" AccessKey="C" OnClick="btnCancelar_Click" />
-                                     <script type="text/javascript">
+                                   <asp:UpdatePanel ID="UpdatePanel25" runat="server">
+                                    <ContentTemplate>
+                                    <asp:Button runat="server" CssClass="a_demo_four1 col-md-10 col-sm-10 col-xs-12" Font-Bold="true"  Text="CANCELAR" ID="btnCancelar" AccessKey="C" OnClick="btnCancelar_Click" />
+                                      </ContentTemplate>
+                                       <Triggers>
+                                           <asp:PostBackTrigger ControlID="btnCancelar"/>
+                                       </Triggers>
+                                       </asp:UpdatePanel>
+                                            <script type="text/javascript">
                                          $(document).ready(function () {
                                              $('#<%= btnCancelar.ClientID %>').click(function (e) {
                                                  $(function () {
@@ -885,6 +1030,9 @@
                     <asp:HiddenField ID="hfParentContainer" runat="server"></asp:HiddenField>
 
 
+                    <asp:UpdatePanel ID="UpdatePanel5" runat="server" UpdateMode="Conditional">
+                        <ContentTemplate>
+
                     <asp:GridView ID="dgvMOVIMIENTOS" runat="server" CssClass="table table-bordered table-responsive table-condensed" BackColor="White" AutoGenerateColumns="False" DataKeyNames="ID_MOVIMIENTOS" OnRowCommand="dgvMOVIMIENTOS_RowCommand" OnRowDataBound="dgvMOVIMIENTOS_RowDataBound"
                         SelectedRowStyle-BackColor="GreenYellow" Font-Size="Small">
 
@@ -895,13 +1043,13 @@
                             <asp:BoundField DataField="FECHA" HeaderText="FECHA MOV" HeaderStyle-HorizontalAlign="Center" ItemStyle-Height="35px">
                                 <HeaderStyle HorizontalAlign="Center" BackColor="#0066cc" ForeColor="White" Font-Size="Smaller"></HeaderStyle>
                             </asp:BoundField>
-                            <asp:BoundField DataField="DESCRIPCION" HeaderText="DESCRIPCION" HeaderStyle-HorizontalAlign="Center" ItemStyle-Height="35px">
-                                <HeaderStyle HorizontalAlign="Center" BackColor="#0066cc" ForeColor="White" Font-Size="Smaller"></HeaderStyle>
+                            <asp:BoundField DataField="DESCRIPCION" HeaderText="DESCRIPCION" HeaderStyle-HorizontalAlign="Center" ItemStyle-Height="35px" convertemptystringtonull="true">
+                                <HeaderStyle HorizontalAlign="Center" BackColor="#0066cc" ForeColor="White" Font-Size="Smaller" ></HeaderStyle>
                             </asp:BoundField>
                             <asp:BoundField DataField="CONCEPTO" HeaderText="CONCEPTO" HeaderStyle-HorizontalAlign="Center" ItemStyle-Height="35px">
                                 <HeaderStyle HorizontalAlign="Center" BackColor="#0066cc" ForeColor="White" Font-Size="Smaller"></HeaderStyle>
                             </asp:BoundField>
-                            <asp:BoundField DataField="OPERACION" HeaderText="N° OPERACION" HeaderStyle-HorizontalAlign="Center" ItemStyle-Height="35px">
+                            <asp:BoundField DataField="OPERACION" HeaderText="N° OPERACION" HeaderStyle-HorizontalAlign="Center" ItemStyle-Height="35px" convertemptystringtonull="true">
                                 <HeaderStyle HorizontalAlign="Center" BackColor="#0066cc" ForeColor="White" Font-Size="Smaller"></HeaderStyle>
 
                                 <ItemStyle HorizontalAlign="Center" />
@@ -914,7 +1062,7 @@
                             <asp:BoundField DataField="MONEDA" HeaderText="MON" Visible="false" HeaderStyle-HorizontalAlign="Center" ItemStyle-Height="35px">
                                 <HeaderStyle HorizontalAlign="Center" BackColor="#0066cc" ForeColor="White"></HeaderStyle>
                             </asp:BoundField>
-                            <asp:BoundField DataField="NOM_CLI" HeaderText="CLIENTE" HeaderStyle-HorizontalAlign="Center" ItemStyle-Height="35px">
+                            <asp:BoundField DataField="NOM_CLI" HeaderText="CLIENTE" HeaderStyle-HorizontalAlign="Center" ItemStyle-Height="35px" convertemptystringtonull="true">
                                 <HeaderStyle HorizontalAlign="Center" BackColor="#0066cc" ForeColor="White" Font-Size="Smaller"></HeaderStyle>
                             </asp:BoundField>
                             <asp:BoundField DataField="NOMBRE" HeaderText="BANCO" Visible="false" />
@@ -935,7 +1083,7 @@
                                 <HeaderStyle HorizontalAlign="Right" BackColor="#0066cc" ForeColor="White" Font-Size="Smaller" />
                             </asp:BoundField>
 
-                            <asp:BoundField DataField="COD_VENTA" HeaderText="COD VENTA"><HeaderStyle HorizontalAlign="Right" BackColor="#0066cc" ForeColor="White" Font-Size="Smaller" /></asp:BoundField>
+                            <asp:BoundField DataField="COD_VENTA" HeaderText="AMARRE"><HeaderStyle HorizontalAlign="Right" BackColor="#0066cc" ForeColor="White" Font-Size="Smaller" /></asp:BoundField>
 
                             <asp:TemplateField HeaderStyle-BackColor="#0066cc" HeaderStyle-ForeColor="White">
                                 <ItemTemplate>
@@ -959,7 +1107,13 @@
                         </Columns>
 
                     </asp:GridView>
-
+                           
+             </ContentTemplate>
+                         <Triggers>
+                <%--<asp:AsyncPostBackTrigger ControlID="dgvMOVIMIENTOS" EventName="RowCommand"/>--%>
+                             <asp:PostBackTrigger ControlID="dgvMOVIMIENTOS"/>
+                         </Triggers>
+            </asp:UpdatePanel>
                 </div>
 
             </div>

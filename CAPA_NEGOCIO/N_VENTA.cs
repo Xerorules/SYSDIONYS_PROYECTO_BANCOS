@@ -437,6 +437,12 @@ namespace CAPA_NEGOCIO
             return OBJTIPO_BIEN.DLLENARGRILLAPOPUP(ID_MOV,ID_VENTA,OBS,COND,FECHAV,FECHAF,CODDBC);
         }
 
+
+        public DataTable Npruebacarga(string cod)
+        {
+            return OBJTIPO_BIEN.Dpruebacarga(cod);
+        }
+
         public string NAMARRARVENTAMOVIMIENTO(string ID_MOV, string ID_VENTA, string OBS, string COND,string FECHAV,string FECHAF, string CODDBC)
         {
             return OBJTIPO_BIEN.DAMARRARVENTAMOVIMIENTO(ID_MOV, ID_VENTA, OBS, COND,FECHAV, FECHAF, CODDBC);
@@ -445,6 +451,11 @@ namespace CAPA_NEGOCIO
         public DataTable NLLENARDESCRIPCIONCLIENTE(string cod)
         {
             return OBJTIPO_BIEN.DLLENARDESCRIPCIONCLIENTE(cod);
+        }
+
+        public DataTable NSELECTCHEQUES()
+        {
+            return OBJTIPO_BIEN.DSELECTCHEQUES();
         }
 
         public DataTable NLLENARDATOSACTUALIZAR(string id_cheque)
