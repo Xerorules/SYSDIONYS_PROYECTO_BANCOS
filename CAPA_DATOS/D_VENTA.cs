@@ -1788,6 +1788,28 @@ namespace CAPA_DATOS
             return dt;
         }
 
+        public DataTable DDATATABLATEMPORAL(string cod)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                if (con.State == ConnectionState.Closed) { con.Open(); }
+                SqlCommand cmd = new SqlCommand("SP_DATA_TABLATEMPORAL", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@ID_MOV", cod);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(dt);
+            }
+            catch (Exception ex)
+            {
+                System.Console.Write(ex.Message);
+            }
+            con.Close();
+
+
+            return dt;
+        }
+
 
 
         public string DAMARRARVENTAMOVIMIENTO(string ID_MOV, string ID_VENTA, string OBS, string COND,string FECHAV,string FECHAF,string CODDBC)
@@ -1797,15 +1819,10 @@ namespace CAPA_DATOS
             {
                 DataTable dt = new DataTable();
                 if (con.State == ConnectionState.Closed) { con.Open(); }
-                SqlCommand cmd = new SqlCommand("SP_MANT_TABLA_TEMPORAL_DBCOMERCIAL", con);
+                SqlCommand cmd = new SqlCommand("SP_INSERTAR_TABLA_TEMPORAL_DBCOMERCIAL", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@ID_MOVIMIENTO", ID_MOV);
                 cmd.Parameters.AddWithValue("@DV_NUMEROINT", ID_VENTA);
-                cmd.Parameters.AddWithValue("@OBSERVACION", OBS);
-                cmd.Parameters.AddWithValue("@CONDICION", COND);
-                cmd.Parameters.AddWithValue("@FECHAV", FECHAV);
-                cmd.Parameters.AddWithValue("@FECHAF", FECHAF);
-                cmd.Parameters.AddWithValue("@CODDBC", CODDBC);
                 int i = cmd.ExecuteNonQuery();
                 if (i > 0)
                 {
@@ -1815,6 +1832,33 @@ namespace CAPA_DATOS
 
             }
             catch(Exception ex)
+            {
+                System.Console.Write(ex.Message);
+            }
+            return res;
+        }
+
+
+        public string DELIMINARVENTAMOVIMIENTO(string ID_MOV, string ID_VENTA, string OBS, string COND, string FECHAV, string FECHAF, string CODDBC)
+        {
+            string res = "";
+            try
+            {
+                DataTable dt = new DataTable();
+                if (con.State == ConnectionState.Closed) { con.Open(); }
+                SqlCommand cmd = new SqlCommand("SP_ELIMINAR_TABLA_TEMPORAL_DBCOMERCIAL", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@ID_MOVIMIENTO", ID_MOV);
+                cmd.Parameters.AddWithValue("@DV_NUMEROINT", ID_VENTA);
+                int i = cmd.ExecuteNonQuery();
+                if (i > 0)
+                {
+                    res = "ok";
+                }
+                con.Close();
+
+            }
+            catch (Exception ex)
             {
                 System.Console.Write(ex.Message);
             }
@@ -1873,6 +1917,27 @@ namespace CAPA_DATOS
             {
                 if (con.State == ConnectionState.Closed) { con.Open(); }
                 SqlCommand cmd = new SqlCommand("SP_DATOS_ACTUALIZAR", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@ID_CHEQUE", id_cheque);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(dt);
+                con.Close();
+
+            }
+            catch (Exception ex)
+            {
+                System.Console.Write("Esta cuenta no tiene movimientos anteriores");
+            }
+            return dt;
+        }
+
+        public DataTable DLLENARCHQMOV(string id_cheque)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                if (con.State == ConnectionState.Closed) { con.Open(); }
+                SqlCommand cmd = new SqlCommand("SP_DATOSCHEQUE_MOV", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@ID_CHEQUE", id_cheque);
                 SqlDataAdapter da = new SqlDataAdapter(cmd);

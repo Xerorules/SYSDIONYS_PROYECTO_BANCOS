@@ -163,12 +163,14 @@
     <Content Include="FRM_VENTA.aspx" />
     <Content Include="ICONOS\58603181-enlace-icono.jpg" />
     <Content Include="ICONOS\aaaa.png" />
+    <Content Include="ICONOS\agregar.png" />
     <Content Include="ICONOS\CHOCOLATE.png" />
     <Content Include="ICONOS\GOLD.png" />
     <Content Include="ICONOS\Graphicloads-Filetype-Excel-xls.ico" />
     <Content Include="ICONOS\Graphicloads-Filetype-Pdf.ico" />
     <Content Include="ICONOS\OCUPADO.png" />
     <Content Include="ICONOS\ORANGE.png" />
+    <Content Include="ICONOS\quitar.png" />
     <Content Include="ICONOS\TUURQUESA.png" />
     <Content Include="ICONOS\VACIO.png" />
     <Content Include="ICONOS\MANTENIMIENTO.png" />

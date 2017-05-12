@@ -73,11 +73,9 @@
         }
 
 
-        function clickMe(obj)
-        {
+        function clickMe(obj) {
             var textVal = obj.value;
-            if (textVal.match(/\-/g).length > 0)
-            {
+            if (textVal.match(/\-/g).length > 0) {
                 document.getElementById(obj.id).value = '';
             }
         }
@@ -91,7 +89,7 @@
                 if (eventInstance.preventDefault) eventInstance.preventDefault();
                 eventInstance.returnValue = false;
                 return false;
-            } 
+            }
         }
 
 
@@ -158,7 +156,7 @@
             padding-top: 6px;
             padding-left: 10px;
             width: 1220px;
-            height: 600px;
+            height: 700px;
             opacity: 50;
         }
 
@@ -295,7 +293,7 @@
             });
         };
 
-        
+
 
     </script>
 
@@ -429,34 +427,34 @@
                             source: function (request, response) {
                                 $.ajax({
                                     url: '<%=ResolveUrl("~/SERVICES/AUTOCOMPLETAR_MOVIMIENTOS.asmx/AUTOCOMPLETAR_LUGAR") %>',
-                                     data: "{ 'prefix': '" + request.term + "'}",
-                                     dataType: "json",
-                                     type: "POST",
-                                     contentType: "application/json; charset=utf-8",
-                                     success: function (data) {
-                                         response($.map(data.d, function (item) {
-                                             return {
-                                                 label: item.split('-')[0],
-                                                 val: item.split('-')[1]
-                                             }
-                                         }))
-                                     },
-                                     error: function (response) {
-                                         alert(response.responseText);
-                                     },
-                                     failure: function (response) {
-                                         alert(response.responseText);
-                                     }
-                                 });
-                             },
-                             select: function (e, i) {
-                                 $("[id$=txtLugar]").val(i.item.text);
-                                 $("[id$=txtLugar]").val(i.item.val);
-                             },
-                             minLength: 1
+                                    data: "{ 'prefix': '" + request.term + "'}",
+                                    dataType: "json",
+                                    type: "POST",
+                                    contentType: "application/json; charset=utf-8",
+                                    success: function (data) {
+                                        response($.map(data.d, function (item) {
+                                            return {
+                                                label: item.split('-')[0],
+                                                val: item.split('-')[1]
+                                            }
+                                        }))
+                                    },
+                                    error: function (response) {
+                                        alert(response.responseText);
+                                    },
+                                    failure: function (response) {
+                                        alert(response.responseText);
+                                    }
+                                });
+                            },
+                            select: function (e, i) {
+                                $("[id$=txtLugar]").val(i.item.text);
+                                $("[id$=txtLugar]").val(i.item.val);
+                            },
+                            minLength: 1
 
-                         });
-                     });
+                        });
+                    });
 
 
                 }
@@ -522,16 +520,63 @@
     <input id="Hid_Sno" type="hidden" name="hddclick" runat="server" />
     <!-- ModalPopupExtender -->
     <cc1:ModalPopupExtender ID="mp1" runat="server" PopupControlID="Panl1" TargetControlID="Hid_Sno"
-        CancelControlID="Button3" BackgroundCssClass="Background" BehaviorID="mp1">
+        BackgroundCssClass="Background" BehaviorID="mp1">
     </cc1:ModalPopupExtender>
     <asp:Panel ID="Panl1" runat="server" CssClass="Popup" align="center" Style="display: none">
-        <asp:UpdatePanel ID="udpInnerUpdatePanel" runat="Server" UpdateMode="Conditional"> 
-                        <ContentTemplate> 
+       
         <div class="container col-lg-12 col-md-12" style="text-align: center">
             <h2 style="font-size:large;">CUENTAS POR COBRAR DBCOMERCIAL (Sólo referencial)</h2>
             &nbsp
         </div>
+        <asp:UpdatePanel ID="UpdatePanel12" runat="Server"> 
+                        <ContentTemplate> 
+         <div class="container col-lg-12 col-md-12">
+             <asp:Label ID="lbltieneamarre" runat="server" Text=""></asp:Label>
+         <div style="width: 1195px; height: 130px; overflow-y: scroll; margin-left: -12px;">
+         <asp:GridView ID="dgvPOPUP_AMARRADOS" runat="server"  AutoGenerateColumns="false"  CssClass="table table-bordered table-condensed table-responsive table-hover" Font-Size="Small" OnRowCommand="dgvPOPUP_AMARRADOS_RowCommand" Height="10">
+              <Columns>
+                           <asp:TemplateField>
+                                <ItemTemplate>
+                                    <asp:ImageButton ID="LinkButtonDESUnir" CommandName="DESUNIR" runat="server" ImageUrl="~/ICONOS/quitar.png" Width="19" Height="19"/>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:BoundField DataField="DV_NUMEROINT" HeaderText="N° VENTA" HeaderStyle-HorizontalAlign="Center" ControlStyle-Font-Size="Smaller">
+                                <HeaderStyle HorizontalAlign="Center"></HeaderStyle>
+                            </asp:BoundField>
+                            <asp:BoundField DataField="FECHA" HeaderText="FECHA" HeaderStyle-HorizontalAlign="Center" DataFormatString="{0:dd/MM/yyyy}" ControlStyle-Font-Size="Smaller">
+                                <HeaderStyle HorizontalAlign="Center"></HeaderStyle>
+                            </asp:BoundField>
+                            <asp:BoundField DataField="TOTAL" HeaderText="TOTAL" HeaderStyle-HorizontalAlign="Center" DataFormatString="{0:N}" ControlStyle-Font-Size="Smaller">
+                                <HeaderStyle HorizontalAlign="Center"></HeaderStyle>
+                            </asp:BoundField>
+                            <asp:BoundField DataField="MONEDA" HeaderText="MON" HeaderStyle-HorizontalAlign="Center" ControlStyle-Font-Size="Smaller">
+                                <HeaderStyle HorizontalAlign="Center"></HeaderStyle>
+                            </asp:BoundField>
+                            <asp:BoundField DataField="SALDO" HeaderText="SALDO" HeaderStyle-HorizontalAlign="Center" DataFormatString="{0:N}" ControlStyle-Font-Size="Smaller">
+                                <HeaderStyle HorizontalAlign="Center"></HeaderStyle>
+                            </asp:BoundField>
+                            <asp:BoundField DataField="OBSERVACION" HeaderText="OBSERVACION" HeaderStyle-HorizontalAlign="Center" ControlStyle-Font-Size="Smaller">
+                                <HeaderStyle HorizontalAlign="Center"></HeaderStyle>
+                            </asp:BoundField>
+                            <asp:BoundField DataField="CLIENTE" HeaderText="CLIENTE" HeaderStyle-HorizontalAlign="Center" ControlStyle-Font-Size="Smaller">
+                                <HeaderStyle HorizontalAlign="Center"></HeaderStyle>
+                            </asp:BoundField>
+                            <asp:BoundField DataField="FECHA_VCTO" HeaderText="FECHA VCTO" HeaderStyle-HorizontalAlign="Center" Visible="false" DataFormatString="{0:dd/MM/yyyy}" ControlStyle-Font-Size="Smaller">
+                                <HeaderStyle HorizontalAlign="Center"></HeaderStyle>
+                            </asp:BoundField>
+                        </Columns>
+         </asp:GridView>
+             &nbsp
+             </div>
+         </div>
+             </ContentTemplate>
+            <Triggers>
+                <asp:AsyncPostBackTrigger ControlID="dgvPOPUP_AMARRADOS" EventName="RowCommand" />
+            </Triggers>
+            </asp:UpdatePanel>
 
+            <asp:UpdatePanel ID="udpInnerUpdatePanel" runat="Server" UpdateMode="Conditional"> 
+                        <ContentTemplate> 
         <div class="container col-lg-12 col-md-12">
             <div class="form-group col-lg-2 col-md-2">
                 <asp:TextBox runat="server" TextMode="Date" ID="id_cliente_dbcomercial" CssClass="visible-xs" placeholder="" MaxLength="100" Height="35px"></asp:TextBox>
@@ -576,52 +621,47 @@
 
             <div class="form-group col-lg-1 col-md-1" style="left: 140px; top: 25px;">
                 <div class="col-lg-12 col-md-12">
-                    <asp:Button ID="Button3" runat="server" Text="CANCELAR" Width="120px" CssClass="form-control btn btn-info" />
+                    <asp:Button ID="btnSalirPopUp" runat="server" Text="SALIR" Width="120px" CssClass="form-control btn btn-info" OnClick="btnSalirPopUp_Click" />
                 </div>
             </div>
 
         </div>
         <div class="container col-lg-8 col-md-8">
 
-            <div style="width: 1195px; height: 450px; overflow-y: scroll; margin-left: -12px;">
+            <div style="width: 1200px; height: 420px; overflow-y: scroll; margin-left: -18px;">
                 <div class="container">
                     
-                    <asp:GridView ID="dgvPOPUPAMARRE" runat="server"  AutoGenerateColumns="false" CssClass="table table-bordered table-condensed table-responsive table-hover" OnRowCommand="dgvPOPUPAMARRE_RowCommand" OnRowDataBound="dgvPOPUPAMARRE_RowDataBound">
+                    <asp:GridView ID="dgvPOPUPAMARRE" runat="server"  AutoGenerateColumns="false" Font-Size="Small" CssClass="table table-bordered table-condensed table-responsive table-hover" OnRowCommand="dgvPOPUPAMARRE_RowCommand" OnRowDataBound="dgvPOPUPAMARRE_RowDataBound">
                         <Columns>
                             <asp:TemplateField>
                                 <ItemTemplate>
-                                    <asp:LinkButton ID="LinkButtonUnir" runat="server" CommandName="UNIR" Font-Size="Small">&nbsp;Vincular</asp:LinkButton>
-
+                                    
+                                    <asp:ImageButton ID="LinkButtonUnir" CommandName="UNIR" runat="server" ImageUrl="~/ICONOS/agregar.png" Width="19" Height="19"/>
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField>
-                                <ItemTemplate>
-                                    <asp:LinkButton ID="LinkButtonDESUnir" runat="server" ForeColor="Red" CommandName="DESUNIR" Font-Size="Small">&nbsp;Desvincular</asp:LinkButton>
-
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:BoundField DataField="DV_NUMEROINT" HeaderText="COD VENTA" HeaderStyle-HorizontalAlign="Center">
+                           
+                            <asp:BoundField DataField="DV_NUMEROINT" HeaderText="N° VENTA" HeaderStyle-HorizontalAlign="Center" ControlStyle-Font-Size="Smaller">
                                 <HeaderStyle HorizontalAlign="Center"></HeaderStyle>
                             </asp:BoundField>
-                            <asp:BoundField DataField="FECHA" HeaderText="FECHA" HeaderStyle-HorizontalAlign="Center" DataFormatString="{0:dd/MM/yyyy}">
+                            <asp:BoundField DataField="FECHA" HeaderText="FECHA" HeaderStyle-HorizontalAlign="Center" DataFormatString="{0:dd/MM/yyyy}" ControlStyle-Font-Size="Smaller">
                                 <HeaderStyle HorizontalAlign="Center"></HeaderStyle>
                             </asp:BoundField>
-                            <asp:BoundField DataField="TOTAL" HeaderText="TOTAL" HeaderStyle-HorizontalAlign="Center" DataFormatString="{0:N}">
+                            <asp:BoundField DataField="TOTAL" HeaderText="TOTAL" HeaderStyle-HorizontalAlign="Center" DataFormatString="{0:N}" ControlStyle-Font-Size="Smaller">
                                 <HeaderStyle HorizontalAlign="Center"></HeaderStyle>
                             </asp:BoundField>
-                            <asp:BoundField DataField="MONEDA" HeaderText="MON" HeaderStyle-HorizontalAlign="Center">
+                            <asp:BoundField DataField="MONEDA" HeaderText="MON" HeaderStyle-HorizontalAlign="Center" ControlStyle-Font-Size="Smaller">
                                 <HeaderStyle HorizontalAlign="Center"></HeaderStyle>
                             </asp:BoundField>
-                            <asp:BoundField DataField="SALDO" HeaderText="SALDO" HeaderStyle-HorizontalAlign="Center" DataFormatString="{0:N}">
+                            <asp:BoundField DataField="SALDO" HeaderText="SALDO" HeaderStyle-HorizontalAlign="Center" DataFormatString="{0:N}" ControlStyle-Font-Size="Smaller">
                                 <HeaderStyle HorizontalAlign="Center"></HeaderStyle>
                             </asp:BoundField>
-                            <asp:BoundField DataField="OBSERVACION" HeaderText="OBSERVACION" HeaderStyle-HorizontalAlign="Center">
+                            <asp:BoundField DataField="OBSERVACION" HeaderText="OBSERVACION" HeaderStyle-HorizontalAlign="Center" ControlStyle-Font-Size="Smaller">
                                 <HeaderStyle HorizontalAlign="Center"></HeaderStyle>
                             </asp:BoundField>
-                            <asp:BoundField DataField="CLIENTE" HeaderText="CLIENTE" HeaderStyle-HorizontalAlign="Center">
+                            <asp:BoundField DataField="CLIENTE" HeaderText="CLIENTE" HeaderStyle-HorizontalAlign="Center" ControlStyle-Font-Size="Smaller">
                                 <HeaderStyle HorizontalAlign="Center"></HeaderStyle>
                             </asp:BoundField>
-                            <asp:BoundField DataField="FECHA_VCTO" HeaderText="FECHA VCTO" HeaderStyle-HorizontalAlign="Center" Visible="false" DataFormatString="{0:dd/MM/yyyy}">
+                            <asp:BoundField DataField="FECHA_VCTO" HeaderText="FECHA VCTO" HeaderStyle-HorizontalAlign="Center" Visible="false" DataFormatString="{0:dd/MM/yyyy}" ControlStyle-Font-Size="Smaller">
                                 <HeaderStyle HorizontalAlign="Center"></HeaderStyle>
                             </asp:BoundField>
                         </Columns>
@@ -635,7 +675,10 @@
         </ContentTemplate>       
             <Triggers> 
                 <asp:AsyncPostBackTrigger ControlID="btnBuscarPopUp" EventName="Click" /> 
-                <asp:PostBackTrigger ControlID="dgvPOPUPAMARRE" /> 
+                <asp:PostBackTrigger ControlID="btnSalirPopUp"/> 
+                <asp:AsyncPostBackTrigger ControlID="dgvPOPUPAMARRE" EventName="RowCommand"/>   <%--VERIFICAR SI SALE EVENTO Y RECARGA EL POPUP--%>
+
+                
             </Triggers> 
          </asp:UpdatePanel> 
     </asp:Panel>
@@ -683,8 +726,8 @@
         </div>
 
     </div>
-    <div class="col-md-12"">
-        <div class="col-xs-3 col-md-3 col-md-offset-6"  margin-top: -10px;">
+    <div class="col-md-12">
+        <div class="col-xs-3 col-md-3 col-md-offset-6">
             <label style="color: white; top: 0px;">N° CUENTA:</label>&nbsp
             <asp:Label ID="LBLNCUENTA" runat="server" Text="--" ForeColor="White" CssClass="label" Font-Bold="true" Font-Size="Large" BackColor="CornflowerBlue" Height="30px"></asp:Label>
         </div>
@@ -922,16 +965,16 @@
                                        </Triggers>
                                        </asp:UpdatePanel>
                                             <script type="text/javascript">
-                                         $(document).ready(function () {
-                                             $('#<%= btnCancelar.ClientID %>').click(function (e) {
-                                                 $(function () {
-                                                     RetainSelectedRow2();
-                                                 });
+                                                $(document).ready(function () {
+                                                    $('#<%= btnCancelar.ClientID %>').click(function (e) {
+                                                        $(function () {
+                                                            RetainSelectedRow2();
+                                                        });
 
 
-                                                 return true;
-                                             });
-                                         });
+                                                        return true;
+                                                    });
+                                                });
                                     </script>
                                 </div>
 

@@ -356,27 +356,27 @@
 
         </table>
         <br />
-        <div class="row">
+        <div class="col-md-12"  style="left:-20px">
             
-            <div class="col-xs-3">
-                <div class="col-md-2 col-xs-2"  style="margin-left:60px">
+            <div class="col-md-3 col-sm-3 col-lg-3">
+               
                    <asp:Button ID="Button2" runat="server" Text="ACEPTAR" CssClass="form-control btn-info" OnClick="Button2_Click" />
-                </div>
+                
             </div>
-            <div class="col-xs-3" style="margin-left:40px">
-                <div class="col-md-2 col-xs-2" >
+            <div class="col-md-3 col-sm-3 col-lg-3" style="left:-10px">
+                
                    <asp:Button ID="Button3" runat="server" Text="CANCELAR" CssClass="form-control btn-info" OnClick="Button3_Click"/>
-                </div>
+                
             </div>
-            <div class="col-xs-3" style="margin-left:-5px">
-                <div class="col-md-2 col-xs-2">
+            <div class="col-md-3 col-sm-3 col-lg-3" >
+                
                     <asp:Button ID="Button4" runat="server" Text="ACEPTADO" CssClass="form-control btn-success" OnClick="Button4_Click" />
-                </div>
+              
             </div>
-            <div class="col-xs-3" style="margin-left:-75px">
-                <div class="col-md-3 col-xs-3" >
+            <div class="col-md-3 col-sm-3 col-lg-3">
+               
                    <asp:Button ID="Button1" runat="server" Text="REBOTADO" CssClass="form-control btn-danger" OnClick="Button1_Click" />
-                </div>
+               
             </div>
             
         </div>
@@ -512,16 +512,16 @@
             <div class="form-group col-md-12 col-sm-12 col-xs-12" style="position: center;">
                 
 
-                <div class="col-md-4 col-sm-4 col-xs-12" style="position: center; ">
-                    <asp:Button runat="server" CssClass="a_demo_four1 col-xs-12 col-sm-12" ForeColor="White" Font-Bold="true" Text="REGISTRAR" ValidationGroup="Registro" ID="btnRegistrar" OnClick="btnRegistrar_Click" />
+                <div class="col-md-4 col-md-offset-2 col-sm-4 col-xs-12" style="position: center; ">
+                    <asp:Button runat="server" CssClass="a_demo_four1 col-xs-12 col-sm-12" ForeColor="White" Font-Bold="true" Text="GRABAR" ValidationGroup="Registro" ID="btnRegistrar" AccessKey="G" OnClick="btnRegistrar_Click" />
                     &nbsp
                 </div>
-                <div class="col-md-4 col-sm-4 col-xs-12" style="position: center;">
-                    <asp:Button runat="server" CssClass="a_demo_four1 col-xs-12 col-sm-12" ForeColor="White" Font-Bold="true" Text="ACTUALIZAR" ID="btnActualizar" OnClick="btnActualizar_Click" />
-                    &nbsp
+                <div class="col-md-0 col-sm-0 col-xs-0" style="position: center;">
+                    <asp:Button runat="server" Visible="false" CssClass="a_demo_four1 col-xs-12 col-sm-12" ForeColor="White" Font-Bold="true" Text="ACTUALIZAR" ID="btnActualizar" OnClick="btnActualizar_Click" />
+                    
                 </div>
                 <div class="col-md-4 col-sm-4 col-xs-12" style="position: center">
-                    <asp:Button runat="server" CssClass="a_demo_four1 col-xs-12 col-sm-12" Text="CANCELAR" Font-Bold="true" ForeColor="White" ID="btnCancelar" OnClick="btnCancelar_Click" />
+                    <asp:Button runat="server" CssClass="a_demo_four1 col-xs-12 col-sm-12" Text="CANCELAR" Font-Bold="true" ForeColor="White" ID="btnCancelar" AccessKey="C" OnClick="btnCancelar_Click" />
                     <asp:Button runat="server" BackColor="DarkCyan" BorderColor="DarkCyan" ForeColor="DarkCyan" type="hidden" Text="REGISTRARMOV" CssClass="visible-xs" ID="btnREGISTRARMOV" OnClick="btnREGISTRARMOV_Click" />
 
                 </div>
@@ -638,11 +638,11 @@
 
                    
                     <div class="col-xs-4 col-md-2" style="left:30px">
-                        <label style="color: white;  text-align: left; margin-right:50px;">F. INICIAL:</label>
+                        <label style="color: white;  text-align: left; margin-right:50px;">F. GIRO INICIAL:</label>
                         <asp:TextBox runat="server" ID="txtFiltroFechaIni" CssClass="form-control col-sm-12 col-xs-12" Width="150px"  Height="35px"  TextMode="Date"  placeholder="Ingrese Fecha inicial" MaxLength="70"></asp:TextBox>
                     </div>
                     <div class="col-xs-4 col-md-2" style="left:10px">
-                        <label style="color: white; text-align: left; margin-right:50px;">F. FINAL:</label>
+                        <label style="color: white; text-align: left; margin-right:50px;">F. GIRO FINAL:</label>
                         <asp:TextBox runat="server" ID="txtFiltroFechaFin" CssClass="form-control col-sm-12 col-xs-12" Width="150px"  Height="35px"  TextMode="Date"  placeholder="Ingrese Fecha final" MaxLength="70"></asp:TextBox>
                     </div>
                     <div class="col-xs-4 col-md-1" style="top:25px">
@@ -659,6 +659,7 @@
 
                   <asp:HiddenField ID="hfCurrentRowIndex" runat="server"></asp:HiddenField>
                     <asp:HiddenField ID="hfParentContainer" runat="server"></asp:HiddenField>
+                 <div style="width: 1210px; height:700px; overflow-y: scroll; margin-left: -0px;">
          <asp:GridView ID="dgvBANCOS" runat="server" CssClass="table-striped table-bordered table-responsive table-condensed" BackColor="White" AutoGenerateColumns="False" DataKeyNames="ID_CHEQUE" Font-Size="Small" OnRowCommand="dgvBANCOS_RowCommand" OnRowDataBound="dgvBANCOS_RowDataBound">
             
              <Columns>
@@ -707,6 +708,7 @@
 
              </Columns>
          </asp:GridView>
+                     </div>
                  </div> 
             </div>
         </div>

@@ -443,9 +443,19 @@ namespace CAPA_NEGOCIO
             return OBJTIPO_BIEN.Dpruebacarga(cod);
         }
 
+        public DataTable NTABLATEMPORALDATA(string cod)
+        {
+            return OBJTIPO_BIEN.DDATATABLATEMPORAL(cod);
+        }
+
         public string NAMARRARVENTAMOVIMIENTO(string ID_MOV, string ID_VENTA, string OBS, string COND,string FECHAV,string FECHAF, string CODDBC)
         {
             return OBJTIPO_BIEN.DAMARRARVENTAMOVIMIENTO(ID_MOV, ID_VENTA, OBS, COND,FECHAV, FECHAF, CODDBC);
+        }
+
+        public string NELIMINARVENTAMOVIMIENTO(string ID_MOV, string ID_VENTA, string OBS, string COND, string FECHAV, string FECHAF, string CODDBC)
+        {
+            return OBJTIPO_BIEN.DELIMINARVENTAMOVIMIENTO(ID_MOV, ID_VENTA, OBS, COND, FECHAV, FECHAF, CODDBC);
         }
 
         public DataTable NLLENARDESCRIPCIONCLIENTE(string cod)
@@ -461,6 +471,11 @@ namespace CAPA_NEGOCIO
         public DataTable NLLENARDATOSACTUALIZAR(string id_cheque)
         {
             return OBJTIPO_BIEN.DLLENARDATOSACTUALIZAR(id_cheque);
+        }
+
+        public DataTable NLLENARDATOSCHQMOV(string id_cheque)
+        {
+            return OBJTIPO_BIEN.DLLENARCHQMOV(id_cheque);
         }
 
         public DataTable NFILTRARGRILLAMOVIMIENTOS( string id_empresa, string id_cta,string fechaini, string fechafin, string nrope, string concepto, string idcli)

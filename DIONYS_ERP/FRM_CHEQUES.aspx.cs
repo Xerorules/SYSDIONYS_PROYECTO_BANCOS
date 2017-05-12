@@ -20,7 +20,7 @@ namespace DIONYS_ERP.PLANTILLAS
                 txtFGIRO.Text = DateTime.Now.ToString("yyyy-MM-dd");
                 txtFCOBRO.Text = DateTime.Now.ToString("yyyy-MM-dd");
                 rdbMONEDA.SelectedValue = "S";
-
+                Session["ID_CHEQUE"] = "";
                 txtFiltroFechaIni.Text = DateTime.Now.Date.AddMonths(-2).Date.ToString("yyyy-MM-dd");
                 txtFiltroFechaFin.Text = DateTime.Now.Date.AddDays(7).Date.ToString("yyyy-MM-dd");
 
@@ -109,6 +109,38 @@ namespace DIONYS_ERP.PLANTILLAS
         }
 
 
+        void deshabilitar_popup()
+        {
+            txtmFECH.Enabled = false;
+            cbomBANCO.Enabled = false;
+            cbomCUENTA.Enabled = false;
+            DropDownList1.Enabled = false;
+            txtmOPE.Enabled = false;
+            txtmLUGAR.Enabled = false;
+            txtmIMPORTE.Enabled = false;
+            txtmDESC.Enabled = false;
+        }
+
+        void habilitar_popup()
+        {
+
+            txtmFECH.Enabled = true;
+            cbomBANCO.Enabled = true;
+            cbomBANCO.SelectedIndex = 0;
+            cbomCUENTA.Enabled = true;
+            cbomCUENTA.SelectedIndex = 0;
+            DropDownList1.Enabled = true;
+            txtmOPE.Enabled = true;
+            txtmOPE.Text = "";
+            txtmLUGAR.Enabled = true;
+            txtmLUGAR.Text = "";
+            txtmIMPORTE.Enabled = false;
+            txtmDESC.Enabled = true;
+            txtmDESC.Text = "";
+        }
+
+
+
 
         void llenar_datos()
         {
@@ -158,7 +190,7 @@ namespace DIONYS_ERP.PLANTILLAS
                     dgvBANCOS.Rows[i].Cells[8].HorizontalAlign = HorizontalAlign.Center;
                     dgvBANCOS.Rows[i].Cells[8].VerticalAlign = VerticalAlign.Middle;
                     dgvBANCOS.Rows[i].Cells[10].Enabled = false;
-                    dgvBANCOS.Rows[i].Cells[9].Enabled = false;
+                    dgvBANCOS.Rows[i].Cells[9].Enabled = true;
                 }
                 else if (caseEstado == "01-01-3000")//si retorna "1/01/3000 12:00:00 a. m." el estado es rebotado
                 {
@@ -181,39 +213,77 @@ namespace DIONYS_ERP.PLANTILLAS
         
         protected void btnRegistrar_Click(object sender, EventArgs e)
         {
-            if (Page.IsValid)
+            if (Session["ID_CHEQUE"].ToString() == "")
             {
-
-
-                OBJCHEQUE.id_cliente = TXTid_cliente.Text;
-                OBJCHEQUE.fecha_giro =  Convert.ToDateTime(txtFGIRO.Text).ToShortDateString();
-                OBJCHEQUE.fecha_cobro =  Convert.ToDateTime(txtFCOBRO.Text).ToShortDateString();
-                OBJCHEQUE.numero = txtNUMERO.Text;
-                OBJCHEQUE.id_banco = cboBANCO.SelectedValue;
-                OBJCHEQUE.importe = Convert.ToDecimal(txtIMPORTE.Text);
-                OBJCHEQUE.moneda = rdbMONEDA.SelectedValue;
-                OBJCHEQUE.estado = "";
-                OBJCHEQUE.id_empresa = Session["ID_EMPRESA"].ToString();
-
-
-                string res = OBJVENTA.NREGISTRARCHEQUE(OBJCHEQUE);
-
-                if (res == "ok")
+                if (Page.IsValid)
                 {
-                   Response.Write("<script>alert('Cheque registrado correctamente..')</script>");
-                    //ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                    OBJCHEQUE.id_cliente = TXTid_cliente.Text;
+                    OBJCHEQUE.fecha_giro = Convert.ToDateTime(txtFGIRO.Text).ToShortDateString();
+                    OBJCHEQUE.fecha_cobro = Convert.ToDateTime(txtFCOBRO.Text).ToShortDateString();
+                    OBJCHEQUE.numero = txtNUMERO.Text;
+                    OBJCHEQUE.id_banco = cboBANCO.SelectedValue;
+                    OBJCHEQUE.importe = Convert.ToDecimal(txtIMPORTE.Text);
+                    OBJCHEQUE.moneda = rdbMONEDA.SelectedValue;
+                    OBJCHEQUE.estado = "";
+                    OBJCHEQUE.id_empresa = Session["ID_EMPRESA"].ToString();
 
-                    llenar_datos();
-                    LIMPIAR2();
-                    txtFGIRO.Text = DateTime.Now.ToString("yyyy-MM-dd");
-                    txtFCOBRO.Text = DateTime.Now.ToString("yyyy-MM-dd");
-                    txtCLIENTE.Focus();
+
+                    string res = OBJVENTA.NREGISTRARCHEQUE(OBJCHEQUE);
+
+                    if (res == "ok")
+                    {
+                        Response.Write("<script>alert('Cheque registrado correctamente..')</script>");
+                        //ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+
+                        llenar_datos();
+                        LIMPIAR2();
+                        txtFGIRO.Text = DateTime.Now.ToString("yyyy-MM-dd");
+                        txtFCOBRO.Text = DateTime.Now.ToString("yyyy-MM-dd");
+                        txtCLIENTE.Focus();
+                    }
+                    else
+                    {
+                        Response.Write("<script>alert('Error cheque no registrado')</script>");
+                        //ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal1();", true);
+                    }
                 }
-                else
+            }
+            else if (Session["ID_CHEQUE"].ToString() != "" || Session["ID_CHEQUE"].ToString() != string.Empty)
+            {
+                try
                 {
-                    Response.Write("<script>alert('Error cheque no registrado')</script>");
-                    //ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal1();", true);
+                    OBJCHEQUE.id_cliente = TXTid_cliente.Text;
+                    OBJCHEQUE.fecha_giro = Convert.ToDateTime(txtFGIRO.Text).ToShortDateString();
+                    OBJCHEQUE.fecha_cobro = Convert.ToDateTime(txtFCOBRO.Text).ToShortDateString();
+                    OBJCHEQUE.numero = txtNUMERO.Text;
+                    OBJCHEQUE.id_banco = cboBANCO.SelectedValue;
+                    OBJCHEQUE.importe = Convert.ToDecimal(txtIMPORTE.Text);
+                    OBJCHEQUE.moneda = rdbMONEDA.SelectedValue;
+                    OBJCHEQUE.estado = Convert.ToDateTime(Session["ESTADO_CH"].ToString()).ToShortDateString();
+                    OBJCHEQUE.id_empresa = Session["ID_EMPRESA"].ToString();
+                    string id_cheque = Session["ID_CHEQUE"].ToString();
+
+                    string res = OBJVENTA.NACTUALIZARCHEQUE(OBJCHEQUE, id_cheque);
+
+                    if (res == "ok")
+                    {
+                        Response.Write("<script>alert('Datos actualizados correctamente..')</script>");
+                        //ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                        btnRegistrar.Enabled = true;
+                        llenar_datos();
+                        LIMPIAR2();
+                        txtFGIRO.Text = DateTime.Now.ToString("yyyy-MM-dd");
+                        txtFCOBRO.Text = DateTime.Now.ToString("yyyy-MM-dd");
+                        txtCLIENTE.Focus();
+                        Session["ID_CHEQUE"] = "";
+                    }
+                    else
+                    {
+                        Response.Write("<script>alert('Error cheque no actualizado')</script>");
+                        //ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal1();", true);
+                    }
                 }
+                catch (Exception) { Response.Write("<script>alert('Debe elegir el cheque a actualizar')</script>"); }
             }
             // else{ ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal2();", true); }
         }
@@ -270,10 +340,14 @@ namespace DIONYS_ERP.PLANTILLAS
             if (e.CommandName.ToUpper() == "ACTUALIZAR")
             {
                 GridViewRow row = (GridViewRow)(((LinkButton)e.CommandSource).NamingContainer);
+                DataTable ds = OBJVENTA.NLLENARDATOSCHQMOV(row.Cells[0].Text);
                 if (row.Cells[8].Text == "PENDIENTE")
                 {
+                    habilitar_popup();
                     Button1.Enabled = false;
                     Button4.Enabled = false;
+                    Button2.Visible = true;
+                    Button2.Enabled = true;
                     label_confirmar.Visible = true;
                     label_deposito.Visible = false;
                     if (Convert.ToInt32(row.Cells[3].Text.Substring(0, 2)) <= Convert.ToInt32((DateTime.Now).ToString().Substring(0, 2)))
@@ -295,44 +369,89 @@ namespace DIONYS_ERP.PLANTILLAS
                     Button1.Enabled = true;
                     Button4.Enabled = true;
                     Button2.Enabled = false;
+                    Button2.Visible = false;
                     label_confirmar.Visible = false;
                     label_deposito.Visible = true;
-                    txtmIMPORTE.Text = row.Cells[6].Text;
-                    txtmFECH.Text = DateTime.Now.ToString("yyyy-MM-dd");
-                    if (row.Cells[5].Text == "BANCO CONTINENTAL BBVA") { cboBANCO.SelectedIndex = 1; cbomBANCO.SelectedValue = "1000"; }
-                    else if (row.Cells[5].Text == "SCOTIABANK") { cboBANCO.SelectedIndex = 2; cbomBANCO.SelectedValue = "1001"; }
-                    else if (row.Cells[5].Text == "BANCO DE CREDITO BCP") { cboBANCO.SelectedIndex = 3; cbomBANCO.SelectedValue = "1002"; }
                     
-                    llenar_combo_cuentas(cbomBANCO.SelectedValue.ToString(), Session["ID_EMPRESA"].ToString(), row.Cells[7].Text);
+                    txtmFECH.Text = Convert.ToDateTime(ds.Rows[0][0].ToString()).ToString("yyyy-MM-dd");
+                    txtmFECH.Enabled = false;
+                    cbomBANCO.SelectedValue = ds.Rows[0][1].ToString();
+                    cbomBANCO.Enabled = false;
+                    llenar_combo_cuentas(ds.Rows[0][1].ToString(), Session["ID_EMPRESA"].ToString(), ds.Rows[0][7].ToString());
                     cbomCUENTA.SelectedIndex = 1;
+                    cbomCUENTA.Enabled = false;
+                    txtmOPE.Text = ds.Rows[0][3].ToString();
+                    txtmOPE.Enabled = false;
+                    txtmLUGAR.Text = ds.Rows[0][4].ToString();
+                    txtmLUGAR.Enabled = false;
+                    txtmIMPORTE.Text = ds.Rows[0][5].ToString();
                     txtmIMPORTE.Enabled = false;
+                    txtmDESC.Text = ds.Rows[0][6].ToString();
+                    txtmDESC.Enabled = false;
                     lblid_cheque.Text = row.Cells[0].Text;
-                    Session["MONEDA_CHEQUE"] = row.Cells[7].Text;
-                    txtmOPE.Text = row.Cells[4].Text;
+                    Session["MONEDA_CHEQUE"] = ds.Rows[0][7].ToString();
                     Session["ID_CHEQUE"] = row.Cells[0].Text;
+                    deshabilitar_popup();
+                                        
+                    mp1.Show();
+                }
+                else if (row.Cells[8].Text == "ACEPTADO")
+                {
+                    Button1.Enabled = false;
+                    Button4.Enabled = false;
+                    Button3.Enabled = true;
+                    Button2.Enabled= false;
+                    Button2.Visible = true;
+                    label_confirmar.Visible = false;
+                    label_deposito.Visible = true;
+
+                    txtmFECH.Text = Convert.ToDateTime(ds.Rows[0][0].ToString()).ToString("yyyy-MM-dd");
+                    txtmFECH.Enabled = false;
+                    cbomBANCO.SelectedValue = ds.Rows[0][1].ToString();
+                    cbomBANCO.Enabled = false;
+                    llenar_combo_cuentas(ds.Rows[0][1].ToString(), Session["ID_EMPRESA"].ToString(), ds.Rows[0][7].ToString());
+                    cbomCUENTA.SelectedIndex = 1;
+                    cbomCUENTA.Enabled = false;
+                    txtmOPE.Text = ds.Rows[0][3].ToString();
+                    txtmOPE.Enabled = false;
+                    txtmLUGAR.Text = ds.Rows[0][4].ToString();
+                    txtmLUGAR.Enabled = false;
+                    txtmIMPORTE.Text = ds.Rows[0][5].ToString();
+                    txtmIMPORTE.Enabled = false;
+                    txtmDESC.Text = ds.Rows[0][6].ToString();
+                    txtmDESC.Enabled = false;
+                    lblid_cheque.Text = row.Cells[0].Text;
+                    Session["MONEDA_CHEQUE"] = ds.Rows[0][7].ToString();
+                    Session["ID_CHEQUE"] = row.Cells[0].Text;
+                    deshabilitar_popup();
                     mp1.Show();
                 }
 
-              
 
-               
 
-            }else if (e.CommandName == "EDITAR")
+
+
+            }
+            else if (e.CommandName == "EDITAR")
             {
                 GridViewRow row = (GridViewRow)(((LinkButton)e.CommandSource).NamingContainer);
                 DataTable dt = OBJVENTA.NLLENARDATOSACTUALIZAR(row.Cells[0].Text);
-                txtCLIENTE.Text = dt.Rows[0][1].ToString();
-                txtFGIRO.Text = Convert.ToDateTime(dt.Rows[0][2]).ToString("yyyy-MM-dd"); 
-                txtFCOBRO.Text = Convert.ToDateTime(dt.Rows[0][3]).ToString("yyyy-MM-dd");
-                txtNUMERO.Text = dt.Rows[0][4].ToString() ;
-                cboBANCO.SelectedValue = dt.Rows[0][5].ToString();
-                txtIMPORTE.Text = dt.Rows[0][6].ToString(); 
-                rdbMONEDA.SelectedValue = dt.Rows[0][7].ToString();
-                TXTid_cliente.Text = dt.Rows[0][0].ToString();
-                btnRegistrar.Enabled = false;
-                Session["ID_CHEQUE"] = row.Cells[0].Text;
-                Session["ESTADO_CH"] = dt.Rows[0][8].ToString();
-                txtCLIENTE.Focus();
+                
+                    txtCLIENTE.Text = dt.Rows[0][1].ToString();
+                    txtFGIRO.Text = Convert.ToDateTime(dt.Rows[0][2]).ToString("yyyy-MM-dd");
+                    txtFCOBRO.Text = Convert.ToDateTime(dt.Rows[0][3]).ToString("yyyy-MM-dd");
+                    txtNUMERO.Text = dt.Rows[0][4].ToString();
+                    cboBANCO.SelectedValue = dt.Rows[0][5].ToString();
+                    txtIMPORTE.Text = dt.Rows[0][6].ToString();
+                    rdbMONEDA.SelectedValue = dt.Rows[0][7].ToString();
+                    TXTid_cliente.Text = dt.Rows[0][0].ToString();
+                    btnRegistrar.Enabled = true;
+                    Session["ID_CHEQUE"] = row.Cells[0].Text;
+                    Session["ESTADO_CH"] = dt.Rows[0][8].ToString();
+                    txtCLIENTE.Focus();
+                
+                    
+
             }
             else if (e.CommandName == "ELIMINAR")
             {
@@ -609,7 +728,7 @@ namespace DIONYS_ERP.PLANTILLAS
                     dgvBANCOS.Rows[i].Cells[8].HorizontalAlign = HorizontalAlign.Center;
                     dgvBANCOS.Rows[i].Cells[8].VerticalAlign = VerticalAlign.Middle;
                     dgvBANCOS.Rows[i].Cells[10].Enabled = false;
-                    dgvBANCOS.Rows[i].Cells[9].Enabled = false;
+                    dgvBANCOS.Rows[i].Cells[9].Enabled = true;
                 }
                 else if (caseEstado == "01-01-3000")//si retorna "1/01/3000 12:00:00 a. m." el estado es rebotado
                 {

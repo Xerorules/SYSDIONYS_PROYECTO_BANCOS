@@ -81,6 +81,11 @@ namespace DIONYS_ERP.PLANTILLAS
             for (int i = 0; i < dgvMOVIMIENTOS.Rows.Count; i++)
             {
                 dgvMOVIMIENTOS.Rows[i].Cells[1].Text = Convert.ToDateTime(dgvMOVIMIENTOS.Rows[i].Cells[1].Text).ToShortDateString();
+                if (dgvMOVIMIENTOS.Rows[i].Cells[10].Text == "EGRESO")
+                {
+                    dgvMOVIMIENTOS.Rows[i].Cells[16].Enabled = false;
+                    
+                }
 
                 if (dgvMOVIMIENTOS.Rows[i].Cells[13].Text  == "0" )
                 {
@@ -89,7 +94,7 @@ namespace DIONYS_ERP.PLANTILLAS
                     dgvMOVIMIENTOS.Rows[i].Cells[13].HorizontalAlign = HorizontalAlign.Center;
                     dgvMOVIMIENTOS.Rows[i].Cells[13].ForeColor = Color.White;
                 }
-                else if (dgvMOVIMIENTOS.Rows[i].Cells[13].Text == "1" || dgvMOVIMIENTOS.Rows[i].Cells[13].Text == "2" || dgvMOVIMIENTOS.Rows[i].Cells[13].Text == "3" || dgvMOVIMIENTOS.Rows[i].Cells[13].Text == "4")
+                else if (dgvMOVIMIENTOS.Rows[i].Cells[13].Text == "1" || dgvMOVIMIENTOS.Rows[i].Cells[13].Text == "2" || dgvMOVIMIENTOS.Rows[i].Cells[13].Text == "3" || dgvMOVIMIENTOS.Rows[i].Cells[13].Text == "4" || dgvMOVIMIENTOS.Rows[i].Cells[13].Text == "5" || dgvMOVIMIENTOS.Rows[i].Cells[13].Text == "6" || dgvMOVIMIENTOS.Rows[i].Cells[13].Text == "7")
                 {
                     dgvMOVIMIENTOS.Rows[i].Cells[13].Text = "AMARRADO";
                     dgvMOVIMIENTOS.Rows[i].Cells[13].BackColor = Color.LightPink;
@@ -617,7 +622,7 @@ namespace DIONYS_ERP.PLANTILLAS
                     dgvMOVIMIENTOS.Rows[i].Cells[13].HorizontalAlign = HorizontalAlign.Center;
                     dgvMOVIMIENTOS.Rows[i].Cells[13].ForeColor = Color.White;
                 }
-                else if (dgvMOVIMIENTOS.Rows[i].Cells[13].Text == "1" || dgvMOVIMIENTOS.Rows[i].Cells[13].Text == "2" || dgvMOVIMIENTOS.Rows[i].Cells[13].Text == "3" || dgvMOVIMIENTOS.Rows[i].Cells[13].Text == "4")
+                else if (dgvMOVIMIENTOS.Rows[i].Cells[13].Text == "1" || dgvMOVIMIENTOS.Rows[i].Cells[13].Text == "2" || dgvMOVIMIENTOS.Rows[i].Cells[13].Text == "3" || dgvMOVIMIENTOS.Rows[i].Cells[13].Text == "4" || dgvMOVIMIENTOS.Rows[i].Cells[13].Text == "5" || dgvMOVIMIENTOS.Rows[i].Cells[13].Text == "6" || dgvMOVIMIENTOS.Rows[i].Cells[13].Text == "7")
                 {
                     dgvMOVIMIENTOS.Rows[i].Cells[13].Text = "AMARRADO";
                     dgvMOVIMIENTOS.Rows[i].Cells[13].BackColor = Color.LightPink;
@@ -932,13 +937,35 @@ namespace DIONYS_ERP.PLANTILLAS
                     cbomTipoDoc.Text = "";
                 }
                 else { CODVTA = Session["DV_NUMEROINT"].ToString(); }
+
+                 
+                
                 if (CODVTA == "")
                 {
-                    cargar_grilla_popup(co, CODVTA, "", "1", Convert.ToDateTime(TextBoxssss.Text).ToShortDateString(), Convert.ToDateTime(txtFechaFinDB.Text).ToShortDateString(), txtClienteDBCom.Text);
+                    string codv = cbomTipoDoc.Text;
+                    string fechai = "";
+                    string fechaf = "";
+                    string cod_cli_dbco = "";
+                    cod_cli_dbco = txtClienteDBCom.Text;
+                    fechaf = Convert.ToDateTime(txtFechaFinDB.Text).ToShortDateString();
+                    fechai = Convert.ToDateTime(TextBoxssss.Text).ToShortDateString();
+                    cargar_grilla_popup("", codv, "", "1", fechai, fechaf, cod_cli_dbco);
+                    lbltieneamarre.Text = "No existen ventas vinculadas a este movimiento";
+                    lbltieneamarre.Visible = true;
+                    prueba_carga(co);
                 }
                 else if (CODVTA != "")
                 {
-                    //cargar_grilla_popup(co, "TIENE", "", "1", Convert.ToDateTime(TextBoxssss.Text).ToShortDateString(), Convert.ToDateTime(txtFechaFinDB.Text).ToShortDateString(), txtClienteDBCom.Text);
+                    lbltieneamarre.Visible = false;
+                    string codv = cbomTipoDoc.Text;
+                    string fechai = "";
+                    string fechaf = "";
+                    string cod_cli_dbco = "";
+                    cod_cli_dbco = txtClienteDBCom.Text;
+                    fechaf = Convert.ToDateTime(txtFechaFinDB.Text).ToShortDateString();
+                    fechai = Convert.ToDateTime(TextBoxssss.Text).ToShortDateString();
+                    cargar_grilla_popup("", codv, "", "1", fechai, fechaf, cod_cli_dbco);
+                    //cargar_grilla_popup(co, "", "", "1", Convert.ToDateTime(TextBoxssss.Text).ToShortDateString(), Convert.ToDateTime(txtFechaFinDB.Text).ToShortDateString(), txtClienteDBCom.Text);
                     prueba_carga(co);
 
                 }
@@ -1088,19 +1115,39 @@ namespace DIONYS_ERP.PLANTILLAS
         {
           
         }
-        
+
         void cargar_grilla_popup(string ID_MOV, string ID_VENTA, string OBS, string COND, string FECHAV, string FECHAF, string CODDBC)
         {
-           
-            dgvPOPUPAMARRE.DataSource = OBJVENTA.NLLENARGRILLAPOPUP(ID_MOV, ID_VENTA, OBS, COND,FECHAV,FECHAF,CODDBC);
-            dgvPOPUPAMARRE.DataBind();
+            try
+            {
+                DataTable ds = OBJVENTA.NTABLATEMPORALDATA(Session["CodigoMOVAMARRE"].ToString());
+                dgvPOPUPAMARRE.DataSource = OBJVENTA.NLLENARGRILLAPOPUP(ID_MOV, ID_VENTA, OBS, COND, FECHAV, FECHAF, CODDBC);
+                dgvPOPUPAMARRE.DataBind();
 
+                for (int i = 0; i < dgvPOPUPAMARRE.Rows.Count; i++)
+                {
+                    for (int e = 0; e < ds.Rows.Count; e++)
+                    {
+                        if (dgvPOPUPAMARRE.Rows[i].Cells[1].Text == ds.Rows[e][1].ToString())
+                        {
+                            dgvPOPUPAMARRE.Rows[i].Visible = false;
+                        }
+                    }
+
+
+                }
+            }
+            catch { }
         }
 
         void prueba_carga(string cod)
         {
-            dgvPOPUPAMARRE.DataSource = OBJVENTA.Npruebacarga(cod);
-            dgvPOPUPAMARRE.DataBind();
+
+            DataTable dsf = OBJVENTA.Npruebacarga(cod);
+            if (dsf.Rows.Count > 0) { lbltieneamarre.Visible = false; }
+            else { lbltieneamarre.Visible = true; }
+            dgvPOPUP_AMARRADOS.DataSource = OBJVENTA.Npruebacarga(cod);
+            dgvPOPUP_AMARRADOS.DataBind();
             
         }
 
@@ -1110,68 +1157,84 @@ namespace DIONYS_ERP.PLANTILLAS
             mp1.Show();
         }
 
-        protected void dgvPOPUPAMARRE_RowCommand(object sender, GridViewCommandEventArgs e)
-       {
-            if (e.CommandName == "UNIR")
-            {
-                GridViewRow raw = (GridViewRow)(((LinkButton)e.CommandSource).NamingContainer);
-                string COD_VENT = raw.Cells[2].Text;
-                string COD_MOVI = Session["CodigoMOVAMARRE"].ToString();
-                string condi = "";
-                if (Session["OBSAMARRE"].ToString() != "" && Session["OBSAMARRE"].ToString() != "&nbsp;")
-                {
-                    condi = "3";
-                }
-                else { condi = "3"; }
 
-                string b = Session["DV_NUMEROINT"].ToString();
-                if (Session["DV_NUMEROINT"].ToString() != "")
-                {
-                    condi = "3";
-                }
-                else
-                {
-                    condi = "3";
-                }
-                string resp = OBJVENTA.NAMARRARVENTAMOVIMIENTO(COD_MOVI, COD_VENT, "", condi, "01-01-2017", "01-01-2017", "");
-
-                if (resp == "ok")
-                {
-                    Response.Write("<script>alert('Amarre realizado con ÉXITO')</script>");
-                    llenar_datos("1", Session["ID_EMPRESA"].ToString(), Session["ID_CUENTA_MOV"].ToString());
-                    Session["CodigoMOVAMARRE"] = "";
-                    //txtClienteDBCom.Text = "";
-                    //cbomTipoDoc.Text = "";
-                }
-                else { Response.Write("<script>alert('HUBO UN ERROR NO SE PUEDO AMARRAR EL REGISTRO, INTENTE DE NUEVO')</script>"); }
-            }
-            else if (e.CommandName == "DESUNIR")
+        protected void dgvPOPUP_AMARRADOS_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            if (e.CommandName == "DESUNIR")
             {
-                GridViewRow raw = (GridViewRow)(((LinkButton)e.CommandSource).NamingContainer);
-                string COD_VENT = raw.Cells[2].Text;
+                GridViewRow rew = (GridViewRow)(((ImageButton)e.CommandSource).NamingContainer);
+                string COD_VENT = rew.Cells[1].Text;
                 string COD_MOVI = Session["CodigoMOVAMARRE"].ToString();
                 string condi = "4";
                 string resp = "";
                 try
                 {
-                     resp = OBJVENTA.NAMARRARVENTAMOVIMIENTO(COD_MOVI, COD_VENT, "", condi, "01-01-2017", "01-01-2017", "");
+                    resp = OBJVENTA.NELIMINARVENTAMOVIMIENTO(COD_MOVI, COD_VENT, "", condi, "01-01-2017", "01-01-2017", "");
                 }
                 catch
                 {
-                    
+
                 }
 
                 if (resp == "ok")
                 {
-                    Response.Write("<script>alert('AMARRE ELIMINADO CON ÉXITO')</script>");
-                    llenar_datos("1", Session["ID_EMPRESA"].ToString(), Session["ID_CUENTA_MOV"].ToString());
-                    Session["CodigoMOVAMARRE"] = "";
-                    //txtClienteDBCom.Text = "";
-                    //cbomTipoDoc.Text = "";
+                    lbltieneamarre.Visible = false;
+                    string codv = cbomTipoDoc.Text;
+                    string fechai = "";
+                    string fechaf = "";
+                    string cod_cli_dbco = "";
+                    cod_cli_dbco = txtClienteDBCom.Text;
+                    fechaf = Convert.ToDateTime(txtFechaFinDB.Text).ToShortDateString();
+                    fechai = Convert.ToDateTime(TextBoxssss.Text).ToShortDateString();
+                    cargar_grilla_popup("", codv, "", "1", fechai, fechaf, cod_cli_dbco);
+
+                    
+                    prueba_carga(COD_MOVI);
+                    
+                    mp1.Show();
+
                 }
                 else { Response.Write("<script>alert('NO EXISTE UN AMARRE CON ESTA VENTA')</script>"); }
-                mp1.Show();
+                
             }
+        }
+
+
+        protected void dgvPOPUPAMARRE_RowCommand(object sender, GridViewCommandEventArgs e)
+       {
+            if (e.CommandName == "UNIR")
+            {
+                GridViewRow raw = (GridViewRow)(((ImageButton)e.CommandSource).NamingContainer);
+                string COD_VENT = raw.Cells[1].Text;
+                string COD_MOVI = Session["CodigoMOVAMARRE"].ToString();
+                
+                
+                string resp = OBJVENTA.NAMARRARVENTAMOVIMIENTO(COD_MOVI, COD_VENT, "", "3", "01-01-2017", "01-01-2017", "");
+
+                if (resp == "ok")
+                {
+                    lbltieneamarre.Visible = false;
+                    string codv = cbomTipoDoc.Text;
+                    string fechai = "";
+                    string fechaf = "";
+                    string cod_cli_dbco = "";
+                    cod_cli_dbco = txtClienteDBCom.Text;
+                    fechaf = Convert.ToDateTime(txtFechaFinDB.Text).ToShortDateString();
+                    fechai = Convert.ToDateTime(TextBoxssss.Text).ToShortDateString();
+                    cargar_grilla_popup("", codv, "", "1", fechai, fechaf, cod_cli_dbco);
+                    prueba_carga(COD_MOVI);
+
+                    mp1.Show();
+
+
+                }
+                else
+                {
+                    Response.Write("<script>alert('HUBO UN ERROR NO SE PUEDO AMARRAR EL REGISTRO, INTENTE DE NUEVO')</script>");
+                    mp1.Show();
+                }
+            }
+            
 
         }
 
@@ -1188,6 +1251,12 @@ namespace DIONYS_ERP.PLANTILLAS
             //Session["CodigoMOVAMARRE"] = "";
             mp1.Show();
         }
+
+        protected void btnSalirPopUp_Click(object sender, EventArgs e)
+        {
+            llenar_datos("1", Session["ID_EMPRESA"].ToString(), Session["ID_CUENTA_MOV"].ToString());
+        }
+
 
         protected void cboTIPOMOV_SelectedIndexChanged(object sender, EventArgs e)
         {
