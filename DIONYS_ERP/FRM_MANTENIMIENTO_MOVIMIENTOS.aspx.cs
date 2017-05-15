@@ -35,7 +35,7 @@ namespace DIONYS_ERP.PLANTILLAS
                 llenar_combo_concepto();
                 llenar_combo_filtro_concepto();
                 deshabilitar();
-                TextBoxssss.Text = "2017-01-01";
+                TextBoxssss.Text = DateTime.Now.Date.AddMonths(-2).Date.ToString("yyyy-MM-dd"); ;
                 txtFechaFinDB.Text = DateTime.Now.ToString("yyyy-MM-dd");
                 Session["CodigoSede"] = "";
                 //cargar_grilla_popup("", "", "", "1", Convert.ToDateTime(TextBoxssss.Text).ToShortDateString(), Convert.ToDateTime(txtFechaFinDB.Text).ToShortDateString(),txtClienteDBCom.Text);
@@ -43,8 +43,8 @@ namespace DIONYS_ERP.PLANTILLAS
                 {
                     txtCuentaModal.Focus();
                 }
+                lbltieneamarre.Text = "No existen ventas vinculadas a este movimiento";
 
-                
             }
 
         }
@@ -614,6 +614,12 @@ namespace DIONYS_ERP.PLANTILLAS
             for (int i = 0; i < dgvMOVIMIENTOS.Rows.Count; i++)
             {
                 dgvMOVIMIENTOS.Rows[i].Cells[1].Text = Convert.ToDateTime(dgvMOVIMIENTOS.Rows[i].Cells[1].Text).ToShortDateString();
+
+                if (dgvMOVIMIENTOS.Rows[i].Cells[10].Text == "EGRESO")
+                {
+                    dgvMOVIMIENTOS.Rows[i].Cells[16].Enabled = false;
+
+                }
 
                 if (dgvMOVIMIENTOS.Rows[i].Cells[13].Text == "0")
                 {

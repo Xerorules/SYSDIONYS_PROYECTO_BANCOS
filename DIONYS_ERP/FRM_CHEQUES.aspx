@@ -636,6 +636,10 @@
                                         
                     </div>
 
+                    <%--<asp:CheckBoxList ID="CheckBoxList1" runat="server">
+                       <asp:ListItem Value="GIRO">&nbsp;&nbsp;F. GIRO</asp:ListItem>
+                        <asp:ListItem Value="COBRO">&nbsp;&nbsp;F. COBRO</asp:ListItem>
+                    </asp:CheckBoxList>--%>
                    
                     <div class="col-xs-4 col-md-2" style="left:30px">
                         <label style="color: white;  text-align: left; margin-right:50px;">F. GIRO INICIAL:</label>
@@ -659,43 +663,46 @@
 
                   <asp:HiddenField ID="hfCurrentRowIndex" runat="server"></asp:HiddenField>
                     <asp:HiddenField ID="hfParentContainer" runat="server"></asp:HiddenField>
-                 <div style="width: 1210px; height:700px; overflow-y: scroll; margin-left: -0px;">
+                 <div style="width: 1240px; height:700px; overflow-y: scroll; margin-left: -0px;">
          <asp:GridView ID="dgvBANCOS" runat="server" CssClass="table-striped table-bordered table-responsive table-condensed" BackColor="White" AutoGenerateColumns="False" DataKeyNames="ID_CHEQUE" Font-Size="Small" OnRowCommand="dgvBANCOS_RowCommand" OnRowDataBound="dgvBANCOS_RowDataBound">
             
              <Columns>
-                 <asp:BoundField DataField="ID_CHEQUE" HeaderText="CODIGO">
-                     <ItemStyle Width="10px" />
+                 <asp:BoundField DataField="ID_CHEQUE" HeaderText="COD" HeaderStyle-Font-Size="Smaller">
+                     <ItemStyle Width="30px" />
                  </asp:BoundField>
-                   <asp:BoundField DataField="DESCRIPCION" HeaderText="CLIENTE">
-                       <ItemStyle Width="280px" />
+                   <asp:BoundField DataField="DESCRIPCION" HeaderText="CLIENTE" HeaderStyle-Font-Size="Smaller">
+                       <ItemStyle Width="200px" />
                  </asp:BoundField>
-                 <asp:BoundField DataField="FECHA_GIRO" HeaderText="FECHA GIRO">
-                     <ItemStyle Width="100px" />
+                 <asp:BoundField DataField="FECHA_GIRO" HeaderText="FECHA GIRO" HeaderStyle-Font-Size="Smaller">
+                     <ItemStyle Width="90px" />
                  </asp:BoundField>
-                 <asp:BoundField DataField="FECHA_COBRO" HeaderText="FECHA COBRO">
-                     <ItemStyle Width="115px" />
+                 <asp:BoundField DataField="FECHA_COBRO" HeaderText="FECHA COBRO" HeaderStyle-Font-Size="Smaller">
+                     <ItemStyle Width="90px" />
                  </asp:BoundField>
-                 <asp:BoundField DataField="NUM_CHEQUE" HeaderText="NUMERO" />
-                 <asp:BoundField DataField="BANCO" HeaderText="BANCO" />
-                 <asp:BoundField DataField="IMPORTE" HeaderText="IMPORTE"  DataFormatString="{0:N}"/>
-                 <asp:BoundField DataField="MONEDA" HeaderText="MONEDA" />
-                 <asp:BoundField DataField="ESTADO" HeaderText="ESTADO" />
+                 <asp:BoundField DataField="NUM_CHEQUE" HeaderText="NUMERO" HeaderStyle-Font-Size="Smaller" ItemStyle-Width="50px"/>
+                 <asp:BoundField DataField="BANCO" HeaderText="BANCO" HeaderStyle-Font-Size="Smaller"/>
+                 <asp:BoundField DataField="IMPORTE" HeaderText="IMPORTE"  DataFormatString="{0:N}" HeaderStyle-Font-Size="Smaller"/>
+                 <asp:BoundField DataField="MONEDA" HeaderText="MON" HeaderStyle-Font-Size="Smaller">
+                     <ItemStyle Width="30px" HorizontalAlign="Center"/>
+                 </asp:BoundField>
+                 <asp:BoundField DataField="ESTADO" HeaderText="ESTADO" HeaderStyle-Font-Size="Smaller"/>
 
                  <asp:TemplateField>
                      <ItemTemplate>
-                         <asp:LinkButton ID="LinkButtonActualizar" runat="server" CommandName="ACTUALIZAR">CAMBIAR ESTADO</asp:LinkButton>
+                         <asp:LinkButton ID="LinkButtonActualizar" runat="server" CommandName="ACTUALIZAR" Width="55px" Font-Size="Smaller">CAMBIAR ESTADO</asp:LinkButton>
                         
                      </ItemTemplate>
                  </asp:TemplateField>
 
 
-                 <asp:TemplateField>
+                 <asp:TemplateField ItemStyle-HorizontalAlign="Center" ItemStyle-Width="50px"> 
                      <ItemTemplate>
-                         <asp:LinkButton ID="LinkButtonEditar" runat="server" CommandName="EDITAR" OnClientClick = "return GetSelectedRow(this)">EDITAR</asp:LinkButton>
-                          <asp:LinkButton ID="LinkButtonEliminar" runat="server" CommandName="ELIMINAR" OnClientClick="if (!confirm('Esta seguro de eliminar el registro?')) return false;">ELIMINAR</asp:LinkButton>
+                         <asp:LinkButton ID="LinkButtonEditar" runat="server" CommandName="EDITAR" OnClientClick = "return GetSelectedRow(this)" Font-Size="Smaller">EDITAR</asp:LinkButton>
+                          <asp:LinkButton ID="LinkButtonEliminar" runat="server" CommandName="ELIMINAR" OnClientClick="if (!confirm('Esta seguro de eliminar el registro?')) return false;" Font-Size="Smaller">ELIMINAR</asp:LinkButton>
                      </ItemTemplate>
                  </asp:TemplateField>
-
+                 <asp:BoundField DataField="" HeaderText="BCO DEPOSITO" HeaderStyle-BackColor="#ffcccc" HeaderStyle-Font-Size="Smaller" />
+                 <asp:BoundField DataField="ID_MOVIMIENTOS" HeaderText="ID MOV"  HeaderStyle-BackColor="#ffcccc" HeaderStyle-Font-Size="Smaller"/>
 
 
 

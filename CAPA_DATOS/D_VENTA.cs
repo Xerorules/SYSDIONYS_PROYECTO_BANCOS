@@ -1675,6 +1675,16 @@ namespace CAPA_DATOS
             return dt;
         }
 
+        public DataTable DCHEQUEBANCOS()
+        {
+            SqlCommand cmd = new SqlCommand("SP_GRILLA_CHEQUE_BANCO", con);
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+
+            return dt;
+        }
+
         public DataTable DLLENARGRILLACUENTAS(string cond,string id_empresa)
         {
             if (con.State == ConnectionState.Closed) { con.Open(); }

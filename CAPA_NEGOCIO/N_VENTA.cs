@@ -417,6 +417,12 @@ namespace CAPA_NEGOCIO
             return OBJTIPO_BIEN.DLLENARGRILLACHEQUES(CH,ESTADO);
         }
 
+        public DataTable NTABLACHEQUE_BANCOS()
+        {
+            return OBJTIPO_BIEN.DCHEQUEBANCOS();
+
+        }
+
         public DataTable NLLENARGRILLACONCEPTO()
         {
             return OBJTIPO_BIEN.DLLENARGRILLACONCEPTO();

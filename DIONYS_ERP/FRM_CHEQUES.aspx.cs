@@ -153,6 +153,8 @@ namespace DIONYS_ERP.PLANTILLAS
             dgvBANCOS.DataSource = OBJVENTA.NLLENARGRILLACHEQUES(OBJCHEQUE,"TODO");
             dgvBANCOS.DataBind();
 
+            DataTable tb = OBJVENTA.NTABLACHEQUE_BANCOS();
+
             ///necesito un estado en la tabla movimientos para cheques
 
             for (int i = 0; i < dgvBANCOS.Rows.Count; i++)
@@ -160,6 +162,20 @@ namespace DIONYS_ERP.PLANTILLAS
                 string caseEstado = Convert.ToDateTime(dgvBANCOS.Rows[i].Cells[8].Text).ToString("dd-MM-yyyy"); 
                 dgvBANCOS.Rows[i].Cells[2].Text = Convert.ToDateTime(dgvBANCOS.Rows[i].Cells[2].Text).ToShortDateString();
                 dgvBANCOS.Rows[i].Cells[3].Text = Convert.ToDateTime(dgvBANCOS.Rows[i].Cells[3].Text).ToShortDateString();
+
+                for (int y=0; y<tb.Rows.Count;y++)
+                {
+                    if (dgvBANCOS.Rows[i].Cells[0].Text == tb.Rows[y][0].ToString())
+                    {
+                        dgvBANCOS.Rows[i].Cells[11].Text = tb.Rows[y][1].ToString();
+                    }
+                }
+
+                if (dgvBANCOS.Rows[i].Cells[11].Text == "1002") //si retorna "01/01/1900" no se ha ingresado una fecha esta en blanco
+                {
+                    dgvBANCOS.Rows[i].Cells[11].Text = "";
+
+                }
 
                 if (caseEstado == "01-01-1900") //si retorna "01/01/1900" no se ha ingresado una fecha esta en blanco
                 {
@@ -580,7 +596,7 @@ namespace DIONYS_ERP.PLANTILLAS
                 /*-----------------------------------------------------*/
                 
                 OBJMOVS.operacion = txtmOPE.Text;
-                OBJMOVS.descripcion = txtmDESC.Text;
+                OBJMOVS.descripcion = txtmDESC.Text.ToUpperInvariant();
                 OBJMOVS.id_cliente = lblid_cliente.Text;
                 OBJMOVS.observacion = "";
                 string empre = Session["ID_EMPRESA"].ToString();

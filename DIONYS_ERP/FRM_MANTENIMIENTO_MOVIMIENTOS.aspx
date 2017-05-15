@@ -537,7 +537,7 @@
               <Columns>
                            <asp:TemplateField>
                                 <ItemTemplate>
-                                    <asp:ImageButton ID="LinkButtonDESUnir" CommandName="DESUNIR" runat="server" ImageUrl="~/ICONOS/quitar.png" Width="19" Height="19"/>
+                                    <asp:ImageButton ID="LinkButtonDESUnir" CommandName="DESUNIR" runat="server" ImageUrl="~/ICONOS/down-arrow.png" Width="19" Height="19"/>
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:BoundField DataField="DV_NUMEROINT" HeaderText="N° VENTA" HeaderStyle-HorizontalAlign="Center" ControlStyle-Font-Size="Smaller">
@@ -636,7 +636,7 @@
                             <asp:TemplateField>
                                 <ItemTemplate>
                                     
-                                    <asp:ImageButton ID="LinkButtonUnir" CommandName="UNIR" runat="server" ImageUrl="~/ICONOS/agregar.png" Width="19" Height="19"/>
+                                    <asp:ImageButton ID="LinkButtonUnir" CommandName="UNIR" runat="server" ImageUrl="~/ICONOS/up-arrow.png" Width="19" Height="19"/>
                                 </ItemTemplate>
                             </asp:TemplateField>
                            
