@@ -129,6 +129,8 @@ input[type="reset"],
 input[type="submit"] {
   -webkit-appearance: button;
   cursor: pointer;
+    top: 0px;
+    left: 0px;
 }
 button[disabled],
 html input[disabled] {

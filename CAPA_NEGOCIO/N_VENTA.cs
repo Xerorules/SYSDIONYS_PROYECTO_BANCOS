@@ -579,9 +579,9 @@ namespace CAPA_NEGOCIO
             return OBJTIPO_BIEN.DELIMINARBANCO(CODELI);
         }
 
-        public string NELIMINARMOVIMIENTO(string CODELI)
+        public string NELIMINARMOVIMIENTO(string codigo,string id_cta, string fecha)
         {
-            return OBJTIPO_BIEN.DELIMINARMOVIMIENTO(CODELI);
+            return OBJTIPO_BIEN.DELIMINARMOVIMIENTO(codigo,id_cta,fecha);
         }
 
         public string NELIMINARCONCEPTO(string CODELI)

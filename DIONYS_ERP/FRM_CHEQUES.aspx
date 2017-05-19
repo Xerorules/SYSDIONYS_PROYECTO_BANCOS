@@ -2,6 +2,18 @@
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+     <!-- ================================================= -->
+            <!-- SCRIPT PARA BLOQUEAR LAS FLECHAS DE NAVEGACION -->
+            <script type="text/javascript">
+                {
+                    if (history.forward(1))
+                        location.replace(history.forward(1))
+                }
+            </script>
+
+            <meta http-equiv="Expires" content="0" />
+            <meta http-equiv="Pragma" content="no-cache" />
+            <!-- ================================================= -->
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
     <link href="assets/css/custom-styles.css" rel="stylesheet" />
      <link rel="shortcut icon" href="../favicon.ico" />
@@ -605,17 +617,17 @@
                 <div class="form-group col-md-12 col-sm-12 col-xs-12" >
 
                     <div class="col-xs-4 col-md-3">
-                        <label style="color: white;  text-align: left; margin-right:90px;"> CLIENTE:</label>
+                        <label style="color: white; font-size:smaller;"> CLIENTE:</label>
                         <asp:TextBox runat="server" ID="txtFiltroCli" CssClass="form-control col-sm-12 col-xs-12"  Font-Bold="true" placeholder="Ingresar cliente,busqueda automatica" MaxLength="70" OnTextChanged="txtFiltroCli_TextChanged"></asp:TextBox>
                     </div>
                     
                     <div class="col-xs-4 col-md-2">
-                        <label style="color: white; text-align: left; margin-right:100px; "> BANCO:</label>
+                        <label style="color: white; font-size:smaller;"> BANCO:</label>
                         <asp:DropDownList runat="server" ID="cboFiltroBanco" CssClass="form-control col-sm-12 col-xs-12" AutoPostBack="false" ></asp:DropDownList>
                     </div>
                     
                     <div class="col-md-1"style="left:-15px" >
-                        <label style="color: white;  text-align: left; margin-right:120px;"> MONEDA:</label>
+                        <label style="color: white; font-size:smaller;"> MONEDA:</label>
                         <asp:DropDownList runat="server" ID="cboFiltroMoneda" CssClass="form-control col-sm-12 col-xs-12" Width="98px" AutoPostBack="false" >
                             <asp:ListItem Text="-MON-" Value="" />
                             <asp:ListItem Text="SOLES" Value="S" />
@@ -624,7 +636,7 @@
                                         
                     </div>
                     <div class="col-md-1" style="left:-10px">
-                        <label style="color: white;  text-align: left; margin-right:95px;"> ESTADO:</label>
+                        <label style="color: white; font-size:smaller;"> ESTADO:</label>
                         <asp:DropDownList runat="server" ID="cboEstado" CssClass="form-control col-sm-12 col-xs-12" Width="125px" AutoPostBack="false" >
                             <asp:ListItem Text="-ESTADO-" Value="TODO" />
                             <asp:ListItem Text="PENDIENTE" Value="PENDIENTE" />
@@ -642,11 +654,11 @@
                     </asp:CheckBoxList>--%>
                    
                     <div class="col-xs-4 col-md-2" style="left:30px">
-                        <label style="color: white;  text-align: left; margin-right:50px;">F. GIRO INICIAL:</label>
+                        <label style="color: white; font-size:smaller;">F. GIRO INICIAL:</label>
                         <asp:TextBox runat="server" ID="txtFiltroFechaIni" CssClass="form-control col-sm-12 col-xs-12" Width="150px"  Height="35px"  TextMode="Date"  placeholder="Ingrese Fecha inicial" MaxLength="70"></asp:TextBox>
                     </div>
                     <div class="col-xs-4 col-md-2" style="left:10px">
-                        <label style="color: white; text-align: left; margin-right:50px;">F. GIRO FINAL:</label>
+                        <label style="color: white; font-size:smaller;">F. GIRO FINAL:</label>
                         <asp:TextBox runat="server" ID="txtFiltroFechaFin" CssClass="form-control col-sm-12 col-xs-12" Width="150px"  Height="35px"  TextMode="Date"  placeholder="Ingrese Fecha final" MaxLength="70"></asp:TextBox>
                     </div>
                     <div class="col-xs-4 col-md-1" style="top:25px">
@@ -659,11 +671,11 @@
 
        &nbsp
              <div> 
-                  &nbsp
+                  &nbsp 
 
                   <asp:HiddenField ID="hfCurrentRowIndex" runat="server"></asp:HiddenField>
                     <asp:HiddenField ID="hfParentContainer" runat="server"></asp:HiddenField>
-                 <div style="width: 1240px; height:700px; overflow-y: scroll; margin-left: -0px;">
+                 <div style="width: 100%; height:700px; overflow-y: scroll; margin-left: -0px;">
          <asp:GridView ID="dgvBANCOS" runat="server" CssClass="table-striped table-bordered table-responsive table-condensed" BackColor="White" AutoGenerateColumns="False" DataKeyNames="ID_CHEQUE" Font-Size="Small" OnRowCommand="dgvBANCOS_RowCommand" OnRowDataBound="dgvBANCOS_RowDataBound">
             
              <Columns>

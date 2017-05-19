@@ -54,6 +54,7 @@
     <Compile Include="E_COMPRAS.cs" />
     <Compile Include="E_CONCEPTO.cs" />
     <Compile Include="E_CUENTAS.cs" />
+    <Compile Include="E_GRILLA_DOCS.cs" />
     <Compile Include="E_MANTENIMIENTO_CAJA.cs" />
     <Compile Include="E_MANT_CLIENTE.cs" />
     <Compile Include="E_MANT_EMPLEADOS.cs" />

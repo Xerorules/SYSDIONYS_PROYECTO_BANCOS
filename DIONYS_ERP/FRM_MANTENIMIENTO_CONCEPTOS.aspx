@@ -1,7 +1,18 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/PLANTILLAS/MENU_SUPERIOR.Master" AutoEventWireup="true" CodeBehind="FRM_MANTENIMIENTO_CONCEPTOS.aspx.cs" Inherits="DIONYS_ERP.PLANTILLAS.Formulario_web13" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    
+     <!-- ================================================= -->
+            <!-- SCRIPT PARA BLOQUEAR LAS FLECHAS DE NAVEGACION -->
+            <script type="text/javascript">
+                {
+                    if (history.forward(1))
+                        location.replace(history.forward(1))
+                }
+            </script>
+
+            <meta http-equiv="Expires" content="0" />
+            <meta http-equiv="Pragma" content="no-cache" />
+            <!-- ================================================= -->
 
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
     <link href="assets/css/custom-styles.css" rel="stylesheet" />

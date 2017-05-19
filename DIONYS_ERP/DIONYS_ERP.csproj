@@ -39,8 +39,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AjaxControlToolkit, Version=16.1.1.0, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
-      <HintPath>..\packages\AjaxControlToolkit.16.1.1.0\lib\net40\AjaxControlToolkit.dll</HintPath>
+    <Reference Include="AjaxControlToolkit, Version=17.1.0.0, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
+      <HintPath>..\packages\AjaxControlToolkit.17.1.0.0\lib\net40\AjaxControlToolkit.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
@@ -90,6 +90,7 @@
     <Content Include="assets\css\font-awesome.css" />
     <Content Include="assets\css\fonts\BebasNeue-webfont.svg" />
     <Content Include="assets\css\fonts\Dharma Type Font License.txt" />
+    <Content Include="assets\css\paginador.css" />
     <Content Include="assets\css\ptoledo.css" />
     <Content Include="assets\css\style1.css" />
     <Content Include="assets\css\style2.css" />
@@ -164,6 +165,7 @@
     <Content Include="ICONOS\58603181-enlace-icono.jpg" />
     <Content Include="ICONOS\aaaa.png" />
     <Content Include="ICONOS\agregar.png" />
+    <Content Include="ICONOS\ajax-loader.gif" />
     <Content Include="ICONOS\CHOCOLATE.png" />
     <Content Include="ICONOS\down-arrow.png" />
     <Content Include="ICONOS\GOLD.png" />
@@ -222,6 +224,7 @@
     <Content Include="FRM_MANTENIMIENTO_MOVIMIENTOS.aspx" />
     <Content Include="FRM_CHEQUES.aspx" />
     <Content Include="FRM_CUENTAS_POR_PAGAR_CHEQUES.aspx" />
+    <Content Include="FRM_CONSULTA_CAJA_BANCOS.aspx" />
     <Content Include="prueba botones.html" />
     <Content Include="REPORTES\FROM_REPORTE_MOVIMIENTOS.aspx" />
     <Content Include="Pruebas_test.aspx" />
@@ -621,6 +624,13 @@
     </Compile>
     <Compile Include="FRM_CUENTAS_POR_PAGAR_CHEQUES.aspx.designer.cs">
       <DependentUpon>FRM_CUENTAS_POR_PAGAR_CHEQUES.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FRM_CONSULTA_CAJA_BANCOS.aspx.cs">
+      <DependentUpon>FRM_CONSULTA_CAJA_BANCOS.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FRM_CONSULTA_CAJA_BANCOS.aspx.designer.cs">
+      <DependentUpon>FRM_CONSULTA_CAJA_BANCOS.aspx</DependentUpon>
     </Compile>
     <Compile Include="REPORTES\FROM_REPORTE_MOVIMIENTOS.aspx.cs">
       <DependentUpon>FROM_REPORTE_MOVIMIENTOS.aspx</DependentUpon>

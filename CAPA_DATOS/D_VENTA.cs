@@ -2561,7 +2561,7 @@ namespace CAPA_DATOS
             return res;
         }
 
-        public string DELIMINARMOVIMIENTO(string codigo)
+        public string DELIMINARMOVIMIENTO(string codigo,string id_cta, string fecha)
         {
             string res = "";
             try
@@ -2572,7 +2572,7 @@ namespace CAPA_DATOS
                 cmd.Parameters.AddWithValue("@ID_MOVIMIENTOS", codigo);
                 cmd.Parameters.AddWithValue("@ID_CONCEPTOSBANCARIOS","");
                 cmd.Parameters.AddWithValue("@ID_EMPRESA", "");
-                cmd.Parameters.AddWithValue("@FECHA", "");
+                cmd.Parameters.AddWithValue("@FECHA", fecha);
                 cmd.Parameters.AddWithValue("@LUGAR", "");
                 cmd.Parameters.AddWithValue("@TIPO_MOV", "");
                 cmd.Parameters.AddWithValue("@OPERACION", "");
@@ -2581,7 +2581,7 @@ namespace CAPA_DATOS
                 cmd.Parameters.AddWithValue("@SALDOC", 0);
                 cmd.Parameters.AddWithValue("@SALDOD", 0);
                 cmd.Parameters.AddWithValue("@ID_CLIENTE","");
-                cmd.Parameters.AddWithValue("@ID_CUENTASBANCARIAS", "");
+                cmd.Parameters.AddWithValue("@ID_CUENTASBANCARIAS", id_cta);
                 cmd.Parameters.AddWithValue("@SALDO", 0);
                 cmd.Parameters.AddWithValue("@CONDICION", 3);
                 cmd.Parameters.AddWithValue("@OBS", "");

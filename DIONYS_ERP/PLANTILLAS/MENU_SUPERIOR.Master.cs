@@ -11,16 +11,28 @@ namespace DIONYS_ERP.PLANTILLAS
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            lblID_EMPRESA.Text=Session["ID_EMPRESA"].ToString();
-            lblEMPRESA.Text=Session["NOMBRE_EMPRESA"].ToString();
-            lblID_SEDE.Text = Session["SEDE"].ToString();
-            lblSEDE.Text = Session["SEDE_DESCRIPCION"].ToString();
-            lblID_PVENTA.Text = Session["ID_PUNTOVENTA"].ToString();
-            lblPVENTA.Text = Session["PUNTOVENTA"].ToString();
-            lblID_USUARIO.Text = Session["USUARIO_EMPLEADO"].ToString();
-            lblFECHA.Text = DateTime.Now.ToShortDateString();
-            LOGINUSUARIO.Text = Session["NOMBRE_EMPLEADO"].ToString();
+            try
+            {
+                lblID_EMPRESA.Text = Session["ID_EMPRESA"].ToString();
+                lblEMPRESA.Text = Session["NOMBRE_EMPRESA"].ToString();
+                lblID_SEDE.Text = Session["SEDE"].ToString();
+                lblSEDE.Text = Session["SEDE_DESCRIPCION"].ToString();
+                lblID_PVENTA.Text = Session["ID_PUNTOVENTA"].ToString();
+                lblPVENTA.Text = Session["PUNTOVENTA"].ToString();
+                lblID_USUARIO.Text = Session["USUARIO_EMPLEADO"].ToString();
+                lblFECHA.Text = DateTime.Now.ToShortDateString();
+                LOGINUSUARIO.Text = Session["NOMBRE_EMPLEADO"].ToString();
+                
+            }
+            catch
+            {
+                Response.Redirect("default.aspx");
+            }
+            
+
         }
+
+
 
         public Label ID_EMPRESA { get { return lblID_EMPRESA; } set { lblID_EMPRESA = value; } }
         public Label EMPRESA { get { return lblEMPRESA; } set { lblEMPRESA = value; } }
@@ -31,5 +43,7 @@ namespace DIONYS_ERP.PLANTILLAS
         public Label USUARIO { get { return lblID_USUARIO; } set { lblID_USUARIO = value; } }
         public Label FECHA { get { return lblFECHA; } set { lblFECHA = value; } }
 
+
+       
     }
 }

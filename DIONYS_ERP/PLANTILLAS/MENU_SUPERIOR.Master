@@ -88,9 +88,9 @@
                 </ul>
             </li>
             <li>
-                <a href="#">PANTALLAS</a>
+                <a href="#">PANTALLA</a>
                 <ul>
-                <%--    <li><a href="#">PANTALLA COCINA</a></li>--%>
+                    <%--<li><a href="FRM_CONSULTA_CAJA_BANCOS.aspx">CONSULTA BANCOS</a></li>--%>
                 </ul>
             </li>
             
@@ -130,7 +130,7 @@
     </div>
                 
 <div>
-    <table id="BARRA_ESTADO">
+    <table id="BARRA_ESTADO" style="visibility:hidden;">
         <tr>
             <td>
                 <asp:Label ID="Label1" runat="server" Text="EMPRESA :"></asp:Label>

@@ -115,6 +115,16 @@ namespace DIONYS_ERP
             Session["detalleBien"] = vPdt_detBien;
         }
 
+
+        void ESTRUCTURA_GRILLA_DOCS()
+        {
+            DataTable dt_DOCS = new DataTable();
+            DataColumn colum = dt_DOCS.Columns.Add("DOC", typeof(String));
+            dt_DOCS.Columns.Add(new DataColumn("SERIE", typeof(String)));
+            dt_DOCS.Columns.Add(new DataColumn("NUMERO", typeof(String)));
+            Session["GRILLA_DOCS"] = dt_DOCS;
+        }
+
         #endregion
 
         protected void btnINGRESAR_Click(object sender, EventArgs e)
@@ -136,6 +146,7 @@ namespace DIONYS_ERP
                     #region DECLARACION DE VARIABLES GLOBALES
                     /*DECLARANDO MIS VARIABLES QUE SE VAN A USAR EN TODO MI PROYECTO - PARA SER USADO EN LA AYUDA DE BIEN*/
                     ESTRUCTURA_DETALLEBIEN(); //CONSTRUYENDO LOS DETALLES DE LA TABLA DETALLE
+                    ESTRUCTURA_GRILLA_DOCS();
                     Session.Add("ID_BIEN", string.Empty);
                     Session.Add("DESCRIPCION_BIEN", string.Empty);
                     Session.Add("PRECIO_BIEN", string.Empty);
