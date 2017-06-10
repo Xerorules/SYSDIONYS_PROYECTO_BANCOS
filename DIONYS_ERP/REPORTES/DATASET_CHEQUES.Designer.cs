@@ -20,19 +20,19 @@ namespace DIONYS_ERP.REPORTES {
     [global::System.ComponentModel.DesignerCategoryAttribute("code")]
     [global::System.ComponentModel.ToolboxItem(true)]
     [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedDataSetSchema")]
-    [global::System.Xml.Serialization.XmlRootAttribute("dsMOVIMIENTOS")]
+    [global::System.Xml.Serialization.XmlRootAttribute("DATASET_CHEQUES")]
     [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.DataSet")]
-    public partial class dsMOVIMIENTOS : global::System.Data.DataSet {
+    public partial class DATASET_CHEQUES : global::System.Data.DataSet {
         
-        private DATOSMDataTable tableDATOSM;
+        private ENCA_CHDataTable tableENCA_CH;
         
-        private DETALLEMDataTable tableDETALLEM;
+        private DETA_CHDataTable tableDETA_CH;
         
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public dsMOVIMIENTOS() {
+        public DATASET_CHEQUES() {
             this.BeginInit();
             this.InitClass();
             global::System.ComponentModel.CollectionChangeEventHandler schemaChangedHandler = new global::System.ComponentModel.CollectionChangeEventHandler(this.SchemaChanged);
@@ -43,7 +43,7 @@ namespace DIONYS_ERP.REPORTES {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        protected dsMOVIMIENTOS(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+        protected DATASET_CHEQUES(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                 base(info, context, false) {
             if ((this.IsBinarySerialized(info, context) == true)) {
                 this.InitVars(false);
@@ -56,11 +56,11 @@ namespace DIONYS_ERP.REPORTES {
             if ((this.DetermineSchemaSerializationMode(info, context) == global::System.Data.SchemaSerializationMode.IncludeSchema)) {
                 global::System.Data.DataSet ds = new global::System.Data.DataSet();
                 ds.ReadXmlSchema(new global::System.Xml.XmlTextReader(new global::System.IO.StringReader(strSchema)));
-                if ((ds.Tables["DATOSM"] != null)) {
-                    base.Tables.Add(new DATOSMDataTable(ds.Tables["DATOSM"]));
+                if ((ds.Tables["ENCA_CH"] != null)) {
+                    base.Tables.Add(new ENCA_CHDataTable(ds.Tables["ENCA_CH"]));
                 }
-                if ((ds.Tables["DETALLEM"] != null)) {
-                    base.Tables.Add(new DETALLEMDataTable(ds.Tables["DETALLEM"]));
+                if ((ds.Tables["DETA_CH"] != null)) {
+                    base.Tables.Add(new DETA_CHDataTable(ds.Tables["DETA_CH"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -84,9 +84,9 @@ namespace DIONYS_ERP.REPORTES {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Browsable(false)]
         [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public DATOSMDataTable DATOSM {
+        public ENCA_CHDataTable ENCA_CH {
             get {
-                return this.tableDATOSM;
+                return this.tableENCA_CH;
             }
         }
         
@@ -94,9 +94,9 @@ namespace DIONYS_ERP.REPORTES {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Browsable(false)]
         [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public DETALLEMDataTable DETALLEM {
+        public DETA_CHDataTable DETA_CH {
             get {
-                return this.tableDETALLEM;
+                return this.tableDETA_CH;
             }
         }
         
@@ -142,7 +142,7 @@ namespace DIONYS_ERP.REPORTES {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         public override global::System.Data.DataSet Clone() {
-            dsMOVIMIENTOS cln = ((dsMOVIMIENTOS)(base.Clone()));
+            DATASET_CHEQUES cln = ((DATASET_CHEQUES)(base.Clone()));
             cln.InitVars();
             cln.SchemaSerializationMode = this.SchemaSerializationMode;
             return cln;
@@ -167,11 +167,11 @@ namespace DIONYS_ERP.REPORTES {
                 this.Reset();
                 global::System.Data.DataSet ds = new global::System.Data.DataSet();
                 ds.ReadXml(reader);
-                if ((ds.Tables["DATOSM"] != null)) {
-                    base.Tables.Add(new DATOSMDataTable(ds.Tables["DATOSM"]));
+                if ((ds.Tables["ENCA_CH"] != null)) {
+                    base.Tables.Add(new ENCA_CHDataTable(ds.Tables["ENCA_CH"]));
                 }
-                if ((ds.Tables["DETALLEM"] != null)) {
-                    base.Tables.Add(new DETALLEMDataTable(ds.Tables["DETALLEM"]));
+                if ((ds.Tables["DETA_CH"] != null)) {
+                    base.Tables.Add(new DETA_CHDataTable(ds.Tables["DETA_CH"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -206,16 +206,16 @@ namespace DIONYS_ERP.REPORTES {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         internal void InitVars(bool initTable) {
-            this.tableDATOSM = ((DATOSMDataTable)(base.Tables["DATOSM"]));
+            this.tableENCA_CH = ((ENCA_CHDataTable)(base.Tables["ENCA_CH"]));
             if ((initTable == true)) {
-                if ((this.tableDATOSM != null)) {
-                    this.tableDATOSM.InitVars();
+                if ((this.tableENCA_CH != null)) {
+                    this.tableENCA_CH.InitVars();
                 }
             }
-            this.tableDETALLEM = ((DETALLEMDataTable)(base.Tables["DETALLEM"]));
+            this.tableDETA_CH = ((DETA_CHDataTable)(base.Tables["DETA_CH"]));
             if ((initTable == true)) {
-                if ((this.tableDETALLEM != null)) {
-                    this.tableDETALLEM.InitVars();
+                if ((this.tableDETA_CH != null)) {
+                    this.tableDETA_CH.InitVars();
                 }
             }
         }
@@ -223,26 +223,26 @@ namespace DIONYS_ERP.REPORTES {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitClass() {
-            this.DataSetName = "dsMOVIMIENTOS";
+            this.DataSetName = "DATASET_CHEQUES";
             this.Prefix = "";
-            this.Namespace = "http://tempuri.org/dsMOVIMIENTOS.xsd";
+            this.Namespace = "http://tempuri.org/DATASET_CHEQUES.xsd";
             this.EnforceConstraints = true;
             this.SchemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
-            this.tableDATOSM = new DATOSMDataTable();
-            base.Tables.Add(this.tableDATOSM);
-            this.tableDETALLEM = new DETALLEMDataTable();
-            base.Tables.Add(this.tableDETALLEM);
+            this.tableENCA_CH = new ENCA_CHDataTable();
+            base.Tables.Add(this.tableENCA_CH);
+            this.tableDETA_CH = new DETA_CHDataTable();
+            base.Tables.Add(this.tableDETA_CH);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        private bool ShouldSerializeDATOSM() {
+        private bool ShouldSerializeENCA_CH() {
             return false;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        private bool ShouldSerializeDETALLEM() {
+        private bool ShouldSerializeDETA_CH() {
             return false;
         }
         
@@ -257,7 +257,7 @@ namespace DIONYS_ERP.REPORTES {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedDataSetSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
-            dsMOVIMIENTOS ds = new dsMOVIMIENTOS();
+            DATASET_CHEQUES ds = new DATASET_CHEQUES();
             global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
             global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
             global::System.Xml.Schema.XmlSchemaAny any = new global::System.Xml.Schema.XmlSchemaAny();
@@ -302,46 +302,36 @@ namespace DIONYS_ERP.REPORTES {
         }
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public delegate void DATOSMRowChangeEventHandler(object sender, DATOSMRowChangeEvent e);
+        public delegate void ENCA_CHRowChangeEventHandler(object sender, ENCA_CHRowChangeEvent e);
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public delegate void DETALLEMRowChangeEventHandler(object sender, DETALLEMRowChangeEvent e);
+        public delegate void DETA_CHRowChangeEventHandler(object sender, DETA_CHRowChangeEvent e);
         
         /// <summary>
         ///Represents the strongly named DataTable class.
         ///</summary>
         [global::System.Serializable()]
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class DATOSMDataTable : global::System.Data.TypedTableBase<DATOSMRow> {
+        public partial class ENCA_CHDataTable : global::System.Data.TypedTableBase<ENCA_CHRow> {
             
-            private global::System.Data.DataColumn columnNOMBRE;
+            private global::System.Data.DataColumn columnEMPRESA;
             
-            private global::System.Data.DataColumn columnN_CUENTA;
+            private global::System.Data.DataColumn columnCLIENTE;
             
-            private global::System.Data.DataColumn columnDESCRIPCION;
+            private global::System.Data.DataColumn columnBANC;
             
-            private global::System.Data.DataColumn columnFECHA1;
+            private global::System.Data.DataColumn columnMONED;
             
-            private global::System.Data.DataColumn columnMONEDA;
+            private global::System.Data.DataColumn columnESTAD;
             
-            private global::System.Data.DataColumn columnSALDO_CONTABLE;
+            private global::System.Data.DataColumn columnF_INI;
             
-            private global::System.Data.DataColumn columnSALDO_DISPONIBLE;
-            
-            private global::System.Data.DataColumn columnF_INICIAL;
-            
-            private global::System.Data.DataColumn columnF_FINAL;
-            
-            private global::System.Data.DataColumn columnN_OPERACION;
-            
-            private global::System.Data.DataColumn columnD_CLIENTE;
-            
-            private global::System.Data.DataColumn columnC_BANCARIO;
+            private global::System.Data.DataColumn columnF_FIN;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public DATOSMDataTable() {
-                this.TableName = "DATOSM";
+            public ENCA_CHDataTable() {
+                this.TableName = "ENCA_CH";
                 this.BeginInit();
                 this.InitClass();
                 this.EndInit();
@@ -349,7 +339,7 @@ namespace DIONYS_ERP.REPORTES {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            internal DATOSMDataTable(global::System.Data.DataTable table) {
+            internal ENCA_CHDataTable(global::System.Data.DataTable table) {
                 this.TableName = table.TableName;
                 if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
                     this.CaseSensitive = table.CaseSensitive;
@@ -366,104 +356,64 @@ namespace DIONYS_ERP.REPORTES {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected DATOSMDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+            protected ENCA_CHDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                     base(info, context) {
                 this.InitVars();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn NOMBREColumn {
+            public global::System.Data.DataColumn EMPRESAColumn {
                 get {
-                    return this.columnNOMBRE;
+                    return this.columnEMPRESA;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn N_CUENTAColumn {
+            public global::System.Data.DataColumn CLIENTEColumn {
                 get {
-                    return this.columnN_CUENTA;
+                    return this.columnCLIENTE;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn DESCRIPCIONColumn {
+            public global::System.Data.DataColumn BANCColumn {
                 get {
-                    return this.columnDESCRIPCION;
+                    return this.columnBANC;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn FECHA1Column {
+            public global::System.Data.DataColumn MONEDColumn {
                 get {
-                    return this.columnFECHA1;
+                    return this.columnMONED;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn MONEDAColumn {
+            public global::System.Data.DataColumn ESTADColumn {
                 get {
-                    return this.columnMONEDA;
+                    return this.columnESTAD;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn SALDO_CONTABLEColumn {
+            public global::System.Data.DataColumn F_INIColumn {
                 get {
-                    return this.columnSALDO_CONTABLE;
+                    return this.columnF_INI;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn SALDO_DISPONIBLEColumn {
+            public global::System.Data.DataColumn F_FINColumn {
                 get {
-                    return this.columnSALDO_DISPONIBLE;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn F_INICIALColumn {
-                get {
-                    return this.columnF_INICIAL;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn F_FINALColumn {
-                get {
-                    return this.columnF_FINAL;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn N_OPERACIONColumn {
-                get {
-                    return this.columnN_OPERACION;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn D_CLIENTEColumn {
-                get {
-                    return this.columnD_CLIENTE;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn C_BANCARIOColumn {
-                get {
-                    return this.columnC_BANCARIO;
+                    return this.columnF_FIN;
                 }
             }
             
@@ -478,56 +428,51 @@ namespace DIONYS_ERP.REPORTES {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public DATOSMRow this[int index] {
+            public ENCA_CHRow this[int index] {
                 get {
-                    return ((DATOSMRow)(this.Rows[index]));
+                    return ((ENCA_CHRow)(this.Rows[index]));
                 }
             }
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event DATOSMRowChangeEventHandler DATOSMRowChanging;
+            public event ENCA_CHRowChangeEventHandler ENCA_CHRowChanging;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event DATOSMRowChangeEventHandler DATOSMRowChanged;
+            public event ENCA_CHRowChangeEventHandler ENCA_CHRowChanged;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event DATOSMRowChangeEventHandler DATOSMRowDeleting;
+            public event ENCA_CHRowChangeEventHandler ENCA_CHRowDeleting;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event DATOSMRowChangeEventHandler DATOSMRowDeleted;
+            public event ENCA_CHRowChangeEventHandler ENCA_CHRowDeleted;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void AddDATOSMRow(DATOSMRow row) {
+            public void AddENCA_CHRow(ENCA_CHRow row) {
                 this.Rows.Add(row);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public DATOSMRow AddDATOSMRow(string NOMBRE, string N_CUENTA, string DESCRIPCION, string FECHA1, string MONEDA, string SALDO_CONTABLE, string SALDO_DISPONIBLE, string F_INICIAL, string F_FINAL, string N_OPERACION, string D_CLIENTE, string C_BANCARIO) {
-                DATOSMRow rowDATOSMRow = ((DATOSMRow)(this.NewRow()));
+            public ENCA_CHRow AddENCA_CHRow(string EMPRESA, string CLIENTE, string BANC, string MONED, string ESTAD, string F_INI, string F_FIN) {
+                ENCA_CHRow rowENCA_CHRow = ((ENCA_CHRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
-                        NOMBRE,
-                        N_CUENTA,
-                        DESCRIPCION,
-                        FECHA1,
-                        MONEDA,
-                        SALDO_CONTABLE,
-                        SALDO_DISPONIBLE,
-                        F_INICIAL,
-                        F_FINAL,
-                        N_OPERACION,
-                        D_CLIENTE,
-                        C_BANCARIO};
-                rowDATOSMRow.ItemArray = columnValuesArray;
-                this.Rows.Add(rowDATOSMRow);
-                return rowDATOSMRow;
+                        EMPRESA,
+                        CLIENTE,
+                        BANC,
+                        MONED,
+                        ESTAD,
+                        F_INI,
+                        F_FIN};
+                rowENCA_CHRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowENCA_CHRow);
+                return rowENCA_CHRow;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public override global::System.Data.DataTable Clone() {
-                DATOSMDataTable cln = ((DATOSMDataTable)(base.Clone()));
+                ENCA_CHDataTable cln = ((ENCA_CHDataTable)(base.Clone()));
                 cln.InitVars();
                 return cln;
             }
@@ -535,79 +480,64 @@ namespace DIONYS_ERP.REPORTES {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override global::System.Data.DataTable CreateInstance() {
-                return new DATOSMDataTable();
+                return new ENCA_CHDataTable();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             internal void InitVars() {
-                this.columnNOMBRE = base.Columns["NOMBRE"];
-                this.columnN_CUENTA = base.Columns["N_CUENTA"];
-                this.columnDESCRIPCION = base.Columns["DESCRIPCION"];
-                this.columnFECHA1 = base.Columns["FECHA1"];
-                this.columnMONEDA = base.Columns["MONEDA"];
-                this.columnSALDO_CONTABLE = base.Columns["SALDO_CONTABLE"];
-                this.columnSALDO_DISPONIBLE = base.Columns["SALDO_DISPONIBLE"];
-                this.columnF_INICIAL = base.Columns["F_INICIAL"];
-                this.columnF_FINAL = base.Columns["F_FINAL"];
-                this.columnN_OPERACION = base.Columns["N_OPERACION"];
-                this.columnD_CLIENTE = base.Columns["D_CLIENTE"];
-                this.columnC_BANCARIO = base.Columns["C_BANCARIO"];
+                this.columnEMPRESA = base.Columns["EMPRESA"];
+                this.columnCLIENTE = base.Columns["CLIENTE"];
+                this.columnBANC = base.Columns["BANC"];
+                this.columnMONED = base.Columns["MONED"];
+                this.columnESTAD = base.Columns["ESTAD"];
+                this.columnF_INI = base.Columns["F_INI"];
+                this.columnF_FIN = base.Columns["F_FIN"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             private void InitClass() {
-                this.columnNOMBRE = new global::System.Data.DataColumn("NOMBRE", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnNOMBRE);
-                this.columnN_CUENTA = new global::System.Data.DataColumn("N_CUENTA", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnN_CUENTA);
-                this.columnDESCRIPCION = new global::System.Data.DataColumn("DESCRIPCION", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnDESCRIPCION);
-                this.columnFECHA1 = new global::System.Data.DataColumn("FECHA1", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnFECHA1);
-                this.columnMONEDA = new global::System.Data.DataColumn("MONEDA", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnMONEDA);
-                this.columnSALDO_CONTABLE = new global::System.Data.DataColumn("SALDO_CONTABLE", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnSALDO_CONTABLE);
-                this.columnSALDO_DISPONIBLE = new global::System.Data.DataColumn("SALDO_DISPONIBLE", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnSALDO_DISPONIBLE);
-                this.columnF_INICIAL = new global::System.Data.DataColumn("F_INICIAL", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnF_INICIAL);
-                this.columnF_FINAL = new global::System.Data.DataColumn("F_FINAL", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnF_FINAL);
-                this.columnN_OPERACION = new global::System.Data.DataColumn("N_OPERACION", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnN_OPERACION);
-                this.columnD_CLIENTE = new global::System.Data.DataColumn("D_CLIENTE", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnD_CLIENTE);
-                this.columnC_BANCARIO = new global::System.Data.DataColumn("C_BANCARIO", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnC_BANCARIO);
+                this.columnEMPRESA = new global::System.Data.DataColumn("EMPRESA", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnEMPRESA);
+                this.columnCLIENTE = new global::System.Data.DataColumn("CLIENTE", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCLIENTE);
+                this.columnBANC = new global::System.Data.DataColumn("BANC", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnBANC);
+                this.columnMONED = new global::System.Data.DataColumn("MONED", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnMONED);
+                this.columnESTAD = new global::System.Data.DataColumn("ESTAD", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnESTAD);
+                this.columnF_INI = new global::System.Data.DataColumn("F_INI", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnF_INI);
+                this.columnF_FIN = new global::System.Data.DataColumn("F_FIN", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnF_FIN);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public DATOSMRow NewDATOSMRow() {
-                return ((DATOSMRow)(this.NewRow()));
+            public ENCA_CHRow NewENCA_CHRow() {
+                return ((ENCA_CHRow)(this.NewRow()));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
-                return new DATOSMRow(builder);
+                return new ENCA_CHRow(builder);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override global::System.Type GetRowType() {
-                return typeof(DATOSMRow);
+                return typeof(ENCA_CHRow);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanged(e);
-                if ((this.DATOSMRowChanged != null)) {
-                    this.DATOSMRowChanged(this, new DATOSMRowChangeEvent(((DATOSMRow)(e.Row)), e.Action));
+                if ((this.ENCA_CHRowChanged != null)) {
+                    this.ENCA_CHRowChanged(this, new ENCA_CHRowChangeEvent(((ENCA_CHRow)(e.Row)), e.Action));
                 }
             }
             
@@ -615,8 +545,8 @@ namespace DIONYS_ERP.REPORTES {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanging(e);
-                if ((this.DATOSMRowChanging != null)) {
-                    this.DATOSMRowChanging(this, new DATOSMRowChangeEvent(((DATOSMRow)(e.Row)), e.Action));
+                if ((this.ENCA_CHRowChanging != null)) {
+                    this.ENCA_CHRowChanging(this, new ENCA_CHRowChangeEvent(((ENCA_CHRow)(e.Row)), e.Action));
                 }
             }
             
@@ -624,8 +554,8 @@ namespace DIONYS_ERP.REPORTES {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleted(e);
-                if ((this.DATOSMRowDeleted != null)) {
-                    this.DATOSMRowDeleted(this, new DATOSMRowChangeEvent(((DATOSMRow)(e.Row)), e.Action));
+                if ((this.ENCA_CHRowDeleted != null)) {
+                    this.ENCA_CHRowDeleted(this, new ENCA_CHRowChangeEvent(((ENCA_CHRow)(e.Row)), e.Action));
                 }
             }
             
@@ -633,14 +563,14 @@ namespace DIONYS_ERP.REPORTES {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleting(e);
-                if ((this.DATOSMRowDeleting != null)) {
-                    this.DATOSMRowDeleting(this, new DATOSMRowChangeEvent(((DATOSMRow)(e.Row)), e.Action));
+                if ((this.ENCA_CHRowDeleting != null)) {
+                    this.ENCA_CHRowDeleting(this, new ENCA_CHRowChangeEvent(((ENCA_CHRow)(e.Row)), e.Action));
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void RemoveDATOSMRow(DATOSMRow row) {
+            public void RemoveENCA_CHRow(ENCA_CHRow row) {
                 this.Rows.Remove(row);
             }
             
@@ -649,7 +579,7 @@ namespace DIONYS_ERP.REPORTES {
             public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
                 global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
                 global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
-                dsMOVIMIENTOS ds = new dsMOVIMIENTOS();
+                DATASET_CHEQUES ds = new DATASET_CHEQUES();
                 global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
                 any1.Namespace = "http://www.w3.org/2001/XMLSchema";
                 any1.MinOccurs = new decimal(0);
@@ -667,7 +597,7 @@ namespace DIONYS_ERP.REPORTES {
                 type.Attributes.Add(attribute1);
                 global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
                 attribute2.Name = "tableTypeName";
-                attribute2.FixedValue = "DATOSMDataTable";
+                attribute2.FixedValue = "ENCA_CHDataTable";
                 type.Attributes.Add(attribute2);
                 type.Particle = sequence;
                 global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
@@ -713,32 +643,38 @@ namespace DIONYS_ERP.REPORTES {
         ///</summary>
         [global::System.Serializable()]
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class DETALLEMDataTable : global::System.Data.TypedTableBase<DETALLEMRow> {
+        public partial class DETA_CHDataTable : global::System.Data.TypedTableBase<DETA_CHRow> {
             
-            private global::System.Data.DataColumn columnID_MOVIMIENTOS;
-            
-            private global::System.Data.DataColumn columnFECHA;
-            
-            private global::System.Data.DataColumn columnOPERACION;
-            
-            private global::System.Data.DataColumn columnTIPO_MOV;
-            
-            private global::System.Data.DataColumn columnCONCEPTO_B;
-            
-            private global::System.Data.DataColumn columnIMPORTE;
-            
-            private global::System.Data.DataColumn columnID_CLIENTE;
+            private global::System.Data.DataColumn columnID_CHEQUE;
             
             private global::System.Data.DataColumn columnDESCRIPCION;
             
-            private global::System.Data.DataColumn columnSALDO;
+            private global::System.Data.DataColumn columnFECHA_GIRO;
             
-            private global::System.Data.DataColumn columnOBSERVACION;
+            private global::System.Data.DataColumn columnFECHA_COBRO;
+            
+            private global::System.Data.DataColumn columnNUM_CHEQUE;
+            
+            private global::System.Data.DataColumn columnBANCO;
+            
+            private global::System.Data.DataColumn columnIMPORTE;
+            
+            private global::System.Data.DataColumn columnMONEDA;
+            
+            private global::System.Data.DataColumn columnESTADO;
+            
+            private global::System.Data.DataColumn columnBANCO_DEPOSITO;
+            
+            private global::System.Data.DataColumn columnID_MOVIMIENTOS;
+            
+            private global::System.Data.DataColumn columnFECHA_DEPOSITO;
+            
+            private global::System.Data.DataColumn columnN_OPER;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public DETALLEMDataTable() {
-                this.TableName = "DETALLEM";
+            public DETA_CHDataTable() {
+                this.TableName = "DETA_CH";
                 this.BeginInit();
                 this.InitClass();
                 this.EndInit();
@@ -746,7 +682,7 @@ namespace DIONYS_ERP.REPORTES {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            internal DETALLEMDataTable(global::System.Data.DataTable table) {
+            internal DETA_CHDataTable(global::System.Data.DataTable table) {
                 this.TableName = table.TableName;
                 if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
                     this.CaseSensitive = table.CaseSensitive;
@@ -763,48 +699,56 @@ namespace DIONYS_ERP.REPORTES {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected DETALLEMDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+            protected DETA_CHDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                     base(info, context) {
                 this.InitVars();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn ID_MOVIMIENTOSColumn {
+            public global::System.Data.DataColumn ID_CHEQUEColumn {
                 get {
-                    return this.columnID_MOVIMIENTOS;
+                    return this.columnID_CHEQUE;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn FECHAColumn {
+            public global::System.Data.DataColumn DESCRIPCIONColumn {
                 get {
-                    return this.columnFECHA;
+                    return this.columnDESCRIPCION;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn OPERACIONColumn {
+            public global::System.Data.DataColumn FECHA_GIROColumn {
                 get {
-                    return this.columnOPERACION;
+                    return this.columnFECHA_GIRO;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn TIPO_MOVColumn {
+            public global::System.Data.DataColumn FECHA_COBROColumn {
                 get {
-                    return this.columnTIPO_MOV;
+                    return this.columnFECHA_COBRO;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn CONCEPTO_BColumn {
+            public global::System.Data.DataColumn NUM_CHEQUEColumn {
                 get {
-                    return this.columnCONCEPTO_B;
+                    return this.columnNUM_CHEQUE;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn BANCOColumn {
+                get {
+                    return this.columnBANCO;
                 }
             }
             
@@ -818,33 +762,49 @@ namespace DIONYS_ERP.REPORTES {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn ID_CLIENTEColumn {
+            public global::System.Data.DataColumn MONEDAColumn {
                 get {
-                    return this.columnID_CLIENTE;
+                    return this.columnMONEDA;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn DESCRIPCIONColumn {
+            public global::System.Data.DataColumn ESTADOColumn {
                 get {
-                    return this.columnDESCRIPCION;
+                    return this.columnESTADO;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn SALDOColumn {
+            public global::System.Data.DataColumn BANCO_DEPOSITOColumn {
                 get {
-                    return this.columnSALDO;
+                    return this.columnBANCO_DEPOSITO;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn OBSERVACIONColumn {
+            public global::System.Data.DataColumn ID_MOVIMIENTOSColumn {
                 get {
-                    return this.columnOBSERVACION;
+                    return this.columnID_MOVIMIENTOS;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn FECHA_DEPOSITOColumn {
+                get {
+                    return this.columnFECHA_DEPOSITO;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn N_OPERColumn {
+                get {
+                    return this.columnN_OPER;
                 }
             }
             
@@ -859,54 +819,57 @@ namespace DIONYS_ERP.REPORTES {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public DETALLEMRow this[int index] {
+            public DETA_CHRow this[int index] {
                 get {
-                    return ((DETALLEMRow)(this.Rows[index]));
+                    return ((DETA_CHRow)(this.Rows[index]));
                 }
             }
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event DETALLEMRowChangeEventHandler DETALLEMRowChanging;
+            public event DETA_CHRowChangeEventHandler DETA_CHRowChanging;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event DETALLEMRowChangeEventHandler DETALLEMRowChanged;
+            public event DETA_CHRowChangeEventHandler DETA_CHRowChanged;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event DETALLEMRowChangeEventHandler DETALLEMRowDeleting;
+            public event DETA_CHRowChangeEventHandler DETA_CHRowDeleting;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event DETALLEMRowChangeEventHandler DETALLEMRowDeleted;
+            public event DETA_CHRowChangeEventHandler DETA_CHRowDeleted;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void AddDETALLEMRow(DETALLEMRow row) {
+            public void AddDETA_CHRow(DETA_CHRow row) {
                 this.Rows.Add(row);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public DETALLEMRow AddDETALLEMRow(string ID_MOVIMIENTOS, string FECHA, string OPERACION, string TIPO_MOV, string CONCEPTO_B, string IMPORTE, string ID_CLIENTE, string DESCRIPCION, string SALDO, string OBSERVACION) {
-                DETALLEMRow rowDETALLEMRow = ((DETALLEMRow)(this.NewRow()));
+            public DETA_CHRow AddDETA_CHRow(string ID_CHEQUE, string DESCRIPCION, string FECHA_GIRO, string FECHA_COBRO, string NUM_CHEQUE, string BANCO, string IMPORTE, string MONEDA, string ESTADO, string BANCO_DEPOSITO, string ID_MOVIMIENTOS, string FECHA_DEPOSITO, string N_OPER) {
+                DETA_CHRow rowDETA_CHRow = ((DETA_CHRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
-                        ID_MOVIMIENTOS,
-                        FECHA,
-                        OPERACION,
-                        TIPO_MOV,
-                        CONCEPTO_B,
-                        IMPORTE,
-                        ID_CLIENTE,
+                        ID_CHEQUE,
                         DESCRIPCION,
-                        SALDO,
-                        OBSERVACION};
-                rowDETALLEMRow.ItemArray = columnValuesArray;
-                this.Rows.Add(rowDETALLEMRow);
-                return rowDETALLEMRow;
+                        FECHA_GIRO,
+                        FECHA_COBRO,
+                        NUM_CHEQUE,
+                        BANCO,
+                        IMPORTE,
+                        MONEDA,
+                        ESTADO,
+                        BANCO_DEPOSITO,
+                        ID_MOVIMIENTOS,
+                        FECHA_DEPOSITO,
+                        N_OPER};
+                rowDETA_CHRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowDETA_CHRow);
+                return rowDETA_CHRow;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public override global::System.Data.DataTable Clone() {
-                DETALLEMDataTable cln = ((DETALLEMDataTable)(base.Clone()));
+                DETA_CHDataTable cln = ((DETA_CHDataTable)(base.Clone()));
                 cln.InitVars();
                 return cln;
             }
@@ -914,73 +877,82 @@ namespace DIONYS_ERP.REPORTES {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override global::System.Data.DataTable CreateInstance() {
-                return new DETALLEMDataTable();
+                return new DETA_CHDataTable();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             internal void InitVars() {
-                this.columnID_MOVIMIENTOS = base.Columns["ID_MOVIMIENTOS"];
-                this.columnFECHA = base.Columns["FECHA"];
-                this.columnOPERACION = base.Columns["OPERACION"];
-                this.columnTIPO_MOV = base.Columns["TIPO_MOV"];
-                this.columnCONCEPTO_B = base.Columns["CONCEPTO_B"];
-                this.columnIMPORTE = base.Columns["IMPORTE"];
-                this.columnID_CLIENTE = base.Columns["ID_CLIENTE"];
+                this.columnID_CHEQUE = base.Columns["ID_CHEQUE"];
                 this.columnDESCRIPCION = base.Columns["DESCRIPCION"];
-                this.columnSALDO = base.Columns["SALDO"];
-                this.columnOBSERVACION = base.Columns["OBSERVACION"];
+                this.columnFECHA_GIRO = base.Columns["FECHA_GIRO"];
+                this.columnFECHA_COBRO = base.Columns["FECHA_COBRO"];
+                this.columnNUM_CHEQUE = base.Columns["NUM_CHEQUE"];
+                this.columnBANCO = base.Columns["BANCO"];
+                this.columnIMPORTE = base.Columns["IMPORTE"];
+                this.columnMONEDA = base.Columns["MONEDA"];
+                this.columnESTADO = base.Columns["ESTADO"];
+                this.columnBANCO_DEPOSITO = base.Columns["BANCO_DEPOSITO"];
+                this.columnID_MOVIMIENTOS = base.Columns["ID_MOVIMIENTOS"];
+                this.columnFECHA_DEPOSITO = base.Columns["FECHA_DEPOSITO"];
+                this.columnN_OPER = base.Columns["N_OPER"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             private void InitClass() {
-                this.columnID_MOVIMIENTOS = new global::System.Data.DataColumn("ID_MOVIMIENTOS", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnID_MOVIMIENTOS);
-                this.columnFECHA = new global::System.Data.DataColumn("FECHA", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnFECHA);
-                this.columnOPERACION = new global::System.Data.DataColumn("OPERACION", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnOPERACION);
-                this.columnTIPO_MOV = new global::System.Data.DataColumn("TIPO_MOV", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnTIPO_MOV);
-                this.columnCONCEPTO_B = new global::System.Data.DataColumn("CONCEPTO_B", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnCONCEPTO_B);
-                this.columnIMPORTE = new global::System.Data.DataColumn("IMPORTE", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnIMPORTE);
-                this.columnID_CLIENTE = new global::System.Data.DataColumn("ID_CLIENTE", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnID_CLIENTE);
+                this.columnID_CHEQUE = new global::System.Data.DataColumn("ID_CHEQUE", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnID_CHEQUE);
                 this.columnDESCRIPCION = new global::System.Data.DataColumn("DESCRIPCION", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnDESCRIPCION);
-                this.columnSALDO = new global::System.Data.DataColumn("SALDO", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnSALDO);
-                this.columnOBSERVACION = new global::System.Data.DataColumn("OBSERVACION", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnOBSERVACION);
+                this.columnFECHA_GIRO = new global::System.Data.DataColumn("FECHA_GIRO", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnFECHA_GIRO);
+                this.columnFECHA_COBRO = new global::System.Data.DataColumn("FECHA_COBRO", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnFECHA_COBRO);
+                this.columnNUM_CHEQUE = new global::System.Data.DataColumn("NUM_CHEQUE", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnNUM_CHEQUE);
+                this.columnBANCO = new global::System.Data.DataColumn("BANCO", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnBANCO);
+                this.columnIMPORTE = new global::System.Data.DataColumn("IMPORTE", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnIMPORTE);
+                this.columnMONEDA = new global::System.Data.DataColumn("MONEDA", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnMONEDA);
+                this.columnESTADO = new global::System.Data.DataColumn("ESTADO", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnESTADO);
+                this.columnBANCO_DEPOSITO = new global::System.Data.DataColumn("BANCO_DEPOSITO", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnBANCO_DEPOSITO);
+                this.columnID_MOVIMIENTOS = new global::System.Data.DataColumn("ID_MOVIMIENTOS", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnID_MOVIMIENTOS);
+                this.columnFECHA_DEPOSITO = new global::System.Data.DataColumn("FECHA_DEPOSITO", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnFECHA_DEPOSITO);
+                this.columnN_OPER = new global::System.Data.DataColumn("N_OPER", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnN_OPER);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public DETALLEMRow NewDETALLEMRow() {
-                return ((DETALLEMRow)(this.NewRow()));
+            public DETA_CHRow NewDETA_CHRow() {
+                return ((DETA_CHRow)(this.NewRow()));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
-                return new DETALLEMRow(builder);
+                return new DETA_CHRow(builder);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override global::System.Type GetRowType() {
-                return typeof(DETALLEMRow);
+                return typeof(DETA_CHRow);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanged(e);
-                if ((this.DETALLEMRowChanged != null)) {
-                    this.DETALLEMRowChanged(this, new DETALLEMRowChangeEvent(((DETALLEMRow)(e.Row)), e.Action));
+                if ((this.DETA_CHRowChanged != null)) {
+                    this.DETA_CHRowChanged(this, new DETA_CHRowChangeEvent(((DETA_CHRow)(e.Row)), e.Action));
                 }
             }
             
@@ -988,8 +960,8 @@ namespace DIONYS_ERP.REPORTES {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanging(e);
-                if ((this.DETALLEMRowChanging != null)) {
-                    this.DETALLEMRowChanging(this, new DETALLEMRowChangeEvent(((DETALLEMRow)(e.Row)), e.Action));
+                if ((this.DETA_CHRowChanging != null)) {
+                    this.DETA_CHRowChanging(this, new DETA_CHRowChangeEvent(((DETA_CHRow)(e.Row)), e.Action));
                 }
             }
             
@@ -997,8 +969,8 @@ namespace DIONYS_ERP.REPORTES {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleted(e);
-                if ((this.DETALLEMRowDeleted != null)) {
-                    this.DETALLEMRowDeleted(this, new DETALLEMRowChangeEvent(((DETALLEMRow)(e.Row)), e.Action));
+                if ((this.DETA_CHRowDeleted != null)) {
+                    this.DETA_CHRowDeleted(this, new DETA_CHRowChangeEvent(((DETA_CHRow)(e.Row)), e.Action));
                 }
             }
             
@@ -1006,14 +978,14 @@ namespace DIONYS_ERP.REPORTES {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleting(e);
-                if ((this.DETALLEMRowDeleting != null)) {
-                    this.DETALLEMRowDeleting(this, new DETALLEMRowChangeEvent(((DETALLEMRow)(e.Row)), e.Action));
+                if ((this.DETA_CHRowDeleting != null)) {
+                    this.DETA_CHRowDeleting(this, new DETA_CHRowChangeEvent(((DETA_CHRow)(e.Row)), e.Action));
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void RemoveDETALLEMRow(DETALLEMRow row) {
+            public void RemoveDETA_CHRow(DETA_CHRow row) {
                 this.Rows.Remove(row);
             }
             
@@ -1022,7 +994,7 @@ namespace DIONYS_ERP.REPORTES {
             public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
                 global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
                 global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
-                dsMOVIMIENTOS ds = new dsMOVIMIENTOS();
+                DATASET_CHEQUES ds = new DATASET_CHEQUES();
                 global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
                 any1.Namespace = "http://www.w3.org/2001/XMLSchema";
                 any1.MinOccurs = new decimal(0);
@@ -1040,7 +1012,7 @@ namespace DIONYS_ERP.REPORTES {
                 type.Attributes.Add(attribute1);
                 global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
                 attribute2.Name = "tableTypeName";
-                attribute2.FixedValue = "DETALLEMDataTable";
+                attribute2.FixedValue = "DETA_CHDataTable";
                 type.Attributes.Add(attribute2);
                 type.Particle = sequence;
                 global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
@@ -1084,46 +1056,241 @@ namespace DIONYS_ERP.REPORTES {
         /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
-        public partial class DATOSMRow : global::System.Data.DataRow {
+        public partial class ENCA_CHRow : global::System.Data.DataRow {
             
-            private DATOSMDataTable tableDATOSM;
+            private ENCA_CHDataTable tableENCA_CH;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            internal DATOSMRow(global::System.Data.DataRowBuilder rb) : 
+            internal ENCA_CHRow(global::System.Data.DataRowBuilder rb) : 
                     base(rb) {
-                this.tableDATOSM = ((DATOSMDataTable)(this.Table));
+                this.tableENCA_CH = ((ENCA_CHDataTable)(this.Table));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string NOMBRE {
+            public string EMPRESA {
                 get {
                     try {
-                        return ((string)(this[this.tableDATOSM.NOMBREColumn]));
+                        return ((string)(this[this.tableENCA_CH.EMPRESAColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'NOMBRE\' de la tabla \'DATOSM\' es DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'EMPRESA\' de la tabla \'ENCA_CH\' es DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableDATOSM.NOMBREColumn] = value;
+                    this[this.tableENCA_CH.EMPRESAColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string N_CUENTA {
+            public string CLIENTE {
                 get {
                     try {
-                        return ((string)(this[this.tableDATOSM.N_CUENTAColumn]));
+                        return ((string)(this[this.tableENCA_CH.CLIENTEColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'N_CUENTA\' de la tabla \'DATOSM\' es DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'CLIENTE\' de la tabla \'ENCA_CH\' es DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableDATOSM.N_CUENTAColumn] = value;
+                    this[this.tableENCA_CH.CLIENTEColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string BANC {
+                get {
+                    try {
+                        return ((string)(this[this.tableENCA_CH.BANCColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'BANC\' de la tabla \'ENCA_CH\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableENCA_CH.BANCColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string MONED {
+                get {
+                    try {
+                        return ((string)(this[this.tableENCA_CH.MONEDColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'MONED\' de la tabla \'ENCA_CH\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableENCA_CH.MONEDColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string ESTAD {
+                get {
+                    try {
+                        return ((string)(this[this.tableENCA_CH.ESTADColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'ESTAD\' de la tabla \'ENCA_CH\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableENCA_CH.ESTADColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string F_INI {
+                get {
+                    try {
+                        return ((string)(this[this.tableENCA_CH.F_INIColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'F_INI\' de la tabla \'ENCA_CH\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableENCA_CH.F_INIColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string F_FIN {
+                get {
+                    try {
+                        return ((string)(this[this.tableENCA_CH.F_FINColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'F_FIN\' de la tabla \'ENCA_CH\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableENCA_CH.F_FINColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsEMPRESANull() {
+                return this.IsNull(this.tableENCA_CH.EMPRESAColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetEMPRESANull() {
+                this[this.tableENCA_CH.EMPRESAColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsCLIENTENull() {
+                return this.IsNull(this.tableENCA_CH.CLIENTEColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetCLIENTENull() {
+                this[this.tableENCA_CH.CLIENTEColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsBANCNull() {
+                return this.IsNull(this.tableENCA_CH.BANCColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetBANCNull() {
+                this[this.tableENCA_CH.BANCColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsMONEDNull() {
+                return this.IsNull(this.tableENCA_CH.MONEDColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetMONEDNull() {
+                this[this.tableENCA_CH.MONEDColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsESTADNull() {
+                return this.IsNull(this.tableENCA_CH.ESTADColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetESTADNull() {
+                this[this.tableENCA_CH.ESTADColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsF_ININull() {
+                return this.IsNull(this.tableENCA_CH.F_INIColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetF_ININull() {
+                this[this.tableENCA_CH.F_INIColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsF_FINNull() {
+                return this.IsNull(this.tableENCA_CH.F_FINColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetF_FINNull() {
+                this[this.tableENCA_CH.F_FINColumn] = global::System.Convert.DBNull;
+            }
+        }
+        
+        /// <summary>
+        ///Represents strongly named DataRow class.
+        ///</summary>
+        public partial class DETA_CHRow : global::System.Data.DataRow {
+            
+            private DETA_CHDataTable tableDETA_CH;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal DETA_CHRow(global::System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tableDETA_CH = ((DETA_CHDataTable)(this.Table));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string ID_CHEQUE {
+                get {
+                    try {
+                        return ((string)(this[this.tableDETA_CH.ID_CHEQUEColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'ID_CHEQUE\' de la tabla \'DETA_CH\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDETA_CH.ID_CHEQUEColumn] = value;
                 }
             }
             
@@ -1132,397 +1299,78 @@ namespace DIONYS_ERP.REPORTES {
             public string DESCRIPCION {
                 get {
                     try {
-                        return ((string)(this[this.tableDATOSM.DESCRIPCIONColumn]));
+                        return ((string)(this[this.tableDETA_CH.DESCRIPCIONColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'DESCRIPCION\' de la tabla \'DATOSM\' es DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'DESCRIPCION\' de la tabla \'DETA_CH\' es DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableDATOSM.DESCRIPCIONColumn] = value;
+                    this[this.tableDETA_CH.DESCRIPCIONColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string FECHA1 {
+            public string FECHA_GIRO {
                 get {
                     try {
-                        return ((string)(this[this.tableDATOSM.FECHA1Column]));
+                        return ((string)(this[this.tableDETA_CH.FECHA_GIROColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'FECHA1\' de la tabla \'DATOSM\' es DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'FECHA_GIRO\' de la tabla \'DETA_CH\' es DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableDATOSM.FECHA1Column] = value;
+                    this[this.tableDETA_CH.FECHA_GIROColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string MONEDA {
+            public string FECHA_COBRO {
                 get {
                     try {
-                        return ((string)(this[this.tableDATOSM.MONEDAColumn]));
+                        return ((string)(this[this.tableDETA_CH.FECHA_COBROColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'MONEDA\' de la tabla \'DATOSM\' es DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'FECHA_COBRO\' de la tabla \'DETA_CH\' es DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableDATOSM.MONEDAColumn] = value;
+                    this[this.tableDETA_CH.FECHA_COBROColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string SALDO_CONTABLE {
+            public string NUM_CHEQUE {
                 get {
                     try {
-                        return ((string)(this[this.tableDATOSM.SALDO_CONTABLEColumn]));
+                        return ((string)(this[this.tableDETA_CH.NUM_CHEQUEColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'SALDO_CONTABLE\' de la tabla \'DATOSM\' es DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'NUM_CHEQUE\' de la tabla \'DETA_CH\' es DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableDATOSM.SALDO_CONTABLEColumn] = value;
+                    this[this.tableDETA_CH.NUM_CHEQUEColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string SALDO_DISPONIBLE {
+            public string BANCO {
                 get {
                     try {
-                        return ((string)(this[this.tableDATOSM.SALDO_DISPONIBLEColumn]));
+                        return ((string)(this[this.tableDETA_CH.BANCOColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'SALDO_DISPONIBLE\' de la tabla \'DATOSM\' es DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'BANCO\' de la tabla \'DETA_CH\' es DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableDATOSM.SALDO_DISPONIBLEColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string F_INICIAL {
-                get {
-                    try {
-                        return ((string)(this[this.tableDATOSM.F_INICIALColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'F_INICIAL\' de la tabla \'DATOSM\' es DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableDATOSM.F_INICIALColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string F_FINAL {
-                get {
-                    try {
-                        return ((string)(this[this.tableDATOSM.F_FINALColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'F_FINAL\' de la tabla \'DATOSM\' es DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableDATOSM.F_FINALColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string N_OPERACION {
-                get {
-                    try {
-                        return ((string)(this[this.tableDATOSM.N_OPERACIONColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'N_OPERACION\' de la tabla \'DATOSM\' es DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableDATOSM.N_OPERACIONColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string D_CLIENTE {
-                get {
-                    try {
-                        return ((string)(this[this.tableDATOSM.D_CLIENTEColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'D_CLIENTE\' de la tabla \'DATOSM\' es DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableDATOSM.D_CLIENTEColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string C_BANCARIO {
-                get {
-                    try {
-                        return ((string)(this[this.tableDATOSM.C_BANCARIOColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'C_BANCARIO\' de la tabla \'DATOSM\' es DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableDATOSM.C_BANCARIOColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsNOMBRENull() {
-                return this.IsNull(this.tableDATOSM.NOMBREColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetNOMBRENull() {
-                this[this.tableDATOSM.NOMBREColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsN_CUENTANull() {
-                return this.IsNull(this.tableDATOSM.N_CUENTAColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetN_CUENTANull() {
-                this[this.tableDATOSM.N_CUENTAColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsDESCRIPCIONNull() {
-                return this.IsNull(this.tableDATOSM.DESCRIPCIONColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetDESCRIPCIONNull() {
-                this[this.tableDATOSM.DESCRIPCIONColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsFECHA1Null() {
-                return this.IsNull(this.tableDATOSM.FECHA1Column);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetFECHA1Null() {
-                this[this.tableDATOSM.FECHA1Column] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsMONEDANull() {
-                return this.IsNull(this.tableDATOSM.MONEDAColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetMONEDANull() {
-                this[this.tableDATOSM.MONEDAColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsSALDO_CONTABLENull() {
-                return this.IsNull(this.tableDATOSM.SALDO_CONTABLEColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetSALDO_CONTABLENull() {
-                this[this.tableDATOSM.SALDO_CONTABLEColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsSALDO_DISPONIBLENull() {
-                return this.IsNull(this.tableDATOSM.SALDO_DISPONIBLEColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetSALDO_DISPONIBLENull() {
-                this[this.tableDATOSM.SALDO_DISPONIBLEColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsF_INICIALNull() {
-                return this.IsNull(this.tableDATOSM.F_INICIALColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetF_INICIALNull() {
-                this[this.tableDATOSM.F_INICIALColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsF_FINALNull() {
-                return this.IsNull(this.tableDATOSM.F_FINALColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetF_FINALNull() {
-                this[this.tableDATOSM.F_FINALColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsN_OPERACIONNull() {
-                return this.IsNull(this.tableDATOSM.N_OPERACIONColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetN_OPERACIONNull() {
-                this[this.tableDATOSM.N_OPERACIONColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsD_CLIENTENull() {
-                return this.IsNull(this.tableDATOSM.D_CLIENTEColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetD_CLIENTENull() {
-                this[this.tableDATOSM.D_CLIENTEColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsC_BANCARIONull() {
-                return this.IsNull(this.tableDATOSM.C_BANCARIOColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetC_BANCARIONull() {
-                this[this.tableDATOSM.C_BANCARIOColumn] = global::System.Convert.DBNull;
-            }
-        }
-        
-        /// <summary>
-        ///Represents strongly named DataRow class.
-        ///</summary>
-        public partial class DETALLEMRow : global::System.Data.DataRow {
-            
-            private DETALLEMDataTable tableDETALLEM;
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            internal DETALLEMRow(global::System.Data.DataRowBuilder rb) : 
-                    base(rb) {
-                this.tableDETALLEM = ((DETALLEMDataTable)(this.Table));
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string ID_MOVIMIENTOS {
-                get {
-                    try {
-                        return ((string)(this[this.tableDETALLEM.ID_MOVIMIENTOSColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'ID_MOVIMIENTOS\' de la tabla \'DETALLEM\' es DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableDETALLEM.ID_MOVIMIENTOSColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string FECHA {
-                get {
-                    try {
-                        return ((string)(this[this.tableDETALLEM.FECHAColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'FECHA\' de la tabla \'DETALLEM\' es DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableDETALLEM.FECHAColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string OPERACION {
-                get {
-                    try {
-                        return ((string)(this[this.tableDETALLEM.OPERACIONColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'OPERACION\' de la tabla \'DETALLEM\' es DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableDETALLEM.OPERACIONColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string TIPO_MOV {
-                get {
-                    try {
-                        return ((string)(this[this.tableDETALLEM.TIPO_MOVColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'TIPO_MOV\' de la tabla \'DETALLEM\' es DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableDETALLEM.TIPO_MOVColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string CONCEPTO_B {
-                get {
-                    try {
-                        return ((string)(this[this.tableDETALLEM.CONCEPTO_BColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'CONCEPTO_B\' de la tabla \'DETALLEM\' es DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableDETALLEM.CONCEPTO_BColumn] = value;
+                    this[this.tableDETA_CH.BANCOColumn] = value;
                 }
             }
             
@@ -1531,199 +1379,267 @@ namespace DIONYS_ERP.REPORTES {
             public string IMPORTE {
                 get {
                     try {
-                        return ((string)(this[this.tableDETALLEM.IMPORTEColumn]));
+                        return ((string)(this[this.tableDETA_CH.IMPORTEColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'IMPORTE\' de la tabla \'DETALLEM\' es DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'IMPORTE\' de la tabla \'DETA_CH\' es DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableDETALLEM.IMPORTEColumn] = value;
+                    this[this.tableDETA_CH.IMPORTEColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string ID_CLIENTE {
+            public string MONEDA {
                 get {
                     try {
-                        return ((string)(this[this.tableDETALLEM.ID_CLIENTEColumn]));
+                        return ((string)(this[this.tableDETA_CH.MONEDAColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'ID_CLIENTE\' de la tabla \'DETALLEM\' es DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'MONEDA\' de la tabla \'DETA_CH\' es DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableDETALLEM.ID_CLIENTEColumn] = value;
+                    this[this.tableDETA_CH.MONEDAColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string DESCRIPCION {
+            public string ESTADO {
                 get {
                     try {
-                        return ((string)(this[this.tableDETALLEM.DESCRIPCIONColumn]));
+                        return ((string)(this[this.tableDETA_CH.ESTADOColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'DESCRIPCION\' de la tabla \'DETALLEM\' es DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'ESTADO\' de la tabla \'DETA_CH\' es DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableDETALLEM.DESCRIPCIONColumn] = value;
+                    this[this.tableDETA_CH.ESTADOColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string SALDO {
+            public string BANCO_DEPOSITO {
                 get {
                     try {
-                        return ((string)(this[this.tableDETALLEM.SALDOColumn]));
+                        return ((string)(this[this.tableDETA_CH.BANCO_DEPOSITOColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'SALDO\' de la tabla \'DETALLEM\' es DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'BANCO_DEPOSITO\' de la tabla \'DETA_CH\' es DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableDETALLEM.SALDOColumn] = value;
+                    this[this.tableDETA_CH.BANCO_DEPOSITOColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string OBSERVACION {
+            public string ID_MOVIMIENTOS {
                 get {
                     try {
-                        return ((string)(this[this.tableDETALLEM.OBSERVACIONColumn]));
+                        return ((string)(this[this.tableDETA_CH.ID_MOVIMIENTOSColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'OBSERVACION\' de la tabla \'DETALLEM\' es DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'ID_MOVIMIENTOS\' de la tabla \'DETA_CH\' es DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableDETALLEM.OBSERVACIONColumn] = value;
+                    this[this.tableDETA_CH.ID_MOVIMIENTOSColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsID_MOVIMIENTOSNull() {
-                return this.IsNull(this.tableDETALLEM.ID_MOVIMIENTOSColumn);
+            public string FECHA_DEPOSITO {
+                get {
+                    try {
+                        return ((string)(this[this.tableDETA_CH.FECHA_DEPOSITOColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'FECHA_DEPOSITO\' de la tabla \'DETA_CH\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDETA_CH.FECHA_DEPOSITOColumn] = value;
+                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetID_MOVIMIENTOSNull() {
-                this[this.tableDETALLEM.ID_MOVIMIENTOSColumn] = global::System.Convert.DBNull;
+            public string N_OPER {
+                get {
+                    try {
+                        return ((string)(this[this.tableDETA_CH.N_OPERColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'N_OPER\' de la tabla \'DETA_CH\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDETA_CH.N_OPERColumn] = value;
+                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsFECHANull() {
-                return this.IsNull(this.tableDETALLEM.FECHAColumn);
+            public bool IsID_CHEQUENull() {
+                return this.IsNull(this.tableDETA_CH.ID_CHEQUEColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetFECHANull() {
-                this[this.tableDETALLEM.FECHAColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsOPERACIONNull() {
-                return this.IsNull(this.tableDETALLEM.OPERACIONColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetOPERACIONNull() {
-                this[this.tableDETALLEM.OPERACIONColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsTIPO_MOVNull() {
-                return this.IsNull(this.tableDETALLEM.TIPO_MOVColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetTIPO_MOVNull() {
-                this[this.tableDETALLEM.TIPO_MOVColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsCONCEPTO_BNull() {
-                return this.IsNull(this.tableDETALLEM.CONCEPTO_BColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetCONCEPTO_BNull() {
-                this[this.tableDETALLEM.CONCEPTO_BColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsIMPORTENull() {
-                return this.IsNull(this.tableDETALLEM.IMPORTEColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetIMPORTENull() {
-                this[this.tableDETALLEM.IMPORTEColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsID_CLIENTENull() {
-                return this.IsNull(this.tableDETALLEM.ID_CLIENTEColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetID_CLIENTENull() {
-                this[this.tableDETALLEM.ID_CLIENTEColumn] = global::System.Convert.DBNull;
+            public void SetID_CHEQUENull() {
+                this[this.tableDETA_CH.ID_CHEQUEColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsDESCRIPCIONNull() {
-                return this.IsNull(this.tableDETALLEM.DESCRIPCIONColumn);
+                return this.IsNull(this.tableDETA_CH.DESCRIPCIONColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetDESCRIPCIONNull() {
-                this[this.tableDETALLEM.DESCRIPCIONColumn] = global::System.Convert.DBNull;
+                this[this.tableDETA_CH.DESCRIPCIONColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsSALDONull() {
-                return this.IsNull(this.tableDETALLEM.SALDOColumn);
+            public bool IsFECHA_GIRONull() {
+                return this.IsNull(this.tableDETA_CH.FECHA_GIROColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetSALDONull() {
-                this[this.tableDETALLEM.SALDOColumn] = global::System.Convert.DBNull;
+            public void SetFECHA_GIRONull() {
+                this[this.tableDETA_CH.FECHA_GIROColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsOBSERVACIONNull() {
-                return this.IsNull(this.tableDETALLEM.OBSERVACIONColumn);
+            public bool IsFECHA_COBRONull() {
+                return this.IsNull(this.tableDETA_CH.FECHA_COBROColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetOBSERVACIONNull() {
-                this[this.tableDETALLEM.OBSERVACIONColumn] = global::System.Convert.DBNull;
+            public void SetFECHA_COBRONull() {
+                this[this.tableDETA_CH.FECHA_COBROColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsNUM_CHEQUENull() {
+                return this.IsNull(this.tableDETA_CH.NUM_CHEQUEColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetNUM_CHEQUENull() {
+                this[this.tableDETA_CH.NUM_CHEQUEColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsBANCONull() {
+                return this.IsNull(this.tableDETA_CH.BANCOColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetBANCONull() {
+                this[this.tableDETA_CH.BANCOColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsIMPORTENull() {
+                return this.IsNull(this.tableDETA_CH.IMPORTEColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetIMPORTENull() {
+                this[this.tableDETA_CH.IMPORTEColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsMONEDANull() {
+                return this.IsNull(this.tableDETA_CH.MONEDAColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetMONEDANull() {
+                this[this.tableDETA_CH.MONEDAColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsESTADONull() {
+                return this.IsNull(this.tableDETA_CH.ESTADOColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetESTADONull() {
+                this[this.tableDETA_CH.ESTADOColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsBANCO_DEPOSITONull() {
+                return this.IsNull(this.tableDETA_CH.BANCO_DEPOSITOColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetBANCO_DEPOSITONull() {
+                this[this.tableDETA_CH.BANCO_DEPOSITOColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsID_MOVIMIENTOSNull() {
+                return this.IsNull(this.tableDETA_CH.ID_MOVIMIENTOSColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetID_MOVIMIENTOSNull() {
+                this[this.tableDETA_CH.ID_MOVIMIENTOSColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsFECHA_DEPOSITONull() {
+                return this.IsNull(this.tableDETA_CH.FECHA_DEPOSITOColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetFECHA_DEPOSITONull() {
+                this[this.tableDETA_CH.FECHA_DEPOSITOColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsN_OPERNull() {
+                return this.IsNull(this.tableDETA_CH.N_OPERColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetN_OPERNull() {
+                this[this.tableDETA_CH.N_OPERColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -1731,22 +1647,22 @@ namespace DIONYS_ERP.REPORTES {
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public class DATOSMRowChangeEvent : global::System.EventArgs {
+        public class ENCA_CHRowChangeEvent : global::System.EventArgs {
             
-            private DATOSMRow eventRow;
+            private ENCA_CHRow eventRow;
             
             private global::System.Data.DataRowAction eventAction;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public DATOSMRowChangeEvent(DATOSMRow row, global::System.Data.DataRowAction action) {
+            public ENCA_CHRowChangeEvent(ENCA_CHRow row, global::System.Data.DataRowAction action) {
                 this.eventRow = row;
                 this.eventAction = action;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public DATOSMRow Row {
+            public ENCA_CHRow Row {
                 get {
                     return this.eventRow;
                 }
@@ -1765,22 +1681,22 @@ namespace DIONYS_ERP.REPORTES {
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public class DETALLEMRowChangeEvent : global::System.EventArgs {
+        public class DETA_CHRowChangeEvent : global::System.EventArgs {
             
-            private DETALLEMRow eventRow;
+            private DETA_CHRow eventRow;
             
             private global::System.Data.DataRowAction eventAction;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public DETALLEMRowChangeEvent(DETALLEMRow row, global::System.Data.DataRowAction action) {
+            public DETA_CHRowChangeEvent(DETA_CHRow row, global::System.Data.DataRowAction action) {
                 this.eventRow = row;
                 this.eventAction = action;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public DETALLEMRow Row {
+            public DETA_CHRow Row {
                 get {
                     return this.eventRow;
                 }

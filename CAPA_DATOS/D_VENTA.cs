@@ -1277,20 +1277,23 @@ namespace CAPA_DATOS
        }
 
 
-        public DataSet REPORTE_MOVIMIENTOS_CUENTAS_BANCARIAS(string IDCUENTA, string FECHA_INI, string FECHA_FIN)
+        public DataSet REPORTE_MOVIMIENTOS_CUENTAS_BANCARIAS(string IDCUENTA, string FECHA_INI, string FECHA_FIN, string OPE, string ID_CLIENTE, string CONBANC)
         {
             SqlCommand cmd = new SqlCommand("SP_REPORTE_MOVIMIENTOS_BANCARIOS", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@ID_CUENTAS", IDCUENTA);
             cmd.Parameters.AddWithValue("@FECHA_INI", FECHA_INI);
             cmd.Parameters.AddWithValue("@FECHA_FIN", FECHA_FIN);
+            cmd.Parameters.AddWithValue("@OPERA", OPE);
+            cmd.Parameters.AddWithValue("@ID_CLI", ID_CLIENTE);
+            cmd.Parameters.AddWithValue("@ID_CONCEPTO", CONBANC);
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             DataSet ds = new DataSet();
             da.Fill(ds);
             return ds;
         }
 
-        public DataSet REPORTE_MOVIMIENTOS_CUENTAS_BANCARIAS_DETALLE(string IDCUENTA, string FECHA_INI, string FECHA_FIN, string OPE, string CONBANC, string ID_CLIENTE)
+        public DataSet REPORTE_MOVIMIENTOS_CUENTAS_BANCARIAS_DETALLE(string IDCUENTA, string FECHA_INI, string FECHA_FIN, string OPE, string CONBANC, string ID_CLIENTE, string OBS)
         {
             SqlCommand cmd = new SqlCommand("SP_REPORTE_MOVIMIENTOS_BANCARIOS_DETALLE", con);
             cmd.CommandType = CommandType.StoredProcedure;
@@ -1300,12 +1303,46 @@ namespace CAPA_DATOS
             cmd.Parameters.AddWithValue("@OPERACION", OPE);
             cmd.Parameters.AddWithValue("@CONBANC", CONBANC);
             cmd.Parameters.AddWithValue("@ID_CLIENTE", ID_CLIENTE);
+            cmd.Parameters.AddWithValue("@OBS", OBS); 
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             DataSet ds = new DataSet();
             da.Fill(ds);
             return ds;
         }
-        
+
+        public DataSet REPORTE_CHEQUES_ENCABEZADO(string ID_EMPRESA, string ID_BANCO, string MONEDA, string ID_CLIENTE, string FECHA_INI, string FECHA_FIN, string ESTADO)
+        {
+            SqlCommand cmd = new SqlCommand("SP_REPORTES_CHEQUES_ENCABEZADO", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@ID_EMPRESA", ID_EMPRESA);
+            cmd.Parameters.AddWithValue("@ID_BANCOS", ID_BANCO);
+            cmd.Parameters.AddWithValue("@MONEDA", MONEDA);
+            cmd.Parameters.AddWithValue("@ID_CLIENTE", ID_CLIENTE);
+            cmd.Parameters.AddWithValue("@FECHA_INI", FECHA_INI);
+            cmd.Parameters.AddWithValue("@FECHA_FIN", FECHA_FIN);
+            cmd.Parameters.AddWithValue("@ESTADO", ESTADO);
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataSet ds = new DataSet();
+            da.Fill(ds);
+            return ds;
+        }
+
+        public DataSet REPORTE_CHEQUES_DETALLE(string ID_EMPRESA, string ID_BANCO, string MONEDA, string ID_CLIENTE, string FECHA_INI, string FECHA_FIN, string ESTADO)
+        {
+            SqlCommand cmd = new SqlCommand("SP_REPORTES_CHEQUES_DETALLE", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@ID_EMPRESA", ID_EMPRESA);
+            cmd.Parameters.AddWithValue("@ID_BANCOS", ID_BANCO);
+            cmd.Parameters.AddWithValue("@MONEDA", MONEDA);
+            cmd.Parameters.AddWithValue("@ID_CLIENTE", ID_CLIENTE);
+            cmd.Parameters.AddWithValue("@FECHA_INI", FECHA_INI);
+            cmd.Parameters.AddWithValue("@FECHA_FIN", FECHA_FIN);
+            cmd.Parameters.AddWithValue("@ESTADO", ESTADO);
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataSet ds = new DataSet();
+            da.Fill(ds);
+            return ds;
+        }
 
 
         public DataSet REPORTE_GENERAR_RECIBO_EGRESO_INGRESO(string IDMOV,string IDEMP)
@@ -1522,7 +1559,18 @@ namespace CAPA_DATOS
 
         }
 
-// =============================================================================  GALERIA ======================================================================================================================
+        public DataTable DCONSULTA_CHEQUE_IMAGEN(string COD)
+        {
+            SqlCommand cmd = new SqlCommand("SP_DATOS_CHEQUE_IMAGEN", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@COD_CHEQUE", COD);
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+
+            return dt;
+        }
+        // =============================================================================  GALERIA ======================================================================================================================
         #region MODULO GALERIA
 
         public DataTable LISTA_PROPIETARIOS(String GALERIA)
@@ -1963,12 +2011,14 @@ namespace CAPA_DATOS
         }
 
 
-        public DataTable DFILTRARGRILLAMOVIMIENTOS(string id_empresa, string id_cta,string fechaini, string fechafin, string nrope, string concepto, string idcli)
+        public DataTable DFILTRARGRILLAMOVIMIENTOS(string id_empresa, string id_cta,string fechaini, string fechafin, string nrope, string concepto, string idcli,string obs,decimal min,decimal max, string chkitf1)
         {
             DataTable dt = new DataTable();
+            if (max == 0) { max = 9999999999; }
+            if (concepto == "0") { concepto = ""; }
             try
             {
-                if (con.State == ConnectionState.Closed) { con.Open(); }
+               if (con.State == ConnectionState.Closed) { con.Open(); }
                 SqlCommand cmd = new SqlCommand("SP_FLITRAR_MOVIMIENTOS", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@ID_CONCEPTOSBANCARIOS", concepto);
@@ -1977,7 +2027,12 @@ namespace CAPA_DATOS
                 cmd.Parameters.AddWithValue("@FECHAFIN", fechafin);
                 cmd.Parameters.AddWithValue("@OPERACION", nrope);
                 cmd.Parameters.AddWithValue("@ID_CLIENTE", idcli);
-                cmd.Parameters.AddWithValue("@ID_CUENTASBANCARIAS", id_cta);
+                cmd.Parameters.AddWithValue("@ID_CUENTASBANCARIAS", id_cta); 
+                cmd.Parameters.AddWithValue("@OBSV", obs);
+                cmd.Parameters.AddWithValue("@MINIMPO", min);
+                cmd.Parameters.AddWithValue("@MAXIMPO", max);
+                cmd.Parameters.AddWithValue("@VARITF", chkitf1);
+                
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
 
                 da.Fill(dt);
@@ -2038,6 +2093,18 @@ namespace CAPA_DATOS
             return dt;
         }
 
+        public DataTable DVALIDAR_CLI(string CLI)
+        {
+            if (con.State == ConnectionState.Closed) { con.Open(); }
+            SqlCommand cmd = new SqlCommand("SP_VALIDAR_CLI", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@ID_CLIENTE", CLI);
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            con.Close();
+            return dt;
+        }
 
         public DataTable DLLENARGRILLACONCEPTO()
         {
@@ -2264,6 +2331,46 @@ namespace CAPA_DATOS
             return res;
         }
 
+        public string DREGISTRARMOV2(E_MOVIMIENTOS MVO, string cond, string emp)
+        {
+            string res = "";
+            try
+            {
+                if (con.State == ConnectionState.Closed) { con.Open(); }
+                SqlCommand cmd = new SqlCommand("SP_MANT_MOVIMIENTOS2", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@ID_MOVIMIENTOS", MVO.id_mov);
+                cmd.Parameters.AddWithValue("@ID_CONCEPTOSBANCARIOS", MVO.id_concepto_banc);
+                cmd.Parameters.AddWithValue("@ID_EMPRESA", emp);
+                cmd.Parameters.AddWithValue("@FECHA", MVO.fecha);
+                cmd.Parameters.AddWithValue("@LUGAR", MVO.lugar);
+                cmd.Parameters.AddWithValue("@TIPO_MOV", MVO.tipo_mov);
+                cmd.Parameters.AddWithValue("@OPERACION", MVO.operacion);
+                cmd.Parameters.AddWithValue("@DESCRIPCION", MVO.descripcion);
+                cmd.Parameters.AddWithValue("@IMPORTE", MVO.importe);
+                cmd.Parameters.AddWithValue("@SALDOC", 0);
+                cmd.Parameters.AddWithValue("@SALDOD", 0);
+                cmd.Parameters.AddWithValue("@ID_CLIENTE", MVO.id_cliente);
+                cmd.Parameters.AddWithValue("@ID_CUENTASBANCARIAS", MVO.id_cuentasbancarias);
+                cmd.Parameters.AddWithValue("@SALDO", 0);
+                cmd.Parameters.AddWithValue("@CONDICION", 2);
+                cmd.Parameters.AddWithValue("@OBS", MVO.observacion);
+                int a = cmd.ExecuteNonQuery();
+                if (a > 0)
+                {
+                    res = "ok";
+                }
+            }
+            catch (Exception ex)
+            {
+
+                System.Console.Write(ex.Message);
+            }
+
+            if (con.State == ConnectionState.Open) { con.Close(); }
+            return res;
+        }
+
         public string DREGISTRARMOV_CHEQUE(E_MOVIMIENTOS MVO, string cond, string emp,string id_cheque,string FECHA2)
         {
             string res = "";
@@ -2349,7 +2456,7 @@ namespace CAPA_DATOS
             try
             {
                 if (con.State == ConnectionState.Closed) { con.Open(); }
-                SqlCommand cmd = new SqlCommand("SP_RECALCULAR_SALDOS", con);
+                SqlCommand cmd = new SqlCommand("SP_RECALCULAR_SALDOS_BOTON", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@ID_CUENTA", codcta);
                 int a = cmd.ExecuteNonQuery();

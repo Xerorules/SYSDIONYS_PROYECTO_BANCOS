@@ -17,6 +17,8 @@ using System.Web.UI.HtmlControls;
 using System.Web.DynamicData;
 using System.Drawing;
 using System.Threading;
+using System.Data.SqlClient;
+using System.Configuration;
 
 namespace DIONYS_ERP.PLANTILLAS
 {
@@ -28,6 +30,8 @@ namespace DIONYS_ERP.PLANTILLAS
         {
             if (!IsPostBack)
             {
+                this.txtFechaIni.Attributes.Add("onkeypress", "button_click(this,'" + this.btnConsulta.ClientID + "')");
+                this.txtFechaFin.Attributes.Add("onkeypress", "button_click(this,'" + this.btnConsulta.ClientID + "')");
                 txtFECHA.Text = DateTime.Now.ToString("yyyy-MM-dd");
                 txtFechaIni.Text = DateTime.Now.Date.AddMonths(-2).Date.ToString("yyyy-MM-dd");
                 txtFechaFin.Text = DateTime.Now.ToString("yyyy-MM-dd");
@@ -46,6 +50,11 @@ namespace DIONYS_ERP.PLANTILLAS
                 lbltieneamarre.Text = "No existen ventas vinculadas a este movimiento";
                 //lblCANTROWS.Text = "-";
                 Session["ESTADO_CONSULTA"] = "";
+                des_grilla();
+                txtCuentaModal.Focus();
+                txtMINIMPO.Text = "0.00";
+                txtMAXIMPO.Text = "0.00";
+                chkITF.Checked = true;
             }
 
         }
@@ -55,6 +64,36 @@ namespace DIONYS_ERP.PLANTILLAS
         E_MOVIMIENTOS OBJMOVS = new E_MOVIMIENTOS();
         #endregion
 
+
+       
+
+        void hab_grilla()
+        {
+            cboFVBV.Enabled = true;
+            txtserie.Enabled = true;
+            txtnumero.Enabled = true;
+            txtnumero2.Enabled = true;
+            chkMULTIPLE.Enabled = true;
+            btnagregar.Enabled = true;
+        }
+
+        void des_grilla()
+        {
+           
+            cboFVBV.Enabled = false;
+            txtserie.Enabled = false;
+            txtnumero.Enabled = false;
+            txtnumero2.Enabled = false;
+            txtnumero2.Visible = false;
+            chkMULTIPLE.Enabled = false;
+            btnagregar.Enabled = false;
+
+            cboFVBV.SelectedIndex = 0;
+            txtserie.Text = "";
+            txtnumero.Text = "";
+            txtnumero2.Text = "";
+            chkMULTIPLE.Checked = false;
+        }
 
         void LIMPIAR()
         {
@@ -84,10 +123,22 @@ namespace DIONYS_ERP.PLANTILLAS
             for (int i = 0; i < dgvMOVIMIENTOS.Rows.Count; i++)
             {
                 dgvMOVIMIENTOS.Rows[i].Cells[1].Text = Convert.ToDateTime(dgvMOVIMIENTOS.Rows[i].Cells[1].Text).ToShortDateString();
-                if (dgvMOVIMIENTOS.Rows[i].Cells[10].Text == "EGRESO")
+               
+
+                if (Session["ID_EMPRESA"].ToString() != "005")
                 {
                     dgvMOVIMIENTOS.Rows[i].Cells[16].Enabled = false;
-                    
+
+                }
+                else if (Session["ID_EMPRESA"].ToString() == "005")
+                {
+                    if (dgvMOVIMIENTOS.Rows[i].Cells[10].Text == "EGRESO")
+                    {
+                        dgvMOVIMIENTOS.Rows[i].Cells[16].Enabled = false;
+
+                    }
+                    else { dgvMOVIMIENTOS.Rows[i].Cells[16].Enabled = true; }
+
                 }
 
                 if (dgvMOVIMIENTOS.Rows[i].Cells[13].Text  == "0" )
@@ -111,38 +162,45 @@ namespace DIONYS_ERP.PLANTILLAS
                 for (int e = 0; e < dt.Rows.Count; e++) {
                     if (caseEstado == dt.Rows[e]["ID_CLIENTE"].ToString())
                     {
+
+
                         dgvMOVIMIENTOS.Rows[i].Cells[10].Text = dt.Rows[e]["DESCRIPCION"].ToString();
                     }
                 }
 
-                string movCH = ds.Rows[i]["ID_MOVIMIENTOS"].ToString();
-                for (int h = 0; h < tcheque.Rows.Count; h++)
-                {
-                    string a = dgvMOVIMIENTOS.Rows[i].Cells[3].Text;
-                    if (movCH == tcheque.Rows[h]["ID_MOVIMIENTOS"].ToString())
+                string movCH = dgvMOVIMIENTOS.Rows[i].Cells[0].Text;
+
+                
+                    for (int h = 0; h < tcheque.Rows.Count; h++)
                     {
-                        string esta = Convert.ToDateTime(tcheque.Rows[h]["ESTADO"].ToString()).ToShortDateString();
-                       
-                        if (a == "CHEQUE")
+                        string id_t_ch = tcheque.Rows[h]["ID_MOVIMIENTOS"].ToString();
+                        if (movCH == tcheque.Rows[h]["ID_MOVIMIENTOS"].ToString().Trim())
                         {
+                            string esta = Convert.ToDateTime(tcheque.Rows[h]["ESTADO"].ToString()).ToShortDateString();
+
+                        if (dgvMOVIMIENTOS.Rows[i].Cells[3].Text == "CHEQUE")
+                        {
+
                             if (esta == "31/12/1900")
                             {
-                            
+
                                 dgvMOVIMIENTOS.Rows[i].Cells[3].BackColor = Color.Orange;
-                           
-                            
+
+
                             }
-                             else if (esta != "01/01/1900" && esta != "01/01/3000" && esta != "31/12/1900")
+                            else if (esta != "01/01/1900" && esta != "01/01/3000" && esta != "31/12/1900")
                             {
-                           
+
                                 dgvMOVIMIENTOS.Rows[i].Cells[3].BackColor = Color.LimeGreen;
-                            
-                           
+
+
                             }
                         }
+                           
+                        }
                     }
-                }
-                dgvMOVIMIENTOS.Rows[i].Cells[3].HorizontalAlign = HorizontalAlign.Center;
+                
+                
             }
             
 
@@ -248,117 +306,131 @@ namespace DIONYS_ERP.PLANTILLAS
         protected void btnRegistrar_Click(object sender, EventArgs e)
         {
             /*ACA EMPIEZA*/
-            if (Session["CodigoSede"].ToString() == "") { 
-            //VALIDAMOS QUE EL NUMERO DE OPERACION NO SE REPITA PARA LA CUENTA 
-            int validador = 0;//VARIABLE SI ES 0 NO SE REPITE
-            List<String> lista = new List<string>();
-            DataTable DT = OBJVENTA.NVALIDARROPERACION(Session["ID_CUENTA_MOV"].ToString(), Convert.ToDateTime(txtFECHA.Text).ToShortDateString());//TREAEMOS LOS NUMEROS DE OPERACION
-            string n_ope1 = txtOPE.Text;
-            string imp2 = Convert.ToDecimal(txtIMPORTE.Text).ToString("N2");
-            string fecha3 = Convert.ToDateTime(txtFECHA.Text).ToShortDateString();
-            string cptob = cboCONCEPTO.SelectedValue.ToString();
+            if (Session["CodigoSede"].ToString() == "") {
+                //VALIDAMOS QUE EL NUMERO DE OPERACION NO SE REPITA PARA LA CUENTA 
+                int validador = 0;//VARIABLE SI ES 0 NO SE REPITE
+                List<String> lista = new List<string>();
+                DataTable DT = OBJVENTA.NVALIDARROPERACION(Session["ID_CUENTA_MOV"].ToString(), Convert.ToDateTime(txtFECHA.Text).ToShortDateString());//TREAEMOS LOS NUMEROS DE OPERACION
+                string n_ope1 = txtOPE.Text;
+                string imp2 = Convert.ToDecimal(txtIMPORTE.Text).ToString("N2");
+                string fecha3 = Convert.ToDateTime(txtFECHA.Text).ToShortDateString();
+                string cptob = cboCONCEPTO.SelectedValue.ToString();
 
-            try
-            {
-                for (int n = 0; n < DT.Rows.Count; n++)//COMPARAMOS LSO NUMERO DE OPERACION PARA QUE NO SE REPITAN
+                try
                 {
-                    string fechaex = Convert.ToDateTime(DT.Rows[n][2].ToString()).ToShortDateString();
-                    string opeex = DT.Rows[n][0].ToString();
-                    string impoex = Convert.ToDecimal(DT.Rows[n][1].ToString()).ToString("N2");
-                    string concep = DT.Rows[n][3].ToString();
-
-                    if (n_ope1 == opeex && imp2 == impoex && fecha3 == fechaex && cptob == concep)
+                    for (int n = 0; n < DT.Rows.Count; n++)//COMPARAMOS LSO NUMERO DE OPERACION PARA QUE NO SE REPITAN
                     {
-                        validador += 1;
-                        lista.Add(txtOPE.Text);
+                        string fechaex = Convert.ToDateTime(DT.Rows[n][2].ToString()).ToShortDateString();
+                        string opeex = DT.Rows[n][0].ToString();
+                        string impoex = Convert.ToDecimal(DT.Rows[n][1].ToString()).ToString("N2");
+                        string concep = DT.Rows[n][3].ToString();
 
+                        if (n_ope1 == opeex && imp2 == impoex && fecha3 == fechaex && cptob == concep)
+                        {
+                            validador += 1;
+                            lista.Add(txtOPE.Text);
+
+                        }
                     }
                 }
-            }
-            catch { validador = 0; }
-            if (validador == 0)
-            {
-                OBJMOVS.id_mov = "";
-                OBJMOVS.id_concepto_banc = cboCONCEPTO.SelectedValue;
-                OBJMOVS.fecha = Convert.ToDateTime(txtFECHA.Text).ToString("dd-MM-yyyy");
-                OBJMOVS.lugar = txtLugar.Text.ToUpper();
-                OBJMOVS.tipo_mov = cboTIPOMOV.SelectedValue;
-                OBJMOVS.id_cuentasbancarias = TXTprueba.Text;
-
-                /*-------------------------SALDO +- IMPORTE--------------------*/
-                decimal impo = 0;
-                if (cboTIPOMOV.SelectedValue == "EGRESO")
+                catch { validador = 0; }
+                //VALIDACION DE CLIENTE PROBRAR SI FUNCIONA
+                try
                 {
-                    impo = -1 * Convert.ToDecimal(txtIMPORTE.Text.Trim());
-                }
-                else if (cboTIPOMOV.SelectedValue == "INGRESO")
-                {
-                    impo = Convert.ToDecimal(txtIMPORTE.Text.Trim());
-                }
-                decimal saldoc = Convert.ToDecimal((LBLSALDOC.Text.Substring(3)));
-                decimal saldod = Convert.ToDecimal((LBLSALDOD.Text.Substring(3)));
-                saldod = saldod + impo;
-                saldoc = saldoc + impo;
-
-                OBJMOVS.saldod = Convert.ToDecimal(saldod);
-                OBJMOVS.saldoc = Convert.ToDecimal(saldoc);
-                OBJMOVS.saldo = saldoc;
-                /*-----------------------------------------------------*/
-                OBJMOVS.importe = Convert.ToDecimal(impo);
-                OBJMOVS.operacion = txtOPE.Text;
-                string DESC = txtDESC.Text.ToUpper().Trim();
-                    OBJMOVS.descripcion = DESC.ToUpperInvariant();
-                    OBJMOVS.id_cliente = (txtCLIENTE.Text == "") ? "" : TXTid_cliente.Text;
-                    /*CAMBIOS EN OPERACION 19-05-2017 -- AGREGAMOS GRILLA CON AMARRE DE DOCUMENTOS DE VENTA*/
-                    DataTable dbt = (DataTable)Session["GRILLA_DOCS"];
-                    string cadena = "";
-                    for (int y=0; y<dbt.Rows.Count; y++)
+                    DataTable dtr = OBJVENTA.NCLI_VALIDAR(TXTid_cliente.Text);
+                    if (dtr.Rows.Count == 1 || txtCLIENTE.Text == "")
                     {
-                        cadena = cadena + dbt.Rows[y][0].ToString() + "/" + dbt.Rows[y][1].ToString() + "/" + dbt.Rows[y][2].ToString() + "//";
+                        if (validador == 0)
+                        {
+                            OBJMOVS.id_mov = "";
+                            OBJMOVS.id_concepto_banc = cboCONCEPTO.SelectedValue;
+                            OBJMOVS.fecha = Convert.ToDateTime(txtFECHA.Text).ToString("dd-MM-yyyy");
+                            OBJMOVS.lugar = txtLugar.Text.ToUpper();
+                            OBJMOVS.tipo_mov = cboTIPOMOV.SelectedValue;
+                            OBJMOVS.id_cuentasbancarias = TXTprueba.Text;
+
+                            /*-------------------------SALDO +- IMPORTE--------------------*/
+                            decimal impo = 0;
+                            if (cboTIPOMOV.SelectedValue == "EGRESO")
+                            {
+                                impo = -1 * Convert.ToDecimal(txtIMPORTE.Text.Trim());
+                            }
+                            else if (cboTIPOMOV.SelectedValue == "INGRESO")
+                            {
+                                impo = Convert.ToDecimal(txtIMPORTE.Text.Trim());
+                            }
+                            decimal saldoc = Convert.ToDecimal((LBLSALDOC.Text.Substring(3)));
+                            decimal saldod = Convert.ToDecimal((LBLSALDOD.Text.Substring(3)));
+                            saldod = saldod + impo;
+                            saldoc = saldoc + impo;
+
+                            OBJMOVS.saldod = Convert.ToDecimal(saldod);
+                            OBJMOVS.saldoc = Convert.ToDecimal(saldoc);
+                            OBJMOVS.saldo = saldoc;
+                            /*-----------------------------------------------------*/
+                            OBJMOVS.importe = Convert.ToDecimal(impo);
+                            OBJMOVS.operacion = txtOPE.Text;
+                            string DESC = txtDESC.Text.ToUpper().Trim();
+                            OBJMOVS.descripcion = DESC.ToUpperInvariant();
+                            OBJMOVS.id_cliente = (txtCLIENTE.Text == "") ? "" : TXTid_cliente.Text;
+                            /*CAMBIOS EN OPERACION 19-05-2017 -- AGREGAMOS GRILLA CON AMARRE DE DOCUMENTOS DE VENTA*/
+                            DataTable dbt = (DataTable)Session["GRILLA_DOCS"];
+                            string cadena = "";
+                            for (int y = 0; y < dbt.Rows.Count; y++)
+                            {
+                                cadena = cadena + dbt.Rows[y][0].ToString() + "/" + dbt.Rows[y][1].ToString() + "/" + dbt.Rows[y][2].ToString() + "//";
+                            }
+
+
+                            if (txtObservacione.Text == "" || txtObservacione.Text == "&nbsp;")
+                            {
+                                OBJMOVS.observacion = cadena;
+                            }
+                            else
+                            {
+                                string obf = cadena + "#" + txtObservacione.Text.ToUpper();
+                                OBJMOVS.observacion = obf.ToUpperInvariant();
+                            }
+                            /*------------------------------------------------------------------------------------*/
+                            string empre = Session["ID_EMPRESA"].ToString();
+                            string res = OBJVENTA.NREGISTRARMOV2(OBJMOVS, "2", empre);
+
+                            if (res == "ok")
+                            {
+                                Response.Write("<script>alert('Datos Registrados correctamente..')</script>");
+                                //ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+
+                                llenar_datos("1", empre, Session["ID_CUENTA_MOV"].ToString());
+                                LIMPIAR();
+                                txtFECHA.Text = DateTime.Now.ToString("yyyy-MM-dd");
+                                llenar_labels_cabecera();
+                                inicio();
+                                btnRegistrar.Enabled = false;
+                                cboFVBV.SelectedIndex = 0;
+                                txtserie.Text = string.Empty;
+                                txtnumero.Text = string.Empty;
+                                txtnumero2.Text = string.Empty;
+                                des_grilla();
+                                DataTable dt = (DataTable)Session["GRILLA_DOCS"];
+                                dt.Clear();
+                                dgvDATOS.DataSource = "";
+                                dgvDATOS.DataBind();
+                            }
+                            else
+                            {
+                                Response.Write("<script>alert('Error datos no registrados,vuelva a intentar')</script>");
+                                //ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal1();", true);
+                            }
+                        }
+                        else
+                        {
+                            Response.Write("<script>alert('El número de operación ya existe para esta Cuenta')</script>");
+                            //ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal1();", true);
+                        }
                     }
-
-                    
-                if (txtObservacione.Text == "" || txtObservacione.Text == "&nbsp;")
-                {
-                    OBJMOVS.observacion = cadena;
+                    else { Response.Write("<script>alert('Escoja un cliente válido')</script>"); }
                 }
-                else
-                {   
-                        string obf = cadena +"#"+ txtObservacione.Text.ToUpper();
-                        OBJMOVS.observacion = obf.ToUpperInvariant();
-                }
-                /*------------------------------------------------------------------------------------*/
-                string empre = Session["ID_EMPRESA"].ToString();
-                string res = OBJVENTA.NREGISTRARMOV(OBJMOVS, "2", empre);
-
-                if (res == "ok")
-                {
-                    Response.Write("<script>alert('Datos Registrados correctamente..')</script>");
-                    //ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
-
-                    llenar_datos("1", empre, Session["ID_CUENTA_MOV"].ToString());
-                    LIMPIAR();
-                    txtFECHA.Text = DateTime.Now.ToString("yyyy-MM-dd");
-                    llenar_labels_cabecera();
-                    inicio();
-                    btnRegistrar.Enabled = false;
-                   
-                        DataTable dt = (DataTable)Session["GRILLA_DOCS"];
-                        dt.Clear();
-                        dgvDATOS.DataSource = "";
-                        dgvDATOS.DataBind();
-                    }
-                else
-                {
-                    Response.Write("<script>alert('Error datos no registrados,vuelva a intentar')</script>");
-                    //ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal1();", true);
-                }
-            }
-            else
-            {
-                Response.Write("<script>alert('El número de operación ya existe para esta Cuenta')</script>");
-                //ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal1();", true);
-            }
+                catch { Response.Write("<script>alert('Escoja un cliente válido')</script>"); }
         }
         else if(Session["CodigoSede"].ToString() != "")
         {
@@ -393,16 +465,78 @@ namespace DIONYS_ERP.PLANTILLAS
                 OBJMOVS.descripcion = DESC.ToUpperInvariant();
                 
             OBJMOVS.id_cliente = TXTid_cliente.Text;
-                string obn = txtObservacione.Text.ToUpper();
-                OBJMOVS.observacion = obn.ToUpperInvariant();
-            string empre = Session["ID_EMPRESA"].ToString();
+
+
+                /*CAMBIOS EN OPERACION 19-05-2017 -- AGREGAMOS GRILLA CON AMARRE DE DOCUMENTOS DE VENTA*/
+                DataTable dbt = (DataTable)Session["GRILLA_DOCS"];
+                string cadena = "";
+                for (int y = 0; y < dbt.Rows.Count; y++)
+                {
+                    cadena = cadena + dbt.Rows[y][0].ToString() + "/" + dbt.Rows[y][1].ToString() + "/" + dbt.Rows[y][2].ToString() + "//";
+                }
+
+
+                if (txtObservacione.Text == "" || txtObservacione.Text == "&nbsp;")
+                {
+                    OBJMOVS.observacion = cadena;
+                }
+                else
+                {
+                    string michi = "#";
+                    bool ver = txtObservacione.Text.ToUpper().Contains(michi);
+                    int indx = -1;
+                    if (ver) { indx = txtObservacione.Text.ToUpper().IndexOf(michi); }
+
+                    if (indx >= 0)
+                    {
+                        string obf = cadena + txtObservacione.Text.ToUpper();
+                        OBJMOVS.observacion = obf.ToUpperInvariant();
+                    }
+                    else
+                    {
+                        string obf = cadena + "#" + txtObservacione.Text.ToUpper();
+                        OBJMOVS.observacion = obf.ToUpperInvariant();
+                    }
+                    
+                }
+                /*------------------------------------------------------------------------------------*/
+
+
+                string empre = Session["ID_EMPRESA"].ToString();
             string res = OBJVENTA.NACTUALIZARMOV(OBJMOVS, "4", empre);
 
             if (res == "ok")
             {
                     Response.Write("<script>alert('Datos Actualizados correctamente..')</script>");
-                    llenar_datos("1", empre, Session["ID_CUENTA_MOV"].ToString());
-                    
+                    if (Session["ESTADO_CONSULTA"].ToString() == "")
+                    {
+                        //recalcular_saldos_totales(Session["ID_CUENTA_MOV"].ToString());
+                        llenar_datos("1", Session["ID_EMPRESA"].ToString(), Session["ID_CUENTA_MOV"].ToString());
+                    }
+                    else if (Session["ESTADO_CONSULTA"].ToString() == "1")
+                    {
+                        string fechini = Convert.ToDateTime(txtFechaIni.Text).ToString("dd-MM-yyyy");
+                        string fechfin = Convert.ToDateTime(txtFechaFin.Text).ToString("dd-MM-yyyy");
+                        string ID_CLIENTE2 = "";
+                        if (txtConsultaCli.Text == "") { ID_CLIENTE2 = ""; } else { ID_CLIENTE2 = txtConsultaCliValor.Text; }
+                        decimal _minimpo = Convert.ToDecimal(txtMINIMPO.Text);
+                        decimal _maximpo = Convert.ToDecimal(txtMAXIMPO.Text);
+                        string chkitf1 = "";
+                        if (chkITF.Checked == true)
+                        {
+                            chkitf1 = "ITF";
+                        }
+                        else if (chkITF.Checked == false)
+                        {
+                            chkitf1 = "";
+                        }
+                        filtrar_grilla(Session["ID_EMPRESA"].ToString(), Session["ID_CUENTA_MOV"].ToString(), fechini, fechfin, txtConsultaOpe.Text.Trim(), cboFiltroConc.SelectedValue.ToString(), ID_CLIENTE2.ToString(),"", _minimpo, _maximpo,chkitf1);
+                    }
+
+
+
+                    //llenar_datos("1", empre, Session["ID_CUENTA_MOV"].ToString());
+                    btnRegistrar.Enabled = false;
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
 
                 
@@ -415,11 +549,21 @@ namespace DIONYS_ERP.PLANTILLAS
                 btnCancelar.Enabled = false;
                 btnNuevo.Enabled = true;
                 btnRegistrar.Enabled = false;
-                
-                TXTid_cliente.Text = string.Empty;
+                    des_grilla();
+                    cboFVBV.SelectedIndex = 0;
+                    txtserie.Text = string.Empty;
+                    txtnumero.Text = string.Empty;
+                    txtnumero2.Text = string.Empty;
+                    chkMULTIPLE.Checked = false;
+
+                    TXTid_cliente.Text = string.Empty;
                 txtFECHA.Text = DateTime.Now.ToString("yyyy-MM-dd");
                     Session["CodigoSede"] = "";
                     inicio();
+                    DataTable dt = (DataTable)Session["GRILLA_DOCS"];
+                    dt.Clear();
+                    dgvDATOS.DataSource = "";
+                    dgvDATOS.DataBind();
                     /*---------------------------------------------------------------------------*/
                 }
             else
@@ -440,6 +584,7 @@ namespace DIONYS_ERP.PLANTILLAS
             btnCancelar.Enabled = true;
             txtFECHA.Text = DateTime.Now.ToString("yyyy-MM-dd");
             txtFECHA.Focus();
+            hab_grilla();
 
         }
 
@@ -491,6 +636,10 @@ namespace DIONYS_ERP.PLANTILLAS
                 cboFiltroConc.SelectedIndex = 0;
                 txtConsultaOpe.Text = "";
                 txtConsultaCli.Text = "";
+                des_grilla();
+                txtMINIMPO.Text = "0.00";
+                txtMAXIMPO.Text = "0.00";
+                btnConsulta.Focus();
             }
             else
             {
@@ -500,6 +649,8 @@ namespace DIONYS_ERP.PLANTILLAS
              Session["ESTADO_CONSULTA"] = "";
             DataTable dtr = (DataTable)Session["GRILLA_DOCS"];
             dtr.Clear();
+            txtFechaIni.Text = DateTime.Now.Date.AddMonths(-2).Date.ToString("yyyy-MM-dd");
+            txtFechaFin.Text = DateTime.Now.ToString("yyyy-MM-dd");
             dgvDATOS.DataSource = "";
             dgvDATOS.DataBind();
         }
@@ -635,10 +786,10 @@ namespace DIONYS_ERP.PLANTILLAS
         }
 
 
-        public void filtrar_grilla(string id_empresa, string id_cta, string fechaini, string fechafin, string nrope, string concepto, string idcli)
+        public void filtrar_grilla(string id_empresa, string id_cta, string fechaini, string fechafin, string nrope, string concepto, string idcli,string obs,decimal min, decimal max,string chkitf1)
         {
-            System.Data.DataTable ds = OBJVENTA.NFILTRARGRILLAMOVIMIENTOS(id_empresa, id_cta, fechaini, fechafin, nrope, concepto, idcli);
-            dgvMOVIMIENTOS.DataSource = OBJVENTA.NFILTRARGRILLAMOVIMIENTOS(id_empresa, id_cta,fechaini, fechafin, nrope, concepto, idcli);
+            System.Data.DataTable ds = OBJVENTA.NFILTRARGRILLAMOVIMIENTOS(id_empresa, id_cta, fechaini, fechafin, nrope, concepto, idcli,obs,min,max, chkitf1);
+            dgvMOVIMIENTOS.DataSource = OBJVENTA.NFILTRARGRILLAMOVIMIENTOS(id_empresa, id_cta,fechaini, fechafin, nrope, concepto, idcli,obs, min, max, chkitf1);
             dgvMOVIMIENTOS.DataBind();
 
             DataTable tcheque = OBJVENTA.NSELECTCHEQUES();
@@ -646,10 +797,20 @@ namespace DIONYS_ERP.PLANTILLAS
             for (int i = 0; i < dgvMOVIMIENTOS.Rows.Count; i++)
             {
                 dgvMOVIMIENTOS.Rows[i].Cells[1].Text = Convert.ToDateTime(dgvMOVIMIENTOS.Rows[i].Cells[1].Text).ToShortDateString();
-
-                if (dgvMOVIMIENTOS.Rows[i].Cells[10].Text == "EGRESO")
+                string ide = Session["ID_EMPRESA"].ToString();
+                if (Session["ID_EMPRESA"].ToString() != "005")
                 {
                     dgvMOVIMIENTOS.Rows[i].Cells[16].Enabled = false;
+
+                }
+                else if (Session["ID_EMPRESA"].ToString() == "005")
+                {
+                    if (dgvMOVIMIENTOS.Rows[i].Cells[10].Text == "EGRESO")
+                    {
+                        dgvMOVIMIENTOS.Rows[i].Cells[16].Enabled = false;
+
+                    }
+                    else { dgvMOVIMIENTOS.Rows[i].Cells[16].Enabled = true; }
 
                 }
 
@@ -680,38 +841,43 @@ namespace DIONYS_ERP.PLANTILLAS
                     }
                 }
 
-                string movCH = ds.Rows[i]["ID_MOVIMIENTOS"].ToString();
+                string movCH = dgvMOVIMIENTOS.Rows[i].Cells[0].Text;
+
+
                 for (int h = 0; h < tcheque.Rows.Count; h++)
                 {
-                    if (movCH == tcheque.Rows[h]["ID_MOVIMIENTOS"].ToString())
+                    string id_t_ch = tcheque.Rows[h]["ID_MOVIMIENTOS"].ToString();
+                    if (movCH == tcheque.Rows[h]["ID_MOVIMIENTOS"].ToString().Trim())
                     {
                         string esta = Convert.ToDateTime(tcheque.Rows[h]["ESTADO"].ToString()).ToShortDateString();
 
-                        if (esta == "31/12/1900")
+                        if (dgvMOVIMIENTOS.Rows[i].Cells[3].Text == "CHEQUE")
                         {
-                            string a = dgvMOVIMIENTOS.Rows[i].Cells[3].Text;
-                            if (a == "CHEQUE")
+
+                            if (esta == "31/12/1900")
                             {
+
                                 dgvMOVIMIENTOS.Rows[i].Cells[3].BackColor = Color.Orange;
-                            }
 
-                        }
-                        else if (esta != "01/01/1900" && esta != "01/01/3000" && esta != "31/12/1900")
-                        {
-                            if (dgvMOVIMIENTOS.Rows[i].Cells[3].Text == "CHEQUE")
+
+                            }
+                            else if (esta != "01/01/1900" && esta != "01/01/3000" && esta != "31/12/1900")
                             {
-                                dgvMOVIMIENTOS.Rows[i].Cells[3].BackColor = Color.LimeGreen;
-                            }
 
+                                dgvMOVIMIENTOS.Rows[i].Cells[3].BackColor = Color.LimeGreen;
+
+
+                            }
                         }
+
                     }
                 }
-                dgvMOVIMIENTOS.Rows[i].Cells[3].HorizontalAlign = HorizontalAlign.Center;
             }
             DataTable dtr = (DataTable)Session["GRILLA_DOCS"];
             dtr.Clear();
             dgvDATOS.DataSource = "";
             dgvDATOS.DataBind();
+            des_grilla();
 
         }
 
@@ -793,6 +959,7 @@ namespace DIONYS_ERP.PLANTILLAS
             dtr.Clear();
             dgvDATOS.DataSource = "";
             dgvDATOS.DataBind();
+            des_grilla();
         }
 
         protected void btnConsulta_Click(object sender, EventArgs e)
@@ -801,8 +968,21 @@ namespace DIONYS_ERP.PLANTILLAS
             string fechini = Convert.ToDateTime(txtFechaIni.Text).ToString("dd-MM-yyyy");
             string fechfin = Convert.ToDateTime(txtFechaFin.Text).ToString("dd-MM-yyyy");
             string ID_CLIENTE2 = "";
+            string obs = txtFiltroOBS.Text;
+            decimal _minimpo = Convert.ToDecimal(txtMINIMPO.Text);
+            decimal _maximpo = Convert.ToDecimal(txtMAXIMPO.Text);
             if (txtConsultaCli.Text == "") { ID_CLIENTE2 = ""; } else { ID_CLIENTE2 = txtConsultaCliValor.Text; }
-            filtrar_grilla(Session["ID_EMPRESA"].ToString(), Session["ID_CUENTA_MOV"].ToString(), fechini, fechfin, txtConsultaOpe.Text.Trim(), cboFiltroConc.SelectedValue.ToString(), ID_CLIENTE2.ToString());
+            string chkitf1 = "";
+            if (chkITF.Checked == true)
+            {
+                chkitf1 = "ITF";
+            }else if (chkITF.Checked == false)
+            {
+                chkitf1 = "";
+            }
+            filtrar_grilla(Session["ID_EMPRESA"].ToString(), Session["ID_CUENTA_MOV"].ToString(), fechini, fechfin, txtConsultaOpe.Text.Trim(), cboFiltroConc.SelectedValue.ToString(), ID_CLIENTE2.ToString(), obs, _minimpo, _maximpo, chkitf1);
+            des_grilla();
+            //dgvMOVIMIENTOS.PageIndex = 1;
         }
 
         protected void dgvMOVIMIENTOS_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -811,12 +991,12 @@ namespace DIONYS_ERP.PLANTILLAS
             {
                 GridViewRow row = (GridViewRow)(((LinkButton)e.CommandSource).NamingContainer);
                 string VERIFICADOR = "";
-
+                txtObservacione.Text = "";
                 DataTable dtr = (DataTable)Session["GRILLA_DOCS"];
                 dtr.Clear();
                 dgvDATOS.DataSource = "";
                 dgvDATOS.DataBind();
-
+                hab_grilla();
                 DataTable dt = OBJVENTA.CONSULTA_LISTA_CONCEPTOS();
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {
@@ -901,7 +1081,10 @@ namespace DIONYS_ERP.PLANTILLAS
                     bool obsbool = obsnom.Contains(obsq);
                     int indexobs = 0;
                     if (obsbool) { indexobs = obsnom.IndexOf(obsq); }
+                   
 
+                    if (row.Cells[12].Text == "&#160;") { txtObservacione.Text = row.Cells[12].Text.Replace("&#160;", ""); }
+                    /*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
                     string michi = "#";
                     bool ver = obsnom.Contains(michi);
                     int indx = 0;
@@ -909,43 +1092,114 @@ namespace DIONYS_ERP.PLANTILLAS
 
                     if (indexobs > 0)
                     { txtObservacione.Text = obsnom.Substring(0, indexobs); }
-                    else if (indx > 0) { txtObservacione.Text = HttpUtility.HtmlDecode(obsnom.Substring(indx+1)); cadena = obsnom.Substring(0, indx); }
-                    else if (indx == 0) { txtObservacione.Text = "";  cadena = obsnom; }
-                    /*-----------------------------LLENAMOS LA GRILLA OBSERVACION ----------------------------*/
-                    
-                   
-                    int ocurrencias = 0;
-                    ocurrencias = cadena.Split(new String[] { "//" }, StringSplitOptions.None).Length - 1;
-                    int final = 0;
-                    int inicio = 0;
-                    for (int o = 0; o < ocurrencias; o++)
+                    if (indx > 0) { txtObservacione.Text = HttpUtility.HtmlDecode(obsnom.Substring(indx+1)); cadena = obsnom.Substring(0, indx); }
+                    else if (indx == 0)
                     {
-                        final = 14;
-                        string CADE_LARGA = obsnom.Substring(inicio, final);
-                        inicio = inicio + 14;
-                        /*capturamos data para llenar en las filas de la tabla de session*/
+                        try
+                        {
+                            if (obsnom.Substring(0, 1) == "#")
+                            {
+                                cadena = obsnom.Substring(1);
+                            }
+                            else
+                            {
+                                cadena = obsnom.Substring(0);
+
+                            }
+                        }
+                        catch { }
                         
-                        string doc = CADE_LARGA.Substring(0, 2);
-                        string serie = CADE_LARGA.Substring(3, 3);
-                        string numero = CADE_LARGA.Substring(7, 5);
-
-                        /*llenamos la tabla de session*/
-                        DataTable dts = (DataTable)Session["GRILLA_DOCS"];
-
-                        DataRow raw = dts.NewRow();
-                        raw["DOC"] = doc;
-                        raw["SERIE"] = serie;
-                        raw["NUMERO"] = numero;
-
-                        dts.Rows.Add(raw);
-                        dts.AcceptChanges();
-                        LLENAR_GRILLA();
-
+                        
                     }
 
-                    /*llenamos la grilla con la tabla de session*/
-                    
 
+                    int ocurrenciasguion = 0;
+                    ocurrenciasguion = cadena.Split(new String[] { "-" }, StringSplitOptions.None).Length - 1;
+
+                    int ocurrencias = 0;
+                    ocurrencias = cadena.Split(new String[] { "//" }, StringSplitOptions.None).Length - 1;
+                    int final = 14;
+                    int inicio = 0;
+                    if (ocurrencias == 0)
+                    {
+
+                        try
+                        {
+                            if (obsnom.Substring(0, 1) == "#")
+                            {
+                                txtObservacione.Text = obsnom.Substring(1);
+                            }
+                            else
+                            {
+                                txtObservacione.Text = obsnom.Substring(0);
+                            }
+                        }
+                        catch { }
+
+                        
+                    }
+                    //validar_largo de cadenas
+                    int largo = obsnom.Length;
+
+                    for (int o = 0; o < ocurrencias; o++)
+                    {
+                            final = 14;
+                            string parte = obsnom.Substring(inicio, final);
+                            int cuentaguion = 0;
+                            cuentaguion = parte.Split(new String[] { "-" }, StringSplitOptions.None).Length - 1;
+                            
+                            if (cuentaguion > 0)
+                            {
+                                final = 20;
+                                string CADE_LARGA = obsnom.Substring(inicio, final);
+                                inicio = inicio + final;
+                                
+                                string doc = CADE_LARGA.Substring(0, 2);
+                                string serie = CADE_LARGA.Substring(3, 3);
+                                string numero = "";
+                                numero = CADE_LARGA.Substring(7, 11);
+                                
+                               
+                                /*llenamos la tabla de session*/
+                                DataTable dts = (DataTable)Session["GRILLA_DOCS"];
+
+                                DataRow raw = dts.NewRow();
+                                raw["DOC"] = doc;
+                                raw["SERIE"] = serie;
+                                raw["NUMERO"] = numero;
+
+                                dts.Rows.Add(raw);
+                                dts.AcceptChanges();
+                                LLENAR_GRILLA();
+                            }
+                            else
+                            {
+                                final = 14;
+                                string CADE_LARGA = obsnom.Substring(inicio, final);
+                                inicio = inicio + final;
+                                
+                                string doc = CADE_LARGA.Substring(0, 2);
+                                string serie = CADE_LARGA.Substring(3, 3);
+                                string numero = "";
+                                numero = CADE_LARGA.Substring(7, 5);
+                                
+
+
+                                /*llenamos la tabla de session*/
+                                DataTable dts = (DataTable)Session["GRILLA_DOCS"];
+
+                                DataRow raw = dts.NewRow();
+                                raw["DOC"] = doc;
+                                raw["SERIE"] = serie;
+                                raw["NUMERO"] = numero;
+
+                                dts.Rows.Add(raw);
+                                dts.AcceptChanges();
+                                LLENAR_GRILLA();
+                        }
+                    }
+                    
+        
 
 
                     /*----------------------------------------------------------------------------------------*/
@@ -959,8 +1213,8 @@ namespace DIONYS_ERP.PLANTILLAS
                 if (row.Cells[4].Text == "&nbsp;") { txtOPE.Text = row.Cells[4].Text.Replace("&nbsp;", ""); }
                 if (row.Cells[2].Text == "&nbsp;") { txtDESC.Text = row.Cells[2].Text.Replace("&nbsp;", ""); }
                 if (row.Cells[7].Text == "&nbsp;") { txtCLIENTE.Text = row.Cells[7].Text.Replace("&nbsp;", ""); }
-                if (row.Cells[12].Text == "&nbsp;") { txtObservacione.Text = row.Cells[12].Text.Replace("&nbsp;", ""); }
-                double importeact = Convert.ToDouble(row.Cells[5].Text);
+                    if (row.Cells[12].Text == "&nbsp;") { txtObservacione.Text = row.Cells[12].Text.Replace("&nbsp;", ""); }
+                    double importeact = Convert.ToDouble(row.Cells[5].Text);
 
                 if (importeact > 0)
                     {
@@ -978,7 +1232,6 @@ namespace DIONYS_ERP.PLANTILLAS
                 if (row.Cells[4].Text == "&#160;") { txtOPE.Text = row.Cells[4].Text.Replace("&#160;", ""); }
                 if (row.Cells[2].Text == "&#160;") { txtDESC.Text = row.Cells[2].Text.Replace("&#160;", ""); }
                 if (row.Cells[7].Text == "&#160;") { txtCLIENTE.Text = row.Cells[7].Text.Replace("&#160;", ""); }
-                if (row.Cells[12].Text == "&#160;") { txtObservacione.Text = row.Cells[12].Text.Replace("&#160;", ""); }
 
 
                 btnRegistrar.Enabled = true;
@@ -1016,6 +1269,7 @@ namespace DIONYS_ERP.PLANTILLAS
                     //ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
                     Response.Write("<script>alert('EL REGISTRO FUE ELIMINADO CORRECTAMENTE')</script>");
 
+                    //recalcular_saldos_totales(Session["ID_CUENTA_MOV"].ToString());//METODO PARA RECALCULAR LOS SALDOS
                     llenar_datos("1", Session["ID_EMPRESA"].ToString(), Session["ID_CUENTA_MOV"].ToString());
                     LIMPIAR();
                     
@@ -1097,56 +1351,7 @@ namespace DIONYS_ERP.PLANTILLAS
 
         protected void btnActualizar_Click(object sender, EventArgs e)
         {
-            //OBJMOVS.id_mov = Session["CodigoSede"].ToString();
-            //OBJMOVS.id_concepto_banc = cboCONCEPTO.SelectedValue;
-            //OBJMOVS.fecha = Convert.ToDateTime(txtFECHA.Text).ToString("dd-MM-yyyy");
-            //OBJMOVS.lugar = txtLugar.Text;
-            //OBJMOVS.tipo_mov = cboTIPOMOV.SelectedValue;
-            //OBJMOVS.id_cuentasbancarias = TXTprueba.Text;
-            //OBJMOVS.importe = Convert.ToDecimal(txtIMPORTE.Text);
-            //decimal nvoimporte = Convert.ToDecimal(txtIMPORTE.Text);
-            //decimal antimporte = Convert.ToDecimal(Session["IMPORTE_MOV"].ToString());
-            //decimal saldod = Convert.ToDecimal((LBLSALDOC.Text.Substring(3)));
-            //decimal saldoc = Convert.ToDecimal((LBLSALDOD.Text.Substring(3)));
-            //saldod = saldod + nvoimporte - antimporte;
-            //saldoc = saldoc + nvoimporte - antimporte;
-            //OBJMOVS.saldoc = Convert.ToDecimal(saldoc);
-            //OBJMOVS.saldod = Convert.ToDecimal(saldoc);
-            //OBJMOVS.saldo = Convert.ToDecimal(saldoc);
-
-            ///*-----------------------------------------------------*/
-            //OBJMOVS.operacion = txtOPE.Text;
-            //OBJMOVS.descripcion = txtDESC.Text;
-            //OBJMOVS.id_cliente = TXTid_cliente.Text;
-            //OBJMOVS.observacion = txtObservacione.Text;
-            //string empre = Session["ID_EMPRESA"].ToString();
-            //string res = OBJVENTA.NACTUALIZARMOV(OBJMOVS, "4", empre);
-
-            //if (res == "ok")
-            //{
-            //    Response.Write("<script>alert('Datos Actualizados correctamente..')</script>");
-            //    //ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
-
-            //    llenar_datos("1", empre, Session["ID_CUENTA_MOV"].ToString());
-            //    LIMPIAR();
-
-            //    /*---------------------------------------------------------------------------*/
-            //    llenar_labels_cabecera();
-            //    LIMPIAR();
-            //    btnActualizar.Enabled = false;
-            //    btnCancelar.Enabled = false;
-            //    btnNuevo.Enabled = true;
-            //    btnRegistrar.Enabled = false;
-                
-            //    TXTid_cliente.Text = string.Empty;
-            //    txtFECHA.Text = DateTime.Now.ToString("yyyy-MM-dd");
-            //    /*---------------------------------------------------------------------------*/
-            //}
-            //else
-            //{
-            //    Response.Write("<script>alert('Error datos no Actualizados')</script>");
-            //    //ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal1();", true);
-            //}
+            
         }
 
         protected void btnREPORTE_Click(object sender, EventArgs e)
@@ -1175,12 +1380,14 @@ namespace DIONYS_ERP.PLANTILLAS
         protected void btnSALDOS_Click(object sender, EventArgs e)
         {
             string codcta = Session["ID_CUENTA_MOV"].ToString();
-            
+
             string res = OBJVENTA.NRECALCULARSALDOS(codcta);
+
+            //recalcular_saldos_totales(Session["ID_CUENTA_MOV"].ToString());
 
             if (res == "ok")
             {
-                Response.Write("<script>alert('Saldos Actualizados!!')</script>");
+                Response.Write("<script>alert('SALDOS ACTUALIZADOS!!')</script>");
                 llenar_datos("1", Session["ID_EMPRESA"].ToString(), Session["ID_CUENTA_MOV"].ToString());
             }
         }
@@ -1190,29 +1397,36 @@ namespace DIONYS_ERP.PLANTILLAS
             string ID_CUENTA_MOV = TXTprueba.Text;
             string FECHA_INI = Convert.ToDateTime(txtFechaIni.Text).ToString("dd-MM-yyyy");
             string FECHA_FIN = Convert.ToDateTime(txtFechaFin.Text).ToString("dd-MM-yyyy");
-            string OPE = txtConsultaOpe.Text;
-            string CONBANC = cboFiltroConc.SelectedValue;
+            string OPE = "";
+            if (txtConsultaOpe.Text == "") { OPE = ""; } else { OPE = txtConsultaOpe.Text.Trim(); };
+            string CONBANC = "";
+            if (cboFiltroConc.SelectedValue == "0") { CONBANC = ""; } else { CONBANC = cboFiltroConc.SelectedValue; };
             string ID_CLIENTE = "";
-            if (txtConsultaCli.Text == "") { ID_CLIENTE = ""; } else { ID_CLIENTE = txtConsultaCliValor.Text; }
-            object[] args = new object[] { ID_CUENTA_MOV, FECHA_INI, FECHA_FIN, OPE, CONBANC, ID_CLIENTE };
-            String url = String.Format("REPORTES/FROM_REPORTE_MOVIMIENTOS.aspx?ID_CUENTA_MOV={0}&FECHA_INI={1}&FECHA_FIN={2}&OPE={3}&CONBANC={4}&ID_CLIENTE={5}", args);
+            if (txtConsultaCliValor.Text != "") { ID_CLIENTE = txtConsultaCliValor.Text; } else { ID_CLIENTE = ""; }
+            string OBS = "";
+            if (txtFiltroOBS.Text != "") { OBS = txtFiltroOBS.Text; } else { OBS = ""; }
+
+            object[] args = new object[] { ID_CUENTA_MOV, FECHA_INI, FECHA_FIN, OPE, CONBANC, ID_CLIENTE,OBS };
+            String url = String.Format("REPORTES/FROM_REPORTE_MOVIMIENTOS.aspx?ID_CUENTA_MOV={0}&FECHA_INI={1}&FECHA_FIN={2}&OPE={3}&CONBANC={4}&ID_CLIENTE={5}&OBS={6}", args);
             // Response.Redirect(url);
             string s = "window.open('" + url + "', 'popup_window', 'width=700,height=800,left=10%,top=10%,resizable=yes');"; //con esto muestro la venta en una nueva ventana 
             ClientScript.RegisterStartupScript(this.GetType(), "script", s, true);
+            txtConsultaCliValor.Text = "";
         }
 
         protected void reporteEXCEL_Click(object sender, ImageClickEventArgs e)
         {
-            string fechini = Convert.ToDateTime(txtFechaIni.Text).ToString("dd-MM-yyyy");
-            string fechfin = Convert.ToDateTime(txtFechaFin.Text).ToString("dd-MM-yyyy");
-            string ID_CLIENTE2 = "";
-            if (txtConsultaCli.Text == "") { ID_CLIENTE2 = ""; } else { ID_CLIENTE2 = txtConsultaCliValor.Text; }
-            DataTable tab = (DataTable)OBJVENTA.NFILTRARGRILLAMOVIMIENTOS(Session["ID_EMPRESA"].ToString(), Session["ID_CUENTA_MOV"].ToString(), fechini, fechfin, txtConsultaOpe.Text, cboFiltroConc.SelectedValue.ToString(), ID_CLIENTE2.ToString());
-            System.Web.UI.WebControls.GridView dg = new System.Web.UI.WebControls.GridView();
-            dg.DataSource = tab;
-            dg.DataBind();
+            //string fechini = Convert.ToDateTime(txtFechaIni.Text).ToString("dd-MM-yyyy");
+            //string fechfin = Convert.ToDateTime(txtFechaFin.Text).ToString("dd-MM-yyyy");
+            //string ID_CLIENTE2 = "";
+            //string obs = txtFiltroOBS.Text;
+            //if (txtConsultaCli.Text == "") { ID_CLIENTE2 = ""; } else { ID_CLIENTE2 = txtConsultaCliValor.Text; }
+            //DataTable tab = (DataTable)OBJVENTA.NFILTRARGRILLAMOVIMIENTOS(Session["ID_EMPRESA"].ToString(), Session["ID_CUENTA_MOV"].ToString(), fechini, fechfin, txtConsultaOpe.Text, cboFiltroConc.SelectedValue.ToString(), ID_CLIENTE2.ToString(), obs);
+            //System.Web.UI.WebControls.GridView dg = new System.Web.UI.WebControls.GridView();
+            //dg.DataSource = tab;
+            //dg.DataBind();
 
-            EXPORTAR_EXCEL(dg);
+            //EXPORTAR_EXCEL(dg);
         }
 
         protected void dgvMOVIMIENTOS_RowDataBound(object sender, GridViewRowEventArgs e)
@@ -1221,10 +1435,9 @@ namespace DIONYS_ERP.PLANTILLAS
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
                 e.Row.Attributes.Add("onclick", string.Format("ChangeRowColor('{0}','{1}');", e.Row.ClientID, e.Row.RowIndex));
-               
+                e.Row.Cells[12].Attributes.Add("style", "word-break:break-all;word-wrap:break-word;width:280px");
             }
-
-           
+          
 
         }
 
@@ -1435,8 +1648,20 @@ namespace DIONYS_ERP.PLANTILLAS
                 string fechini = Convert.ToDateTime(txtFechaIni.Text).ToString("dd-MM-yyyy");
                 string fechfin = Convert.ToDateTime(txtFechaFin.Text).ToString("dd-MM-yyyy");
                 string ID_CLIENTE2 = "";
+                string obs = txtFiltroOBS.Text;
+                decimal _minimpo = Convert.ToDecimal(txtMINIMPO.Text);
+                decimal _maximpo = Convert.ToDecimal(txtMAXIMPO.Text);
                 if (txtConsultaCli.Text == "") { ID_CLIENTE2 = ""; } else { ID_CLIENTE2 = txtConsultaCliValor.Text; }
-                filtrar_grilla(Session["ID_EMPRESA"].ToString(), Session["ID_CUENTA_MOV"].ToString(), fechini, fechfin, txtConsultaOpe.Text.Trim(), cboFiltroConc.SelectedValue.ToString(), ID_CLIENTE2.ToString());
+                string chkitf1 = "";
+                if (chkITF.Checked == true)
+                {
+                    chkitf1 = "ITF";
+                }
+                else if (chkITF.Checked == false)
+                {
+                    chkitf1 = "";
+                }
+                filtrar_grilla(Session["ID_EMPRESA"].ToString(), Session["ID_CUENTA_MOV"].ToString(), fechini, fechfin, txtConsultaOpe.Text.Trim(), cboFiltroConc.SelectedValue.ToString(), ID_CLIENTE2.ToString(), obs, _minimpo, _maximpo,chkitf1);
             }
 
             
@@ -1459,21 +1684,53 @@ namespace DIONYS_ERP.PLANTILLAS
 
             try
             {
-                DataRow row = dt.NewRow();
-                row["DOC"] = cboFVBV.SelectedValue;
-                row["SERIE"] = txtserie.Text; 
-                row["NUMERO"] = txtnumero.Text;
+                if (cboFVBV.SelectedIndex != 0 && txtserie.Text != "" && txtnumero.Text != "")
+                {
+                    if (chkMULTIPLE.Checked == false)
+                    {
+                        DataRow row = dt.NewRow();
+                        row["DOC"] = cboFVBV.SelectedValue;
+                        row["SERIE"] = txtserie.Text;
+                        row["NUMERO"] = txtnumero.Text;
 
-                dt.Rows.Add(row);
-                dt.AcceptChanges();
+                        dt.Rows.Add(row);
+                        dt.AcceptChanges();
 
-                LLENAR_GRILLA();
+                        LLENAR_GRILLA();
 
-                //aqui limpio la data de ingreso de precio y cantidad de cada bien
-                txtserie.Text = string.Empty; ;
-                txtnumero.Text = string.Empty;
-                cboFVBV.SelectedIndex = 0;
-                cboFVBV.Focus();
+                        //aqui limpio la data de ingreso de precio y cantidad de cada bien
+                        txtserie.Text = string.Empty;
+                        txtnumero.Text = string.Empty;
+                        txtnumero2.Text = string.Empty;
+                        cboFVBV.SelectedIndex = 0;
+                        cboFVBV.Focus();
+                    }
+                    else if (chkMULTIPLE.Checked == true)
+                    {
+                        if (txtnumero2.Text != "")
+                        {
+                            DataRow row = dt.NewRow();
+                            row["DOC"] = cboFVBV.SelectedValue;
+                            row["SERIE"] = txtserie.Text;
+                            row["NUMERO"] = txtnumero.Text + "-" + txtnumero2.Text;
+
+                            dt.Rows.Add(row);
+                            dt.AcceptChanges();
+
+                            LLENAR_GRILLA();
+
+                            //aqui limpio la data de ingreso de precio y cantidad de cada bien
+                            txtserie.Text = string.Empty;
+                            txtnumero.Text = string.Empty;
+                            txtnumero2.Text = string.Empty;
+                            cboFVBV.SelectedIndex = 0;
+                            cboFVBV.Focus();
+                        }
+                    }
+
+                }
+                else { Response.Write("<script>window.alert('DEBE LLENAR LOS SIGUIENTES DATOS: FT ó BV,SERIE Y NUMERO');</script>"); }
+
             }
             catch (Exception)
             {
@@ -1488,6 +1745,116 @@ namespace DIONYS_ERP.PLANTILLAS
             DataTable dt = (DataTable)Session["GRILLA_DOCS"];
             dgvDATOS.DataSource = dt;
             dgvDATOS.DataBind();
+        }
+
+        protected void dgvDATOS_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            if (e.CommandName == "ELIM")
+            {
+                GridViewRow raw = (GridViewRow)(((LinkButton)e.CommandSource).NamingContainer);
+                
+                DataTable dt = (DataTable)Session["GRILLA_DOCS"];
+
+                try
+                {
+                    int index = raw.RowIndex;
+                    dt.Rows[index].Delete();
+                    dt.AcceptChanges();
+
+                    LLENAR_GRILLA();
+
+                    //aqui limpio la data de ingreso de precio y cantidad de cada bien
+                    txtserie.Text = string.Empty; ;
+                    txtnumero.Text = string.Empty;
+                    cboFVBV.SelectedIndex = 0;
+                    cboFVBV.Focus();
+                }
+                catch (Exception) { }
+                
+
+            }
+        }
+
+        protected void chkMULTIPLE_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkMULTIPLE.Checked == true)
+            {
+                
+                txtnumero.MaxLength = 5;
+                txtnumero2.Visible = true;
+                txtserie.Focus();
+
+            }
+            else if (chkMULTIPLE.Checked == false)
+            {
+                txtnumero.MaxLength = 5;
+                txtnumero2.Visible = false;
+               // txtnumero.Width = 55;
+                if (txtnumero.Text != "") { txtnumero.Text = txtnumero.Text; } else { txtnumero.Text = ""; }
+                txtserie.Focus();
+
+            }
+
+
+        }
+
+        protected void cboFVBV_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cboFVBV.SelectedValue == "BV")
+            {
+                chkMULTIPLE.Enabled = true;
+                cboFVBV.Focus();
+            }
+            else if (cboFVBV.SelectedValue != "BV")
+            {
+                chkMULTIPLE.Checked = false;
+                chkMULTIPLE.Enabled = false;
+                txtnumero2.Visible = false;
+                cboFVBV.Focus();
+            }
+
+        }
+
+        protected void txtserie_TextChanged(object sender, EventArgs e)
+        {
+            string fmt = "000";
+            txtserie.Text = Convert.ToUInt32(txtserie.Text).ToString(fmt);
+            txtnumero.Focus();
+        }
+
+        protected void txtnumero_TextChanged(object sender, EventArgs e)
+        {   
+            if(chkMULTIPLE.Checked == true)
+            {
+                string fmt = "00000";
+                txtnumero.Text = Convert.ToInt32(txtnumero.Text).ToString(fmt);
+                txtnumero2.Focus();
+            }
+            else if (chkMULTIPLE.Checked == false)
+            {
+                string fmt = "00000";
+                txtnumero.Text = Convert.ToUInt32(txtnumero.Text).ToString(fmt);
+                btnagregar.Focus();
+            }
+
+        }
+
+        protected void txtnumero2_TextChanged(object sender, EventArgs e)
+        {
+            if (chkMULTIPLE.Checked == true)
+            {
+                string fmt = "00000";
+                txtnumero2.Text = Convert.ToInt32(txtnumero2.Text).ToString(fmt);
+                btnagregar.Focus();
+            }
+            else if (chkMULTIPLE.Checked == false)
+            {
+                
+                txtnumero.Text = "";
+                btnagregar.Focus();
+                
+            }
+
         }
     }
 }

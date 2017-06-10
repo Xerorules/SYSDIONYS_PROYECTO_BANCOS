@@ -137,6 +137,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="FRM_ABRIR_CAJA.aspx" />
     <Content Include="FRM_CERRAR_CAJA.aspx" />
+    <Content Include="FRM_CHEQUE_FOTOS.aspx" />
     <Content Include="FRM_COMPRA.aspx" />
     <Content Include="FRM_CONSULTAR_BUSCAR_COMPRA.aspx" />
     <Content Include="FRM_CONSULTAR_BUSCAR_VENTA.aspx" />
@@ -210,7 +211,12 @@
     <Content Include="ICONOS\BUSCAR.png" />
     <Content Include="ICONOS\ACTUALIZAR.png" />
     <Content Include="ICONOS\SALIR.png" />
+    <Content Include="imagenes\camera.png" />
+    <Content Include="imagenes\LOGO_GRUPO_DIONYS.png" />
+    <Content Include="imagenes\outbox.png" />
+    <Content Include="imagenes\user.png" />
     <Content Include="LOGEO.aspx" />
+    <Content Include="MODULOBANCOS_FOTOSCHEQUES\ImagenNoDisponible.jpg" />
     <Content Include="MSGBOX\Images\alert.png" />
     <Content Include="MSGBOX\Images\confirm.png" />
     <Content Include="MSGBOX\Images\error.png" />
@@ -225,6 +231,7 @@
     <Content Include="FRM_CHEQUES.aspx" />
     <Content Include="FRM_CUENTAS_POR_PAGAR_CHEQUES.aspx" />
     <Content Include="FRM_CONSULTA_CAJA_BANCOS.aspx" />
+    <Content Include="REPORTES\FRM_REPORTE_CHEQUES.aspx" />
     <Content Include="prueba botones.html" />
     <Content Include="REPORTES\FROM_REPORTE_MOVIMIENTOS.aspx" />
     <Content Include="Pruebas_test.aspx" />
@@ -324,6 +331,19 @@
     <Content Include="assets\css\fonts\BebasNeue-webfont.eot" />
     <Content Include="assets\css\fonts\BebasNeue-webfont.ttf" />
     <Content Include="assets\css\fonts\BebasNeue-webfont.woff" />
+    <Content Include="REPORTES\DATASET_CHEQUES.xsc">
+      <DependentUpon>DATASET_CHEQUES.xsd</DependentUpon>
+    </Content>
+    <None Include="Properties\PublishProfiles\MODULO_CAJA_BANCOS.pubxml" />
+    <None Include="Properties\PublishProfiles\PRUEBAS.pubxml" />
+    <None Include="REPORTES\DATASET_CHEQUES.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DATASET_CHEQUES.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="REPORTES\DATASET_CHEQUES.xss">
+      <DependentUpon>DATASET_CHEQUES.xsd</DependentUpon>
+    </Content>
     <None Include="REPORTES\dsMOVIMIENTOS.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
@@ -386,6 +406,13 @@
     </Compile>
     <Compile Include="FRM_CERRAR_CAJA.aspx.designer.cs">
       <DependentUpon>FRM_CERRAR_CAJA.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FRM_CHEQUE_FOTOS.aspx.cs">
+      <DependentUpon>FRM_CHEQUE_FOTOS.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FRM_CHEQUE_FOTOS.aspx.designer.cs">
+      <DependentUpon>FRM_CHEQUE_FOTOS.aspx</DependentUpon>
     </Compile>
     <Compile Include="FRM_COMPRA.aspx.cs">
       <DependentUpon>FRM_COMPRA.aspx</DependentUpon>
@@ -632,6 +659,18 @@
     <Compile Include="FRM_CONSULTA_CAJA_BANCOS.aspx.designer.cs">
       <DependentUpon>FRM_CONSULTA_CAJA_BANCOS.aspx</DependentUpon>
     </Compile>
+    <Compile Include="REPORTES\FRM_REPORTE_CHEQUES.aspx.cs">
+      <DependentUpon>FRM_REPORTE_CHEQUES.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="REPORTES\FRM_REPORTE_CHEQUES.aspx.designer.cs">
+      <DependentUpon>FRM_REPORTE_CHEQUES.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="REPORTES\DATASET_CHEQUES.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DATASET_CHEQUES.xsd</DependentUpon>
+    </Compile>
     <Compile Include="REPORTES\FROM_REPORTE_MOVIMIENTOS.aspx.cs">
       <DependentUpon>FROM_REPORTE_MOVIMIENTOS.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -722,6 +761,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>rptREPORTE_CAJA.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="REPORTES\rptREPORTE_CHEQUES.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>rptREPORTE_CHEQUES.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="REPORTES\rptREPORTE_DOC_RECIBOS.cs">
@@ -850,6 +895,10 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>rptREPORTE_CAJA.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="REPORTES\rptREPORTE_CHEQUES.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>rptREPORTE_CHEQUES.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="REPORTES\rptREPORTE_DOC_RECIBOS.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>rptREPORTE_DOC_RECIBOS.cs</LastGenOutput>
@@ -883,6 +932,7 @@
       <LastGenOutput>rptREPORTE_RECIBOS.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

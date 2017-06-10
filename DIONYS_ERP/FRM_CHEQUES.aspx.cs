@@ -8,6 +8,7 @@ using CAPA_ENTIDAD;
 using CAPA_NEGOCIO;
 using System.Data;
 using System.Drawing;
+using System.IO;
 
 namespace DIONYS_ERP.PLANTILLAS
 {
@@ -24,7 +25,7 @@ namespace DIONYS_ERP.PLANTILLAS
                 txtFiltroFechaIni.Text = DateTime.Now.Date.AddMonths(-2).Date.ToString("yyyy-MM-dd");
                 txtFiltroFechaFin.Text = DateTime.Now.Date.AddDays(7).Date.ToString("yyyy-MM-dd");
 
-               
+                TXTid_cliente.Text = "";
                 llenar_combo_filtro_bancos();
                 llenar_combo_bancos();
                 llenar_combo_bancos2();
@@ -233,35 +234,48 @@ namespace DIONYS_ERP.PLANTILLAS
             {
                 if (Page.IsValid)
                 {
-                    OBJCHEQUE.id_cliente = TXTid_cliente.Text;
-                    OBJCHEQUE.fecha_giro = Convert.ToDateTime(txtFGIRO.Text).ToShortDateString();
-                    OBJCHEQUE.fecha_cobro = Convert.ToDateTime(txtFCOBRO.Text).ToShortDateString();
-                    OBJCHEQUE.numero = txtNUMERO.Text;
-                    OBJCHEQUE.id_banco = cboBANCO.SelectedValue;
-                    OBJCHEQUE.importe = Convert.ToDecimal(txtIMPORTE.Text);
-                    OBJCHEQUE.moneda = rdbMONEDA.SelectedValue;
-                    OBJCHEQUE.estado = "";
-                    OBJCHEQUE.id_empresa = Session["ID_EMPRESA"].ToString();
-
-
-                    string res = OBJVENTA.NREGISTRARCHEQUE(OBJCHEQUE);
-
-                    if (res == "ok")
+                    try
                     {
-                        Response.Write("<script>alert('Cheque registrado correctamente..')</script>");
-                        //ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+                        DataTable dtr = OBJVENTA.NCLI_VALIDAR(TXTid_cliente.Text);
+                        if (dtr.Rows.Count == 1)
+                        {
+                            OBJCHEQUE.id_cliente = TXTid_cliente.Text;
+                            OBJCHEQUE.fecha_giro = Convert.ToDateTime(txtFGIRO.Text).ToShortDateString();
+                            OBJCHEQUE.fecha_cobro = Convert.ToDateTime(txtFCOBRO.Text).ToShortDateString();
+                            OBJCHEQUE.numero = txtNUMERO.Text;
+                            OBJCHEQUE.id_banco = cboBANCO.SelectedValue;
+                            OBJCHEQUE.importe = Convert.ToDecimal(txtIMPORTE.Text);
+                            OBJCHEQUE.moneda = rdbMONEDA.SelectedValue;
+                            OBJCHEQUE.estado = "";
+                            OBJCHEQUE.id_empresa = Session["ID_EMPRESA"].ToString();
 
-                        llenar_datos();
-                        LIMPIAR2();
-                        txtFGIRO.Text = DateTime.Now.ToString("yyyy-MM-dd");
-                        txtFCOBRO.Text = DateTime.Now.ToString("yyyy-MM-dd");
-                        txtCLIENTE.Focus();
+
+                            string res = OBJVENTA.NREGISTRARCHEQUE(OBJCHEQUE);
+
+                            if (res == "ok")
+                            {
+                                Response.Write("<script>alert('CHEQUE REGISTRADO CORRECTAMENTE..')</script>");
+                                //ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal();", true);
+
+                                llenar_datos();
+                                LIMPIAR2();
+                                txtFGIRO.Text = DateTime.Now.ToString("yyyy-MM-dd");
+                                txtFCOBRO.Text = DateTime.Now.ToString("yyyy-MM-dd");
+                                txtCLIENTE.Focus();
+                            }
+                            else
+                            {
+                                Response.Write("<script>alert('ERROR CHEQUE NO REGISTRADO')</script>");
+                                //ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal1();", true);
+                            }
+                        }
+                        else
+                        {
+                            Response.Write("<script>alert('DEBE ESCOJER UN CLIENTE VALIDO DE LA LISTA')</script>");
+                        }
                     }
-                    else
-                    {
-                        Response.Write("<script>alert('Error cheque no registrado')</script>");
-                        //ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal1();", true);
-                    }
+                    catch { Response.Write("<script>alert('DEBE ESCOJER UN CLIENTE VALIDO DE LA LISTA')</script>"); }
+                    
                 }
             }
             else if (Session["ID_CHEQUE"].ToString() != "" || Session["ID_CHEQUE"].ToString() != string.Empty)
@@ -352,7 +366,7 @@ namespace DIONYS_ERP.PLANTILLAS
 
         protected void dgvBANCOS_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            
+
             if (e.CommandName.ToUpper() == "ACTUALIZAR")
             {
                 GridViewRow row = (GridViewRow)(((LinkButton)e.CommandSource).NamingContainer);
@@ -366,7 +380,8 @@ namespace DIONYS_ERP.PLANTILLAS
                     Button2.Enabled = true;
                     label_confirmar.Visible = true;
                     label_deposito.Visible = false;
-                    if (Convert.ToInt32(row.Cells[3].Text.Substring(0, 2)) <= Convert.ToInt32((DateTime.Now).ToString().Substring(0, 2)))
+                    string fecha_cobro = row.Cells[3].Text;
+                    if (DateTime.Now.Date >= Convert.ToDateTime(fecha_cobro).Date)
                     {
                         txtmIMPORTE.Text = row.Cells[6].Text;
                         txtmFECH.Text = DateTime.Now.ToString("yyyy-MM-dd");
@@ -388,7 +403,7 @@ namespace DIONYS_ERP.PLANTILLAS
                     Button2.Visible = false;
                     label_confirmar.Visible = false;
                     label_deposito.Visible = true;
-                    
+
                     txtmFECH.Text = Convert.ToDateTime(ds.Rows[0][0].ToString()).ToString("yyyy-MM-dd");
                     txtmFECH.Enabled = false;
                     cbomBANCO.SelectedValue = ds.Rows[0][1].ToString();
@@ -408,7 +423,7 @@ namespace DIONYS_ERP.PLANTILLAS
                     Session["MONEDA_CHEQUE"] = ds.Rows[0][7].ToString();
                     Session["ID_CHEQUE"] = row.Cells[0].Text;
                     deshabilitar_popup();
-                                        
+
                     mp1.Show();
                 }
                 else if (row.Cells[8].Text == "ACEPTADO")
@@ -416,7 +431,7 @@ namespace DIONYS_ERP.PLANTILLAS
                     Button1.Enabled = false;
                     Button4.Enabled = false;
                     Button3.Enabled = true;
-                    Button2.Enabled= false;
+                    Button2.Enabled = false;
                     Button2.Visible = true;
                     label_confirmar.Visible = false;
                     label_deposito.Visible = true;
@@ -452,21 +467,21 @@ namespace DIONYS_ERP.PLANTILLAS
             {
                 GridViewRow row = (GridViewRow)(((LinkButton)e.CommandSource).NamingContainer);
                 DataTable dt = OBJVENTA.NLLENARDATOSACTUALIZAR(row.Cells[0].Text);
-                
-                    txtCLIENTE.Text = dt.Rows[0][1].ToString();
-                    txtFGIRO.Text = Convert.ToDateTime(dt.Rows[0][2]).ToString("yyyy-MM-dd");
-                    txtFCOBRO.Text = Convert.ToDateTime(dt.Rows[0][3]).ToString("yyyy-MM-dd");
-                    txtNUMERO.Text = dt.Rows[0][4].ToString();
-                    cboBANCO.SelectedValue = dt.Rows[0][5].ToString();
-                    txtIMPORTE.Text = dt.Rows[0][6].ToString();
-                    rdbMONEDA.SelectedValue = dt.Rows[0][7].ToString();
-                    TXTid_cliente.Text = dt.Rows[0][0].ToString();
-                    btnRegistrar.Enabled = true;
-                    Session["ID_CHEQUE"] = row.Cells[0].Text;
-                    Session["ESTADO_CH"] = dt.Rows[0][8].ToString();
-                    txtCLIENTE.Focus();
-                
-                    
+
+                txtCLIENTE.Text = dt.Rows[0][1].ToString();
+                txtFGIRO.Text = Convert.ToDateTime(dt.Rows[0][2]).ToString("yyyy-MM-dd");
+                txtFCOBRO.Text = Convert.ToDateTime(dt.Rows[0][3]).ToString("yyyy-MM-dd");
+                txtNUMERO.Text = dt.Rows[0][4].ToString();
+                cboBANCO.SelectedValue = dt.Rows[0][5].ToString();
+                txtIMPORTE.Text = dt.Rows[0][6].ToString();
+                rdbMONEDA.SelectedValue = dt.Rows[0][7].ToString();
+                TXTid_cliente.Text = dt.Rows[0][0].ToString();
+                btnRegistrar.Enabled = true;
+                Session["ID_CHEQUE"] = row.Cells[0].Text;
+                Session["ESTADO_CH"] = dt.Rows[0][8].ToString();
+                txtCLIENTE.Focus();
+
+
 
             }
             else if (e.CommandName == "ELIMINAR")
@@ -485,7 +500,7 @@ namespace DIONYS_ERP.PLANTILLAS
                 OBJCHEQUE.id_empresa = Session["ID_EMPRESA"].ToString();
                 string empre = Session["ID_EMPRESA"].ToString();
                 string res = OBJVENTA.NELIMINARCHEQUE(OBJCHEQUE);
-               
+
                 if (res == "ok")
                 {
                     Response.Write("<script>alert('Cheque correctamente eliminado')</script>");
@@ -501,7 +516,7 @@ namespace DIONYS_ERP.PLANTILLAS
                 }
                 else
                 {
-                    Response.Write("<script>alert('Error movimiento no registrado')</script>");
+                    Response.Write("<script>alert('Error cheque no eliminado')</script>");
                     //ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal1();", true);
                 }
 
@@ -509,7 +524,46 @@ namespace DIONYS_ERP.PLANTILLAS
 
 
             }
+            else if(e.CommandName == "IMAGEN")
+            {
+                GridViewRow row = (GridViewRow)(((ImageButton)e.CommandSource).NamingContainer);
+                
+                    DataTable tb = OBJVENTA.NCONSULTA_CHEQUE_IMAGEN(row.Cells[0].Text);
 
+                    if (File.Exists(Server.MapPath(tb.Rows[0][3].ToString())))
+                    {
+                        imagenPOPUP.ImageUrl = tb.Rows[0][3].ToString();
+                    }
+                    else
+                    {
+
+                        imagenPOPUP.ImageUrl = "/MODULOBANCOS_FOTOSCHEQUES/ImagenNoDisponible.jpg";
+
+                    }
+                }
+                ModalPopupExtender1.Show();
+                
+           
+
+        }
+
+        protected void lnkCustDetails_Click(object sender, EventArgs e)
+        {
+            
+                //DataTable tb = OBJVENTA.NCONSULTA_CHEQUE_IMAGEN(dgvBANCOS.Rows[0].Cells[0].Text);
+
+                //if (File.Exists(Server.MapPath(tb.Rows[0][3].ToString())))
+                //{
+                //    imagenPOPUP.ImageUrl = tb.Rows[0][3].ToString();
+                //}
+                //else
+                //{
+
+                //    imagenPOPUP.ImageUrl = "/MODULOBANCOS_FOTOSCHEQUES/ImagenNoDisponible.jpg";
+
+                //}
+           
+            ModalPopupExtender1.Show();
         }
 
         protected void btnREGISTRARMOV_Click(object sender, EventArgs e)
@@ -771,11 +825,46 @@ namespace DIONYS_ERP.PLANTILLAS
 
         protected void dgvBANCOS_RowDataBound(object sender, GridViewRowEventArgs e)
         {
-            //if (e.Row.RowType == DataControlRowType.DataRow)
-            //{
-            //    e.Row.Attributes.Add("onclick", string.Format("ChangeRowColor('{0}','{1}');", e.Row.ClientID, e.Row.RowIndex));
-            //    //e.Row.Attributes.Add("",string.Format("ChangeRowColor('{0}','{1}');", -1, -1));
-            //}
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+
+                //for (int i = 0; i < dgvBANCOS.Rows.Count; i++)
+                //{
+                //    DataTable tb = OBJVENTA.NCONSULTA_CHEQUE_IMAGEN(dgvBANCOS.Rows[i].Cells[0].Text);
+                //    ImageButton imgBtn = (ImageButton)e.Row.FindControl("ImageButton1");
+                //    if (File.Exists(Server.MapPath(tb.Rows[0][3].ToString())))
+                //    {
+                //        imgBtn.ImageUrl = tb.Rows[0][3].ToString();
+                //    }
+                //    else
+                //    {
+
+                //        imgBtn.ImageUrl = "/MODULOBANCOS_FOTOSCHEQUES/ImagenNoDisponible.jpg";
+
+                //    }
+                //}
+            }
+        }
+
+        protected void reportePDF_Click(object sender, ImageClickEventArgs e)
+        {
+            /*////////////////////////////////////////////////////////////////////*/
+            if (txtFiltroCli.Text == string.Empty) { txtfiltroid_cli.Text = ""; }
+            string ID_EMPRESA = Session["ID_EMPRESA"].ToString();
+            string ID_BANCO = cboFiltroBanco.SelectedValue;
+            string MONEDA = cboFiltroMoneda.SelectedValue;
+            string ID_CLIENTE = txtfiltroid_cli.Text;
+            string FECHA_INI = Convert.ToDateTime(txtFiltroFechaIni.Text).ToString("dd-MM-yyyy");
+            string FECHA_FIN = Convert.ToDateTime(txtFiltroFechaFin.Text).ToString("dd-MM-yyyy");
+            string ESTADO = cboEstado.Text;
+            /*-------------------------------------------------------------------*/
+            
+            object[] args = new object[] { ID_EMPRESA, ID_BANCO, MONEDA, ID_CLIENTE, FECHA_INI, FECHA_FIN, ESTADO };
+            String url = String.Format("REPORTES/FRM_REPORTE_CHEQUES.aspx?ID_EMPRESA={0}&ID_BANCO={1}&MONEDA={2}&ID_CLIENTE={3}&FECHA_INI={4}&FECHA_FIN={5}&ESTADO={6}", args);
+            // Response.Redirect(url);
+            string s = "window.open('" + url + "', 'popup_window', 'width=700,height=800,left=10%,top=10%,resizable=yes');"; //con esto muestro la venta en una nueva ventana 
+            ClientScript.RegisterStartupScript(this.GetType(), "script", s, true);
+            txtfiltroid_cli.Text = "";
         }
     }
 }

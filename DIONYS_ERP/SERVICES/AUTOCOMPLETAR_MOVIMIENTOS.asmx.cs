@@ -86,7 +86,7 @@ namespace DIONYS_ERP.SERVICES
                     {
                         while (sdr.Read())
                         {
-                            cuentas.Add(string.Format("{0}-{1}", sdr["DESCRIPCION"], sdr["ID_CLIENTE"]));
+                            cuentas.Add(string.Format("{0}**{1}", sdr["DESCRIPCION"], sdr["ID_CLIENTE"]));
                         }
                     }
                     conn.Close();

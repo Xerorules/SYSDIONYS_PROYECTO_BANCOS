@@ -16,14 +16,14 @@ namespace DIONYS_ERP.REPORTES {
     using CrystalDecisions.CrystalReports.Engine;
     
     
-    public class rptREPORTE_MOVIMIENTOS : ReportClass {
+    public class rptREPORTE_CHEQUES : ReportClass {
         
-        public rptREPORTE_MOVIMIENTOS() {
+        public rptREPORTE_CHEQUES() {
         }
         
         public override string ResourceName {
             get {
-                return "rptREPORTE_MOVIMIENTOS.rpt";
+                return "rptREPORTE_CHEQUES.rpt";
             }
             set {
                 // Do nothing
@@ -41,7 +41,7 @@ namespace DIONYS_ERP.REPORTES {
         
         public override string FullResourceName {
             get {
-                return "DIONYS_ERP.REPORTES.rptREPORTE_MOVIMIENTOS.rpt";
+                return "DIONYS_ERP.REPORTES.rptREPORTE_CHEQUES.rpt";
             }
             set {
                 // Do nothing
@@ -90,9 +90,9 @@ namespace DIONYS_ERP.REPORTES {
     }
     
     [System.Drawing.ToolboxBitmapAttribute(typeof(CrystalDecisions.Shared.ExportOptions), "report.bmp")]
-    public class CachedrptREPORTE_MOVIMIENTOS : Component, ICachedReport {
+    public class CachedrptREPORTE_CHEQUES : Component, ICachedReport {
         
-        public CachedrptREPORTE_MOVIMIENTOS() {
+        public CachedrptREPORTE_CHEQUES() {
         }
         
         [Browsable(false)]
@@ -129,7 +129,7 @@ namespace DIONYS_ERP.REPORTES {
         }
         
         public virtual CrystalDecisions.CrystalReports.Engine.ReportDocument CreateReport() {
-            rptREPORTE_MOVIMIENTOS rpt = new rptREPORTE_MOVIMIENTOS();
+            rptREPORTE_CHEQUES rpt = new rptREPORTE_CHEQUES();
             rpt.Site = this.Site;
             return rpt;
         }

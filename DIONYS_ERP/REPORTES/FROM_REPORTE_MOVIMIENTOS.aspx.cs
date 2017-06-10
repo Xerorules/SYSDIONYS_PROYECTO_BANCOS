@@ -23,19 +23,20 @@ namespace DIONYS_ERP.PLANTILLAS
                 String oper = Request.QueryString["OPE"].ToString();
                 String conbanca = Request.QueryString["CONBANC"].ToString();
                 String idcli = Request.QueryString["ID_CLIENTE"].ToString();
-                imprimir(valor, fecha_ini, fecha_fin, oper, conbanca, idcli);
+                String obs = Request.QueryString["OBS"].ToString();
+                imprimir(valor, fecha_ini, fecha_fin, oper, conbanca, idcli,obs);
             }
         }
 
-        void imprimir(string ID_CUENTA_MOV,string FECHA_INI,string FECHA_FIN,string OPE,string CONBANC,string ID_CLIENTE)
+        void imprimir(string ID_CUENTA_MOV,string FECHA_INI,string FECHA_FIN,string OPE,string CONBANC,string ID_CLIENTE,string OBS)
         {
             try
             {
                 N_VENTA objnego = new N_VENTA();
-                DataSet ds = objnego.REPORTE_MOVIMIENTOS_CUENTAS_BANCARIAS(ID_CUENTA_MOV, "", "");
+                DataSet ds = objnego.REPORTE_MOVIMIENTOS_CUENTAS_BANCARIAS(ID_CUENTA_MOV, FECHA_INI, FECHA_FIN, OPE, ID_CLIENTE,CONBANC);
                 DataSet ds_reporte = new DataSet();
 
-                DataSet ds2 = objnego.REPORTE_MOVIMIENTOS_CUENTAS_BANCARIAS_DETALLE(ID_CUENTA_MOV, FECHA_INI, FECHA_FIN, OPE,CONBANC,ID_CLIENTE);
+                DataSet ds2 = objnego.REPORTE_MOVIMIENTOS_CUENTAS_BANCARIAS_DETALLE(ID_CUENTA_MOV, FECHA_INI, FECHA_FIN, OPE,CONBANC,ID_CLIENTE,OBS);
                 //DataSet ds_reporte2 = new DataSet();
                 //
 
@@ -58,7 +59,7 @@ namespace DIONYS_ERP.PLANTILLAS
                 pdf.ExportToHttpResponse(
                      ExportFormatType.PortableDocFormat, Response, false, "REPORTE_MOVIMIENTOS");
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
                 Response.Write("<script>window.alert('ERROR, NO HAY DATOS QUE IMPRIMIR, O BIEN LOS DATOS SON ERRONEOS');</script>");

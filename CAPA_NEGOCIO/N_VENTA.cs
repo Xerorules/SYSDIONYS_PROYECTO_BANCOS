@@ -300,15 +300,29 @@ namespace CAPA_NEGOCIO
             return OBJTIPO_BIEN.REPORTE_GENERAR_FACTURA_BOLETA(IDVENTA);
         }
 
-        public DataSet REPORTE_MOVIMIENTOS_CUENTAS_BANCARIAS(string IDCUENTA, string FECHA_INI, string FECHA_FIN)
+        public DataSet REPORTE_MOVIMIENTOS_CUENTAS_BANCARIAS(string IDCUENTA, string FECHA_INI, string FECHA_FIN,string OPE,string ID_CLIENTE,string CONBANC)
         {
-            return OBJTIPO_BIEN.REPORTE_MOVIMIENTOS_CUENTAS_BANCARIAS(IDCUENTA, FECHA_INI, FECHA_FIN);
+            return OBJTIPO_BIEN.REPORTE_MOVIMIENTOS_CUENTAS_BANCARIAS(IDCUENTA, FECHA_INI, FECHA_FIN, OPE, ID_CLIENTE, CONBANC);
         }
-        public DataSet REPORTE_MOVIMIENTOS_CUENTAS_BANCARIAS_DETALLE(string IDCUENTA, string FECHA_INI, string FECHA_FIN, string OPE, string CONBANC, string ID_CLIENTE)
+        public DataSet REPORTE_MOVIMIENTOS_CUENTAS_BANCARIAS_DETALLE(string IDCUENTA, string FECHA_INI, string FECHA_FIN, string OPE, string CONBANC, string ID_CLIENTE,string OBS)
         {
-            return OBJTIPO_BIEN.REPORTE_MOVIMIENTOS_CUENTAS_BANCARIAS_DETALLE(IDCUENTA, FECHA_INI, FECHA_FIN,OPE,CONBANC,ID_CLIENTE);
+            return OBJTIPO_BIEN.REPORTE_MOVIMIENTOS_CUENTAS_BANCARIAS_DETALLE(IDCUENTA, FECHA_INI, FECHA_FIN,OPE,CONBANC,ID_CLIENTE,OBS);
         }
-        
+
+        /**/
+        public DataSet REPORTE_CHEQUES_CABECERA(string ID_EMPRESA, string ID_BANCO, string MONEDA, string ID_CLIENTE, string FECHA_INI, string FECHA_FIN, string ESTADO)
+        {
+            return OBJTIPO_BIEN.REPORTE_CHEQUES_ENCABEZADO(ID_EMPRESA, ID_BANCO, MONEDA, ID_CLIENTE, FECHA_INI, FECHA_FIN, ESTADO);
+        }
+        public DataSet REPORTE_CHEQUES_DETALLE(string ID_EMPRESA, string ID_BANCO, string MONEDA, string ID_CLIENTE, string FECHA_INI, string FECHA_FIN, string ESTADO)
+        {
+            return OBJTIPO_BIEN.REPORTE_CHEQUES_DETALLE(ID_EMPRESA, ID_BANCO, MONEDA, ID_CLIENTE, FECHA_INI, FECHA_FIN, ESTADO);
+        }
+        //**/
+
+
+
+
 
         public DataSet REPORTE_GENERAR_RECIBO_EGRESO_INGRESO(string IDMOV, string IDEMP)
         {
@@ -484,9 +498,9 @@ namespace CAPA_NEGOCIO
             return OBJTIPO_BIEN.DLLENARCHQMOV(id_cheque);
         }
 
-        public DataTable NFILTRARGRILLAMOVIMIENTOS( string id_empresa, string id_cta,string fechaini, string fechafin, string nrope, string concepto, string idcli)
+        public DataTable NFILTRARGRILLAMOVIMIENTOS( string id_empresa, string id_cta,string fechaini, string fechafin, string nrope, string concepto, string idcli, string obs,decimal min, decimal max,string chkitf1)
         {
-            return OBJTIPO_BIEN.DFILTRARGRILLAMOVIMIENTOS(id_empresa, id_cta,fechaini, fechafin, nrope, concepto, idcli);
+            return OBJTIPO_BIEN.DFILTRARGRILLAMOVIMIENTOS(id_empresa, id_cta,fechaini, fechafin, nrope, concepto, idcli,obs,min,max, chkitf1);
         }
 
         public DataTable NVALIDARROPERACION(string id_cta,string fech)
@@ -502,6 +516,11 @@ namespace CAPA_NEGOCIO
         public DataTable NVALIDARROPERACIONSCOTIA(string id_cta)
         {
             return OBJTIPO_BIEN.DVALIDAROPERACIONSCOTIA(id_cta);
+        }
+
+        public DataTable NCLI_VALIDAR(string ID_CLI)
+        {
+            return OBJTIPO_BIEN.DVALIDAR_CLI(ID_CLI);
         }
 
         public string NREGISTRARBANCO(E_BANCO BCO)
@@ -532,6 +551,11 @@ namespace CAPA_NEGOCIO
         public string NREGISTRARMOV(E_MOVIMIENTOS MVO,string cond, string emp)
         {
             return OBJTIPO_BIEN.DREGISTRARMOV(MVO,cond,emp);
+        }
+
+        public string NREGISTRARMOV2(E_MOVIMIENTOS MVO, string cond, string emp)
+        {
+            return OBJTIPO_BIEN.DREGISTRARMOV2(MVO, cond, emp);
         }
 
         public string NREGISTRARMOV_CHEQUE(E_MOVIMIENTOS MVO, string cond, string emp,string id_cheque,string FECHA2)
@@ -623,6 +647,12 @@ namespace CAPA_NEGOCIO
         public DataTable NLLENAR_CABECERA_MOVIMIENTOS(string ID_CTA)
         {
             return OBJTIPO_BIEN.DLLENAR_CABECERA_MOVIMIENTOS(ID_CTA);
+        }
+
+        public DataTable NCONSULTA_CHEQUE_IMAGEN(string cod)
+        {
+            return OBJTIPO_BIEN.DCONSULTA_CHEQUE_IMAGEN(cod);
+
         }
     }
 }
